@@ -1,3 +1,4 @@
+import alias from '@rollup/plugin-alias'
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import typescript from 'rollup-plugin-typescript2'
@@ -5,6 +6,7 @@ import svelte from 'rollup-plugin-svelte'
 import autoPreprocess from 'svelte-preprocess'
 import postcss from 'rollup-plugin-postcss'
 import { terser } from 'rollup-plugin-terser'
+import path from 'path'
 
 import pkg from './package.json'
 
@@ -26,6 +28,12 @@ export default {
   ],
   external: [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})],
   plugins: [
+    alias({
+      entries: [
+        { find: '@', replacement: path.resolve(__dirname, 'src') },
+        { find: '@tabs', replacement: path.resolve(__dirname, 'src/tabs') }
+      ]
+    }),
     commonjs(),
     typescript(),
     svelte({

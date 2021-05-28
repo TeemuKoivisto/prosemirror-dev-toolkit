@@ -1,7 +1,3 @@
-<script lang="ts">
-  export let onClickTab
-</script>
-
 <style lang="scss">
   ul {
     display: flex;
@@ -15,10 +11,14 @@
     color: white;
     padding: 1em;
     &:hover {
-      background: rgba(255,255,255,.05);
+      background: rgba(255, 255, 255, 0.05);
     }
   }
 </style>
+
+<script lang="ts">
+  export let onClickTab
+</script>
 
 <ul class="tabs-menu">
   <li>

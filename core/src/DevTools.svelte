@@ -4,8 +4,12 @@
   import FloatingBtn from './FloatingBtn.svelte'
   import FloatingDock from './FloatingDock.svelte'
 
-  export let view: EditorView | null = null
+  import { createContext } from './context.ts'
+
+  export let view: EditorView
   let devToolsExpanded = false
+
+  createContext(view)
 
   function handleFloatingBtnClick() {
     devToolsExpanded = true

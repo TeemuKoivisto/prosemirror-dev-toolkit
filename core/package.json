@@ -12,13 +12,14 @@
   ],
   "scripts": {
     "build": "rollup -c",
-    "format": "prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|md|graphql|mdx)\"",
+    "format": "prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|svelte|md|graphql|mdx)\"",
     "lint": "eslint --cache --ext .js,.ts,.tsx ./src",
     "lint:fix": "eslint --fix --ext .js,.ts,.tsx ./src",
     "svelte-check": "svelte-check",
     "watch": "rollup -cw"
   },
   "devDependencies": {
+    "@rollup/plugin-alias": "^3.1.2",
     "@rollup/plugin-commonjs": "^19.0.0",
     "@rollup/plugin-node-resolve": "^13.0.0",
     "@rollup/plugin-typescript": "^8.2.1",
@@ -45,6 +46,7 @@
   "dependencies": {
     "prosemirror-model": "^1.14.1",
     "prosemirror-state": "^1.3.4",
-    "prosemirror-view": "^1.18.7"
+    "prosemirror-view": "^1.18.7",
+    "svelte-json-tree": "^0.1.0"
   }
 }

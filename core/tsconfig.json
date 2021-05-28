@@ -16,8 +16,11 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react",
-    "baseUrl": "src"
+    "baseUrl": ".",
+    "paths": {
+      "@": ["src"],
+      "@tabs": ["src/tabs"]
+    }
   },
   "include": ["src"]
 }

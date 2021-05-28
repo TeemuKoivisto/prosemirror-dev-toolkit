@@ -1,21 +1,3 @@
-<script lang="ts">
-  import TabsMenu from './tabs/TabsMenu.svelte'
-  import StateTab from './tabs/StateTab.svelte'
-  import HistoryTab from './tabs/HistoryTab.svelte'
-
-  export let onClose
-
-  let openTab = 'state'
-
-  function handleClickTab(tab: any) {
-    if (tab === 'close') {
-      onClose()
-    } else {
-      openTab = tab
-    }
-  }
-</script>
-
 <style lang="css">
   .floating-dock-wrapper {
     position: fixed;
@@ -39,13 +21,31 @@
   }
 </style>
 
+<script lang="ts">
+  import TabsMenu from './tabs/TabsMenu.svelte'
+  import StateTab from './tabs/StateTab.svelte'
+  import HistoryTab from './tabs/HistoryTab.svelte'
+
+  export let onClose
+
+  let openTab = 'state'
+
+  function handleClickTab(tab: any) {
+    if (tab === 'close') {
+      onClose()
+    } else {
+      openTab = tab
+    }
+  }
+</script>
+
 <div class="floating-dock-wrapper">
   <div class="floating-dock">
-    <TabsMenu onClickTab={handleClickTab}/>
+    <TabsMenu onClickTab={handleClickTab} />
     {#if openTab === 'state'}
-      <StateTab/>
+      <StateTab />
     {:else if openTab === 'history'}
-      <HistoryTab/>
+      <HistoryTab />
     {:else}
       <p>nuting here</p>
     {/if}
