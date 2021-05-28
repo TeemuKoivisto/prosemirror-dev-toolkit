@@ -29,6 +29,7 @@
     "eslint-plugin-svelte3": "^3.2.0",
     "node-sass": "^5.0.0",
     "postcss": "^8.2.4",
+    "prettier": "^2.3.0",
     "prettier-plugin-svelte": "^2.3.0",
     "rollup": "^2.50.3",
     "rollup-plugin-postcss": "^4.0.0",

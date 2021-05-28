@@ -1,5 +1,19 @@
 <script lang="ts">
-  export let onClick
+  import TabsMenu from './tabs/TabsMenu.svelte'
+  import StateTab from './tabs/StateTab.svelte'
+  import HistoryTab from './tabs/HistoryTab.svelte'
+
+  export let onClose
+
+  let openTab = 'state'
+
+  function handleClickTab(tab: any) {
+    if (tab === 'close') {
+      onClose()
+    } else {
+      openTab = tab
+    }
+  }
 </script>
 
 <style lang="css">
@@ -12,10 +26,10 @@
     z-index: 99999999;
   }
   .floating-dock {
+    background-color: #363755;
     position: fixed;
     z-index: 1;
     box-shadow: rgb(0 0 0 / 30%) 0px 0px 4px;
-    background: white;
     left: 0px;
     top: 50%;
     width: 100%;
@@ -25,8 +39,15 @@
   }
 </style>
 
-<div class="floating-dock-wrapper" on:click={onClick}>
+<div class="floating-dock-wrapper">
   <div class="floating-dock">
-    <p>I am very large thing</p>
+    <TabsMenu onClickTab={handleClickTab}/>
+    {#if openTab === 'state'}
+      <StateTab/>
+    {:else if openTab === 'history'}
+      <HistoryTab/>
+    {:else}
+      <p>nuting here</p>
+    {/if}
   </div>
 </div>

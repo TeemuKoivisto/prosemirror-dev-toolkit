@@ -10,13 +10,13 @@
   function handleFloatingBtnClick() {
     devToolsExpanded = true
   }
-  function handleFloatingDockClick() {
+  function handleFloatingDockClose() {
     devToolsExpanded = false
   }
 </script>
 
 {#if devToolsExpanded}
-  <FloatingDock onClick={handleFloatingDockClick} />
+  <FloatingDock onClose={handleFloatingDockClose} />
 {:else}
   <FloatingBtn onClick={handleFloatingBtnClick} />
 {/if}
