@@ -1,0 +1,23 @@
+:root {
+  --color-bg-base: #fffafa;
+  --color-gray-light: #e2e2e2;
+  --color-gray: #bbb;
+  --color-primary-lighter: #b9ceff;
+  --color-primary-light: #9a69c7;
+  --color-primary: #551a8b;
+  --color-text-dark: #222;
+
+  --width-tablet: 768px;
+}
+html {
+  font-size: 16px;
+  color: var(--color-text-dark);
+}
+body {
+  /* background: var(--color-bg-base); */
+  margin: 0.5rem;
+  padding: 0;
+}
+* {
+  box-sizing: border-box;
+}

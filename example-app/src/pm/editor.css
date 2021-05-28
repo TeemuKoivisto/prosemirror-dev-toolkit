@@ -1,0 +1,11 @@
+#example-editor {
+  border: 1px solid black;
+}
+
+.ProseMirror {
+  min-height: 140px;
+  overflow-wrap: break-word;
+  outline: none;
+  padding: 10px;
+  white-space: pre-wrap;
+}

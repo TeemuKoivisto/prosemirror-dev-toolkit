@@ -1,0 +1,14 @@
+{
+  "name": "root",
+  "version": "0.0.1",
+  "private": true,
+  "workspaces": [
+    "*"
+  ],
+  "scripts": {
+    "start": "concurrently 'cd ./prosemirror-dev-inspector && yarn watch' 'cd example-app && yarn start'"
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0"
+  }
+}
