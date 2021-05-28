@@ -1,9 +1,10 @@
 import React, { useMemo } from 'react'
 import debounce from 'lodash.debounce'
 
-// import applyDevTools from 'prosemirror-dev-inspector'
 import { EditorView } from 'prosemirror-view'
 import { EditorState } from 'prosemirror-state'
+import { applyDevTools } from 'prosemirror-dev-toolkit'
+
 import { PMEditor } from 'pm/PMEditor'
 
 class EditorStore {
@@ -51,7 +52,7 @@ export function Editor() {
   }
   function handleEditorReady(view: EditorView) {
     editorStore.setEditorView(view)
-    // applyDevTools(view)
+    applyDevTools(view)
   }
   return (
     <PMEditor

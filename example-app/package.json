@@ -1,11 +1,11 @@
 {
   "name": "example-app",
   "version": "0.1.0",
-  "homepage": "https://teemukoivisto.github.io/prosemirror-dev-inspector/",
+  "homepage": "https://teemukoivisto.github.io/prosemirror-dev-toolkit/",
   "dependencies": {
     "lodash.debounce": "^4.0.8",
     "prop-types": "^15.7.2",
-    "prosemirror-dev-inspector": "*",
+    "prosemirror-dev-toolkit": "*",
     "prosemirror-example-setup": "^1.1.2",
     "prosemirror-model": "^1.13.1",
     "prosemirror-state": "^1.3.4",

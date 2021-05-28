@@ -1,0 +1,49 @@
+{
+  "name": "prosemirror-dev-toolkit",
+  "version": "0.0.1",
+  "author": "Teemu Koivisto <teemukoivisto.xyz@gmail.com>",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "svelte": "src/index.ts",
+  "files": [
+    "src",
+    "dist"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "format": "prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|md|graphql|mdx)\"",
+    "lint": "eslint --cache --ext .js,.ts,.tsx ./src",
+    "lint:fix": "eslint --fix --ext .js,.ts,.tsx ./src",
+    "svelte-check": "svelte-check",
+    "watch": "rollup -cw"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^19.0.0",
+    "@rollup/plugin-node-resolve": "^13.0.0",
+    "@rollup/plugin-typescript": "^8.2.1",
+    "eslint": "^7.23.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-svelte3": "^3.2.0",
+    "node-sass": "^5.0.0",
+    "postcss": "^8.2.4",
+    "prettier-plugin-svelte": "^2.3.0",
+    "rollup": "^2.50.3",
+    "rollup-plugin-postcss": "^4.0.0",
+    "rollup-plugin-svelte": "^7.1.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.30.0",
+    "svelte": "^3.38.2",
+    "svelte-check": "^2.0.0",
+    "svelte-preprocess": "^4.7.3",
+    "tslib": "^2.2.0",
+    "typescript": "^4.3.2"
+  },
+  "dependencies": {
+    "prosemirror-model": "^1.14.1",
+    "prosemirror-state": "^1.3.4",
+    "prosemirror-view": "^1.18.7"
+  }
+}

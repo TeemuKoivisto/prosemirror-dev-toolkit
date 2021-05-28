@@ -6,7 +6,7 @@
     "*"
   ],
   "scripts": {
-    "start": "concurrently 'cd ./prosemirror-dev-inspector && yarn watch' 'cd example-app && yarn start'"
+    "start": "concurrently 'cd ./core && yarn watch' 'cd example-app && yarn start'"
   },
   "devDependencies": {
     "concurrently": "^5.3.0"
