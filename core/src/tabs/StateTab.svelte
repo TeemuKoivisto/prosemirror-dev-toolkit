@@ -41,7 +41,7 @@
   import { getContext } from 'svelte'
   import { APP_CONTEXT } from '../context.ts'
   import JSONTree from 'svelte-json-tree'
-  import TreeView from '../svelte-tree-view/SvelteTreeView.svelte'
+  import TreeView from '../svelte-tree-view/Main.svelte'
 
   const { view } = getContext(APP_CONTEXT)
   let doc = view.state.doc.toJSON()
@@ -58,7 +58,7 @@
     {#each [...[]] as _}
       <div />
     {:else}
-      <TreeView data={doc} />
+      <TreeView data={doc} showLogButton showCopyButton />
     {/each}
   </div>
   <div class="right-panel">
