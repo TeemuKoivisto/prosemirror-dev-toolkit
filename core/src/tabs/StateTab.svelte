@@ -25,6 +25,7 @@
   }
   .left-panel {
     flex-grow: 1;
+    overflow: scroll;
     padding: 1em;
   }
   .right-panel {
@@ -40,6 +41,7 @@
   import { getContext } from 'svelte'
   import { APP_CONTEXT } from '../context.ts'
   import JSONTree from 'svelte-json-tree'
+  import TreeView from '../svelte-tree-view/SvelteTreeView.svelte'
 
   const { view } = getContext(APP_CONTEXT)
   let doc = view.state.doc.toJSON()
@@ -56,7 +58,7 @@
     {#each [...[]] as _}
       <div />
     {:else}
-      <JSONTree value={doc} />
+      <TreeView data={doc} />
     {/each}
   </div>
   <div class="right-panel">
