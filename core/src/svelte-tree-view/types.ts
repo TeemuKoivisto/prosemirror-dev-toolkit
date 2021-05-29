@@ -8,3 +8,16 @@ export interface ITreeNode {
   key: string
   value: any
 }
+
+export type ValueType =
+  | 'array'
+  | 'map'
+  | 'object'
+  | 'function'
+  | 'string'
+  | 'number'
+  | 'bigint'
+  | 'boolean'
+  | 'symbol'
+  | 'null'
+  | 'undefined'

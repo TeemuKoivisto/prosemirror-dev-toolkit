@@ -1,39 +1,6 @@
-import { setContext } from 'svelte'
-import { writable } from 'svelte/store'
-
-import { ITreeNode } from './types'
+import { ITreeNode, ValueType } from './types'
 
 export const APP_CONTEXT = 'APP_CONTEXT'
-
-export function createContext(data: Object) {
-  let treeMap = new Map()
-  let tree = recurseObjectProperties('root', data, 0, null, treeMap)
-  let treeMapStore = writable(treeMap)
-  let treeStore = writable(tree)
-  function getRootNode() {
-    return tree
-  }
-  function getNode(id: string) {
-    return treeMap.get(id)
-  }
-  function toggleCollapse(id: string) {
-    const node = treeMap.get(id)
-    if (node) {
-      treeMap.set(node.id, { ...node, collapsed: true })
-    } else {
-      console.warn(`Attempted to collapse non-existent node: ${id}`)
-    }
-  }
-  setContext(APP_CONTEXT, {
-    treeMap,
-    tree,
-    treeMapStore,
-    treeStore,
-    getRootNode,
-    getNode,
-    toggleCollapse
-  })
-}
 
 function createNode(key: string, value: any, depth: number, parent: ITreeNode | null): ITreeNode {
   return {
@@ -45,6 +12,18 @@ function createNode(key: string, value: any, depth: number, parent: ITreeNode | 
     path: parent ? [...parent.path, parent.id] : [],
     parent: parent ? parent.id : null,
     children: []
+  }
+}
+
+export function getValueType(value: any): ValueType {
+  if (Array.isArray(value)) {
+    return 'array'
+  } else if (value instanceof Map) {
+    return 'map'
+  } else if (value === null) {
+    return 'null'
+  } else {
+    return typeof value
   }
 }
 
@@ -60,7 +39,7 @@ function getChildren(value: any): [string, any][] {
   }
 }
 
-function recurseObjectProperties(
+export function recurseObjectProperties(
   key: string,
   value: any,
   depth: number,

@@ -52,12 +52,19 @@
 
 <script lang="ts">
   import { getContext } from 'svelte'
-  import { APP_CONTEXT } from './context.ts'
+  import { APP_CONTEXT } from './tree-utils.ts'
 
   export let key
 
-  const { getNode, toggleCollapse } = getContext(APP_CONTEXT)
+  const { treeMapStore, getNode, toggleCollapse, formatValue } = getContext(APP_CONTEXT)
   let node = getNode(key)
+  treeMapStore.subscribe(value => {
+    const n = value.get(key)
+    if (node !== n) {
+      node = n
+    }
+  })
+  $: collapsed = node.collapsed
 </script>
 
 <li>
@@ -65,13 +72,9 @@
     <button on:click={() => toggleCollapse(node.id)}>▼</button>
   {/if}
   <div class="node-key">{node.key}:</div>
-  {#if node.children.length > 0}
-    <div class="node-value">{node.children.length} items</div>
-  {:else}
-    <div class="node-value">{node.value}</div>
-  {/if}
+  <div class="node-value">{formatValue(node.value)}</div>
 </li>
-{#if !node.collapsed}
+{#if !collapsed}
   <ul style={`padding-left: ${node.depth * 4}px`}>
     {#each node.children as child}
       <svelte:self key={child.id} />
