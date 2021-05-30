@@ -62,13 +62,12 @@
   import { Plugin } from 'prosemirror-state'
 
   import { APP_CONTEXT } from '../context.ts'
-  import JSONTree from 'svelte-json-tree'
   import TreeView from '../svelte-tree-view/Main.svelte'
   import List from './List.svelte'
 
   const { view } = getContext(APP_CONTEXT)
   let plugins = view.state.plugins
-  let selectedPlugin = plugins[0]
+  let selectedPlugin = writable(plugins[0])
   $: listItems = plugins.map((p: Plugin) => ({
     key: p.key,
     value: p.key.toUpperCase(),
@@ -77,13 +76,14 @@
 
   function handlePluginSelect(p: { key: string; value: string }) {
     console.log(p)
-    selectedPlugin = plugins.find(p => p.key === p.key)
+    // selectedPlugin = plugins.find(p => p.key === p.key)
+    selectedPlugin.set(plugins.find(p => p.key === p.key))
   }
 </script>
 
 <section>
   <div class="left-panel">
-    <List {listItems} selectedItem={selectedPlugin?.key} onSelect={handlePluginSelect} />
+    <List {listItems} selectedItem={$selectedPlugin.key} onSelect={handlePluginSelect} />
   </div>
   <div class="right-panel">
     <div class="top-row">
@@ -94,7 +94,7 @@
     {#each [...[]] as _}
       <div />
     {:else}
-      <TreeView data={selectedPlugin} showLogButton showCopyButton />
+      <TreeView data={$selectedPlugin} showLogButton showCopyButton />
     {/each}
   </div>
 </section>

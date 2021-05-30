@@ -10,6 +10,13 @@
     display: flex;
     height: 100%;
     width: 100%;
+    & > :global(*) {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      overflow: scroll;
+      padding: 1em 1em 4em 1em;
+    }
   }
   :global(h2) {
     color: #bb91a3;
@@ -24,10 +31,7 @@
     flex-direction: column;
     flex-grow: 1;
     overflow: scroll;
-    padding: 1em;
-    &[data-width] {
-      width: attr(data-width);
-    }
+    padding: 1em 1em 4em 1em;
   }
   * :global(.tree-view) {
     padding-bottom: 4em;
@@ -36,10 +40,7 @@
     border-left: 1px solid rgba(255, 162, 177, 0.2);
     flex-grow: 1;
     overflow: scroll;
-    padding: 1em;
-    &[data-width] {
-      width: attr(data-width);
-    }
+    padding: 1em 1em 4em 1em;
   }
 </style>
 
@@ -50,13 +51,11 @@
   // import { APP_CONTEXT } from '../context.ts'
 
   export let leftPanelWidth, rightPanelWidth
+  $: leftStyles = leftPanelWidth ? `width: ${leftPanelWidth}px` : ''
+  $: rightStyles = rightPanelWidth ? `width: ${rightPanelWidth}px` : ''
 </script>
 
 <section>
-  <div class="left-panel" data-width={leftPanelWidth}>
-    <slot name="left" />
-  </div>
-  <div class="right-panel" data-width={rightPanelWidth}>
-    <slot name="right" />
-  </div>
+  <slot class="left-panel" style={leftStyles} name="left" />
+  <slot class="right-panel" style={rightStyles} name="right" />
 </section>

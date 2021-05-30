@@ -27,11 +27,11 @@
   import HistoryTab from './tabs/HistoryTab.svelte'
   import PluginsTab from './tabs/PluginsTab.svelte'
   import SchemaTab from './tabs/SchemaTab.svelte'
-  import StructureTab from './tabs/StructureTab.svelte'
+  import StructureTab from './tabs/structure/StructureTab.svelte'
 
   export let onClose
 
-  let openTab = 'state'
+  let openTab = 'structure'
 
   function handleClickTab(tab: any) {
     if (tab === 'close') {

@@ -7,7 +7,7 @@
   import { createContext } from './context.ts'
 
   export let view: EditorView
-  let devToolsExpanded = false
+  let devToolsExpanded = true
 
   createContext(view)
 
