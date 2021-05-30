@@ -29,53 +29,30 @@
     overflow: scroll;
     padding: 1em;
   }
+  * :global(.tree-view) {
+    padding-bottom: 4em;
+  }
   .right-panel {
     border-left: 1px solid rgba(255, 162, 177, 0.2);
     flex-grow: 1;
     overflow: scroll;
     padding: 1em;
+    :global(.tree-view) {
+      padding-bottom: 2em;
+    }
   }
 </style>
 
 <script lang="ts">
   import { getContext } from 'svelte'
 
-  import { APP_CONTEXT } from '../context.ts'
-  import JSONTree from 'svelte-json-tree'
   import TreeView from '../svelte-tree-view/Main.svelte'
+  import { APP_CONTEXT } from '../context.ts'
 
   const { view } = getContext(APP_CONTEXT)
 
-  const ignoreFields = ['schema', 'contentExpr', 'schema', 'parseDOM', 'toDOM']
-
-  export function postprocessValue(ignore, data) {
-    if (!data || Object.prototype.toString.call(data) !== '[object Object]') {
-      return data
-    }
-    return Object.keys(data)
-      .filter(key => ignore.indexOf(key) === -1)
-      .reduce((res, key) => {
-        res[key] = data[key]
-        return res
-      }, {})
-  }
-
-  function iterateNodes(obj) {
-    return Object.keys(obj).reduce((acc, key) => {
-      const val = { ...obj[key] }
-      delete val['schema']
-      acc[key] = val
-      return acc
-    }, {})
-    // return Object.entries(view.state.schema.nodes).reduce((acc, [key, val]) => {
-    //   if (key !== 'schema') {
-    //     acc[key] = val
-    //   }
-    //   return acc
-    // }, {})
-  }
-  let nodes = iterateNodes(view.state.schema.nodes)
-  let marks = iterateNodes(view.state.schema.marks)
+  let nodes = view.state.schema.nodes
+  let marks = view.state.schema.marks
 </script>
 
 <section>
@@ -83,12 +60,26 @@
     <div class="top-row">
       <h2>Nodes</h2>
     </div>
-    <TreeView data={nodes} showLogButton showCopyButton maxDepth={6} />
+    <TreeView
+      class="tree-view"
+      data={nodes}
+      showLogButton
+      showCopyButton
+      maxDepth={6}
+      omitKeys={['nodes', 'marks', 'topNodeType']}
+    />
   </div>
   <div class="right-panel">
     <div class="top-row">
       <h2>Marks</h2>
     </div>
-    <TreeView data={marks} showLogButton showCopyButton />
+    <TreeView
+      class="tree-view"
+      data={marks}
+      showLogButton
+      showCopyButton
+      maxDepth={6}
+      omitKeys={['nodes', 'marks', 'topNodeType']}
+    />
   </div>
 </section>

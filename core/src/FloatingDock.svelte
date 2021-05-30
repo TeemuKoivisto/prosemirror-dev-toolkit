@@ -27,6 +27,7 @@
   import HistoryTab from './tabs/HistoryTab.svelte'
   import PluginsTab from './tabs/PluginsTab.svelte'
   import SchemaTab from './tabs/SchemaTab.svelte'
+  import StructureTab from './tabs/StructureTab.svelte'
 
   export let onClose
 
@@ -52,6 +53,8 @@
       <PluginsTab />
     {:else if openTab === 'schema'}
       <SchemaTab />
+    {:else if openTab === 'structure'}
+      <StructureTab />
     {:else}
       <p>nuting here</p>
     {/if}

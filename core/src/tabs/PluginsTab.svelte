@@ -59,27 +59,31 @@
 <script lang="ts">
   import { getContext } from 'svelte'
   import { writable } from 'svelte/store'
+  import { Plugin } from 'prosemirror-state'
 
   import { APP_CONTEXT } from '../context.ts'
   import JSONTree from 'svelte-json-tree'
   import TreeView from '../svelte-tree-view/Main.svelte'
+  import List from './List.svelte'
 
   const { view } = getContext(APP_CONTEXT)
   let plugins = view.state.plugins
-  let selectedPlugin = writable(plugins[0]?.key)
+  let selectedPlugin = plugins[0]
+  $: listItems = plugins.map((p: Plugin) => ({
+    key: p.key,
+    value: p.key.toUpperCase(),
+    empty: !p.spec.state
+  }))
 
-  function handleClickPlugin(plugin: Plugin) {
-    selectedPlugin.set(plugin)
+  function handlePluginSelect(p: { key: string; value: string }) {
+    console.log(p)
+    selectedPlugin = plugins.find(p => p.key === p.key)
   }
 </script>
 
 <section>
   <div class="left-panel">
-    <ul>
-      {#each plugins as plugin}
-        <li><button on:click={() => handleClickPlugin(plugin)}>{plugin.key}</button></li>
-      {/each}
-    </ul>
+    <List {listItems} selectedItem={selectedPlugin?.key} onSelect={handlePluginSelect} />
   </div>
   <div class="right-panel">
     <div class="top-row">
@@ -90,7 +94,7 @@
     {#each [...[]] as _}
       <div />
     {:else}
-      <TreeView data={$selectedPlugin} showLogButton showCopyButton />
+      <TreeView data={selectedPlugin} showLogButton showCopyButton />
     {/each}
   </div>
 </section>

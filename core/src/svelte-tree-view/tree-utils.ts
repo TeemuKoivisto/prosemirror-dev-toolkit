@@ -1,15 +1,22 @@
-import { ITreeNode, ValueType, NestableType } from './types'
+import { ITreeNode, ValueType } from './types'
 
 export const APP_CONTEXT = 'APP_CONTEXT'
+
+function uuidv4() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    let r = (Math.random() * 16) | 0,
+      v = c == 'x' ? r : (r & 0x3) | 0x8
+    return v.toString(16)
+  })
+}
 
 function createNode(key: string, value: any, depth: number, parent: ITreeNode | null): ITreeNode {
   return {
     key,
     value,
-    id: Math.random().toString() + Math.random().toString(),
+    id: uuidv4(),
     depth: depth + 1,
     collapsed: true,
-    recursive: false,
     type: getValueType(value),
     path: parent ? [...parent.path, parent.id] : [],
     parent: parent ? parent.id : null,
@@ -90,15 +97,10 @@ export function recurseObjectProperties(
     return null
   }
   const node = createNode(key, value, depth, parent)
-  if (node.type === 'map' || node.type === 'object') {
-    node.recursive = treeMap.size > 10000
-  }
   treeMap.set(node.id, node)
-  if (!node.recursive) {
-    node.children = getChildren(value)
-      .map(([key, val]) => recurseObjectProperties(key, val, depth + 1, node, treeMap, opts))
-      .filter(n => n !== null) as ITreeNode[]
-  }
+  node.children = getChildren(value)
+    .map(([key, val]) => recurseObjectProperties(key, val, depth + 1, node, treeMap, opts))
+    .filter(n => n !== null) as ITreeNode[]
   if (opts.collapseNode) {
     node.collapsed = opts.collapseNode(node)
   }

@@ -25,14 +25,18 @@
   ul {
     display: flex;
     flex-direction: column;
+    height: max-content;
     list-style: none;
     padding: 0;
     margin: 0.3em 0;
+    width: 100%;
   }
   li {
     align-items: baseline;
     display: flex;
+    height: max-content;
     list-style: none;
+    width: 100%;
   }
   .empty-block {
     width: 0.875em;
@@ -48,7 +52,7 @@
     &[data-type='number'] {
       color: rgb(253, 153, 60);
     }
-    &[data-type='null'] {
+    &[data-type='null'] &[data-type='undefined'] {
       color: rgb(250, 62, 126);
     }
     &.expanded {
@@ -78,7 +82,7 @@
     color: rgb(133, 217, 239);
     cursor: pointer;
     margin: 0;
-    padding: 0.1em 0.5em;
+    padding: 0 0.5em;
     &:hover {
       background: rgba(255, 162, 177, 0.4);
       border-radius: 2px;

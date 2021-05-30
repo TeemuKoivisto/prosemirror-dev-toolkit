@@ -10,6 +10,7 @@
     border: 0;
     color: white;
     cursor: pointer;
+    height: 100%;
     padding: 1em;
     &:hover {
       background: rgba(255, 255, 255, 0.05);

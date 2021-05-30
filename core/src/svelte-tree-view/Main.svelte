@@ -1,8 +1,11 @@
 <style>
+  * {
+    box-sizing: border-box;
+  }
   section {
     font-family: Helvetica Neue, Calibri Light, Roboto, sans-serif;
     font-size: 13px;
-    height: 100%;
+    height: max-content;
   }
 </style>
 
@@ -76,7 +79,7 @@
   })
 </script>
 
-<section>
+<section class={$$props.class}>
   {#each tree.children as child}
     <TreeNode id={child.id} />
   {/each}
