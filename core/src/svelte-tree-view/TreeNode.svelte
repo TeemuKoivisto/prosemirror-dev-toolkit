@@ -45,6 +45,12 @@
   .node-value {
     color: rgb(184, 226, 72);
     margin-right: 0.5em;
+    &[data-type='number'] {
+      color: rgb(253, 153, 60);
+    }
+    &[data-type='null'] {
+      color: rgb(250, 62, 126);
+    }
     &.expanded {
       color: rgb(209, 146, 155);
     }
@@ -119,7 +125,11 @@
     <div class="empty-block" />
   {/if}
   <div class="node-key" on:click={() => toggleCollapse(node.id)}>{node.key}:</div>
-  <div class="node-value" class:expanded={!collapsed && node.children.length > 0}>
+  <div
+    class="node-value"
+    data-type={node.type}
+    class:expanded={!collapsed && node.children.length > 0}
+  >
     {formatValue(node.value)}
   </div>
   {#if props.showLogButton}

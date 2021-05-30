@@ -25,6 +25,8 @@
   import TabsMenu from './tabs/TabsMenu.svelte'
   import StateTab from './tabs/StateTab.svelte'
   import HistoryTab from './tabs/HistoryTab.svelte'
+  import PluginsTab from './tabs/PluginsTab.svelte'
+  import SchemaTab from './tabs/SchemaTab.svelte'
 
   export let onClose
 
@@ -41,11 +43,15 @@
 
 <div class="floating-dock-wrapper">
   <div class="floating-dock">
-    <TabsMenu onClickTab={handleClickTab} />
+    <TabsMenu onClickTab={handleClickTab} active={openTab} />
     {#if openTab === 'state'}
       <StateTab />
     {:else if openTab === 'history'}
       <HistoryTab />
+    {:else if openTab === 'plugins'}
+      <PluginsTab />
+    {:else if openTab === 'schema'}
+      <SchemaTab />
     {:else}
       <p>nuting here</p>
     {/if}

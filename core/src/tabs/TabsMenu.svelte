@@ -5,27 +5,51 @@
     margin: 0;
     padding: 0;
   }
-  li > button {
+  button {
     background: transparent;
     border: 0;
     color: white;
+    cursor: pointer;
     padding: 1em;
     &:hover {
       background: rgba(255, 255, 255, 0.05);
+    }
+    &.active {
+      border-bottom: 2px solid #ffa2b1;
     }
   }
 </style>
 
 <script lang="ts">
-  export let onClickTab
+  export let active, onClickTab
 </script>
 
 <ul class="tabs-menu">
   <li>
-    <button on:click={() => onClickTab('state')}>STATE</button>
+    <button class:active={active === 'state'} on:click={() => onClickTab('state')}>STATE</button>
   </li>
   <li>
-    <button on:click={() => onClickTab('history')}>HISTORY</button>
+    <button class:active={active === 'history'} on:click={() => onClickTab('history')}
+      >HISTORY</button
+    >
+  </li>
+  <li>
+    <button class:active={active === 'plugins'} on:click={() => onClickTab('plugins')}
+      >PLUGINS</button
+    >
+  </li>
+  <li>
+    <button class:active={active === 'schema'} on:click={() => onClickTab('schema')}>SCHEMA</button>
+  </li>
+  <li>
+    <button class:active={active === 'structure'} on:click={() => onClickTab('structure')}
+      >STRUCTURE</button
+    >
+  </li>
+  <li>
+    <button class:active={active === 'snapshots'} on:click={() => onClickTab('snapshots')}
+      >SNAPSHOTS</button
+    >
   </li>
   <li><button on:click={() => onClickTab('close')}>X</button></li>
 </ul>

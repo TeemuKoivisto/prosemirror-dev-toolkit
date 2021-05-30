@@ -14,7 +14,13 @@
   import TreeNode from './TreeNode.svelte'
   import { APP_CONTEXT, recurseObjectProperties, getValueType } from './tree-utils.ts'
 
-  export let data, valueFormatter, autoCollapser, showLogButton, showCopyButton
+  export let data,
+    omitKeys = [],
+    maxDepth = 10,
+    valueFormatter,
+    autoCollapser,
+    showLogButton = false,
+    showCopyButton = false
 
   let props = {
     data,
@@ -24,7 +30,11 @@
     showCopyButton
   }
   let treeMap = new Map()
-  let tree = recurseObjectProperties('root', data, 0, null, treeMap, autoCollapser)
+  let tree = recurseObjectProperties('root', data, 0, null, treeMap, {
+    autoCollapser,
+    maxDepth,
+    omitKeys
+  })
   let treeMapStore = writable(treeMap)
   let treeStore = writable(tree)
 

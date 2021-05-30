@@ -17,6 +17,7 @@ export interface ITreeNode {
   id: string
   depth: number
   collapsed: boolean
+  recursive: boolean
   type: ValueType
   path: string[]
   parent: string | null
@@ -37,3 +38,5 @@ export type ValueType =
   | 'symbol'
   | 'null'
   | 'undefined'
+
+export type NestableType = 'map' | 'object'

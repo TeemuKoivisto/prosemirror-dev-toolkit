@@ -1,4 +1,4 @@
-import { ITreeNode, ValueType } from './types'
+import { ITreeNode, ValueType, NestableType } from './types'
 
 export const APP_CONTEXT = 'APP_CONTEXT'
 
@@ -9,6 +9,7 @@ function createNode(key: string, value: any, depth: number, parent: ITreeNode | 
     id: Math.random().toString() + Math.random().toString(),
     depth: depth + 1,
     collapsed: true,
+    recursive: false,
     type: getValueType(value),
     path: parent ? [...parent.path, parent.id] : [],
     parent: parent ? parent.id : null,
@@ -61,14 +62,15 @@ export function objType(obj: any) {
 }
 
 function getChildren(value: any): [string, any][] {
-  if (Array.isArray(value)) {
-    return value.map((v, i) => [i.toString(), v])
-  } else if (value instanceof Map) {
-    return Array.from(value.entries())
-  } else if (typeof value === 'object') {
-    return Object.entries(value)
-  } else {
-    return []
+  switch (getValueType(value)) {
+    case 'array':
+      return value.map((v: any, i: number) => [i.toString(), v])
+    case 'map':
+      return Array.from(value.entries())
+    case 'object':
+      return Object.entries(value)
+    default:
+      return []
   }
 }
 
@@ -78,15 +80,27 @@ export function recurseObjectProperties(
   depth: number,
   parent: ITreeNode | null,
   treeMap: Map<string, ITreeNode>,
-  collapseNode?: (n: ITreeNode) => boolean
-): ITreeNode {
+  opts: {
+    maxDepth: number
+    omitKeys: string[]
+    collapseNode?: (n: ITreeNode) => boolean
+  }
+): ITreeNode | null {
+  if (opts.omitKeys.includes(key) || depth >= opts.maxDepth) {
+    return null
+  }
   const node = createNode(key, value, depth, parent)
+  if (node.type === 'map' || node.type === 'object') {
+    node.recursive = treeMap.size > 10000
+  }
   treeMap.set(node.id, node)
-  node.children = getChildren(value).map(([key, val]) =>
-    recurseObjectProperties(key, val, depth + 1, node, treeMap, collapseNode)
-  )
-  if (collapseNode) {
-    node.collapsed = collapseNode(node)
+  if (!node.recursive) {
+    node.children = getChildren(value)
+      .map(([key, val]) => recurseObjectProperties(key, val, depth + 1, node, treeMap, opts))
+      .filter(n => n !== null) as ITreeNode[]
+  }
+  if (opts.collapseNode) {
+    node.collapsed = opts.collapseNode(node)
   }
   return node
 }
