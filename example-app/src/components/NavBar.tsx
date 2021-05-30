@@ -14,6 +14,7 @@ export function NavBar(props: IProps) {
     <Container className={className}>
       <Nav>
         <Link to="/" exact activeClassName="current">Front page</Link>
+        <Link to="/dev-tools" exact activeClassName="current">Dev tools</Link>
       </Nav>
     </Container>
   )
@@ -28,7 +29,6 @@ const Nav = styled.nav`
   align-items: center;
   color: #fff;
   display: flex;
-  justify-content: space-between;
 `
 const Link = styled(NavLink)`
   box-sizing: border-box;

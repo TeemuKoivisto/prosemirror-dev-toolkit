@@ -3,7 +3,8 @@ import debounce from 'lodash.debounce'
 
 import { EditorView } from 'prosemirror-view'
 import { EditorState } from 'prosemirror-state'
-import { applyDevTools } from 'prosemirror-dev-toolkit'
+import { applyDevTools as applyDevToolkit } from 'prosemirror-dev-toolkit'
+import { applyDevTools } from 'prosemirror-dev-tools'
 
 import { PMEditor } from 'pm/PMEditor'
 
@@ -11,11 +12,12 @@ class EditorStore {
 
   view?: EditorView
   currentEditorState?: {[key: string]: any}
-  STORAGE_KEY = 'editor-store'
+  localStorageKey: string
 
-  constructor() {
+  constructor(key: string) {
+    this.localStorageKey = key
     if (typeof window !== 'undefined') {
-      const existing = localStorage.getItem(this.STORAGE_KEY)
+      const existing = localStorage.getItem(this.localStorageKey)
       if (existing && existing !== null && existing.length > 0) {
         let stored = JSON.parse(existing)
         this.currentEditorState = stored
@@ -39,12 +41,17 @@ class EditorStore {
 
   syncCurrentEditorState = () => {
     const newState = this.view!.state.toJSON()
-    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(newState))
+    localStorage.setItem(this.localStorageKey, JSON.stringify(newState))
   }
 }
 
-export function Editor() {
-  const editorStore = useMemo(() => new EditorStore(), [])
+interface Props {
+  useDevTools?: boolean
+}
+
+export function Editor(props: Props) {
+  const { useDevTools } = props
+  const editorStore = useMemo(() => new EditorStore(useDevTools ? 'dev-tools' : 'dev-toolkit'), [])
   const debouncedSync = useMemo(() => debounce(editorStore.syncCurrentEditorState, 250), [])
 
   function handleEdit() {
@@ -52,7 +59,11 @@ export function Editor() {
   }
   function handleEditorReady(view: EditorView) {
     editorStore.setEditorView(view)
-    applyDevTools(view)
+    if (useDevTools) {
+      applyDevTools(view)
+    } else {
+      applyDevToolkit(view)
+    }
   }
   return (
     <PMEditor
