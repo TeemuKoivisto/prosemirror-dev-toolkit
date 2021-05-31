@@ -26,23 +26,21 @@
 
   const { view } = getContext(APP_CONTEXT)
   let plugins = view.state.plugins
-  let selectedPlugin = writable(plugins[0])
+  let selectedPlugin = plugins[0]
   $: listItems = plugins.map((p: Plugin) => ({
     key: p.key,
     value: p.key.toUpperCase(),
     empty: false
   }))
 
-  function handlePluginSelect(p: { key: string; value: string }) {
-    console.log(p)
-    // selectedPlugin = plugins.find(p => p.key === p.key)
-    selectedPlugin.set(plugins.find(p => p.key === p.key))
+  function handlePluginSelect(item: { key: string; value: string }) {
+    selectedPlugin = plugins.find(p => p.key === item.key)
   }
 </script>
 
 <SplitView leftPanelWidth={'190px'}>
   <div slot="left" class="left-panel">
-    <List {listItems} selectedItem={$selectedPlugin.key} onSelect={handlePluginSelect} />
+    <List {listItems} selectedKey={selectedPlugin.key} onSelect={handlePluginSelect} />
   </div>
   <div slot="right">
     <div class="equal-diff">Docs are equal.</div>

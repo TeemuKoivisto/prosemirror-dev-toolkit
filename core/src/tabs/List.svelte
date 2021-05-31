@@ -38,7 +38,7 @@
 
 <script lang="ts">
   export let listItems = [],
-    selectedItem = '',
+    selectedKey,
     onSelect
 </script>
 
@@ -46,7 +46,7 @@
   {#each listItems as item}
     <li>
       <button
-        class:selected={selectedItem === item.key}
+        class:selected={selectedKey === item.key}
         class:empty={item.empty}
         on:click={() => onSelect(item)}>{item.value}</button
       >

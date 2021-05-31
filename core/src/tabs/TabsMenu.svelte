@@ -3,11 +3,13 @@
     display: flex;
     list-style: none;
     margin: 0;
+    overflow-x: scroll;
     padding: 0;
   }
   button {
     background: transparent;
     border: 0;
+    border-bottom: 2px solid transparent;
     color: white;
     cursor: pointer;
     height: 100%;

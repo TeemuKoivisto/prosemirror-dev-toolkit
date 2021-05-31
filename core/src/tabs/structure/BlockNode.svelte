@@ -4,7 +4,6 @@
     border-right: 1px solid #606178;
     display: flex;
     flex-direction: column;
-    margin-top: 3px;
     padding: 0 12px;
     &.root {
       border: 0;
@@ -16,6 +15,7 @@
     color: black;
     display: flex;
     font-size: 13px;
+    margin-top: 3px;
   }
   .number-box {
     padding: 3px 6px;
