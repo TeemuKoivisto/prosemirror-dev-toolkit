@@ -4,35 +4,17 @@
     --json-tree-string-color: rgb(184, 226, 72);
     --json-tree-number-color: rgb(184, 226, 72);
   }
-  section {
-    border-top: 1px solid rgba(255, 162, 177, 0.2);
-    color: white;
-    display: flex;
-    height: 100%;
-
-    width: 100%;
-  }
   .top-row {
     display: flex;
     justify-content: space-between;
     margin-bottom: 1em;
   }
-  h2 {
-    font-size: 1em;
-    font-weight: 400;
-    margin: 0;
-    text-transform: uppercase;
-  }
   .left-panel {
-    flex-grow: 1;
     overflow: scroll;
-    padding: 1em;
   }
   .right-panel {
     border-left: 1px solid rgba(255, 162, 177, 0.2);
-    display: flex;
-    flex-direction: column;
-    padding: 1em;
+    flex-grow: 0;
     width: 220px;
   }
 </style>
@@ -40,36 +22,40 @@
 <script lang="ts">
   import { getContext } from 'svelte'
   import { APP_CONTEXT } from '../context.ts'
+
   import JSONTree from 'svelte-json-tree'
+  import SplitView from './SplitView.svelte'
   import TreeView from '../svelte-tree-view/Main.svelte'
+  import Button from '../Button.svelte'
 
   const { view } = getContext(APP_CONTEXT)
   let doc = view.state.doc.toJSON()
   let selection = view.state.selection.toJSON()
+
+  function handleClickLogDoc() {
+    console.log(doc)
+    window._doc = doc
+  }
 </script>
 
-<section>
-  <div class="left-panel">
+<SplitView>
+  <div slot="left" class="left-panel">
     <div class="top-row">
       <h2>Current doc</h2>
-      <button>log state</button>
+      <Button on:click={handleClickLogDoc}>log</Button>
     </div>
-    <!-- See https://github.com/sveltejs/svelte/issues/3165#issuecomment-804354493 -->
-    {#each [...[]] as _}
-      <div />
-    {:else}
-      <TreeView data={doc} showLogButton showCopyButton />
-    {/each}
+    <TreeView data={doc} showLogButton showCopyButton />
   </div>
-  <div class="right-panel">
+  <div slot="right" class="right-panel">
     <div class="top-row">
       <h2>Selection</h2>
       <button>▼</button>
     </div>
+    <!-- See https://github.com/sveltejs/svelte/issues/3165#issuecomment-804354493 -->
     {#each [...[]] as _}
       <div />
     {:else}
       <JSONTree value={selection} />
     {/each}
   </div>
-</section>
+</SplitView>

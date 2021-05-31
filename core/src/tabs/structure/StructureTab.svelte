@@ -1,37 +1,47 @@
 <style lang="scss">
-  :root {
-    --left-panel-width: 220px;
-  }
   .top-row {
+    align-items: center;
     display: flex;
     justify-content: space-between;
     margin-bottom: 1em;
+  }
+  .right-panel {
+    border-left: 1px solid rgba(255, 162, 177, 0.2);
+    flex-grow: 0;
+    width: 220px;
   }
 </style>
 
 <script lang="ts">
   import { getContext } from 'svelte'
   import { APP_CONTEXT } from '../../context.ts'
+
   import SplitView from '../SplitView.svelte'
   import TreeView from '../../svelte-tree-view/Main.svelte'
   import DocView from './DocView.svelte'
+  import Button from '../../Button.svelte'
 
   const { view } = getContext(APP_CONTEXT)
   let doc = view.state.doc
   let schema = view.state.schema
+
+  function handleClickLogNode() {
+    console.log(doc)
+    window._doc = doc
+  }
 </script>
 
-<SplitView rightPanelWidth={'220px'}>
-  <div slot="left">
+<SplitView>
+  <div slot="left" class="left-panel">
     <div class="top-row">
       <h2>Current doc</h2>
     </div>
     <DocView {doc} {schema} />
   </div>
-  <div slot="right">
+  <div slot="right" class="right-panel">
     <div class="top-row">
       <h2>Node info</h2>
-      <button>log</button>
+      <Button on:click={handleClickLogNode}>log</Button>
     </div>
     <TreeView data={doc} />
   </div>

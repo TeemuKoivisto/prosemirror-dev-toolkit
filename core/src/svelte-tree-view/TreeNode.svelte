@@ -133,6 +133,7 @@
     class="node-value"
     data-type={node.type}
     class:expanded={!collapsed && node.children.length > 0}
+    on:click={() => toggleCollapse(node.id)}
   >
     {formatValue(node.value)}
   </div>
