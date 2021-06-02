@@ -16,6 +16,7 @@ export interface HistoryEntry {
   id: string
   state: EditorState
   timestamp: number
+  timeStr: string
   diffPending: boolean
   diff?: Object
   selection?: Object
@@ -24,6 +25,24 @@ export interface HistoryEntry {
 
 export const stateHistory = writable([] as HistoryEntry[])
 let active = false
+
+function pad(num: number) {
+  return ('00' + num).slice(-2)
+}
+
+function pad3(num: number) {
+  return ('000' + num).slice(-3)
+}
+
+const formatTimestamp = (timestamp: number) => {
+  const date = new Date(timestamp)
+  return [
+    pad(date.getHours()),
+    pad(date.getMinutes()),
+    pad(date.getSeconds()),
+    pad3(date.getMilliseconds())
+  ].join(':')
+}
 
 function createHistoryEntry(tr: Transaction, state: EditorState): HistoryEntry {
   const serializer = DOMSerializer.fromSchema(state.schema)
@@ -43,10 +62,11 @@ function createHistoryEntry(tr: Transaction, state: EditorState): HistoryEntry {
     id: Math.random().toString() + Math.random().toString(),
     state: state,
     timestamp: tr.time,
+    timeStr: formatTimestamp(tr.time),
     diffPending: true,
     diff: undefined,
     selection: undefined,
-    selectionContent: prettify(selectionContent.join('\n'))
+    selectionContent: prettify(selectionContent.join('\n')).trim()
   }
 }
 
@@ -57,7 +77,7 @@ export function subscribeToDispatchTransaction(view: EditorView) {
     dispatchTransaction: (tr: Transaction) => {
       if (oldDispatchFn) oldDispatchFn(tr)
       if (active) {
-        stateHistory.update(val => [...val, createHistoryEntry(tr, view.state)])
+        stateHistory.update(val => [createHistoryEntry(tr, view.state), ...val])
         // console.log(tr)
         console.log(get(stateHistory))
       }
