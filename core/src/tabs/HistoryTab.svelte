@@ -21,26 +21,25 @@
   import { writable } from 'svelte/store'
 
   import { APP_CONTEXT } from '../context.ts'
+  import { HistoryEntry, stateHistory } from '../editor-state.store.ts'
   import SplitView from './SplitView.svelte'
   import List from './List.svelte'
 
   const { view } = getContext(APP_CONTEXT)
-  let plugins = view.state.plugins
-  let selectedPlugin = plugins[0]
-  $: listItems = plugins.map((p: Plugin) => ({
-    key: p.key,
-    value: p.key.toUpperCase(),
-    empty: false
+  let selectedEntry = $stateHistory[0]
+  $: listItems = $stateHistory.map((e: HistoryEntry) => ({
+    key: e.id,
+    value: e.timestamp.toString()
   }))
 
-  function handlePluginSelect(item: { key: string; value: string }) {
-    selectedPlugin = plugins.find(p => p.key === item.key)
+  function handleEntrySelect(item: { key: string; value: string }) {
+    selectedEntry = $stateHistory.find(e => e.id === item.key)
   }
 </script>
 
-<SplitView leftPanelWidth={'190px'}>
+<SplitView>
   <div slot="left" class="left-panel">
-    <List {listItems} selectedKey={selectedPlugin.key} onSelect={handlePluginSelect} />
+    <List {listItems} selectedKey={selectedEntry?.id} onSelect={handleEntrySelect} />
   </div>
   <div slot="right">
     <div class="equal-diff">Docs are equal.</div>

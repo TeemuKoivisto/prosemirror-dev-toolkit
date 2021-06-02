@@ -1,4 +1,10 @@
 <style lang="css">
+  /* :root {
+    --font-serif: Helvetica Neue, Calibri Light, Roboto, sans-serif;
+    --font-small: 11px;
+    --font-medium: 13px;
+    --font-large: 16px;
+  } */
   .floating-dock-wrapper {
     position: fixed;
     width: 0px;
@@ -19,6 +25,10 @@
     transition: left 0.2s ease-out 0s, top 0.2s ease-out 0s, width 0.2s ease-out 0s,
       height 0.2s ease-out 0s;
   }
+  * {
+    font-family: Helvetica Neue, Calibri Light, Roboto, sans-serif;
+    font-size: 13px;
+  }
 </style>
 
 <script lang="ts">
@@ -28,6 +38,7 @@
   import PluginsTab from './tabs/PluginsTab.svelte'
   import SchemaTab from './tabs/SchemaTab.svelte'
   import StructureTab from './tabs/structure/StructureTab.svelte'
+  import SnapshotsTab from './tabs/snapshots/SnapshotsTab.svelte'
 
   export let onClose
 
@@ -55,6 +66,8 @@
       <SchemaTab />
     {:else if openTab === 'structure'}
       <StructureTab />
+    {:else if openTab === 'snapshots'}
+      <SnapshotsTab />
     {:else}
       <p>nuting here</p>
     {/if}

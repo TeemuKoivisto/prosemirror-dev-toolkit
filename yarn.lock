@@ -6241,6 +6241,11 @@ html-minifier-terser@^5.0.1:
     relateurl "^0.2.7"
     terser "^4.6.3"
 
+html-prettify@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/html-prettify/-/html-prettify-1.0.3.tgz#ba73c33d115f0be161240362c342a334bfa998c3"
+  integrity sha512-tbgHB/cFIAxqDW/wryyGEnd396qOtJIBf4q29kW2jdJy1Q7GYKl1LnoI28cKzMJG9UYZx0RGkUKTRMl0b6YZNg==
+
 html-webpack-plugin@4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/html-webpack-plugin/-/html-webpack-plugin-4.5.0.tgz#625097650886b97ea5dae331c320e3238f6c121c"

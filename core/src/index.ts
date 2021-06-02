@@ -1,5 +1,9 @@
 import { EditorView } from 'prosemirror-view'
 import DevTools from './DevTools.svelte'
+import {
+  subscribeToDispatchTransaction,
+  unsubscribeDispatchTransaction
+} from './editor-state.store'
 
 const DEVTOOLS_CLASS_NAME = '__prosemirror-dev-toolkit__'
 
@@ -23,4 +27,9 @@ export function applyDevTools(view: EditorView) {
       view
     }
   })
+  subscribeToDispatchTransaction(view)
+}
+
+export function removeDevTools() {
+  unsubscribeDispatchTransaction()
 }
