@@ -54,5 +54,4 @@
       >SNAPSHOTS</button
     >
   </li>
-  <li><button on:click={() => onClickTab('close')}>X</button></li>
 </ul>

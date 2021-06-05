@@ -88,12 +88,8 @@
     }
   }
 
-  function handleClickTab(tab: any) {
-    if (tab === 'close') {
-      onClose()
-    } else {
-      openTab = tab
-    }
+  function handleClickTab(tab: string) {
+    openTab = tab
   }
 </script>
 

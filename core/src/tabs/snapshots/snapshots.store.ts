@@ -1,3 +1,6 @@
+import { Schema } from 'prosemirror-model'
+import { EditorState } from 'prosemirror-state'
+import { EditorView } from 'prosemirror-view'
 import { writable } from 'svelte/store'
 
 export interface Snapshot {
@@ -31,4 +34,44 @@ export function saveSnapshot(snapshotName: string, doc: { [key: string]: any }) 
     doc
   }
   snapshots.update(val => [...val, snap])
+}
+
+export function updateSnapshot(snapshot: Snapshot) {
+  snapshots.update(val =>
+    val.map(s => {
+      if (s.timestamp === snapshot.timestamp) {
+        return snapshot
+      }
+      return s
+    })
+  )
+}
+
+export function deleteSnapshot(snapshot: Snapshot) {
+  snapshots.update(val => val.filter(s => s.timestamp !== snapshot.timestamp))
+}
+
+export function restoreSnapshot(view: EditorView, snap: Snapshot) {
+  const newState = EditorState.create({
+    schema: view.state.schema,
+    plugins: view.state.plugins,
+    doc: view.state.schema.nodeFromJSON(snap.doc)
+  })
+  view.updateState(newState)
+  // const EditorState = this.state.EditorState;
+  // const editorView = this.state.view;
+  // const editorState = editorView.state;
+
+  // const newState = EditorState.create({
+  //   schema: editorState.schema,
+  //   plugins: editorState.plugins,
+  //   doc: editorState.schema.nodeFromJSON(snapshot.snapshot),
+  // });
+
+  // this.setState({
+  //   history: [createHistoryEntry(newState)],
+  //   state: newState,
+  // });
+
+  // editorView.updateState(newState);
 }

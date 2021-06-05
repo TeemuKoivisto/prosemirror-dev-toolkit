@@ -13,9 +13,17 @@
 
   function handleFloatingBtnClick() {
     devToolsExpanded = true
+    const html = document && document.querySelector('html')
+    if (html) {
+      html.style.marginBottom = '341px'
+    }
   }
   function handleFloatingDockClose() {
     devToolsExpanded = false
+    const html = document && document.querySelector('html')
+    if (html) {
+      html.style.marginBottom = null
+    }
   }
 </script>
 
