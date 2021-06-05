@@ -33,7 +33,7 @@ export function saveSnapshot(snapshotName: string, doc: { [key: string]: any }) 
     timestamp: Date.now(),
     doc
   }
-  snapshots.update(val => [...val, snap])
+  snapshots.update(val => [snap, ...val])
 }
 
 export function updateSnapshot(snapshot: Snapshot) {

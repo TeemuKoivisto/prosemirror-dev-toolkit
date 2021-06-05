@@ -16,12 +16,18 @@
     border-left: 1px solid rgba(255, 162, 177, 0.2);
     flex-grow: 0;
     width: 220px;
+    & > .row + .row {
+      margin: 1em 0;
+    }
   }
 </style>
 
 <script lang="ts">
   import { getContext } from 'svelte'
+  import { get } from 'svelte/store'
   import { APP_CONTEXT } from '../context.ts'
+  import { stateHistory } from '../state/stateHistory.store.ts'
+  import { getActiveMarks } from '../state/getActiveMarks.ts'
 
   import JSONTree from 'svelte-json-tree'
   import SplitView from './SplitView.svelte'
@@ -31,6 +37,22 @@
   const { view } = getContext(APP_CONTEXT)
   let doc = view.state.doc.toJSON()
   let selection = view.state.selection.toJSON()
+  let currentEntry = get(stateHistory)[0]
+  let activeMarks = []
+  let nodeSize = view.state.doc.nodeSize
+  let childCount = view.state.doc.childCount
+
+  stateHistory.subscribe(val => {
+    currentEntry = val[0]
+    if (currentEntry) {
+      const { state } = currentEntry
+      doc = state.doc.toJSON()
+      selection = state.selection.toJSON()
+      activeMarks = getActiveMarks(state)
+      nodeSize = state.doc.nodeSize
+      childCount = state.doc.childCount
+    }
+  })
 
   function handleClickLogDoc() {
     console.log(doc)
@@ -47,7 +69,7 @@
     <TreeView data={doc} showLogButton showCopyButton />
   </div>
   <div slot="right" class="right-panel">
-    <div class="top-row">
+    <div class="top-row row">
       <h2>Selection</h2>
       <button>▼</button>
     </div>
@@ -57,5 +79,18 @@
     {:else}
       <JSONTree value={selection} />
     {/each}
+    <div class="row">
+      <h2>Active marks</h2>
+      <div>{activeMarks}</div>
+    </div>
+    <div class="row">
+      <h2>Document stats</h2>
+      <div>
+        nodeSize: <span>{nodeSize}</span>
+      </div>
+      <div>
+        childCount: <span>{childCount}</span>
+      </div>
+    </div>
   </div>
 </SplitView>
