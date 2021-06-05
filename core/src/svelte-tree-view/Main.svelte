@@ -21,6 +21,7 @@
     omitKeys = [],
     maxDepth = 10,
     valueFormatter,
+    valueComponent,
     autoCollapser,
     showLogButton = false,
     showCopyButton = false
@@ -28,6 +29,7 @@
   let props = {
     data,
     valueFormatter,
+    valueComponent,
     autoCollapser,
     showLogButton,
     showCopyButton

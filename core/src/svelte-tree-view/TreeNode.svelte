@@ -135,7 +135,15 @@
     class:expanded={!collapsed && node.children.length > 0}
     on:click={() => toggleCollapse(node.id)}
   >
-    {formatValue(node.value)}
+    {#if props.valueComponent}
+      <svelte:component
+        this={props.valueComponent}
+        value={node.value}
+        defaultFormatter={formatValue}
+      />
+    {:else}
+      {formatValue(node.value)}
+    {/if}
   </div>
   {#if props.showLogButton}
     <button class="log-copy-button" on:click={handleLogNode}>log</button>

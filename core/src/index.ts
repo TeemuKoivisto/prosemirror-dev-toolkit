@@ -3,7 +3,7 @@ import DevTools from './DevTools.svelte'
 import {
   subscribeToDispatchTransaction,
   unsubscribeDispatchTransaction
-} from './editor-state.store'
+} from './state/subscribeToTransactions'
 
 const DEVTOOLS_CLASS_NAME = '__prosemirror-dev-toolkit__'
 

@@ -30,10 +30,11 @@
   import { writable } from 'svelte/store'
 
   import { APP_CONTEXT } from '../context.ts'
-  import { HistoryEntry, stateHistory } from '../editor-state.store.ts'
+  import { HistoryEntry, stateHistory } from '../state/stateHistory.store.ts'
   import SplitView from './SplitView.svelte'
   import TreeView from '../svelte-tree-view/Main.svelte'
   import List from './List.svelte'
+  import DiffValue from '../state/DiffValue.svelte'
 
   const { view } = getContext(APP_CONTEXT)
   let selectedEntry = $stateHistory[0]
@@ -54,14 +55,15 @@
   <div slot="right">
     {#if selectedEntry}
       <div>
-        {#if selectedEntry.state.doc}
+        {#if selectedEntry.diff}
           <div class="entry-row">
             <h2>Doc diff</h2>
             <TreeView
               class="tree-view"
-              data={selectedEntry.state.doc}
+              data={selectedEntry.diff}
               showLogButton
               showCopyButton
+              valueComponent={DiffValue}
               maxDepth={6}
               omitKeys={['nodes', 'marks', 'topNodeType']}
             />
@@ -70,6 +72,7 @@
         {#if selectedEntry.selection}
           <div class="entry-row">
             <h2>Selection diff</h2>
+            <TreeView class="tree-view" data={selectedEntry.selection} />
           </div>
         {/if}
         {#if selectedEntry.selectionContent.length > 0}
