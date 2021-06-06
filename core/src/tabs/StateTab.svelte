@@ -5,9 +5,9 @@
     --json-tree-number-color: rgb(184, 226, 72);
   }
   .top-row {
+    align-items: center;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 1em;
   }
   .left-panel {
     overflow: scroll;
@@ -19,6 +19,13 @@
     & > .row + .row {
       margin: 1em 0;
     }
+  }
+  .no-marks {
+    color: #85d9ef;
+    margin: 1em 0 0 1em;
+  }
+  :global(.tree-view) {
+    margin: 1em 0 0 0;
   }
 </style>
 
@@ -66,7 +73,7 @@
       <h2>Current doc</h2>
       <Button on:click={handleClickLogDoc}>log</Button>
     </div>
-    <TreeView data={doc} showLogButton showCopyButton maxDepth={6} />
+    <TreeView class="tree-view" data={doc} showLogButton showCopyButton maxDepth={6} />
   </div>
   <div slot="right" class="right-panel">
     <div class="top-row row">
@@ -81,11 +88,16 @@
     {/each}
     <div class="row">
       <h2>Active marks</h2>
-      <TreeView data={activeMarks} />
+      {#if activeMarks.length === 0}
+        <div class="no-marks">No active marks</div>
+      {:else}
+        <TreeView class="tree-view" data={activeMarks} />
+      {/if}
     </div>
     <div class="row">
       <h2>Document stats</h2>
       <TreeView
+        class="tree-view"
         data={{
           nodeSize,
           childCount

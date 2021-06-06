@@ -14,6 +14,9 @@
       padding: 0;
     }
   }
+  .entry-row + .entry-row {
+    margin-top: 1em;
+  }
   .equal-diff {
     align-items: center;
     color: #ffa2b1;

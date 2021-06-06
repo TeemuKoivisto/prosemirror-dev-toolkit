@@ -52,4 +52,4 @@
   console.log(doc)
 </script>
 
-<BlockNode node={doc} startPos={0} depth={0} isRoot />
+<BlockNode class={$$props.class} node={doc} startPos={0} depth={0} isRoot />

@@ -51,7 +51,7 @@
   $: color = colors[node.type.name]
 </script>
 
-<div class="wrapper" class:root={isRoot}>
+<div class={`${$$props.class} wrapper`} class:root={isRoot}>
   <div class="container" style={`background: ${color}`}>
     <div class="number-box">{startPos}</div>
     <button class:selected={false} on:click={() => handleNodeClick(node)}>{node.type.name}</button>

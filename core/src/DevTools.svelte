@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from 'svelte'
   import { EditorView } from 'prosemirror-view'
 
   import FloatingBtn from './FloatingBtn.svelte'
@@ -10,6 +11,13 @@
   let devToolsExpanded = true
 
   createContext(view)
+
+  onMount(() => {
+    const html = document && document.querySelector('html')
+    if (devToolsExpanded && html) {
+      html.style.marginBottom = '341px'
+    }
+  })
 
   function handleFloatingBtnClick() {
     devToolsExpanded = true

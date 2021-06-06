@@ -1,8 +1,8 @@
 <style lang="scss">
   .top-row {
+    align-items: center;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 1em;
   }
   .left-panel {
     overflow: scroll;

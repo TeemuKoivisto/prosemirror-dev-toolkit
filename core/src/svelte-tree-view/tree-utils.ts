@@ -1,3 +1,4 @@
+import { writable } from 'svelte/store'
 import { ITreeNode, TreeRecursionOpts, ValueType } from './types'
 
 function uuidv4() {
@@ -79,7 +80,7 @@ function getChildren(value: any): [string, any][] {
   }
 }
 
-export function recurseObjectProperties(
+function recurseObjectProperties(
   key: string,
   value: any,
   depth: number,
@@ -100,4 +101,13 @@ export function recurseObjectProperties(
     node.collapsed = opts.defaultCollapse(node)
   }
   return node
+}
+
+export function initTreeData(data: any, opts: TreeRecursionOpts) {
+  let treeMap = new Map()
+  let tree = recurseObjectProperties('root', data, 0, null, treeMap, opts) as ITreeNode
+  return {
+    treeMapStore: writable<Map<string, ITreeNode | null>>(treeMap),
+    treeStore: writable<ITreeNode>(tree)
+  }
 }

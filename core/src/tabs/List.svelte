@@ -28,10 +28,16 @@
     }
     &.selected {
       background: rgba(255, 162, 177, 0.4);
+      &.empty {
+        background: #50445d;
+      }
     }
     &.empty {
       background: transparent;
       color: #63637b;
+      &:hover {
+        background: #50445d;
+      }
     }
   }
 </style>

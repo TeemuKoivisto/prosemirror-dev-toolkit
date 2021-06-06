@@ -3,12 +3,14 @@
     align-items: center;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 1em;
   }
   .right-panel {
     border-left: 1px solid rgba(255, 162, 177, 0.2);
     flex-grow: 0;
     width: 220px;
+  }
+  :global(.m-top) {
+    margin-top: 1em;
   }
 </style>
 
@@ -36,13 +38,13 @@
     <div class="top-row">
       <h2>Current doc</h2>
     </div>
-    <DocView {doc} {schema} />
+    <DocView class="m-top" {doc} {schema} />
   </div>
   <div slot="right" class="right-panel">
     <div class="top-row">
       <h2>Node info</h2>
       <Button on:click={handleClickLogNode}>log</Button>
     </div>
-    <TreeView data={doc} />
+    <TreeView class="m-top" data={doc} />
   </div>
 </SplitView>

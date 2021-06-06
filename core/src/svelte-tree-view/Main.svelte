@@ -12,11 +12,10 @@
 <script lang="ts">
   import { setContext } from 'svelte'
   import { get } from 'svelte/store'
-  import { getValueType } from './tree-utils.ts'
+  import { initTreeData, getValueType } from './tree-utils.ts'
 
   import Test from './Test.svelte'
   import TreeNode from './TreeNode.svelte'
-  import { initTreeData } from './tree.store.ts'
 
   export let data,
     omitKeys = [],
