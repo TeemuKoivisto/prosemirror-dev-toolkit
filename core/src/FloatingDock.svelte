@@ -80,7 +80,7 @@
   export let onClose
 
   const { view } = getContext(APP_CONTEXT)
-  let openTab = 'structure'
+  let openTab = 'state'
 
   function handleSaveSnapshot() {
     const snapshotName = prompt('Enter snapshot name', Date.now())

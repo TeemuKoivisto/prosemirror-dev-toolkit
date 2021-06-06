@@ -41,7 +41,7 @@
   $: listItems = plugins.map((p: Plugin) => ({
     key: p.key,
     value: p.key.toUpperCase(),
-    empty: !p.spec.state
+    empty: !p.getState(view.state)
   }))
 
   function handlePluginSelect(item: { key: string; value: string }) {

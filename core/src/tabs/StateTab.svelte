@@ -66,7 +66,7 @@
       <h2>Current doc</h2>
       <Button on:click={handleClickLogDoc}>log</Button>
     </div>
-    <TreeView data={doc} showLogButton showCopyButton />
+    <TreeView data={doc} showLogButton showCopyButton maxDepth={6} />
   </div>
   <div slot="right" class="right-panel">
     <div class="top-row row">
@@ -81,16 +81,16 @@
     {/each}
     <div class="row">
       <h2>Active marks</h2>
-      <div>{activeMarks}</div>
+      <TreeView data={activeMarks} />
     </div>
     <div class="row">
       <h2>Document stats</h2>
-      <div>
-        nodeSize: <span>{nodeSize}</span>
-      </div>
-      <div>
-        childCount: <span>{childCount}</span>
-      </div>
+      <TreeView
+        data={{
+          nodeSize,
+          childCount
+        }}
+      />
     </div>
   </div>
 </SplitView>

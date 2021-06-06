@@ -16,6 +16,9 @@
     /* font-size: var(--json-tree-font-size, 12px); */
     /* font-family: var(--json-tree-font-family, 'Courier New', Courier, monospace); */
   }
+  .row + ul.row {
+    margin-top: 0.2em;
+  }
   ul :global(li) {
     line-height: var(--li-line-height);
     display: flex;
@@ -28,7 +31,8 @@
     height: max-content;
     list-style: none;
     padding: 0;
-    margin: 0.3em 0;
+    margin: 0;
+    /* margin: 0.3em 0 0 0; */
     width: 100%;
   }
   li {
@@ -37,14 +41,19 @@
     height: max-content;
     list-style: none;
     width: 100%;
+    &.collapsed {
+      margin-bottom: 0.3em;
+    }
   }
   .empty-block {
     width: 0.875em;
   }
   .node-key {
     color: rgb(133, 217, 239);
-    cursor: pointer;
     margin-right: 0.5em;
+    &.has-children {
+      cursor: pointer;
+    }
   }
   .node-value {
     color: rgb(184, 226, 72);
@@ -57,6 +66,9 @@
     }
     &.expanded {
       color: rgb(209, 146, 155);
+    }
+    &.has-children {
+      cursor: pointer;
     }
   }
   .arrow-btn {
@@ -93,20 +105,18 @@
 
 <script lang="ts">
   import { getContext } from 'svelte'
-  import { APP_CONTEXT } from './tree-utils.ts'
 
   export let id
 
-  const { treeMapStore, props, getNode, toggleCollapse, formatValue } = getContext(APP_CONTEXT)
-
-  let node = getNode(id)
+  const { treeMapStore, props, getNode, toggleCollapse, formatValue } = getContext('app')
+  $: node = getNode(id)
   treeMapStore.subscribe(value => {
     const n = value.get(id)
     if (node !== n) {
       node = n
     }
   })
-  $: collapsed = node.collapsed
+  $: hasChildren = node.children.length > 0
 
   function handleLogNode() {
     console.log(node)
@@ -115,25 +125,33 @@
   function handleCopyNodeToClipboard() {
     navigator.clipboard.writeText(JSON.stringify(node.value))
   }
+  function handleToggleCollapse() {
+    if (hasChildren) {
+      toggleCollapse(node.id)
+    }
+  }
 </script>
 
-<li>
-  {#if node.children.length > 0}
+<li class="row" class:collapsed={node.collapsed && hasChildren}>
+  {#if hasChildren}
     <button
-      class={`arrow-btn ${collapsed ? 'collapsed' : ''}`}
-      on:click={() => toggleCollapse(node.id)}
+      class={`arrow-btn ${node.collapsed ? 'collapsed' : ''}`}
+      on:click={handleToggleCollapse}
     >
       ▶
     </button>
   {:else}
     <div class="empty-block" />
   {/if}
-  <div class="node-key" on:click={() => toggleCollapse(node.id)}>{node.key}:</div>
+  <div class="node-key" class:has-children={hasChildren} on:click={handleToggleCollapse}>
+    {node.key}:
+  </div>
   <div
     class="node-value"
     data-type={node.type}
-    class:expanded={!collapsed && node.children.length > 0}
-    on:click={() => toggleCollapse(node.id)}
+    class:expanded={!node.collapsed && node.children.length > 0}
+    class:has-children={hasChildren}
+    on:click={handleToggleCollapse}
   >
     {#if props.valueComponent}
       <svelte:component
@@ -152,10 +170,10 @@
     <button class="log-copy-button" on:click={handleCopyNodeToClipboard}>copy</button>
   {/if}
 </li>
-{#if !collapsed}
-  <ul style={`padding-left: ${node.depth * 4}px`}>
+{#if !node.collapsed}
+  <ul class="row" style={`padding-left: ${node.depth * 4}px`}>
     {#each node.children as child}
-      <svelte:self id={child.id} />
+      <svelte:self id={child.id} {props} />
     {/each}
   </ul>
 {/if}

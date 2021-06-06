@@ -1,6 +1,4 @@
-import { ITreeNode, ValueType } from './types'
-
-export const APP_CONTEXT = 'APP_CONTEXT'
+import { ITreeNode, TreeRecursionOpts, ValueType } from './types'
 
 function uuidv4() {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -87,11 +85,7 @@ export function recurseObjectProperties(
   depth: number,
   parent: ITreeNode | null,
   treeMap: Map<string, ITreeNode>,
-  opts: {
-    maxDepth: number
-    omitKeys: string[]
-    collapseNode?: (n: ITreeNode) => boolean
-  }
+  opts: TreeRecursionOpts
 ): ITreeNode | null {
   if (opts.omitKeys.includes(key) || depth >= opts.maxDepth) {
     return null
@@ -101,8 +95,9 @@ export function recurseObjectProperties(
   node.children = getChildren(value)
     .map(([key, val]) => recurseObjectProperties(key, val, depth + 1, node, treeMap, opts))
     .filter(n => n !== null) as ITreeNode[]
-  if (opts.collapseNode) {
-    node.collapsed = opts.collapseNode(node)
+
+  if (opts.defaultCollapse) {
+    node.collapsed = opts.defaultCollapse(node)
   }
   return node
 }

@@ -11,6 +11,12 @@ interface TreeViewProps {
   defaultCollapse?: (n: ITreeNode) => boolean
 }
 
+export interface TreeRecursionOpts {
+  maxDepth: number
+  omitKeys: string[]
+  defaultCollapse?: (n: ITreeNode) => boolean
+}
+
 export class TreeView extends SvelteComponentTyped<TreeViewProps, {}, {}> {}
 
 export interface ITreeNode {
