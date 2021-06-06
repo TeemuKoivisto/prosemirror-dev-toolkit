@@ -1,5 +1,5 @@
 <style lang="scss">
-  .panel {
+  .right-panel {
     padding: 0;
   }
   .no-snapshots {
@@ -42,7 +42,7 @@
 </script>
 
 <SplitView>
-  <div slot="right" class="panel">
+  <div slot="right" class="right-panel">
     {#if $snapshots.length === 0}
       <div class="no-snapshots">Save snapshots by clicking "Save snapshot" button.</div>
     {:else}

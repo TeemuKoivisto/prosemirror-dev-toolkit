@@ -1,10 +1,11 @@
 <style lang="scss">
-  /* :root {
-    --font-serif: Helvetica Neue, Calibri Light, Roboto, sans-serif;
+  :root {
+    --font-sans: Helvetica Neue, Calibri Light, Roboto, sans-serif;
     --font-small: 11px;
     --font-medium: 13px;
     --font-large: 16px;
-  } */
+    --height-tabs-menu: 48px;
+  }
   .floating-dock-wrapper {
     position: fixed;
     width: 0px;
@@ -58,8 +59,8 @@
     }
   }
   * {
-    font-family: Helvetica Neue, Calibri Light, Roboto, sans-serif;
-    font-size: 13px;
+    font-family: var(--font-sans);
+    font-size: var(--font-medium);
   }
 </style>
 

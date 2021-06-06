@@ -17,7 +17,7 @@
     cursor: pointer;
     display: flex;
     font-family: monospace;
-    font-size: 11px;
+    font-size: var(--font-small);
     height: 100%;
     padding: 6px 18px;
     text-transform: uppercase;

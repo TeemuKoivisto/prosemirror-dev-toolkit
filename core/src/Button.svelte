@@ -5,7 +5,7 @@
     border-radius: 2px;
     color: #d3d3d9;
     cursor: pointer;
-    font-size: 11px;
+    font-size: var(--font-small);
     padding: 6px 10px;
     text-transform: uppercase;
     &:hover {

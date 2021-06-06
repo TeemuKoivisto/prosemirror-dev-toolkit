@@ -8,9 +8,6 @@
     overflow: scroll;
     padding: 1em;
   }
-  * :global(.tree-view) {
-    padding-bottom: 4em;
-  }
   .right-panel {
     border-left: 1px solid rgba(255, 162, 177, 0.2);
     overflow: scroll;

@@ -52,7 +52,7 @@
   <div slot="left" class="left-panel">
     <List {listItems} selectedKey={selectedEntry?.id} onSelect={handleEntrySelect} />
   </div>
-  <div slot="right">
+  <div slot="right" class="right-panel">
     {#if selectedEntry}
       <div>
         {#if selectedEntry.diff}

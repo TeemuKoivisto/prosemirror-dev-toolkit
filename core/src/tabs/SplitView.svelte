@@ -8,39 +8,31 @@
     border-top: 1px solid rgba(255, 162, 177, 0.2);
     color: white;
     display: flex;
-    height: 100%;
+    height: calc(100% - var(--height-tabs-menu));
     width: 100%;
-    & > :global(*) {
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-      overflow: scroll;
-      padding: 1em 1em 4em 1em;
-    }
   }
   :global(h2) {
     color: #bb91a3;
-    font-family: Helvetica Neue, Calibri Light, Roboto, sans-serif;
-    font-size: 13px;
+    font-family: var(--font-sans);
+    font-size: var(--font-medium);
     font-weight: 400;
     margin: 0;
     text-transform: uppercase;
   }
-  .left-panel {
+  :global(.left-panel) {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
     overflow: scroll;
-    padding: 1em 1em 4em 1em;
+    padding: 1em;
   }
-  * :global(.tree-view) {
-    padding-bottom: 4em;
-  }
-  .right-panel {
+  :global(.right-panel) {
     border-left: 1px solid rgba(255, 162, 177, 0.2);
+    display: flex;
+    flex-direction: column;
     flex-grow: 1;
     overflow: scroll;
-    padding: 1em 1em 4em 1em;
+    padding: 1em;
   }
 </style>
 
