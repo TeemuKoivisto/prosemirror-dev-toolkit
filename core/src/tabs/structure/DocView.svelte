@@ -39,13 +39,14 @@
 
   export let doc,
     schema,
-    selected = { type: '', start: 0, end: 0 }
+    selected = { type: '', start: 0, end: 0 },
+    handleNodeSelect
 
   setContext('doc-view', {
     selected,
     colors: buildColors(schema),
     handleNodeClick(n: any) {
-      console.log(n)
+      handleNodeSelect(n)
     }
   })
 

@@ -25,11 +25,15 @@
 
   const { view } = getContext(APP_CONTEXT)
   let doc = view.state.doc
+  let node = view.state.doc.toJSON()
   let schema = view.state.schema
 
+  function handleNodeSelect(n: any) {
+    node = n.toJSON()
+  }
   function handleClickLogNode() {
-    console.log(doc)
-    window._doc = doc
+    console.log(node)
+    window._node = node
   }
 </script>
 
@@ -38,13 +42,13 @@
     <div class="top-row">
       <h2>Current doc</h2>
     </div>
-    <DocView class="m-top" {doc} {schema} />
+    <DocView class="m-top" {doc} {schema} {handleNodeSelect} />
   </div>
   <div slot="right" class="right-panel">
     <div class="top-row">
       <h2>Node info</h2>
       <Button on:click={handleClickLogNode}>log</Button>
     </div>
-    <TreeView class="m-top" data={doc} />
+    <TreeView class="m-top" data={node} defaultCollapse={() => false} />
   </div>
 </SplitView>

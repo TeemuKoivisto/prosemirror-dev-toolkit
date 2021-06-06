@@ -49,17 +49,29 @@
   export let node, startPos, isRoot
 
   $: color = colors[node.type.name]
+  $: startPositions = Array(node.childCount)
+    .fill(undefined)
+    .reduce((acc, _, idx) => {
+      if (idx === 0) {
+        const incrementedStart = node.child(0).isBlock ? startPos + 1 : startPos
+        return [incrementedStart]
+      }
+      let prev = acc[idx - 1]
+      let cur = node.child(idx - 1)
+      return [...acc, prev + cur.nodeSize]
+    }, [])
+  $: endPos = node.isBlock ? startPos + node.nodeSize - 1 : startPos + node.nodeSize
 </script>
 
 <div class={`${$$props.class} wrapper`} class:root={isRoot}>
   <div class="container" style={`background: ${color}`}>
     <div class="number-box">{startPos}</div>
     <button class:selected={false} on:click={() => handleNodeClick(node)}>{node.type.name}</button>
-    <div class="number-box">{startPos + node.nodeSize}</div>
+    <div class="number-box">{endPos}</div>
   </div>
   {#if node.content.size !== 0}
     {#each node.content.content as child, i}
-      <svelte:self node={child} startPos={startPos + i + 1} />
+      <svelte:self node={child} startPos={startPositions[i]} />
     {/each}
   {/if}
 </div>
