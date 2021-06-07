@@ -1,9 +1,8 @@
 <style lang="scss">
   .left-panel {
-    border-right: 1px solid #604c68;
     flex-grow: 0;
     padding: 0;
-    width: 190px;
+    min-width: 190px;
   }
   .entry-row {
     h2 {

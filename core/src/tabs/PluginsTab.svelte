@@ -1,5 +1,6 @@
 <style lang="scss">
   .top-row {
+    align-items: center;
     display: flex;
     justify-content: space-between;
     margin-bottom: 1em;
@@ -8,7 +9,7 @@
     flex-grow: 0;
     overflow: scroll;
     padding: 0;
-    width: 190px;
+    min-width: 190px;
   }
   .right-panel {
     border-left: 1px solid rgba(255, 162, 177, 0.2);
@@ -33,6 +34,7 @@
   import SplitView from './SplitView.svelte'
   import TreeView from '../svelte-tree-view/Main.svelte'
   import List from './List.svelte'
+  import Button from '../Button.svelte'
 
   const { view } = getContext(APP_CONTEXT)
   let plugins = view.state.plugins
@@ -47,6 +49,11 @@
   function handlePluginSelect(item: { key: string; value: string }) {
     selectedPlugin = plugins.find(p => p.key === item.key)
   }
+  function handleLogState() {
+    window._plugin = [selectedPlugin, pluginState]
+    console.log(selectedPlugin)
+    console.log(pluginState)
+  }
 </script>
 
 <SplitView>
@@ -57,7 +64,7 @@
     {#if pluginState}
       <div class="top-row">
         <h2>Plugin state</h2>
-        <button>log state</button>
+        <Button on:click={handleLogState}>log</Button>
       </div>
     {/if}
     {#if pluginState}

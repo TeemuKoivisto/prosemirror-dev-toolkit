@@ -20,50 +20,71 @@
       margin: 1em 0;
     }
   }
+  :global(.selection-btn) {
+    height: 24px;
+    width: 35px;
+  }
+  .caret-icon::before {
+    content: '▶';
+  }
+  .caret-icon.expanded::before {
+    content: '▼';
+  }
   .no-marks {
     color: #85d9ef;
     margin: 1em 0 0 1em;
   }
   :global(.tree-view) {
-    margin: 1em 0 0 0;
+    margin: 1em 0;
   }
 </style>
 
 <script lang="ts">
   import { getContext } from 'svelte'
   import { get } from 'svelte/store'
-  import { APP_CONTEXT } from '../context.ts'
-  import { stateHistory } from '../state/stateHistory.store.ts'
-  import { getActiveMarks } from '../state/getActiveMarks.ts'
+  import { APP_CONTEXT } from '../../context.ts'
+  import { stateHistory } from '../../state/stateHistory.store.ts'
+  import { getActiveMarks } from '../../state/getActiveMarks.ts'
+  import { createSelection, createFullSelection } from './selection.ts'
 
   import JSONTree from 'svelte-json-tree'
-  import SplitView from './SplitView.svelte'
-  import TreeView from '../svelte-tree-view/Main.svelte'
-  import Button from '../Button.svelte'
+  import SplitView from '../SplitView.svelte'
+  import TreeView from '../../svelte-tree-view/Main.svelte'
+  import Button from '../../Button.svelte'
 
   const { view } = getContext(APP_CONTEXT)
   let doc = view.state.doc.toJSON()
-  let selection = view.state.selection.toJSON()
-  let currentEntry = get(stateHistory)[0]
+  let selection = createSelection(view.state.selection)
+  let currentState = get(stateHistory)[0]?.state || view.state
   let activeMarks = []
   let nodeSize = view.state.doc.nodeSize
   let childCount = view.state.doc.childCount
+  let expandedSelection = false
 
   stateHistory.subscribe(val => {
-    currentEntry = val[0]
+    let currentEntry = val[0]
     if (currentEntry) {
       const { state } = currentEntry
+      currentState = state
       doc = state.doc.toJSON()
-      selection = state.selection.toJSON()
+      selection = createSelection(state.selection)
       activeMarks = getActiveMarks(state)
       nodeSize = state.doc.nodeSize
       childCount = state.doc.childCount
     }
   })
-
+  console.log(view.state.selection)
   function handleClickLogDoc() {
     console.log(doc)
     window._doc = doc
+  }
+  function handleExpandSelection() {
+    expandedSelection = !expandedSelection
+    if (expandedSelection) {
+      selection = createFullSelection(currentState.selection)
+    } else {
+      selection = createSelection(currentState.selection)
+    }
   }
 </script>
 
@@ -78,13 +99,16 @@
   <div slot="right" class="right-panel">
     <div class="top-row row">
       <h2>Selection</h2>
-      <button>▼</button>
+      <Button class="selection-btn" on:click={handleExpandSelection}
+        ><span class="caret-icon" class:expanded={expandedSelection} /></Button
+      >
     </div>
     <!-- See https://github.com/sveltejs/svelte/issues/3165#issuecomment-804354493 -->
     {#each [...[]] as _}
       <div />
     {:else}
-      <JSONTree value={selection} />
+      <!-- <JSONTree value={selection} /> -->
+      <TreeView class="tree-view" data={selection} />
     {/each}
     <div class="row">
       <h2>Active marks</h2>
