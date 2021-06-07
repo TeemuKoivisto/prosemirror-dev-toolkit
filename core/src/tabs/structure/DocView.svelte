@@ -34,7 +34,7 @@
 
 <script lang="ts">
   import { setContext } from 'svelte'
-  import BlockNode from './BlockNode.svelte'
+  import DocNode from './DocNode.svelte'
   import { buildColors } from './colors.ts'
 
   export let doc,
@@ -49,8 +49,6 @@
       handleNodeSelect(n)
     }
   })
-
-  console.log(doc)
 </script>
 
-<BlockNode class={$$props.class} node={doc} startPos={0} depth={0} isRoot />
+<DocNode class={$$props.class} node={doc} startPos={0} depth={0} isRoot />

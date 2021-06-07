@@ -39,6 +39,15 @@
       background: rgba(255, 162, 177, 0.4);
     }
   }
+  .inline-children {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 12px;
+    & > :global(div) {
+      flex-grow: 1;
+      padding: 0;
+    }
+  }
 </style>
 
 <script lang="ts">
@@ -49,6 +58,10 @@
   export let node, startPos, isRoot
 
   $: color = colors[node.type.name]
+  $: name =
+    node.isText && node.marks.length > 0
+      ? `${node.type.name} - [${node.marks.map(m => m.type.name).join(', ')}]`
+      : node.type.name
   $: startPositions = Array(node.childCount)
     .fill(undefined)
     .reduce((acc, _, idx) => {
@@ -61,17 +74,20 @@
       return [...acc, prev + cur.nodeSize]
     }, [])
   $: endPos = node.isBlock ? startPos + node.nodeSize - 1 : startPos + node.nodeSize
+  $: inlineChildren = node.content.content.every(n => n.isInline)
 </script>
 
-<div class={`${$$props.class} wrapper`} class:root={isRoot}>
+<div class={`${$$props.class || ''} wrapper`} class:root={isRoot}>
   <div class="container" style={`background: ${color}`}>
     <div class="number-box">{startPos}</div>
-    <button class:selected={false} on:click={() => handleNodeClick(node)}>{node.type.name}</button>
+    <button class:selected={false} on:click={() => handleNodeClick(node)}>{name}</button>
     <div class="number-box">{endPos}</div>
   </div>
-  {#if node.content.size !== 0}
-    {#each node.content.content as child, i}
-      <svelte:self node={child} startPos={startPositions[i]} />
-    {/each}
-  {/if}
+  <div class:inline-children={inlineChildren}>
+    {#if node.content.size !== 0}
+      {#each node.content.content as child, i}
+        <svelte:self node={child} startPos={startPositions[i]} />
+      {/each}
+    {/if}
+  </div>
 </div>
