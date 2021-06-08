@@ -53,8 +53,8 @@ async function processHistoryEntryDiffs(oldEntry: HistoryEntry, newEntry: Histor
       const withDiff: HistoryEntry = {
         ...foundEntry,
         diffPending: false,
-        diff: result[0].delta,
-        selection: result[1].delta
+        contentDiff: result[0].delta,
+        selectionDiff: result[1].delta
       }
       // console.log('postprocess', postprocessValue(result[0].delta))
       // console.log('postprocess', postprocessValue(result[1].delta))

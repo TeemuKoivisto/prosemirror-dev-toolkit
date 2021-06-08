@@ -27,11 +27,11 @@ export function createHistoryEntry(tr: Transaction, state: EditorState): History
   const selection = state.selection
   const domFragment = serializer.serializeFragment(selection.content().content)
 
-  let selectionContent = []
+  let selectedElementsAsHtml = []
   if (domFragment) {
     let child = domFragment.firstChild as HTMLElement | null
     while (child) {
-      selectionContent.push(child.outerHTML)
+      selectedElementsAsHtml.push(child.outerHTML)
       child = child.nextSibling as HTMLElement | null
     }
   }
@@ -42,8 +42,8 @@ export function createHistoryEntry(tr: Transaction, state: EditorState): History
     timestamp: tr.time,
     timeStr: formatTimestamp(tr.time),
     diffPending: true,
-    diff: undefined,
-    selection: undefined,
-    selectionContent: prettify(selectionContent.join('\n')).trim()
+    contentDiff: undefined,
+    selectionDiff: undefined,
+    selectionHtml: prettify(selectedElementsAsHtml.join('\n')).trim()
   }
 }

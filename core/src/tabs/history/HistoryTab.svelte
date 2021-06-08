@@ -41,7 +41,7 @@
   import SplitView from '../SplitView.svelte'
   import TreeView from '../../svelte-tree-view/Main.svelte'
   import HistoryList from './HistoryList.svelte'
-  import DiffValue from '../../state/DiffValue.svelte'
+  import DiffValue from './DiffValue.svelte'
 
   const { view } = getContext(APP_CONTEXT)
   let selectedEntry = undefined
@@ -70,30 +70,36 @@
   <div slot="right" class="right-panel">
     {#if selectedEntry}
       <div>
-        {#if selectedEntry.diff}
+        {#if selectedEntry.contentDiff}
           <div class="entry-row">
             <h2>Doc diff</h2>
             <TreeView
               class="tree-view"
-              data={selectedEntry.diff}
+              data={selectedEntry.contentDiff}
               showLogButton
               showCopyButton
               valueComponent={DiffValue}
               maxDepth={6}
               omitKeys={['nodes', 'marks', 'topNodeType']}
+              defaultCollapse={() => false}
             />
           </div>
         {/if}
-        {#if selectedEntry.selection}
+        {#if selectedEntry.selectionDiff}
           <div class="entry-row">
             <h2>Selection diff</h2>
-            <TreeView class="tree-view" data={selectedEntry.selection} />
+            <TreeView
+              class="tree-view"
+              data={selectedEntry.selectionDiff}
+              valueComponent={DiffValue}
+              defaultCollapse={() => false}
+            />
           </div>
         {/if}
-        {#if selectedEntry.selectionContent.length > 0}
+        {#if selectedEntry.selectionHtml.length > 0}
           <div class="entry-row">
             <h2>Selection content</h2>
-            <pre><code>{selectedEntry.selectionContent}</code></pre>
+            <pre><code>{selectedEntry.selectionHtml}</code></pre>
           </div>
         {/if}
       </div>

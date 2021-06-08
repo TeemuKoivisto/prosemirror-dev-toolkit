@@ -53,11 +53,12 @@
 </script>
 
 {#if Array.isArray(value)}
+  <!-- The why https://github.com/benjamine/jsondiffpatch/blob/master/docs/deltas.md -->
   {#if value.length === 1}
     <span class="added">{getValueString(value[0])}</span>
   {:else if value.length === 2}
     <span class="updated">
-      <span class="deleted">{getValueString(value[0])}</span> =&gt;{' '}
+      <span class="deleted">{getValueString(value[0])}</span> =&gt;
       <span class="added">{getValueString(value[1])}</span>
     </span>
   {:else if value.length === 3 && value[1] === 0 && value[2] === 0}
