@@ -23,4 +23,5 @@ export interface HistoryGroup {
   isGroup: boolean
   topEntryId: string
   entryIds: string[]
+  expanded: boolean
 }

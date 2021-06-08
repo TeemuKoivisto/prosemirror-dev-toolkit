@@ -78,14 +78,16 @@ export function appendNewHistoryEntry(tr: Transaction, state: EditorState) {
     const newGroup = {
       isGroup,
       entryIds: [newEntry.id, ...prevGroup.entryIds],
-      topEntryId: newEntry.id
+      topEntryId: newEntry.id,
+      expanded: prevGroup.expanded
     }
     shownHistoryGroups.update(val => [newGroup, ...val.slice(1)])
   } else {
     const newGroup = {
       isGroup,
       entryIds: [newEntry.id],
-      topEntryId: newEntry.id
+      topEntryId: newEntry.id,
+      expanded: false
     }
     shownHistoryGroups.update(val => [newGroup, ...val])
   }

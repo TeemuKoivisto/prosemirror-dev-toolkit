@@ -48,11 +48,18 @@
   $: listItems = $shownHistoryGroups.map((g: HistoryGroup) => ({
     isGroup: g.isGroup,
     topEntry: $stateHistory.get(g.topEntryId),
-    entries: g.entryIds.map(id => $stateHistory.get(id))
+    entries: g.entryIds.map(id => $stateHistory.get(id)),
+    expanded: g.expanded
   }))
 
-  function handleEntrySelect(id: string) {
+  function handleEntrySelect(id: string, groupIdx: number, wasTopNode: boolean) {
     selectedEntry = $stateHistory.get(id)
+    const group = listItems[groupIdx]
+    if (group.isGroup && group.entries.length > 1 && wasTopNode) {
+      shownHistoryGroups.update(val =>
+        val.map((g, idx) => (idx !== groupIdx ? g : { ...g, expanded: !g.expanded }))
+      )
+    }
   }
 </script>
 

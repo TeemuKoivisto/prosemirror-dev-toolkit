@@ -7,6 +7,15 @@
     height: 100%;
     width: 100%;
   }
+  li {
+    &:hover {
+      background: rgba(255, 162, 177, 0.4);
+      color: white;
+    }
+    &.selected {
+      background: rgba(255, 162, 177, 0.4);
+    }
+  }
   li + li {
     border-top: 1px solid #604c68;
   }
@@ -19,26 +28,20 @@
     font-family: monospace;
     font-size: var(--font-small);
     height: 100%;
+    justify-content: space-between;
     padding: 6px 18px;
     text-transform: uppercase;
     width: 100%;
-    &:hover {
-      background: rgba(255, 162, 177, 0.4);
-      color: white;
+
+    &.p-left {
+      margin-left: 1em;
     }
-    &.selected {
-      background: rgba(255, 162, 177, 0.4);
-      &.empty {
-        background: #50445d;
-      }
-    }
-    &.empty {
-      background: transparent;
-      color: #63637b;
-      &:hover {
-        background: #50445d;
-      }
-    }
+  }
+  .caret-icon::before {
+    content: '▶';
+  }
+  .caret-icon.expanded::before {
+    content: '▼';
   }
 </style>
 
@@ -49,18 +52,31 @@
 </script>
 
 <ul>
-  {#each listItems as group}
-    <li>
+  {#each listItems as group, groupIdx}
+    <li class:selected={!group.expanded && selectedId === group.topEntry.id}>
       <button
-        class:selected={selectedId === group.topEntry.id}
         class:is-group={group.isGroup}
-        on:click={() => onSelect(group.topEntry.id)}
+        on:click={() => onSelect(group.topEntry.id, groupIdx, true)}
       >
-        {group.topEntry.timeStr}
-        {#if group.isGroup}
-          [{group.entries.length}]
+        <span>
+          {group.topEntry.timeStr}
+          {#if group.isGroup}
+            [{group.entries.length}]
+          {/if}
+        </span>
+        {#if group.isGroup && group.entries.length > 1}
+          <span class="caret-icon" class:expanded={group.expanded} />
         {/if}
       </button>
     </li>
+    {#if group.isGroup && group.expanded}
+      {#each group.entries as subEntry}
+        <li class:selected={selectedId === subEntry.id}>
+          <button class:p-left={true} on:click={() => onSelect(subEntry.id, groupIdx, false)}>
+            {subEntry.timeStr}
+          </button>
+        </li>
+      {/each}
+    {/if}
   {/each}
 </ul>
