@@ -11914,11 +11914,6 @@ svelte-check@^2.0.0:
     svelte-preprocess "^4.0.0"
     typescript "*"
 
-svelte-json-tree@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/svelte-json-tree/-/svelte-json-tree-0.1.0.tgz#2711e36162046a10766dfbef69739168a5eaafa6"
-  integrity sha512-ufKWvS94z5m6Je9Hu0yosvdALy0mOPcaexbTcQQ/jW+3Rzi4oaHkOeg4RQ3cNpOlOQlIs0lfsF9FBlyquZ7XuQ==
-
 svelte-preprocess@^4.0.0, svelte-preprocess@^4.7.3:
   version "4.7.3"
   resolved "https://registry.yarnpkg.com/svelte-preprocess/-/svelte-preprocess-4.7.3.tgz#454fa059c2400b15e7a3caeca18993cff9df0e96"

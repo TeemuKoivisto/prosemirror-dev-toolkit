@@ -40,6 +40,8 @@
     }
   }
   .inline-children {
+    border-left: 1px solid #606178;
+    border-right: 1px solid #606178;
     display: flex;
     flex-wrap: wrap;
     padding: 0 12px;

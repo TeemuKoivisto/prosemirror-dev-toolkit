@@ -47,7 +47,6 @@
   import { getActiveMarks } from '../../state/getActiveMarks.ts'
   import { createSelection, createFullSelection } from './selection.ts'
 
-  import JSONTree from 'svelte-json-tree'
   import SplitView from '../SplitView.svelte'
   import TreeView from '../../svelte-tree-view/Main.svelte'
   import Button from '../../Button.svelte'
@@ -73,7 +72,7 @@
       childCount = state.doc.childCount
     }
   })
-  console.log(view.state.selection)
+
   function handleClickLogDoc() {
     console.log(doc)
     window._doc = doc
@@ -107,7 +106,6 @@
     {#each [...[]] as _}
       <div />
     {:else}
-      <!-- <JSONTree value={selection} /> -->
       <TreeView class="tree-view" data={selection} />
     {/each}
     <div class="row">
