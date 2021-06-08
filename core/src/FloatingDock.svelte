@@ -67,7 +67,7 @@
 <script lang="ts">
   import TabsMenu from './tabs/TabsMenu.svelte'
   import StateTab from './tabs/state/StateTab.svelte'
-  import HistoryTab from './tabs/HistoryTab.svelte'
+  import HistoryTab from './tabs/history/HistoryTab.svelte'
   import PluginsTab from './tabs/PluginsTab.svelte'
   import SchemaTab from './tabs/SchemaTab.svelte'
   import StructureTab from './tabs/structure/StructureTab.svelte'

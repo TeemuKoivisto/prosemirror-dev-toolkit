@@ -31,28 +31,34 @@
   import { getContext } from 'svelte'
   import { writable } from 'svelte/store'
 
-  import { APP_CONTEXT } from '../context.ts'
-  import { HistoryEntry, stateHistory } from '../state/stateHistory.store.ts'
-  import SplitView from './SplitView.svelte'
-  import TreeView from '../svelte-tree-view/Main.svelte'
-  import List from './List.svelte'
-  import DiffValue from '../state/DiffValue.svelte'
+  import { APP_CONTEXT } from '../../context.ts'
+  import {
+    HistoryEntry,
+    HistoryGroup,
+    stateHistory,
+    shownHistoryGroups
+  } from '../../state/stateHistory.store.ts'
+  import SplitView from '../SplitView.svelte'
+  import TreeView from '../../svelte-tree-view/Main.svelte'
+  import HistoryList from './HistoryList.svelte'
+  import DiffValue from '../../state/DiffValue.svelte'
 
   const { view } = getContext(APP_CONTEXT)
-  let selectedEntry = $stateHistory[0]
-  $: listItems = $stateHistory.map((e: HistoryEntry) => ({
-    key: e.id,
-    value: e.timeStr
+  let selectedEntry = undefined
+  $: listItems = $shownHistoryGroups.map((g: HistoryGroup) => ({
+    isGroup: g.isGroup,
+    topEntry: $stateHistory.get(g.topEntryId),
+    entries: g.entryIds.map(id => $stateHistory.get(id))
   }))
 
-  function handleEntrySelect(item: { key: string; value: string }) {
-    selectedEntry = $stateHistory.find(e => e.id === item.key)
+  function handleEntrySelect(id: string) {
+    selectedEntry = $stateHistory.get(id)
   }
 </script>
 
 <SplitView>
   <div slot="left" class="left-panel">
-    <List {listItems} selectedKey={selectedEntry?.id} onSelect={handleEntrySelect} />
+    <HistoryList {listItems} selectedId={selectedEntry?.id} onSelect={handleEntrySelect} />
   </div>
   <div slot="right" class="right-panel">
     {#if selectedEntry}

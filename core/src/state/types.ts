@@ -18,3 +18,9 @@ export interface HistoryEntry {
   selection?: Object
   selectionContent: string
 }
+
+export interface HistoryGroup {
+  isGroup: boolean
+  topEntryId: string
+  entryIds: string[]
+}

@@ -1,5 +1,6 @@
 import { writable } from 'svelte/store'
 
-import type { HistoryEntry } from './types'
+import type { HistoryEntry, HistoryGroup } from './types'
 
-export const stateHistory = writable([] as HistoryEntry[])
+export const stateHistory = writable(new Map<string, HistoryEntry>())
+export const shownHistoryGroups = writable([] as HistoryGroup[])

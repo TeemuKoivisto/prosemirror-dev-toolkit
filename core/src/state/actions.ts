@@ -2,7 +2,7 @@ import { get } from 'svelte/store'
 import { EditorState, Selection, Transaction } from 'prosemirror-state'
 import { diff } from './differ'
 
-import { stateHistory } from './stateHistory.store'
+import { stateHistory, shownHistoryGroups } from './stateHistory.store'
 import { createHistoryEntry } from './createHistoryEntry'
 
 import type { HistoryEntry } from './types'
@@ -48,17 +48,17 @@ async function processHistoryEntryDiffs(oldEntry: HistoryEntry, newEntry: Histor
     )
   ])
   stateHistory.update(val => {
-    const foundIdx = val.findIndex(e => e.id === newEntry.id)
-    if (foundIdx !== -1) {
+    const foundEntry = val.get(newEntry.id)
+    if (foundEntry) {
       const withDiff: HistoryEntry = {
-        ...val[foundIdx],
+        ...foundEntry,
         diffPending: false,
         diff: result[0].delta,
         selection: result[1].delta
       }
       // console.log('postprocess', postprocessValue(result[0].delta))
       // console.log('postprocess', postprocessValue(result[1].delta))
-      return [...val.slice(0, foundIdx), withDiff, ...val.slice(foundIdx + 1)]
+      return new Map(val.set(foundEntry.id, withDiff))
     }
     return val
   })
@@ -66,16 +66,31 @@ async function processHistoryEntryDiffs(oldEntry: HistoryEntry, newEntry: Histor
 }
 
 export function appendNewHistoryEntry(tr: Transaction, state: EditorState) {
-  const values = get(stateHistory)
-  const oldEntry = values[values.length - 1]
+  const entryMap = get(stateHistory)
+  const prevGroup = get(shownHistoryGroups)[0]
+  const oldEntry = entryMap.get(prevGroup?.topEntryId || '')
   const newEntry = createHistoryEntry(tr, state)
-  stateHistory.update(val => [newEntry, ...val])
+
+  stateHistory.update(val => new Map(val.set(newEntry.id, newEntry)))
+
+  const isGroup = !tr.docChanged
+  if (prevGroup?.isGroup && isGroup) {
+    const newGroup = {
+      isGroup,
+      entryIds: [newEntry.id, ...prevGroup.entryIds],
+      topEntryId: newEntry.id
+    }
+    shownHistoryGroups.update(val => [newGroup, ...val.slice(1)])
+  } else {
+    const newGroup = {
+      isGroup,
+      entryIds: [newEntry.id],
+      topEntryId: newEntry.id
+    }
+    shownHistoryGroups.update(val => [newGroup, ...val])
+  }
+
   if (oldEntry) {
     processHistoryEntryDiffs(oldEntry, newEntry)
   }
-  // console.log(tr)
-  // console.log(get(stateHistory))
-  // setTimeout(() => {
-  //   console.log(get(stateHistory))
-  // }, 0)
 }
