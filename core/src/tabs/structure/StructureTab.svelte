@@ -49,6 +49,6 @@
       <h2>Node info</h2>
       <Button on:click={handleClickLogNode}>log</Button>
     </div>
-    <TreeView class="m-top" data={node} defaultCollapse={() => false} />
+    <TreeView class="m-top" data={node} shouldExpandNode={() => true} />
   </div>
 </SplitView>

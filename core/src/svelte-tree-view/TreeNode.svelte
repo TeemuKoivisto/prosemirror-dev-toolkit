@@ -119,8 +119,8 @@
   $: hasChildren = node.children.length > 0
 
   function handleLogNode() {
-    console.log(node)
-    window._node = node
+    console.log(node.value)
+    window._node = node.value
   }
   function handleCopyNodeToClipboard() {
     navigator.clipboard.writeText(JSON.stringify(node.value))
@@ -149,7 +149,7 @@
   <div
     class="node-value"
     data-type={node.type}
-    class:expanded={!node.collapsed && node.children.length > 0}
+    class:expanded={!node.collapsed && hasChildren}
     class:has-children={hasChildren}
     on:click={handleToggleCollapse}
   >
@@ -170,7 +170,7 @@
     <button class="log-copy-button" on:click={handleCopyNodeToClipboard}>copy</button>
   {/if}
 </li>
-{#if !node.collapsed}
+{#if !node.collapsed && hasChildren}
   <ul class="row" style={`padding-left: ${node.depth * 4}px`}>
     {#each node.children as child}
       <svelte:self id={child.id} {props} />

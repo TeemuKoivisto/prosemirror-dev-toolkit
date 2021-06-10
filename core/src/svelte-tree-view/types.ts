@@ -2,19 +2,21 @@ import { SvelteComponentTyped } from 'svelte'
 
 interface TreeViewProps {
   data: any
-  base16theme?: Object
+  base16theme?: { [key: string]: string }
   leftIndent?: number
   showLogButton?: boolean
   showCopyButton?: boolean
   sortObjectValues?: 'ascending' | 'descending'
   valueFormatter?: (val: any, n: ITreeNode) => string
-  defaultCollapse?: (n: ITreeNode) => boolean
+  shouldExpandNode?: (n: ITreeNode) => boolean
+  mapChildren?: (val: any, type: ValueType, parent: ITreeNode) => [string, any][] | undefined
 }
 
 export interface TreeRecursionOpts {
   maxDepth: number
   omitKeys: string[]
-  defaultCollapse?: (n: ITreeNode) => boolean
+  shouldExpandNode?: (n: ITreeNode) => boolean
+  mapChildren?: (val: any, type: ValueType, parent: ITreeNode) => [string, any][] | undefined
 }
 
 export class TreeView extends SvelteComponentTyped<TreeViewProps, {}, {}> {}

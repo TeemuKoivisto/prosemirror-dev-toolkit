@@ -20,15 +20,17 @@
   export let data,
     omitKeys = [],
     maxDepth = 10,
+    mapChildren,
     valueFormatter,
     valueComponent,
-    defaultCollapse,
+    shouldExpandNode,
     showLogButton = false,
     showCopyButton = false
 
   let timer
   let { treeMapStore, treeStore } = initTreeData(data, {
-    defaultCollapse,
+    mapChildren,
+    shouldExpandNode,
     maxDepth,
     omitKeys
   })
@@ -65,9 +67,10 @@
     props: {
       omitKeys,
       maxDepth,
+      mapChildren,
       valueFormatter,
       valueComponent,
-      defaultCollapse,
+      shouldExpandNode,
       showLogButton,
       showCopyButton
     },
@@ -76,18 +79,10 @@
     formatValue
   })
 
-  const debounce = (fn: () => void) => {
-    clearTimeout(timer)
-    timer = setTimeout(() => {
-      fn()
-    }, 150)
-  }
-
   $: {
-    // debounce(() => {
-    // })
     const newVals = initTreeData(data, {
-      defaultCollapse,
+      shouldExpandNode,
+      mapChildren,
       maxDepth,
       omitKeys
     })
@@ -102,7 +97,7 @@
   //     maxDepth,
   //     valueFormatter,
   //     valueComponent,
-  //     defaultCollapse,
+  //     shouldExpandNode,
   //     showLogButton,
   //     showCopyButton
   //   }

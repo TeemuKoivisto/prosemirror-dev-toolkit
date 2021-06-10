@@ -38,6 +38,7 @@
     stateHistory,
     shownHistoryGroups
   } from '../../state/stateHistory.store.ts'
+  import { mapDiffValuesToChildren } from './mapDeltas.ts'
   import SplitView from '../SplitView.svelte'
   import TreeView from '../../svelte-tree-view/Main.svelte'
   import HistoryList from './HistoryList.svelte'
@@ -81,7 +82,7 @@
               valueComponent={DiffValue}
               maxDepth={6}
               omitKeys={['nodes', 'marks', 'topNodeType']}
-              defaultCollapse={() => false}
+              shouldExpandNode={() => true}
             />
           </div>
         {/if}
@@ -92,7 +93,8 @@
               class="tree-view"
               data={selectedEntry.selectionDiff}
               valueComponent={DiffValue}
-              defaultCollapse={() => false}
+              shouldExpandNode={() => true}
+              mapChildren={mapDiffValuesToChildren}
             />
           </div>
         {/if}

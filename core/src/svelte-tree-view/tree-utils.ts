@@ -93,19 +93,21 @@ function recurseObjectProperties(
   }
   const node = createNode(key, value, depth, parent)
   treeMap.set(node.id, node)
-  node.children = getChildren(value)
+  const mappedChildren = opts.mapChildren && opts.mapChildren(value, getValueType(value), node)
+  const children = mappedChildren ?? getChildren(value)
+  node.children = children
     .map(([key, val]) => recurseObjectProperties(key, val, depth + 1, node, treeMap, opts))
     .filter(n => n !== null) as ITreeNode[]
 
-  if (opts.defaultCollapse) {
-    node.collapsed = opts.defaultCollapse(node)
+  if (opts.shouldExpandNode) {
+    node.collapsed = opts.shouldExpandNode(node)
   }
   return node
 }
 
 export function initTreeData(data: any, opts: TreeRecursionOpts) {
-  let treeMap = new Map()
-  let tree = recurseObjectProperties('root', data, 0, null, treeMap, opts) as ITreeNode
+  const treeMap = new Map()
+  const tree = recurseObjectProperties('root', data, 0, null, treeMap, opts) as ITreeNode
   return {
     treeMapStore: writable<Map<string, ITreeNode | null>>(treeMap),
     treeStore: writable<ITreeNode>(tree)

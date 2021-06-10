@@ -7,25 +7,6 @@ import { createHistoryEntry } from './createHistoryEntry'
 
 import type { HistoryEntry } from './types'
 
-function postprocessValue(value: any) {
-  if (value && value._t === 'a') {
-    const res: { [key: string]: string | string[] } = {}
-    for (let key in value) {
-      if (key !== '_t') {
-        if (key[0] === '_' && !value[key.substr(1)]) {
-          res[key.substr(1)] = value[key]
-        } else if (value['_' + key]) {
-          res[key] = [value['_' + key][0], value[key][0]]
-        } else if (!value['_' + key] && key[0] !== '_') {
-          res[key] = value[key]
-        }
-      }
-    }
-    return res
-  }
-  return value
-}
-
 function buildSelection(selection: Selection) {
   return {
     // @ts-ignore
@@ -56,13 +37,10 @@ async function processHistoryEntryDiffs(oldEntry: HistoryEntry, newEntry: Histor
         contentDiff: result[0].delta,
         selectionDiff: result[1].delta
       }
-      // console.log('postprocess', postprocessValue(result[0].delta))
-      // console.log('postprocess', postprocessValue(result[1].delta))
       return new Map(val.set(foundEntry.id, withDiff))
     }
     return val
   })
-  console.log(result)
 }
 
 export function appendNewHistoryEntry(tr: Transaction, state: EditorState) {
