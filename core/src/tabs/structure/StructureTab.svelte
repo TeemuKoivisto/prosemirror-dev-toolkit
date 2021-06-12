@@ -7,6 +7,7 @@
   .right-panel {
     border-left: 1px solid rgba(255, 162, 177, 0.2);
     flex-grow: 0;
+    min-width: 220px;
     width: 220px;
   }
   :global(.m-top) {

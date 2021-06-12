@@ -1,5 +1,3 @@
-import { Schema } from 'prosemirror-model'
-import { EditorState } from 'prosemirror-state'
 import { EditorView } from 'prosemirror-view'
 import { writable } from 'svelte/store'
 
@@ -16,9 +14,11 @@ export const snapshots = writable<Snapshot[]>([])
 const persisted = typeof window !== 'undefined' ? localStorage.getItem(SNAPSHOTS_KEY) : null
 if (persisted && persisted.length > 0) {
   try {
-    let parsed = JSON.parse(persisted)
+    const parsed = JSON.parse(persisted)
     snapshots.set(parsed)
-  } catch (err) {}
+  } catch (err) {
+    console.error('Corrupted snapshots values in localStorage', err)
+  }
 }
 
 snapshots.subscribe(val => {
@@ -52,26 +52,17 @@ export function deleteSnapshot(snapshot: Snapshot) {
 }
 
 export function restoreSnapshot(view: EditorView, snap: Snapshot) {
-  const newState = EditorState.create({
+  // Hack to use EditorState.create without explicitly calling EditorState, thus
+  // avoiding including it as a dependency
+  const newState = Object.getPrototypeOf(view.state).constructor.create({
     schema: view.state.schema,
     plugins: view.state.plugins,
     doc: view.state.schema.nodeFromJSON(snap.doc)
   })
   view.updateState(newState)
-  // const EditorState = this.state.EditorState;
-  // const editorView = this.state.view;
-  // const editorState = editorView.state;
-
-  // const newState = EditorState.create({
-  //   schema: editorState.schema,
-  //   plugins: editorState.plugins,
-  //   doc: editorState.schema.nodeFromJSON(snapshot.snapshot),
-  // });
 
   // this.setState({
   //   history: [createHistoryEntry(newState)],
   //   state: newState,
   // });
-
-  // editorView.updateState(newState);
 }

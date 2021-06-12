@@ -20,13 +20,8 @@
   import { APP_CONTEXT } from '../../context.ts'
   import SplitView from './../SplitView.svelte'
   import SnapshotsList from './SnapshotsList.svelte'
-  import {
-    Snapshot,
-    snapshots,
-    deleteSnapshot,
-    updateSnapshot,
-    restoreSnapshot
-  } from './snapshots.store.ts'
+  import { snapshots, deleteSnapshot, updateSnapshot, restoreSnapshot } from './snapshots.store.ts'
+  import type { Snapshot } from './snapshots.store.ts'
 
   const { view } = getContext(APP_CONTEXT)
 

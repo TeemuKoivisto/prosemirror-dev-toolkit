@@ -28,6 +28,8 @@ export function getValueType(value: any): ValueType {
     return 'array'
   } else if (value instanceof Map) {
     return 'map'
+  } else if (value instanceof Set) {
+    return 'set'
   } else if (value === null) {
     return 'null'
   } else {
@@ -73,6 +75,8 @@ function getChildren(value: any): [string, any][] {
       return value.map((v: any, i: number) => [i.toString(), v])
     case 'map':
       return Array.from(value.entries())
+    case 'set':
+      return Array.from(value.values()).map((v: any, i: number) => [i.toString(), v])
     case 'object':
       return Object.entries(value)
     default:

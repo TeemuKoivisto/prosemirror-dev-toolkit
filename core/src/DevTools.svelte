@@ -1,16 +1,18 @@
 <script lang="ts">
-  import { onMount } from 'svelte'
+  import { onMount, setContext } from 'svelte'
   import { EditorView } from 'prosemirror-view'
 
   import FloatingBtn from './FloatingBtn.svelte'
   import FloatingDock from './FloatingDock.svelte'
 
-  import { createContext } from './context.ts'
+  import { APP_CONTEXT } from './context.ts'
 
   export let view: EditorView
   let devToolsExpanded = true
 
-  createContext(view)
+  setContext(APP_CONTEXT, {
+    view
+  })
 
   onMount(() => {
     const html = document && document.querySelector('html')

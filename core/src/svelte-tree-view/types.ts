@@ -36,6 +36,7 @@ export interface ITreeNode {
 export type ValueType =
   | 'array'
   | 'map'
+  | 'set'
   | 'object'
   | 'function'
   | 'string'

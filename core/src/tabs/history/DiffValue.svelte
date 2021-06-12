@@ -2,19 +2,24 @@
   .added {
     display: inline-block;
     background: #87cc86;
+    border-radius: 1px;
     color: green;
-    padding: 1px 3px 2px 0;
+    padding: 1px 2px;
     text-indent: 0;
     min-height: 1ex;
   }
   .deleted {
     display: inline-block;
-    background: #e86262;
-    color: white;
-    padding: 1px 3px 2px 0;
+    background: #d66363;
+    border-radius: 1px;
+    color: #ffe6e6;
+    padding: 1px 2px;
     text-decoration: line-through;
     text-indent: 0;
     min-height: 1ex;
+  }
+  .updated .added {
+    background: #eaea37;
   }
   .arrow {
     color: #87cc86;

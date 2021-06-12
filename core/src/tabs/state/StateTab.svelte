@@ -15,7 +15,8 @@
   .right-panel {
     border-left: 1px solid rgba(255, 162, 177, 0.2);
     flex-grow: 0;
-    width: 220px;
+    min-width: 200px;
+    width: 200px;
     & > .row + .row {
       margin: 1em 0;
     }

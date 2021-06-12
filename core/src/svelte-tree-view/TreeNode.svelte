@@ -161,7 +161,7 @@
       <svelte:component
         this={props.valueComponent}
         value={node.value}
-        defaultFormatter={formatValue}
+        defaultFormatter={val => formatValue(val, node)}
       />
     {:else}
       {formatValue(node.value, node)}

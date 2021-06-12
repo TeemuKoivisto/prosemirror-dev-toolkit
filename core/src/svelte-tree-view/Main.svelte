@@ -51,11 +51,14 @@
     if (customFormat) {
       return customFormat
     }
-    switch (getValueType(val)) {
+    switch (node.type) {
       case 'array':
         return `[] ${val.length} items`
       case 'object':
         return `{} ${Object.keys(val).length} keys`
+      case 'map':
+      case 'set':
+        return `() ${val.size} entries`
       case 'string':
         return `"${val}"`
       case 'boolean':

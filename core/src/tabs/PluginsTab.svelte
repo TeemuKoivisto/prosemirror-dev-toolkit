@@ -10,6 +10,7 @@
     overflow: scroll;
     padding: 0;
     min-width: 190px;
+    width: 190px;
   }
   .right-panel {
     border-left: 1px solid rgba(255, 162, 177, 0.2);
