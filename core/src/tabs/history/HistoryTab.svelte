@@ -3,6 +3,7 @@
     flex-grow: 0;
     padding: 0;
     min-width: 190px;
+    width: 190px;
   }
   .entry-row {
     h2 {
@@ -32,12 +33,8 @@
   import { writable } from 'svelte/store'
 
   import { APP_CONTEXT } from '../../context.ts'
-  import {
-    HistoryEntry,
-    HistoryGroup,
-    stateHistory,
-    shownHistoryGroups
-  } from '../../state/stateHistory.store.ts'
+  import { stateHistory, shownHistoryGroups } from '../../state/stateHistory.store.ts'
+  import type { HistoryEntry, HistoryGroup } from '../../state/types.ts'
   import { mapDocDeltaChildren, mapSelectionDeltaChildren } from './mapDeltas.ts'
   import SplitView from '../SplitView.svelte'
   import TreeView from '../../svelte-tree-view/Main.svelte'
@@ -66,7 +63,12 @@
 
 <SplitView>
   <div slot="left" class="left-panel">
-    <HistoryList {listItems} selectedId={selectedEntry?.id} onSelect={handleEntrySelect} />
+    <!-- Cant use optional chaining here as it wont get transpiled correctly to ES5 :( -->
+    <HistoryList
+      {listItems}
+      selectedId={selectedEntry && selectedEntry.id}
+      onSelect={handleEntrySelect}
+    />
   </div>
   <div slot="right" class="right-panel">
     {#if selectedEntry}

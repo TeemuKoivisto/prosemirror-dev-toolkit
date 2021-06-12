@@ -6,7 +6,6 @@ import svelte from 'rollup-plugin-svelte'
 import autoPreprocess from 'svelte-preprocess'
 import postcss from 'rollup-plugin-postcss'
 import { terser } from 'rollup-plugin-terser'
-// import { babel } from '@rollup/plugin-babel'
 
 import path from 'path'
 
@@ -49,13 +48,6 @@ export default {
     resolve({
       dedupe: ['svelte']
     }),
-    // babel({
-    //   babelHelpers: 'runtime',
-    //   skipPreflightCheck: true,
-    //   extensions: ['.js', '.mjs', '.html', '.svelte'],
-    //   include: ['src/**', 'node_modules/svelte/**'],
-    //   exclude: '**/node_modules/**',
-    // }),
     isProduction && terser()
   ],
   watch: {
