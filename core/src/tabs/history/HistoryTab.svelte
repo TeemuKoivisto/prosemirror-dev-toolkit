@@ -38,7 +38,7 @@
     stateHistory,
     shownHistoryGroups
   } from '../../state/stateHistory.store.ts'
-  import { mapDiffValuesToChildren } from './mapDeltas.ts'
+  import { mapDocDeltaChildren, mapSelectionDeltaChildren } from './mapDeltas.ts'
   import SplitView from '../SplitView.svelte'
   import TreeView from '../../svelte-tree-view/Main.svelte'
   import HistoryList from './HistoryList.svelte'
@@ -80,8 +80,7 @@
               showLogButton
               showCopyButton
               valueComponent={DiffValue}
-              maxDepth={6}
-              omitKeys={['nodes', 'marks', 'topNodeType']}
+              mapChildren={mapDocDeltaChildren}
               shouldExpandNode={() => true}
             />
           </div>
@@ -94,7 +93,7 @@
               data={selectedEntry.selectionDiff}
               valueComponent={DiffValue}
               shouldExpandNode={() => true}
-              mapChildren={mapDiffValuesToChildren}
+              mapChildren={mapSelectionDeltaChildren}
             />
           </div>
         {/if}

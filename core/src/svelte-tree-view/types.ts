@@ -7,7 +7,7 @@ interface TreeViewProps {
   showLogButton?: boolean
   showCopyButton?: boolean
   sortObjectValues?: 'ascending' | 'descending'
-  valueFormatter?: (val: any, n: ITreeNode) => string
+  valueFormatter?: (val: any, n: ITreeNode) => string | undefined
   shouldExpandNode?: (n: ITreeNode) => boolean
   mapChildren?: (val: any, type: ValueType, parent: ITreeNode) => [string, any][] | undefined
 }
@@ -19,7 +19,7 @@ export interface TreeRecursionOpts {
   mapChildren?: (val: any, type: ValueType, parent: ITreeNode) => [string, any][] | undefined
 }
 
-export class TreeView extends SvelteComponentTyped<TreeViewProps, {}, {}> {}
+export class TreeView extends SvelteComponentTyped<TreeViewProps> {}
 
 export interface ITreeNode {
   id: string
