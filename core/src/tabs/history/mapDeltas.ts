@@ -35,14 +35,13 @@ export function mapSelectionDeltaChildren(
  * https://benjamine.github.io/jsondiffpatch/demo/index.html
  */
 export function mapDocDeltaChildren(delta: Delta, type: ValueType) {
-
   // So due to the way the tree-view works, it will automatically map the children of an array
   // to their own nodes. For diff deltas, however, we want to omit those children and just show
   // a value wrapped with <span> to show either deleted or inserted content
   if (type === 'array' && delta[1] === 0 && delta[2] === 0) {
     // Remove operation is defined by two 0s in its delta [{ <deleted> }, 0, 0]
     return []
-  // } else if (type === 'array' && typeof delta[0] === 'string' && typeof delta[1] === 'number' && delta[2] === 3) {
+    // } else if (type === 'array' && typeof delta[0] === 'string' && typeof delta[1] === 'number' && delta[2] === 3) {
     // Move operation is almost the same as remove, except its value is empty and the second number
     // points to the moved index eg ["", 6, 3] AND the third value is always '3'
     // But since these seem to never occur (and they weren't handled in the previous version) we are not doing anything
@@ -59,7 +58,7 @@ export function mapDocDeltaChildren(delta: Delta, type: ValueType) {
   }
 
   // The main delta objects are objects denoted by key '_t' with 'a' value which we shall omit.
-  // DiffValue component handles the text diffs otherwise. 
+  // DiffValue component handles the text diffs otherwise.
   if (type !== 'object' || delta._t !== 'a') return
 
   // We shall remap the values to omit '_t' and remove underscores from the keys

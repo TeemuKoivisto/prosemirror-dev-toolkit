@@ -85,6 +85,11 @@
       selection = createSelection(currentState.selection)
     }
   }
+  function formatDocNodeValue(val: any, n: ITreeNode) {
+    if (n.type === 'object' && val.type) {
+      return `{} ${val.type}`
+    }
+  }
 </script>
 
 <SplitView>
@@ -93,7 +98,14 @@
       <h2>Current doc</h2>
       <Button on:click={handleClickLogDoc}>log</Button>
     </div>
-    <TreeView class="tree-view" data={doc} showLogButton showCopyButton maxDepth={6} />
+    <TreeView
+      class="tree-view"
+      data={doc}
+      showLogButton
+      showCopyButton
+      maxDepth={6}
+      valueFormatter={formatDocNodeValue}
+    />
   </div>
   <div slot="right" class="right-panel">
     <div class="top-row row">

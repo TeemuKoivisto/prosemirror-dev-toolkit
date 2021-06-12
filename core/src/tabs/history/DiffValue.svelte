@@ -1,7 +1,7 @@
 <style>
   .added {
     display: inline-block;
-    background: lightyellow;
+    background: #87cc86;
     color: green;
     padding: 1px 3px 2px 0;
     text-indent: 0;
@@ -9,12 +9,15 @@
   }
   .deleted {
     display: inline-block;
-    background: lightyellow;
-    color: pink;
+    background: #e86262;
+    color: white;
     padding: 1px 3px 2px 0;
     text-decoration: line-through;
     text-indent: 0;
     min-height: 1ex;
+  }
+  .arrow {
+    color: #87cc86;
   }
 </style>
 
@@ -58,7 +61,8 @@
     <span class="added">{getValueString(value[0])}</span>
   {:else if value.length === 2}
     <span class="updated">
-      <span class="deleted">{getValueString(value[0])}</span> =&gt;
+      <span class="deleted">{getValueString(value[0])}</span>
+      <span class="arrow"> =&gt;</span>
       <span class="added">{getValueString(value[1])}</span>
     </span>
   {:else if value.length === 3 && value[1] === 0 && value[2] === 0}

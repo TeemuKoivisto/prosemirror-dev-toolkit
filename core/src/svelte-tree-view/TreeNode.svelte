@@ -16,15 +16,6 @@
     /* font-size: var(--json-tree-font-size, 12px); */
     /* font-family: var(--json-tree-font-family, 'Courier New', Courier, monospace); */
   }
-  .row + ul.row {
-    margin-top: 0.2em;
-  }
-  ul :global(li) {
-    line-height: var(--li-line-height);
-    display: flex;
-    list-style: none;
-  }
-  /* ul :global(ul) { */
   ul {
     display: flex;
     flex-direction: column;
@@ -32,27 +23,33 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    /* margin: 0.3em 0 0 0; */
     width: 100%;
   }
   li {
     align-items: baseline;
     display: flex;
     height: max-content;
+    line-height: var(--li-line-height);
     list-style: none;
     width: 100%;
-    &.collapsed {
+    /* &.collapsed {
       margin-bottom: 0.3em;
-    }
+    } */
+  }
+  li + li {
+    margin-top: 0.3em;
   }
   .empty-block {
-    width: 0.875em;
+    visibility: hidden;
   }
   .node-key {
     color: rgb(133, 217, 239);
     margin-right: 0.5em;
     &.has-children {
       cursor: pointer;
+    }
+    &.p-left {
+      padding-left: 1.1em;
     }
   }
   .node-value {
@@ -87,6 +84,10 @@
     &.collapsed {
       transform: rotateZ(90deg);
     }
+  }
+  .buttons {
+    display: flex;
+    flex-wrap: wrap;
   }
   .log-copy-button {
     background: transparent;
@@ -140,10 +141,13 @@
     >
       ▶
     </button>
-  {:else}
-    <div class="empty-block" />
   {/if}
-  <div class="node-key" class:has-children={hasChildren} on:click={handleToggleCollapse}>
+  <div
+    class="node-key"
+    class:has-children={hasChildren}
+    class:p-left={!hasChildren}
+    on:click={handleToggleCollapse}
+  >
     {node.key}:
   </div>
   <div
@@ -160,20 +164,24 @@
         defaultFormatter={formatValue}
       />
     {:else}
-      {formatValue(node.value)}
+      {formatValue(node.value, node)}
     {/if}
   </div>
-  {#if props.showLogButton}
-    <button class="log-copy-button" on:click={handleLogNode}>log</button>
-  {/if}
-  {#if props.showCopyButton}
-    <button class="log-copy-button" on:click={handleCopyNodeToClipboard}>copy</button>
-  {/if}
+  <div class="buttons">
+    {#if props.showLogButton}
+      <button class="log-copy-button" on:click={handleLogNode}>log</button>
+    {/if}
+    {#if props.showCopyButton}
+      <button class="log-copy-button" on:click={handleCopyNodeToClipboard}>copy</button>
+    {/if}
+  </div>
 </li>
 {#if !node.collapsed && hasChildren}
-  <ul class="row" style={`padding-left: ${node.depth * 4}px`}>
-    {#each node.children as child}
-      <svelte:self id={child.id} {props} />
-    {/each}
-  </ul>
+  <li class="row">
+    <ul style={`padding-left: 0.875em`}>
+      {#each node.children as child}
+        <svelte:self id={child.id} {props} />
+      {/each}
+    </ul>
+  </li>
 {/if}

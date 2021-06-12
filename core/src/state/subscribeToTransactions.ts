@@ -8,14 +8,17 @@ let active = false
 export function subscribeToDispatchTransaction(view: EditorView) {
   active = true
   const oldDispatchFn = view.someProp('dispatchTransaction')
-  view.setProps({
-    dispatchTransaction: (tr: Transaction) => {
-      if (oldDispatchFn) oldDispatchFn(tr)
-      if (active) {
-        appendNewHistoryEntry(tr, view.state)
+  // Use timeout to make sure other hooks don't interfere with our patching of dispatchTransaction
+  setTimeout(() => {
+    view.setProps({
+      dispatchTransaction: (tr: Transaction) => {
+        if (oldDispatchFn) oldDispatchFn(tr)
+        if (active) {
+          appendNewHistoryEntry(tr, view.state)
+        }
       }
-    }
-  })
+    })
+  }, 1)
 }
 
 export function unsubscribeDispatchTransaction() {

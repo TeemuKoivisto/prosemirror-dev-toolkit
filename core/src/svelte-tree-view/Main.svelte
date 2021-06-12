@@ -46,7 +46,11 @@
       console.warn(`Attempted to collapse non-existent node: ${id}`)
     }
   }
-  function formatValue(val: any) {
+  function formatValue(val: any, node: ITreeNode) {
+    const customFormat = valueFormatter ? valueFormatter(val, node) : undefined
+    if (customFormat) {
+      return customFormat
+    }
     switch (getValueType(val)) {
       case 'array':
         return `[] ${val.length} items`
