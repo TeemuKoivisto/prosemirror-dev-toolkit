@@ -44,7 +44,7 @@
   import { getContext } from 'svelte'
   import { get } from 'svelte/store'
   import { APP_CONTEXT } from '../../context.ts'
-  import { stateHistory } from '../../state/stateHistory.store.ts'
+  import { latestEntry } from '../../state/stateHistory.store.ts'
   import { getActiveMarks } from '../../state/getActiveMarks.ts'
   import { createSelection, createFullSelection } from './selection.ts'
 
@@ -55,23 +55,21 @@
   const { view } = getContext(APP_CONTEXT)
   let doc = view.state.doc.toJSON()
   let selection = createSelection(view.state.selection)
-  let currentState = get(stateHistory)[0]?.state || view.state
+  let currentState = view.state
   let activeMarks = []
   let nodeSize = view.state.doc.nodeSize
   let childCount = view.state.doc.childCount
   let expandedSelection = false
 
-  stateHistory.subscribe(val => {
-    let currentEntry = val[0]
-    if (currentEntry) {
-      const { state } = currentEntry
-      currentState = state
-      doc = state.doc.toJSON()
-      selection = createSelection(state.selection)
-      activeMarks = getActiveMarks(state)
-      nodeSize = state.doc.nodeSize
-      childCount = state.doc.childCount
-    }
+  latestEntry.subscribe(e => {
+    if (!e) return
+    const { state } = e
+    currentState = state
+    doc = state.doc.toJSON()
+    selection = createSelection(state.selection)
+    activeMarks = getActiveMarks(state)
+    nodeSize = state.doc.nodeSize
+    childCount = state.doc.childCount
   })
 
   function handleClickLogDoc() {
@@ -104,7 +102,6 @@
       data={doc}
       showLogButton
       showCopyButton
-      maxDepth={6}
       valueFormatter={formatDocNodeValue}
     />
   </div>
@@ -119,7 +116,7 @@
     {#each [...[]] as _}
       <div />
     {:else}
-      <TreeView class="tree-view" data={selection} />
+      <TreeView class="tree-view" data={selection} maxDepth={10} />
     {/each}
     <div class="row">
       <h2>Active marks</h2>

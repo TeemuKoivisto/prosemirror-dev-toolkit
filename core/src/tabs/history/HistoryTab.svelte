@@ -33,7 +33,7 @@
   import { writable } from 'svelte/store'
 
   import { APP_CONTEXT } from '../../context.ts'
-  import { stateHistory, shownHistoryGroups } from '../../state/stateHistory.store.ts'
+  import { stateHistory, shownHistoryGroups, latestEntry } from '../../state/stateHistory.store.ts'
   import type { HistoryEntry, HistoryGroup } from '../../state/types.ts'
   import { mapDocDeltaChildren, mapSelectionDeltaChildren } from './mapDeltas.ts'
   import SplitView from '../SplitView.svelte'
@@ -49,6 +49,9 @@
     entries: g.entryIds.map(id => $stateHistory.get(id)),
     expanded: g.expanded
   }))
+  latestEntry.subscribe(v => {
+    selectedEntry = v
+  })
 
   function handleEntrySelect(id: string, groupIdx: number, wasTopNode: boolean) {
     selectedEntry = $stateHistory.get(id)

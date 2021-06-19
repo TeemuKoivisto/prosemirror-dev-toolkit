@@ -18,6 +18,7 @@
 <script lang="ts">
   import { getContext } from 'svelte'
   import { APP_CONTEXT } from '../../context.ts'
+  import { latestEntry } from '../../state/stateHistory.store.ts'
 
   import SplitView from '../SplitView.svelte'
   import TreeView from '../../svelte-tree-view/Main.svelte'
@@ -28,6 +29,10 @@
   let doc = view.state.doc
   let node = view.state.doc.toJSON()
   let schema = view.state.schema
+
+  latestEntry.subscribe(e => {
+    doc = e.state.doc
+  })
 
   function handleNodeSelect(n: any) {
     node = n.toJSON()

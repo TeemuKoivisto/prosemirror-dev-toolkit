@@ -36,18 +36,7 @@
   }
 </style>
 
-<script lang="ts">
-  // import { getContext } from 'svelte'
-
-  // import TreeView from '../svelte-tree-view/Main.svelte'
-  // import { APP_CONTEXT } from '../context.ts'
-
-  export let leftPanelWidth, rightPanelWidth
-  $: leftStyles = leftPanelWidth ? `width: ${leftPanelWidth}px` : ''
-  $: rightStyles = rightPanelWidth ? `width: ${rightPanelWidth}px` : ''
-</script>
-
 <section>
-  <slot class="left-panel" style={leftStyles} name="left" />
-  <slot class="right-panel" style={rightStyles} name="right" />
+  <slot class="left-panel" name="left" />
+  <slot class="right-panel" name="right" />
 </section>

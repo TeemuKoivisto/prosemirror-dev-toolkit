@@ -69,7 +69,7 @@
       </div>
     {/if}
     {#if pluginState}
-      <TreeView data={pluginState} showLogButton showCopyButton />
+      <TreeView data={pluginState} showLogButton showCopyButton maxDepth={12} />
     {:else}
       <div class="empty-state">Plugin has no state</div>
     {/if}
