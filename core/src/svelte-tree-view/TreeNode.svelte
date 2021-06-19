@@ -107,7 +107,7 @@
 <script lang="ts">
   import { getContext } from 'svelte'
 
-  export let id
+  export let id: string
 
   const { treeMapStore, props, getNode, toggleCollapse, formatValue } = getContext('app')
   $: node = getNode(id)

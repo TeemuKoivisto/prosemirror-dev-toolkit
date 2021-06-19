@@ -23,14 +23,15 @@ export class TreeView extends SvelteComponentTyped<TreeViewProps> {}
 
 export interface ITreeNode {
   id: string
+  index: number
+  key: string
+  value: any
   depth: number
   collapsed: boolean
   type: ValueType
-  path: string[]
-  parent: string | null
+  path: number[]
+  parentId: string | null
   children: ITreeNode[]
-  key: string
-  value: any
 }
 
 export type ValueType =

@@ -27,19 +27,21 @@
 
   const { view } = getContext(APP_CONTEXT)
   let doc = view.state.doc
-  let node = view.state.doc.toJSON()
+  let selectedNode = view.state.doc
+  $: jsonNode = selectedNode.toJSON()
   let schema = view.state.schema
 
   latestEntry.subscribe(e => {
+    if (!e) return
     doc = e.state.doc
   })
 
   function handleNodeSelect(n: any) {
-    node = n.toJSON()
+    selectedNode = n
   }
   function handleClickLogNode() {
-    console.log(node)
-    window._node = node
+    console.log(selectedNode)
+    window._selectedNode = selectedNode
   }
 </script>
 
@@ -55,6 +57,6 @@
       <h2>Node info</h2>
       <Button on:click={handleClickLogNode}>log</Button>
     </div>
-    <TreeView class="m-top" data={node} shouldExpandNode={() => true} />
+    <TreeView class="m-top" data={jsonNode} shouldExpandNode={() => false} />
   </div>
 </SplitView>

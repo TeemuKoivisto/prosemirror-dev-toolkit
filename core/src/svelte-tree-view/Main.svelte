@@ -11,10 +11,9 @@
 
 <script lang="ts">
   import { setContext } from 'svelte'
-  import { get } from 'svelte/store'
-  import { initTreeData, getValueType } from './tree-utils.ts'
+  import { get, writable } from 'svelte/store'
+  import { createNode, recurseObjectProperties, getValueType } from './tree-utils.ts'
 
-  import Test from './Test.svelte'
   import TreeNode from './TreeNode.svelte'
 
   export let data,
@@ -27,13 +26,8 @@
     showLogButton = false,
     showCopyButton = false
 
-  let timer
-  let { treeMapStore, treeStore } = initTreeData(data, {
-    mapChildren,
-    shouldExpandNode,
-    maxDepth,
-    omitKeys
-  })
+  const treeMapStore = writable<Map<string, ITreeNode | null>>(new Map())
+  const treeStore = writable<ITreeNode>(createNode(0, 'root', [], 0, null))
 
   function getNode(id: string) {
     return get(treeMapStore).get(id)
@@ -87,15 +81,15 @@
   })
 
   $: {
-    const newVals = initTreeData(data, {
-      shouldExpandNode,
+    const treeMap = new Map()
+    const oldTreeMap = get(treeMapStore)
+    const newTree = recurseObjectProperties(-1, 'root', data, 0, null, treeMap, oldTreeMap, {
       mapChildren,
+      shouldExpandNode,
       maxDepth,
       omitKeys
     })
-    const newMap = get(newVals.treeMapStore)
-    const newTree = get(newVals.treeStore)
-    treeMapStore.set(newMap)
+    treeMapStore.set(treeMap)
     treeStore.set(newTree)
   }
   // $: {

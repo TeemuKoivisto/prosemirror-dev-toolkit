@@ -53,7 +53,7 @@ export function deleteSnapshot(snapshot: Snapshot) {
 
 export function restoreSnapshot(view: EditorView, snap: Snapshot) {
   // Hack to use EditorState.create without explicitly calling EditorState, thus
-  // avoiding including it as a dependency
+  // avoiding having to include it as a dependency
   const newState = Object.getPrototypeOf(view.state).constructor.create({
     schema: view.state.schema,
     plugins: view.state.plugins,

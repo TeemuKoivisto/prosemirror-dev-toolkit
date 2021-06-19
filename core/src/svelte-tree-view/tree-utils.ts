@@ -1,24 +1,24 @@
 import { writable } from 'svelte/store'
 import { ITreeNode, TreeRecursionOpts, ValueType } from './types'
 
-function uuidv4() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-    const r = (Math.random() * 16) | 0,
-      v = c == 'x' ? r : (r & 0x3) | 0x8
-    return v.toString(16)
-  })
-}
-
-function createNode(key: string, value: any, depth: number, parent: ITreeNode | null): ITreeNode {
+export function createNode(
+  index: number,
+  key: string,
+  value: any,
+  depth: number,
+  parent: ITreeNode | null
+): ITreeNode {
+  const path = parent ? [...parent.path, index] : []
   return {
+    id: `[${path.join(',')}]`,
+    index,
     key,
     value,
-    id: uuidv4(),
     depth: depth + 1,
     collapsed: true,
     type: getValueType(value),
-    path: parent ? [...parent.path, parent.id] : [],
-    parent: parent ? parent.id : null,
+    path,
+    parentId: parent ? parent.id : null,
     children: []
   }
 }
@@ -84,36 +84,37 @@ function getChildren(value: any): [string, any][] {
   }
 }
 
-function recurseObjectProperties(
+export function recurseObjectProperties(
+  index: number,
   key: string,
   value: any,
   depth: number,
   parent: ITreeNode | null,
   treeMap: Map<string, ITreeNode>,
+  oldTreeMap: Map<string, ITreeNode>,
   opts: TreeRecursionOpts
 ): ITreeNode | null {
   if (opts.omitKeys.includes(key) || depth >= opts.maxDepth) {
     return null
   }
-  const node = createNode(key, value, depth, parent)
+  const node = createNode(index, key, value, depth, parent)
+  const oldNode = oldTreeMap.get(node.id)
+  // Maintain the same expanded/collapsed toggle for a node in this path/id
+  if (oldNode) {
+    node.collapsed = oldNode.collapsed
+  }
+
   treeMap.set(node.id, node)
   const mappedChildren = opts.mapChildren && opts.mapChildren(value, getValueType(value), node)
   const children = mappedChildren ?? getChildren(value)
   node.children = children
-    .map(([key, val]) => recurseObjectProperties(key, val, depth + 1, node, treeMap, opts))
+    .map(([key, val], idx) =>
+      recurseObjectProperties(idx, key, val, depth + 1, node, treeMap, oldTreeMap, opts)
+    )
     .filter(n => n !== null) as ITreeNode[]
 
   if (opts.shouldExpandNode) {
     node.collapsed = !opts.shouldExpandNode(node)
   }
   return node
-}
-
-export function initTreeData(data: any, opts: TreeRecursionOpts) {
-  const treeMap = new Map()
-  const tree = recurseObjectProperties('root', data, 0, null, treeMap, opts) as ITreeNode
-  return {
-    treeMapStore: writable<Map<string, ITreeNode | null>>(treeMap),
-    treeStore: writable<ITreeNode>(tree)
-  }
 }
