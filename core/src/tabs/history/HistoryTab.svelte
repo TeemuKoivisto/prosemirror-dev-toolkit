@@ -105,7 +105,7 @@
         {#if selectedEntry.selectionHtml.length > 0}
           <div class="entry-row">
             <h2>Selection content</h2>
-            <pre><code>{selectedEntry.selectionHtml}</code></pre>
+            <pre><code>{@html selectedEntry.selectionHtml}</code></pre>
           </div>
         {/if}
       </div>

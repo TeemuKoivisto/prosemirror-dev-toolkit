@@ -49,7 +49,7 @@
     "typescript": "^4.3.2"
   },
   "dependencies": {
-    "html-prettify": "^1.0.3",
+    "html": "^1.0.0",
     "jsondiffpatch": "^0.4.1",
     "prosemirror-model": "^1.14.1"
   }

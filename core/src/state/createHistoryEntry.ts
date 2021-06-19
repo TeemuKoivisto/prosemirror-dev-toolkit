@@ -1,6 +1,6 @@
 import { EditorState, Selection, Transaction } from 'prosemirror-state'
 import { DOMSerializer } from 'prosemirror-model'
-import prettify from 'html-prettify'
+import { prettyPrint } from 'html'
 
 import type { HistoryEntry } from './types'
 
@@ -21,6 +21,13 @@ const formatTimestamp = (timestamp: number) => {
     pad3(date.getMilliseconds())
   ].join(':')
 }
+
+const regexp = /(&lt;\/?[\w\d\s="']+&gt;)/gim
+const highlightHtmlString = (html: string) =>
+  html
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(regexp, "<span style='color: cadetblue;'>$&</span>")
 
 export function createHistoryEntry(tr: Transaction, state: EditorState): HistoryEntry {
   const serializer = DOMSerializer.fromSchema(state.schema)
@@ -44,6 +51,11 @@ export function createHistoryEntry(tr: Transaction, state: EditorState): History
     diffPending: true,
     contentDiff: undefined,
     selectionDiff: undefined,
-    selectionHtml: prettify(selectedElementsAsHtml.join('\n')).trim()
+    selectionHtml: highlightHtmlString(
+      prettyPrint(selectedElementsAsHtml.join('\n'), {
+        max_char: 60,
+        indent_size: 2
+      })
+    )
   }
 }
