@@ -5,17 +5,17 @@
     min-width: 190px;
     width: 190px;
   }
-  .entry-row {
-    h2 {
-      margin-bottom: 1em;
-    }
-    pre {
-      margin: 0;
-      padding: 0;
-    }
+  .title-container {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
   }
   .entry-row + .entry-row {
     margin-top: 1em;
+  }
+  .selection-html {
+    margin: 0.5em 0 0 0;
+    padding: 0;
   }
   .equal-diff {
     align-items: center;
@@ -25,6 +25,9 @@
     height: 100%;
     justify-content: center;
     width: 100%;
+  }
+  :global(.hidden) {
+    visibility: hidden;
   }
 </style>
 
@@ -36,13 +39,17 @@
   import { stateHistory, shownHistoryGroups, latestEntry } from '../../state/stateHistory.store.ts'
   import type { HistoryEntry, HistoryGroup } from '../../state/types.ts'
   import { mapDocDeltaChildren, mapSelectionDeltaChildren } from './mapDeltas.ts'
+
   import SplitView from '../SplitView.svelte'
   import TreeView from '../../svelte-tree-view/Main.svelte'
   import HistoryList from './HistoryList.svelte'
   import DiffValue from './DiffValue.svelte'
+  import Button from '../../Button.svelte'
 
   const { view } = getContext(APP_CONTEXT)
-  let selectedEntry = undefined
+  let selectedEntry = undefined,
+    showTr = false
+
   $: listItems = $shownHistoryGroups.map((g: HistoryGroup) => ({
     isGroup: g.isGroup,
     topEntry: $stateHistory.get(g.topEntryId),
@@ -53,6 +60,14 @@
     selectedEntry = v
   })
 
+  function toggleShowTr() {
+    showTr = !showTr
+  }
+  function handleLogTr() {
+    console.info('%c [prosemirror-dev-toolkit]: Property added to window._tr', 'color: #b8e248')
+    console.log(selectedEntry.tr)
+    window._tr = selectedEntry.tr
+  }
   function handleEntrySelect(id: string, groupIdx: number, wasTopNode: boolean) {
     selectedEntry = $stateHistory.get(id)
     const group = listItems[groupIdx]
@@ -78,7 +93,10 @@
       <div>
         {#if selectedEntry.contentDiff}
           <div class="entry-row">
-            <h2>Doc diff</h2>
+            <div class="title-container">
+              <h2>Doc diff</h2>
+              <Button class="hidden">log</Button>
+            </div>
             <TreeView
               class="tree-view"
               data={selectedEntry.contentDiff}
@@ -92,7 +110,10 @@
         {/if}
         {#if selectedEntry.selectionDiff}
           <div class="entry-row">
-            <h2>Selection diff</h2>
+            <div class="title-container">
+              <h2>Selection diff</h2>
+              <Button class="hidden">log</Button>
+            </div>
             <TreeView
               class="tree-view"
               data={selectedEntry.selectionDiff}
@@ -104,10 +125,37 @@
         {/if}
         {#if selectedEntry.selectionHtml.length > 0}
           <div class="entry-row">
-            <h2>Selection content</h2>
-            <pre><code>{@html selectedEntry.selectionHtml}</code></pre>
+            <div class="title-container">
+              <h2>Selection content</h2>
+              <Button class="hidden">log</Button>
+            </div>
+            <pre class="selection-html"><code>{@html selectedEntry.selectionHtml}</code></pre>
           </div>
         {/if}
+        <div class="entry-row">
+          <div class="title-container">
+            <h2>Transaction</h2>
+            <div>
+              <Button on:click={toggleShowTr}>
+                {showTr ? 'hide' : 'show'}
+              </Button>
+              {#if showTr}
+                <Button on:click={handleLogTr}>log</Button>
+              {/if}
+            </div>
+          </div>
+          {#if showTr}
+            <TreeView
+              class="tree-view"
+              data={selectedEntry.tr}
+              showLogButton
+              showCopyButton
+              maxDepth={14}
+              omitKeys={['schema', 'contentMatch']}
+              shouldExpandNode={() => false}
+            />
+          {/if}
+        </div>
       </div>
     {:else}
       <div class="equal-diff">Docs are equal.</div>

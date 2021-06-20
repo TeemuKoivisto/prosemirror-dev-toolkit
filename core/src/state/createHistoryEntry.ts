@@ -2,7 +2,20 @@ import { EditorState, Selection, Transaction } from 'prosemirror-state'
 import { DOMSerializer } from 'prosemirror-model'
 import { prettyPrint } from 'html'
 
+import { diff } from './diff'
 import type { HistoryEntry } from './types'
+
+function buildSelection(selection: Selection) {
+  return {
+    // @ts-ignore
+    type: selection.type,
+    empty: selection.empty,
+    anchor: selection.anchor,
+    head: selection.head,
+    from: selection.from,
+    to: selection.to
+  }
+}
 
 function pad(num: number) {
   return ('00' + num).slice(-2)
@@ -29,7 +42,11 @@ const highlightHtmlString = (html: string) =>
     .replace(/>/g, '&gt;')
     .replace(regexp, "<span style='color: cadetblue;'>$&</span>")
 
-export function createHistoryEntry(tr: Transaction, state: EditorState): HistoryEntry {
+export function createHistoryEntry(
+  tr: Transaction,
+  state: EditorState,
+  oldEntry?: HistoryEntry
+): HistoryEntry {
   const serializer = DOMSerializer.fromSchema(state.schema)
   const selection = state.selection
   const domFragment = serializer.serializeFragment(selection.content().content)
@@ -43,14 +60,19 @@ export function createHistoryEntry(tr: Transaction, state: EditorState): History
     }
   }
 
+  const contentDiff = oldEntry ? diff(oldEntry.state.doc.toJSON(), state.doc.toJSON()) : undefined
+  const selectionDiff = oldEntry
+    ? diff(buildSelection(oldEntry.state.selection), buildSelection(state.selection))
+    : undefined
+
   return {
     id: Math.random().toString() + Math.random().toString(),
-    state: state,
+    state,
+    tr,
     timestamp: tr.time,
     timeStr: formatTimestamp(tr.time),
-    diffPending: true,
-    contentDiff: undefined,
-    selectionDiff: undefined,
+    contentDiff,
+    selectionDiff,
     selectionHtml: highlightHtmlString(
       prettyPrint(selectedElementsAsHtml.join('\n'), {
         max_char: 60,

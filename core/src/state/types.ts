@@ -1,11 +1,11 @@
-import { EditorState } from 'prosemirror-state'
+import { EditorState, Transaction } from 'prosemirror-state'
 
 export interface HistoryEntry {
   id: string
   state: EditorState
+  tr: Transaction
   timestamp: number
   timeStr: string
-  diffPending: boolean
   contentDiff?: { [key: string]: any }
   selectionDiff?: { [key: string]: any }
   selectionHtml: string

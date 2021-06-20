@@ -8,6 +8,7 @@
     width: 100%;
   }
   li {
+    transition: background 0.1s;
     &:hover {
       background: rgba(255, 162, 177, 0.4);
       color: white;

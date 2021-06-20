@@ -21,6 +21,7 @@
   import SplitView from './../SplitView.svelte'
   import SnapshotsList from './SnapshotsList.svelte'
   import { snapshots, deleteSnapshot, updateSnapshot, restoreSnapshot } from './snapshots.store.ts'
+  import { resetHistory } from '../../state/actions.ts'
   import type { Snapshot } from './snapshots.store.ts'
 
   const { view } = getContext(APP_CONTEXT)
@@ -30,6 +31,7 @@
   }
   function handleRestoreSnapshot(snapshot: Snapshot) {
     restoreSnapshot(view, snapshot)
+    resetHistory()
   }
   function handleUpdateSnapshot(snapshot: Snapshot) {
     updateSnapshot(snapshot)
