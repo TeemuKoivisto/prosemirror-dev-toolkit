@@ -1,11 +1,11 @@
 import { Selection } from 'prosemirror-state'
 
-const reducedProperties = ['jsonID', 'empty', 'anchor', 'from', 'head', 'to']
-
-const allProperties = ['$anchor', '$head', '$cursor', '$to', '$from']
+const defaultProperties = ['jsonID', 'empty', 'anchor', 'from', 'head', 'to']
+const resolvedPosProperties = ['$anchor', '$head', '$cursor', '$to', '$from']
+const resolvedPosSubProperties = ['nodeAfter', 'nodeBefore', 'textOffset']
 
 export function createSelection(selection: Selection) {
-  return reducedProperties.reduce((acc, key) => {
+  return defaultProperties.reduce((acc, key) => {
     // @ts-ignore
     acc[key] = selection[key]
     return acc
@@ -13,9 +13,18 @@ export function createSelection(selection: Selection) {
 }
 
 export function createFullSelection(selection: Selection) {
-  return reducedProperties.concat(allProperties).reduce((acc, key) => {
+  return defaultProperties.concat(resolvedPosProperties).reduce((acc, key) => {
     // @ts-ignore
-    acc[key] = selection[key]
+    let val = selection[key]
+    if (resolvedPosProperties.includes(key)) {
+      const additionalProperties = {}
+      resolvedPosSubProperties.forEach(subKey => {
+        // @ts-ignore
+        additionalProperties[subKey] = selection[key][subKey]
+      })
+      val = { ...val, ...additionalProperties }
+    }
+    acc[key] = val
     return acc
   }, {} as { [key: string]: any })
 }

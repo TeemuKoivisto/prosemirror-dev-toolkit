@@ -11,7 +11,10 @@
     width: 220px;
   }
   :global(.m-top) {
-    margin-top: 1em;
+    margin-top: 0.5em;
+  }
+  :global(.hidden) {
+    visibility: hidden;
   }
 </style>
 
@@ -49,6 +52,7 @@
   <div slot="left" class="left-panel">
     <div class="top-row">
       <h2>Current doc</h2>
+      <Button class="hidden">log</Button>
     </div>
     <DocView class="m-top" {doc} {schema} {handleNodeSelect} />
   </div>
@@ -57,6 +61,6 @@
       <h2>Node info</h2>
       <Button on:click={handleClickLogNode}>log</Button>
     </div>
-    <TreeView class="m-top" data={jsonNode} shouldExpandNode={() => false} />
+    <TreeView class="m-top" data={jsonNode} shouldExpandNode={() => true} />
   </div>
 </SplitView>

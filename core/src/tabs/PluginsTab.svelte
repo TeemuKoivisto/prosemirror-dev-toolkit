@@ -30,6 +30,7 @@
   import { getContext } from 'svelte'
   import { writable } from 'svelte/store'
   import { Plugin } from 'prosemirror-state'
+  import { latestEntry } from '../state/stateHistory.store.ts'
 
   import { APP_CONTEXT } from '../context.ts'
   import SplitView from './SplitView.svelte'
@@ -38,20 +39,29 @@
   import Button from '../Button.svelte'
 
   const { view } = getContext(APP_CONTEXT)
-  let plugins = view.state.plugins
+  let editorState = view.state
+  let plugins = editorState.plugins
   let selectedPlugin = plugins[0]
-  $: pluginState = selectedPlugin.getState(view.state)
+  $: pluginState = selectedPlugin?.getState(editorState)
   $: listItems = plugins.map((p: Plugin) => ({
     key: p.key,
     value: p.key.toUpperCase(),
-    empty: !p.getState(view.state)
+    empty: !p.getState(editorState)
   }))
+
+  latestEntry.subscribe(e => {
+    if (!e) return
+    editorState = e.state
+    plugins = editorState.plugins
+    selectedPlugin = plugins.find(p => p.key === selectedPlugin.key)
+  })
 
   function handlePluginSelect(item: { key: string; value: string }) {
     selectedPlugin = plugins.find(p => p.key === item.key)
   }
   function handleLogState() {
     window._plugin = [selectedPlugin, pluginState]
+    console.info('%c [prosemirror-dev-toolkit]: Property added to window._plugin', 'color: #b8e248')
     console.log(selectedPlugin)
     console.log(pluginState)
   }

@@ -16,6 +16,7 @@
     font-family: var(--font-sans);
     font-size: var(--font-medium);
     font-weight: 400;
+    letter-spacing: 1px;
     margin: 0;
     text-transform: uppercase;
   }

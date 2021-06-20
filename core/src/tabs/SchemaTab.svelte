@@ -13,14 +13,18 @@
     overflow: scroll;
     padding: 1em;
   }
+  :global(.hidden) {
+    visibility: hidden;
+  }
 </style>
 
 <script lang="ts">
   import { getContext } from 'svelte'
 
+  import { APP_CONTEXT } from '../context.ts'
   import SplitView from './SplitView.svelte'
   import TreeView from '../svelte-tree-view/Main.svelte'
-  import { APP_CONTEXT } from '../context.ts'
+  import Button from '../Button.svelte'
 
   const { view } = getContext(APP_CONTEXT)
 
@@ -32,6 +36,7 @@
   <div slot="left" class="left-panel">
     <div class="top-row">
       <h2>Nodes</h2>
+      <Button class="hidden">log</Button>
     </div>
     <TreeView
       class="tree-view"
@@ -45,6 +50,7 @@
   <div slot="right" class="right-panel">
     <div class="top-row">
       <h2>Marks</h2>
+      <Button class="hidden">log</Button>
     </div>
     <TreeView
       class="tree-view"

@@ -17,9 +17,6 @@
     flex-grow: 0;
     min-width: 200px;
     width: 200px;
-    & > .row + .row {
-      margin: 1em 0;
-    }
   }
   :global(.selection-btn) {
     height: 24px;
@@ -33,10 +30,10 @@
   }
   .no-marks {
     color: #85d9ef;
-    margin: 1em 0 0 1em;
+    margin: 0.5em 0 1em 1em;
   }
   :global(.tree-view) {
-    margin: 1em 0;
+    margin: 0.5em 0 1em 0;
   }
 </style>
 
@@ -106,7 +103,7 @@
     />
   </div>
   <div slot="right" class="right-panel">
-    <div class="top-row row">
+    <div class="top-row">
       <h2>Selection</h2>
       <Button class="selection-btn" on:click={handleExpandSelection}
         ><span class="caret-icon" class:expanded={expandedSelection} /></Button
@@ -118,7 +115,7 @@
     {:else}
       <TreeView class="tree-view" data={selection} maxDepth={10} />
     {/each}
-    <div class="row">
+    <div>
       <h2>Active marks</h2>
       {#if activeMarks.length === 0}
         <div class="no-marks">No active marks</div>
@@ -126,7 +123,7 @@
         <TreeView class="tree-view" data={activeMarks} />
       {/if}
     </div>
-    <div class="row">
+    <div>
       <h2>Document stats</h2>
       <TreeView
         class="tree-view"

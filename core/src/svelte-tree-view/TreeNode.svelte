@@ -120,6 +120,7 @@
   $: hasChildren = node.children.length > 0
 
   function handleLogNode() {
+    console.info('%c [prosemirror-dev-toolkit]: Property added to window._node', 'color: #b8e248')
     console.log(node.value)
     window._node = node.value
   }
