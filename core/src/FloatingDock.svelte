@@ -23,8 +23,19 @@
     top: 50%;
     width: 100%;
     height: 50%;
-    transition: left 0.2s ease-out 0s, top 0.2s ease-out 0s, width 0.2s ease-out 0s,
-      height 0.2s ease-out 0s;
+  }
+  .resizing-div {
+    position: absolute;
+    z-index: 2;
+    opacity: 0;
+    top: -5px;
+    height: 10px;
+    left: 0px;
+    width: 100%;
+    cursor: row-resize;
+  }
+  .container {
+    height: 100%;
   }
   .snapshot-btn {
     background: rgba(255, 162, 177, 0.6);
@@ -73,48 +84,73 @@
   import StructureTab from './tabs/structure/StructureTab.svelte'
   import SnapshotsTab from './tabs/snapshots/SnapshotsTab.svelte'
 
-  import { getContext } from 'svelte'
+  import { getContext, onMount } from 'svelte'
   import { APP_CONTEXT } from './context.ts'
   import { saveSnapshot } from './tabs/snapshots/snapshots.store.ts'
 
   export let onClose
 
   const { view } = getContext(APP_CONTEXT)
-  let openTab = 'state'
+  let openTab = 'state',
+    dockTop = 50,
+    dockHeight = 50
 
+  onMount(() => {
+    return () => {
+      document.removeEventListener('mousemove', dragMove)
+      document.removeEventListener('mouseup', dragEnd)
+    }
+  })
+
+  function handleResizeMouseDown(e: any) {
+    document.addEventListener('mousemove', dragMove)
+    document.addEventListener('mouseup', dragEnd)
+  }
+  function dragMove(evt: MouseEvent) {
+    evt.preventDefault()
+    dockTop = (100 * evt.clientY) / window.innerHeight
+    dockHeight = 100 * (1 - evt.clientY / window.innerHeight)
+  }
+  function dragEnd(evt: MouseEvent) {
+    evt.preventDefault()
+    document.removeEventListener('mousemove', dragMove)
+    document.removeEventListener('mouseup', dragEnd)
+  }
   function handleSaveSnapshot() {
     const snapshotName = prompt('Enter snapshot name', Date.now())
     if (snapshotName) {
       saveSnapshot(snapshotName, view.state.doc.toJSON())
     }
   }
-
   function handleClickTab(tab: string) {
     openTab = tab
   }
 </script>
 
 <div class="floating-dock-wrapper">
-  <div class="floating-dock">
-    <div>
-      <button class="snapshot-btn" on:click={handleSaveSnapshot}>Save snapshot</button>
-      <button class="close-btn" on:click={onClose}>X</button>
+  <div class="floating-dock" style={`top: ${dockTop}%; height: ${dockHeight}%;`}>
+    <div class="resizing-div" on:mousedown={handleResizeMouseDown} />
+    <div class="container">
+      <div>
+        <button class="snapshot-btn" on:click={handleSaveSnapshot}>Save snapshot</button>
+        <button class="close-btn" on:click={onClose}>X</button>
+      </div>
+      <TabsMenu onClickTab={handleClickTab} active={openTab} />
+      {#if openTab === 'state'}
+        <StateTab />
+      {:else if openTab === 'history'}
+        <HistoryTab />
+      {:else if openTab === 'plugins'}
+        <PluginsTab />
+      {:else if openTab === 'schema'}
+        <SchemaTab />
+      {:else if openTab === 'structure'}
+        <StructureTab />
+      {:else if openTab === 'snapshots'}
+        <SnapshotsTab />
+      {:else}
+        <p>nuting here</p>
+      {/if}
     </div>
-    <TabsMenu onClickTab={handleClickTab} active={openTab} />
-    {#if openTab === 'state'}
-      <StateTab />
-    {:else if openTab === 'history'}
-      <HistoryTab />
-    {:else if openTab === 'plugins'}
-      <PluginsTab />
-    {:else if openTab === 'schema'}
-      <SchemaTab />
-    {:else if openTab === 'structure'}
-      <StructureTab />
-    {:else if openTab === 'snapshots'}
-      <SnapshotsTab />
-    {:else}
-      <p>nuting here</p>
-    {/if}
   </div>
 </div>
