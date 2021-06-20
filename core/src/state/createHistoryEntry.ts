@@ -3,6 +3,7 @@ import { DOMSerializer } from 'prosemirror-model'
 import { prettyPrint } from 'html'
 
 import { diff } from './diff'
+import { addPropertiesToTransaction } from './transaction'
 import type { HistoryEntry } from './types'
 
 function buildSelection(selection: Selection) {
@@ -68,7 +69,7 @@ export function createHistoryEntry(
   return {
     id: Math.random().toString() + Math.random().toString(),
     state,
-    tr,
+    tr: addPropertiesToTransaction(tr),
     timestamp: tr.time,
     timeStr: formatTimestamp(tr.time),
     contentDiff,

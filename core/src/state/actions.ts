@@ -12,7 +12,7 @@ export function appendNewHistoryEntry(tr: Transaction, state: EditorState) {
 
   stateHistory.update(val => new Map(val.set(newEntry.id, newEntry)))
 
-  const isGroup = !tr.docChanged
+  const isGroup = !newEntry.contentDiff
   if (prevGroup?.isGroup && isGroup) {
     const newGroup = {
       isGroup,

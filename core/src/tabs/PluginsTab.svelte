@@ -3,7 +3,7 @@
     align-items: center;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 1em;
+    margin-bottom: 0.5em;
   }
   .left-panel {
     flex-grow: 0;
@@ -39,6 +39,7 @@
   import Button from '../Button.svelte'
 
   const { view } = getContext(APP_CONTEXT)
+  let expandPluginState = false
   let editorState = view.state
   let plugins = editorState.plugins
   let selectedPlugin = plugins[0]
@@ -59,6 +60,9 @@
   function handlePluginSelect(item: { key: string; value: string }) {
     selectedPlugin = plugins.find(p => p.key === item.key)
   }
+  function handleToggleExpand() {
+    expandPluginState = !expandPluginState
+  }
   function handleLogState() {
     window._plugin = [selectedPlugin, pluginState]
     console.info('%c [prosemirror-dev-toolkit]: Property added to window._plugin', 'color: #b8e248')
@@ -75,11 +79,22 @@
     {#if pluginState}
       <div class="top-row">
         <h2>Plugin state</h2>
-        <Button on:click={handleLogState}>log</Button>
+        <div>
+          <Button on:click={handleToggleExpand}>
+            {expandPluginState ? 'collapse' : 'expand'}
+          </Button>
+          <Button on:click={handleLogState}>log</Button>
+        </div>
       </div>
     {/if}
     {#if pluginState}
-      <TreeView data={pluginState} showLogButton showCopyButton maxDepth={12} />
+      <TreeView
+        data={pluginState}
+        showLogButton
+        showCopyButton
+        maxDepth={10}
+        shouldExpandNode={() => expandPluginState}
+      />
     {:else}
       <div class="empty-state">Plugin has no state</div>
     {/if}

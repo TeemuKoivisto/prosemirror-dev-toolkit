@@ -37,7 +37,7 @@
     } */
   }
   li + li {
-    margin-top: 0.3em;
+    margin-top: 0.25em;
   }
   .empty-block {
     visibility: hidden;
