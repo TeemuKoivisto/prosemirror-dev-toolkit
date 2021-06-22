@@ -1,7 +1,7 @@
 import { Schema } from 'prosemirror-model'
-import { Nodes, Marks } from './schema-types'
+import { ExampleSchema, Nodes, Marks } from './schema-types'
 
-export const schema = new Schema<Nodes, Marks>({
+export const schema: ExampleSchema = new Schema<Nodes, Marks>({
   nodes: {
     // :: NodeSpec The top level document node.
     doc: {

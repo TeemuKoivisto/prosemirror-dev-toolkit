@@ -7,7 +7,7 @@ import { FrontPage } from './pages/FrontPage'
 import { DevToolsPage } from './pages/DevToolsPage'
 
 export const Routes = () => (
-  <BrowserRouter>
+  <BrowserRouter basename={process.env.PUBLIC_URL}>
     <Switch>
       <WrappedRoute exact path="/" component={FrontPage}/>
       <WrappedRoute exact path="/dev-tools" component={DevToolsPage}/>

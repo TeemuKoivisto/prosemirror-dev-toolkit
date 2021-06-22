@@ -4,6 +4,7 @@ import { EditorState, Transaction } from 'prosemirror-state'
 import { exampleSetup } from 'prosemirror-example-setup'
 
 import { schema } from './schema'
+import { examplePlugin } from './example-plugin'
 
 import './editor.css'
 import './prosemirror-example-setup.css'
@@ -35,7 +36,7 @@ export function PMEditor(props: EditorProps) {
   function createEditorState() {
     return EditorState.create({
       schema,
-      plugins: exampleSetup({ schema }),
+      plugins: exampleSetup({ schema }).concat(examplePlugin()),
     })
   }
 

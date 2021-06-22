@@ -1,18 +1,7 @@
-import {
-  Fragment,
-  Mark as ProsemirrorMark,
-  MarkType,
-  Node as ProsemirrorNode,
-  NodeType,
-  ResolvedPos,
-  Schema,
-  Slice,
-} from 'prosemirror-model'
-import { EditorState, NodeSelection, Plugin, TextSelection, Transaction } from 'prosemirror-state'
-import { EditorView, NodeView } from 'prosemirror-view'
+import { Schema } from 'prosemirror-model'
 
+export type ExampleSchema = Schema<Nodes, Marks>
 export type Marks = 'bold' | 'code' | 'italic' | 'link'
-
 export type Nodes =
   | 'blockquote'
   | 'code_block'
