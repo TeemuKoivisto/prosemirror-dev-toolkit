@@ -57,7 +57,9 @@
 
   const { selected, colors, handleNodeClick } = getContext('doc-view')
 
-  export let node, startPos, isRoot
+  export let node,
+    startPos,
+    isRoot = false
 
   $: color = colors[node.type.name]
   $: name =
@@ -68,14 +70,13 @@
     .fill(undefined)
     .reduce((acc, _, idx) => {
       if (idx === 0) {
-        const incrementedStart = node.child(0).isBlock ? startPos + 1 : startPos
-        return [incrementedStart]
+        return [isRoot ? 0 : startPos + 1]
       }
       let prev = acc[idx - 1]
       let cur = node.child(idx - 1)
       return [...acc, prev + cur.nodeSize]
     }, [])
-  $: endPos = node.isBlock ? startPos + node.nodeSize - 1 : startPos + node.nodeSize
+  $: endPos = startPos + node.nodeSize
   $: inlineChildren = node.content.content.every(n => n.isInline)
 </script>
 
