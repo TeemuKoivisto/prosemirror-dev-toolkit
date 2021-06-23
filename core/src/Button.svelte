@@ -19,7 +19,7 @@
 </style>
 
 <script lang="ts">
-  export let selected
+  export let selected = false
   let buttonProps = {
     class: [$$restProps.class]
   }

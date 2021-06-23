@@ -16,11 +16,11 @@ export function createFullSelection(selection: Selection) {
   return defaultProperties.concat(resolvedPosProperties).reduce((acc, key) => {
     // @ts-ignore
     let val = selection[key]
-    if (resolvedPosProperties.includes(key)) {
+    if (val && resolvedPosProperties.includes(key)) {
       const additionalProperties = {}
       resolvedPosSubProperties.forEach(subKey => {
         // @ts-ignore
-        additionalProperties[subKey] = selection[key][subKey]
+        additionalProperties[subKey] = val[subKey]
       })
       val = { ...val, ...additionalProperties }
     }

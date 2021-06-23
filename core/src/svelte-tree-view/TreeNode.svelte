@@ -109,7 +109,15 @@
 
   export let id: string
 
-  const { treeMapStore, props, getNode, toggleCollapse, formatValue } = getContext('app')
+  const {
+    treeMapStore,
+    propsStore,
+    rootElementStore,
+    getNode,
+    toggleCollapse,
+    expandAllNodesToNode,
+    formatValue
+  } = getContext('app')
   $: node = getNode(id)
   treeMapStore.subscribe(value => {
     const n = value.get(id)
@@ -118,6 +126,7 @@
     }
   })
   $: hasChildren = node.children.length > 0
+  $: valueComponent = $propsStore.valueComponent
 
   function handleLogNode() {
     console.info('%c [prosemirror-dev-toolkit]: Property added to window._node', 'color: #b8e248')
@@ -130,11 +139,15 @@
   function handleToggleCollapse() {
     if (hasChildren) {
       toggleCollapse(node.id)
+    } else if (node.recursiveOfId) {
+      expandAllNodesToNode(node.recursiveOfId)
+      const el = $rootElementStore.querySelector(`li[data-tree-id="${node.recursiveOfId}"]`)
+      if (el) el.scrollIntoView()
     }
   }
 </script>
 
-<li class="row" class:collapsed={node.collapsed && hasChildren}>
+<li class="row" class:collapsed={node.collapsed && hasChildren} data-tree-id={node.id}>
   {#if hasChildren}
     <button
       class={`arrow-btn ${node.collapsed ? 'collapsed' : ''}`}
@@ -158,10 +171,11 @@
     class:has-children={hasChildren}
     on:click={handleToggleCollapse}
   >
-    {#if props.valueComponent}
+    {#if valueComponent}
       <svelte:component
-        this={props.valueComponent}
+        this={valueComponent}
         value={node.value}
+        {node}
         defaultFormatter={val => formatValue(val, node)}
       />
     {:else}
@@ -169,10 +183,10 @@
     {/if}
   </div>
   <div class="buttons">
-    {#if props.showLogButton}
+    {#if $propsStore.showLogButton}
       <button class="log-copy-button" on:click={handleLogNode}>log</button>
     {/if}
-    {#if props.showCopyButton}
+    {#if $propsStore.showCopyButton}
       <button class="log-copy-button" on:click={handleCopyNodeToClipboard}>copy</button>
     {/if}
   </div>
@@ -181,7 +195,7 @@
   <li class="row">
     <ul style={`padding-left: 0.875em`}>
       {#each node.children as child}
-        <svelte:self id={child.id} {props} />
+        <svelte:self id={child.id} />
       {/each}
     </ul>
   </li>

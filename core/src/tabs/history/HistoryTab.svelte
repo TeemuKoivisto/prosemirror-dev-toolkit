@@ -103,8 +103,11 @@
               showLogButton
               showCopyButton
               valueComponent={DiffValue}
-              mapChildren={mapDocDeltaChildren}
-              shouldExpandNode={() => true}
+              recursionOpts={{
+                maxDepth: 12,
+                mapChildren: mapDocDeltaChildren,
+                shouldExpandNode: () => true
+              }}
             />
           </div>
         {/if}
@@ -118,8 +121,10 @@
               class="tree-view"
               data={selectedEntry.selectionDiff}
               valueComponent={DiffValue}
-              shouldExpandNode={() => true}
-              mapChildren={mapSelectionDeltaChildren}
+              recursionOpts={{
+                mapChildren: mapSelectionDeltaChildren,
+                shouldExpandNode: () => true
+              }}
             />
           </div>
         {/if}
@@ -150,9 +155,11 @@
               data={selectedEntry.tr}
               showLogButton
               showCopyButton
-              maxDepth={14}
-              omitKeys={['schema', 'contentMatch']}
-              shouldExpandNode={() => false}
+              recursionOpts={{
+                maxDepth: 12,
+                omitKeys: ['schema', 'contentMatch'],
+                shouldExpandNode: () => false
+              }}
             />
           {/if}
         </div>

@@ -44,7 +44,8 @@
   }
   function handleClickLogNode() {
     console.log(selectedNode)
-    window._selectedNode = selectedNode
+    window._node = selectedNode
+    console.info('%c [prosemirror-dev-toolkit]: Property added to window._node', 'color: #b8e248')
   }
 </script>
 
@@ -61,6 +62,12 @@
       <h2>Node info</h2>
       <Button on:click={handleClickLogNode}>log</Button>
     </div>
-    <TreeView class="m-top" data={jsonNode} shouldExpandNode={() => true} />
+    <TreeView
+      class="m-top"
+      data={jsonNode}
+      recursionOpts={{
+        shouldExpandNode: () => true
+      }}
+    />
   </div>
 </SplitView>

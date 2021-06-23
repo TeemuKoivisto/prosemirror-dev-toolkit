@@ -43,8 +43,10 @@
       data={nodes}
       showLogButton
       showCopyButton
-      maxDepth={6}
-      omitKeys={['nodes', 'marks', 'topNodeType']}
+      recursionOpts={{
+        maxDepth: 6,
+        omitKeys: ['nodes', 'marks', 'topNodeType']
+      }}
     />
   </div>
   <div slot="right" class="right-panel">
@@ -57,8 +59,10 @@
       data={marks}
       showLogButton
       showCopyButton
-      maxDepth={6}
-      omitKeys={['nodes', 'marks', 'topNodeType']}
+      recursionOpts={{
+        maxDepth: 6,
+        omitKeys: ['nodes', 'marks', 'topNodeType']
+      }}
     />
   </div>
 </SplitView>

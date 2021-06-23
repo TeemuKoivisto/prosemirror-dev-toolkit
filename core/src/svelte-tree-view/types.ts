@@ -1,20 +1,25 @@
-import { SvelteComponentTyped } from 'svelte'
+import { SvelteComponent, SvelteComponentTyped } from 'svelte'
 
-interface TreeViewProps {
+export interface TreeViewProps {
   data: any
   base16theme?: { [key: string]: string }
   leftIndent?: number
   showLogButton?: boolean
   showCopyButton?: boolean
-  sortObjectValues?: 'ascending' | 'descending'
+  valueComponent?: SvelteComponentTyped<{
+    value: any
+    node: ITreeNode
+    defaultFormatter?: (val: any) => string | undefined
+  }>
+  recursionOpts?: TreeRecursionOpts
   valueFormatter?: (val: any, n: ITreeNode) => string | undefined
-  shouldExpandNode?: (n: ITreeNode) => boolean
-  mapChildren?: (val: any, type: ValueType, parent: ITreeNode) => [string, any][] | undefined
 }
 
 export interface TreeRecursionOpts {
-  maxDepth: number
-  omitKeys: string[]
+  maxDepth?: number
+  omitKeys?: string[]
+  stopRecursion?: boolean
+  isRecursiveNode?: (n: ITreeNode, iteratedValues: Map<any, ITreeNode>) => boolean
   shouldExpandNode?: (n: ITreeNode) => boolean
   mapChildren?: (val: any, type: ValueType, parent: ITreeNode) => [string, any][] | undefined
 }
@@ -31,6 +36,7 @@ export interface ITreeNode {
   type: ValueType
   path: number[]
   parentId: string | null
+  recursiveOfId: string | null
   children: ITreeNode[]
 }
 

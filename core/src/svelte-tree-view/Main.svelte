@@ -10,103 +10,81 @@
 </style>
 
 <script lang="ts">
-  import { setContext } from 'svelte'
-  import { get, writable } from 'svelte/store'
+  import { getContext, onMount } from 'svelte'
+  import { get } from 'svelte/store'
+
   import { createNode, recurseObjectProperties, getValueType } from './tree-utils.ts'
+  import { createContext } from './context.ts'
 
   import TreeNode from './TreeNode.svelte'
 
   export let data,
-    omitKeys = [],
-    maxDepth = 10,
-    mapChildren,
-    valueFormatter,
-    valueComponent,
-    shouldExpandNode,
+    leftIndent = 4,
     showLogButton = false,
-    showCopyButton = false
+    showCopyButton = false,
+    valueComponent = undefined,
+    recursionOpts = {},
+    valueFormatter = undefined
 
-  const treeMapStore = writable<Map<string, ITreeNode | null>>(new Map())
-  const treeStore = writable<ITreeNode>(createNode(0, 'root', [], 0, null))
-
-  function getNode(id: string) {
-    return get(treeMapStore).get(id)
-  }
-  function toggleCollapse(id: string) {
-    const node = getNode(id)
-    if (node) {
-      treeMapStore.update(m => new Map(m.set(node.id, { ...node, collapsed: !node.collapsed })))
-    } else {
-      console.warn(`Attempted to collapse non-existent node: ${id}`)
-    }
-  }
-  function formatValue(val: any, node: ITreeNode) {
-    const customFormat = valueFormatter ? valueFormatter(val, node) : undefined
-    if (customFormat) {
-      return customFormat
-    }
-    switch (node.type) {
-      case 'array':
-        return `[] ${val.length} items`
-      case 'object':
-        return `{} ${Object.keys(val).length} keys`
-      case 'map':
-      case 'set':
-        return `() ${val.size} entries`
-      case 'string':
-        return `"${val}"`
-      case 'boolean':
-        return val ? 'true' : 'false'
-      default:
-        return val
-    }
-  }
-
-  setContext('app', {
-    treeMapStore,
-    treeStore,
-    props: {
-      omitKeys,
-      maxDepth,
-      mapChildren,
-      valueFormatter,
-      valueComponent,
-      shouldExpandNode,
-      showLogButton,
-      showCopyButton
+  let rootElement: HTMLElement | null = null
+  let props = {
+    leftIndent,
+    showLogButton,
+    showCopyButton,
+    valueComponent,
+    recursionOpts: {
+      maxDepth: 10,
+      omitKeys: [],
+      stopRecursion: false,
+      shouldExpandNode: () => false,
+      ...recursionOpts
     },
-    getNode,
-    toggleCollapse,
-    formatValue
-  })
-
+    valueFormatter
+  }
+  $: {
+    props = {
+      leftIndent,
+      showLogButton,
+      showCopyButton,
+      valueComponent,
+      recursionOpts: {
+        maxDepth: 10,
+        omitKeys: [],
+        stopRecursion: false,
+        shouldExpandNode: () => false,
+        ...recursionOpts
+      },
+      valueFormatter
+    }
+  }
   $: {
     const treeMap = new Map()
     const oldTreeMap = get(treeMapStore)
-    const newTree = recurseObjectProperties(-1, 'root', data, 0, null, treeMap, oldTreeMap, {
-      mapChildren,
-      shouldExpandNode,
-      maxDepth,
-      omitKeys
-    })
+    const iteratedValues = new Map()
+    const newTree = recurseObjectProperties(
+      -1,
+      'root',
+      data,
+      -1,
+      null,
+      treeMap,
+      oldTreeMap,
+      iteratedValues,
+      props.recursionOpts
+    )
     treeMapStore.set(treeMap)
     treeStore.set(newTree)
   }
-  // $: {
-  //   let newProps = {
-  //     omitKeys,
-  //     maxDepth,
-  //     valueFormatter,
-  //     valueComponent,
-  //     shouldExpandNode,
-  //     showLogButton,
-  //     showCopyButton
-  //   }
-  //   console.log('new PROPS', newProps)
-  // }
+
+  createContext(props)
+  const { treeMapStore, treeStore, rootElementStore } = getContext('app')
+
+  onMount(() => {
+    rootElementStore.set(rootElement)
+  })
 </script>
 
-<section class={$$props.class}>
+<section class={$$props.class} bind:this={rootElement}>
   {#each $treeStore.children as child}
     <TreeNode id={child.id} />
   {/each}

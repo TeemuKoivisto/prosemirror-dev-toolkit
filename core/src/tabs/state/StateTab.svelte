@@ -113,7 +113,13 @@
     {#each [...[]] as _}
       <div />
     {:else}
-      <TreeView class="tree-view" data={selection} maxDepth={10} />
+      <TreeView
+        class="tree-view"
+        data={selection}
+        recursionOpts={{
+          maxDepth: 10
+        }}
+      />
     {/each}
     <div>
       <h2>Active marks</h2>

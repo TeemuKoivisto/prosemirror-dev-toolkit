@@ -40,6 +40,11 @@
 
   const { view } = getContext(APP_CONTEXT)
   let expandPluginState = false
+  let recursionOpts = {
+    maxDepth: 10,
+    stopRecursion: true,
+    shouldExpandNode: () => expandPluginState
+  }
   let editorState = view.state
   let plugins = editorState.plugins
   let selectedPlugin = plugins[0]
@@ -62,6 +67,7 @@
   }
   function handleToggleExpand() {
     expandPluginState = !expandPluginState
+    recursionOpts = { ...recursionOpts }
   }
   function handleLogState() {
     window._plugin = [selectedPlugin, pluginState]
@@ -88,13 +94,7 @@
       </div>
     {/if}
     {#if pluginState}
-      <TreeView
-        data={pluginState}
-        showLogButton
-        showCopyButton
-        maxDepth={10}
-        shouldExpandNode={() => expandPluginState}
-      />
+      <TreeView data={pluginState} showLogButton showCopyButton {recursionOpts} />
     {:else}
       <div class="empty-state">Plugin has no state</div>
     {/if}
