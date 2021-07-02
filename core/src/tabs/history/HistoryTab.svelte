@@ -50,6 +50,13 @@
   let selectedEntry = undefined,
     showTr = false
 
+  let expandTrTreeView = false
+  let transactionRecursionOpts = {
+    maxDepth: 10,
+    stopCircularRecursion: true,
+    omitKeys: ['schema'],
+    shouldExpandNode: () => expandTrTreeView
+  }
   $: listItems = $shownHistoryGroups.map((g: HistoryGroup) => ({
     isGroup: g.isGroup,
     topEntry: $stateHistory.get(g.topEntryId),
@@ -76,6 +83,10 @@
         val.map((g, idx) => (idx !== groupIdx ? g : { ...g, expanded: !g.expanded }))
       )
     }
+  }
+  function handleToggleExpandTrTreeView() {
+    expandTrTreeView = !expandTrTreeView
+    transactionRecursionOpts = { ...transactionRecursionOpts }
   }
 </script>
 
@@ -145,6 +156,9 @@
                 {showTr ? 'hide' : 'show'}
               </Button>
               {#if showTr}
+                <Button on:click={handleToggleExpandTrTreeView}>
+                  {expandTrTreeView ? 'collapse' : 'expand'}
+                </Button>
                 <Button on:click={handleLogTr}>log</Button>
               {/if}
             </div>
@@ -155,11 +169,7 @@
               data={selectedEntry.tr}
               showLogButton
               showCopyButton
-              recursionOpts={{
-                maxDepth: 12,
-                omitKeys: ['schema', 'contentMatch'],
-                shouldExpandNode: () => false
-              }}
+              recursionOpts={transactionRecursionOpts}
             />
           {/if}
         </div>

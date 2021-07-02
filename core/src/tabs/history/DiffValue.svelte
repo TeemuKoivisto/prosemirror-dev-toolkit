@@ -18,6 +18,9 @@
     text-indent: 0;
     min-height: 1ex;
   }
+  .updated {
+    word-break: break-all;
+  }
   .updated .added {
     background: #eaea37;
   }

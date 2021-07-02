@@ -18,7 +18,7 @@ export function createNode(
     type: getValueType(value),
     path,
     parentId: parent ? parent.id : null,
-    recursiveOfId: null,
+    circularOfId: null,
     children: []
   }
 }
@@ -30,6 +30,8 @@ export function getValueType(value: any): ValueType {
     return 'map'
   } else if (value instanceof Set) {
     return 'set'
+  } else if (value instanceof Date) {
+    return 'date'
   } else if (value === null) {
     return 'null'
   } else {
@@ -89,15 +91,15 @@ function shouldRecurseChildren(
   iteratedValues: Map<Object, ITreeNode>,
   opts: TreeRecursionOpts
 ) {
-  if (!opts.stopRecursion) {
+  if (!opts.stopCircularRecursion) {
     return true
-  } else if (opts.isRecursiveNode) {
-    return opts.isRecursiveNode(node, iteratedValues)
+  } else if (opts.isCircularNode) {
+    return opts.isCircularNode(node, iteratedValues)
   } else if (node.type === 'object' || node.type === 'array') {
     const existingNodeWithValue = iteratedValues.get(node.value)
     if (existingNodeWithValue) {
       // console.log(`node with key ${node.key} already iterated`, node.value)
-      node.recursiveOfId = existingNodeWithValue.id
+      node.circularOfId = existingNodeWithValue.id
       return false
     }
     iteratedValues.set(node.value, node)

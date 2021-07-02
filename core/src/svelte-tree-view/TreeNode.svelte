@@ -55,6 +55,7 @@
   .node-value {
     color: rgb(184, 226, 72);
     margin-right: 0.5em;
+    word-break: break-all;
     &[data-type='number'] {
       color: rgb(253, 153, 60);
     }
@@ -139,10 +140,9 @@
   function handleToggleCollapse() {
     if (hasChildren) {
       toggleCollapse(node.id)
-    } else if (node.recursiveOfId) {
-      expandAllNodesToNode(node.recursiveOfId)
-      const el = $rootElementStore.querySelector(`li[data-tree-id="${node.recursiveOfId}"]`)
-      if (el) el.scrollIntoView()
+    } else if (node.circularOfId) {
+      expandAllNodesToNode(node.circularOfId)
+      $rootElementStore.querySelector(`li[data-tree-id="${node.circularOfId}"]`)?.scrollIntoView()
     }
   }
 </script>

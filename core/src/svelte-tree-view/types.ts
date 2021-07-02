@@ -18,8 +18,8 @@ export interface TreeViewProps {
 export interface TreeRecursionOpts {
   maxDepth?: number
   omitKeys?: string[]
-  stopRecursion?: boolean
-  isRecursiveNode?: (n: ITreeNode, iteratedValues: Map<any, ITreeNode>) => boolean
+  stopCircularRecursion?: boolean
+  isCircularNode?: (n: ITreeNode, iteratedValues: Map<any, ITreeNode>) => boolean
   shouldExpandNode?: (n: ITreeNode) => boolean
   mapChildren?: (val: any, type: ValueType, parent: ITreeNode) => [string, any][] | undefined
 }
@@ -36,7 +36,7 @@ export interface ITreeNode {
   type: ValueType
   path: number[]
   parentId: string | null
-  recursiveOfId: string | null
+  circularOfId: string | null
   children: ITreeNode[]
 }
 
@@ -44,6 +44,7 @@ export type ValueType =
   | 'array'
   | 'map'
   | 'set'
+  | 'date'
   | 'object'
   | 'function'
   | 'string'

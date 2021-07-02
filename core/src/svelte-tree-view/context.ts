@@ -41,12 +41,14 @@ export const createContext = (props: TreeViewProps) => {
     }
     switch (node.type) {
       case 'array':
-        return `${node.recursiveOfId ? 'recursive' : ''} [] ${val.length} items`
+        return `${node.circularOfId ? 'circular' : ''} [] ${val.length} items`
       case 'object':
-        return `${node.recursiveOfId ? 'recursive' : ''} {} ${Object.keys(val).length} keys`
+        return `${node.circularOfId ? 'circular' : ''} {} ${Object.keys(val).length} keys`
       case 'map':
       case 'set':
-        return `${node.recursiveOfId ? 'recursive' : ''} () ${val.size} entries`
+        return `${node.circularOfId ? 'circular' : ''} () ${val.size} entries`
+      case 'date':
+        return `${val.toISOString()}`
       case 'string':
         return `"${val}"`
       case 'boolean':

@@ -42,7 +42,7 @@
   let expandPluginState = false
   let recursionOpts = {
     maxDepth: 10,
-    stopRecursion: true,
+    stopCircularRecursion: true,
     shouldExpandNode: () => expandPluginState
   }
   let editorState = view.state
