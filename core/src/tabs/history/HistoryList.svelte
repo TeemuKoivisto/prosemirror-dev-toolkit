@@ -14,7 +14,7 @@
       color: white;
     }
     &:active {
-      background: rgba(255,162,177,.6);
+      background: rgba(255, 162, 177, 0.6);
     }
     &.selected {
       background: rgba(255, 162, 177, 0.4);

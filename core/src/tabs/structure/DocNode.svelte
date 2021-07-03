@@ -1,7 +1,7 @@
 <style lang="scss">
   .wrapper {
-    border-left: 1px solid #606178;
-    border-right: 1px solid #606178;
+    border-left: 1px solid #363755;
+    border-right: 1px solid #363755;
     display: flex;
     flex-direction: column;
     padding: 0 12px;

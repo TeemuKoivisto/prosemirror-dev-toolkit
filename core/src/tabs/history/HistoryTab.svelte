@@ -152,15 +152,15 @@
           <div class="title-container">
             <h2>Transaction</h2>
             <div>
-              <Button on:click={toggleShowTr}>
-                {showTr ? 'hide' : 'show'}
-              </Button>
               {#if showTr}
                 <Button on:click={handleToggleExpandTrTreeView}>
                   {expandTrTreeView ? 'collapse' : 'expand'}
                 </Button>
                 <Button on:click={handleLogTr}>log</Button>
               {/if}
+              <Button on:click={toggleShowTr}>
+                {showTr ? 'hide' : 'show'}
+              </Button>
             </div>
           </div>
           {#if showTr}
