@@ -29,7 +29,7 @@
 <script lang="ts">
   import { getContext } from 'svelte'
   import { writable } from 'svelte/store'
-  import { Plugin } from 'prosemirror-state'
+  import type { Plugin } from 'prosemirror-state'
   import { latestEntry } from '../state/stateHistory.store.ts'
 
   import { APP_CONTEXT } from '../context.ts'

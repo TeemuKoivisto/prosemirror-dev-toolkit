@@ -27,7 +27,11 @@ export default {
       sourcemap: isProduction
     }
   ],
-  external: [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})],
+  external: [
+    ...Object.keys(pkg.dependencies || {}),
+    // ...Object.keys(pkg.devDependencies || {}),
+    ...Object.keys(pkg.peerDependencies || {})
+  ],
   plugins: [
     alias({
       entries: [
@@ -36,9 +40,7 @@ export default {
       ]
     }),
     commonjs(),
-    typescript({
-      exclude: ['**/*.{spec,test}.{js,ts}']
-    }),
+    typescript(),
     svelte({
       compilerOptions: {
         // enable run-time checks when not in production

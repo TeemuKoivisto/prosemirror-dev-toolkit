@@ -30,7 +30,7 @@
 
 <script lang="ts">
   import { onMount, setContext } from 'svelte'
-  import { EditorView } from 'prosemirror-view'
+  import type { EditorView } from 'prosemirror-view'
 
   import FloatingBtn from './FloatingBtn.svelte'
   import FloatingDock from './FloatingDock.svelte'
