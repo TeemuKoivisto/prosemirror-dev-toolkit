@@ -1,19 +1,34 @@
 <style lang="css">
   .floating-btn {
+    background: #363755;
+    border: 0;
+    border-radius: 50%;
+    box-shadow: 0 0 30px rgb(0 0 0 / 30%);
+    cursor: pointer;
     position: fixed;
+    padding: 4px 6px;
+    transition: opacity 0.3s;
+    -webkit-transition: opacity 0.3s;
+    z-index: 99999;
+  }
+  .floating-btn.bottom-right {
     bottom: 16px;
     right: 16px;
-    background: #363755;
-    box-shadow: 0 0 30px rgb(0 0 0 / 30%);
-    border-radius: 50%;
-    padding: 4px 6px;
-    -webkit-transition: opacity 0.3s;
-    transition: opacity 0.3s;
-    z-index: 99999;
+  }
+  .floating-btn.bottom-left {
+    bottom: 16px;
+    left: 16px;
+  }
+  .floating-btn.top-right {
+    top: 16px;
+    right: 16px;
+  }
+  .floating-btn.top-left {
+    top: 16px;
+    left: 16px;
   }
   .floating-btn:hover {
     opacity: 0.7;
-    cursor: pointer;
   }
   .floating-btn > svg {
     width: 34px;
@@ -24,10 +39,10 @@
 </style>
 
 <script lang="ts">
-  export let onClick
+  export let buttonPosition
 </script>
 
-<div class="floating-btn" on:click={onClick}>
+<button class={`floating-btn ${buttonPosition}`} on:click>
   <svg
     width="530"
     height="530"
@@ -95,4 +110,4 @@
       />
     </defs>
   </svg>
-</div>
+</button>

@@ -5,6 +5,8 @@ import {
   unsubscribeDispatchTransaction
 } from './state/subscribeToTransactions'
 
+import { DevToolsOpts } from './types'
+
 const DEVTOOLS_CLASS_NAME = '__prosemirror-dev-toolkit__'
 
 function createOrFindPlace() {
@@ -19,12 +21,13 @@ function createOrFindPlace() {
   return place
 }
 
-export function applyDevTools(view: EditorView) {
+export function applyDevTools(view: EditorView, opts: DevToolsOpts = {}) {
   const place = createOrFindPlace()
   new DevTools({
     target: place,
     props: {
-      view
+      view,
+      ...opts
     }
   })
   subscribeToDispatchTransaction(view)

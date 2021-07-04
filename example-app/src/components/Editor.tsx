@@ -62,7 +62,10 @@ export function Editor(props: Props) {
     if (useDevTools) {
       applyDevTools(view)
     } else {
-      applyDevToolkit(view)
+      applyDevToolkit(view, {
+        devToolsExpanded: true,
+        buttonPosition: 'bottom-left',
+      })
     }
   }
   return (

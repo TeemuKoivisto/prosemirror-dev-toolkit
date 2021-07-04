@@ -1,10 +1,3 @@
-declare global {
-  interface Window {
-    requestIdleCallback?: (callback: (time: number) => void) => void
-    cancelIdleCallback?: (callback: (time: number) => void) => void
-  }
-}
-
 declare module 'html' {
   // indent_size (default 4)          — indentation size,
   // indent_char (default space)      — character to indent with,

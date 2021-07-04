@@ -6,9 +6,11 @@
   import FloatingDock from './FloatingDock.svelte'
 
   import { APP_CONTEXT } from './context.ts'
+  import type { ButtonPosition } from './types.ts'
 
-  export let view: EditorView
-  let devToolsExpanded = true
+  export let view: EditorView,
+    devToolsExpanded = false,
+    buttonPosition: ButtonPosition = 'bottom-right'
 
   setContext(APP_CONTEXT, {
     view
@@ -40,5 +42,5 @@
 {#if devToolsExpanded}
   <FloatingDock onClose={handleFloatingDockClose} />
 {:else}
-  <FloatingBtn onClick={handleFloatingBtnClick} />
+  <FloatingBtn on:click={handleFloatingBtnClick} {buttonPosition} />
 {/if}

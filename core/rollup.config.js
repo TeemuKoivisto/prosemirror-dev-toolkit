@@ -36,7 +36,9 @@ export default {
       ]
     }),
     commonjs(),
-    typescript(),
+    typescript({
+      exclude: ['**/*.{spec,test}.{js,ts}']
+    }),
     svelte({
       compilerOptions: {
         // enable run-time checks when not in production
