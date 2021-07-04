@@ -126,6 +126,8 @@ export function recurseObjectProperties(
   // Maintain the same expanded/collapsed toggle for a node in this path/id
   if (oldNode) {
     node.collapsed = oldNode.collapsed
+  } else if (opts.shouldExpandNode) {
+    node.collapsed = !opts.shouldExpandNode(node)
   }
 
   treeMap.set(node.id, node)
@@ -150,8 +152,5 @@ export function recurseObjectProperties(
       .filter(n => n !== null) as ITreeNode[]
   }
 
-  if (opts.shouldExpandNode) {
-    node.collapsed = !opts.shouldExpandNode(node)
-  }
   return node
 }
