@@ -1,7 +1,7 @@
 import { get } from 'svelte/store'
 import { EditorState, Transaction } from 'prosemirror-state'
 
-import { stateHistory, shownHistoryGroups } from './stateHistory.store'
+import { stateHistory, shownHistoryGroups, latestEntry } from './stateHistory.store'
 import { createHistoryEntry } from './createHistoryEntry'
 
 export function appendNewHistoryEntry(tr: Transaction, state: EditorState) {
@@ -11,6 +11,7 @@ export function appendNewHistoryEntry(tr: Transaction, state: EditorState) {
   const newEntry = createHistoryEntry(tr, state, oldEntry)
 
   stateHistory.update(val => new Map(val.set(newEntry.id, newEntry)))
+  latestEntry.set(newEntry)
 
   const isGroup = !newEntry.contentDiff
   if (prevGroup?.isGroup && isGroup) {

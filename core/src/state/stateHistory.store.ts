@@ -4,6 +4,4 @@ import type { HistoryEntry, HistoryGroup } from './types'
 
 export const stateHistory = writable(new Map<string, HistoryEntry>())
 export const shownHistoryGroups = writable([] as HistoryGroup[])
-export const latestEntry = derived([stateHistory, shownHistoryGroups], ([entryMap, groups]) =>
-  entryMap.get(groups[0]?.topEntryId || '')
-)
+export const latestEntry = writable<HistoryEntry | undefined>(undefined)

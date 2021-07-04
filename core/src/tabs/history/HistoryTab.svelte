@@ -64,7 +64,7 @@
     expanded: g.expanded
   }))
   latestEntry.subscribe(v => {
-    selectedEntry = v
+    if (v) selectedEntry = v
   })
 
   function toggleShowTr() {
@@ -75,6 +75,15 @@
     console.log(selectedEntry.tr)
     window._tr = selectedEntry.tr
   }
+  /**
+   * Handles the clicks of the history entries.
+   * 
+   * Sets the clicked entry as the selectedEntry but in the case of topNode, meaning
+   * in a selection group (shown with [x] number) the entry has a sublist of entries
+   * where the previous is duplicated as the first entry. Therefore on expanding the group
+   * selecting the first sub-entry, otherwise collapsing but still keeping the topNode selected.
+   * Kinda confusing but eh.
+   */
   function handleEntrySelect(id: string, groupIdx: number, wasTopNode: boolean) {
     selectedEntry = $stateHistory.get(id)
     const group = listItems[groupIdx]
