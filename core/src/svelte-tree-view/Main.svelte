@@ -27,16 +27,19 @@
     valueFormatter = undefined
 
   let rootElement: HTMLElement | null = null
+  const defaultRecursionOpts = {
+    maxDepth: 10,
+    omitKeys: [],
+    stopRecursion: false,
+    shouldExpandNode: () => false
+  }
   let props = {
     leftIndent,
     showLogButton,
     showCopyButton,
     valueComponent,
     recursionOpts: {
-      maxDepth: 10,
-      omitKeys: [],
-      stopRecursion: false,
-      shouldExpandNode: () => false,
+      ...defaultRecursionOpts,
       ...recursionOpts
     },
     valueFormatter
@@ -47,17 +50,18 @@
       showLogButton,
       showCopyButton,
       valueComponent,
-      recursionOpts: {
-        maxDepth: 10,
-        omitKeys: [],
-        stopRecursion: false,
-        shouldExpandNode: () => false,
-        ...recursionOpts
-      },
-      valueFormatter
+      valueFormatter,
+      recursionOpts: props.recursionOpts
     }
+    // todo update props inside context?
   }
   $: {
+    const nodeRecursionOpts = {
+      ...defaultRecursionOpts,
+      ...recursionOpts
+    }
+    const recomputeExpandNode =
+      props.recursionOpts.shouldExpandNode !== nodeRecursionOpts.shouldExpandNode
     const treeMap = new Map()
     const oldTreeMap = get(treeMapStore)
     const iteratedValues = new Map()
@@ -70,10 +74,12 @@
       treeMap,
       oldTreeMap,
       iteratedValues,
-      props.recursionOpts
+      recomputeExpandNode,
+      nodeRecursionOpts
     )
     treeMapStore.set(treeMap)
     treeStore.set(newTree)
+    props.recursionOpts = nodeRecursionOpts
   }
 
   createContext(props)

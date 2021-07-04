@@ -67,7 +67,7 @@
   }
   function handleToggleExpand() {
     expandPluginState = !expandPluginState
-    recursionOpts = { ...recursionOpts }
+    recursionOpts = { ...recursionOpts, shouldExpandNode: () => expandPluginState }
   }
   function handleLogState() {
     window._plugin = [selectedPlugin, pluginState]

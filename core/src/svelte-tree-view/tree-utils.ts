@@ -116,6 +116,7 @@ export function recurseObjectProperties(
   treeMap: Map<string, ITreeNode>,
   oldTreeMap: Map<string, ITreeNode>,
   iteratedValues: Map<Object, ITreeNode>,
+  recomputeExpandNode: boolean,
   opts: TreeRecursionOpts
 ): ITreeNode | null {
   if (opts.omitKeys?.includes(key) || (opts.maxDepth && depth >= opts.maxDepth)) {
@@ -124,7 +125,8 @@ export function recurseObjectProperties(
   const node = createNode(index, key, value, depth, parent)
   const oldNode = oldTreeMap.get(node.id)
   // Maintain the same expanded/collapsed toggle for a node in this path/id
-  if (oldNode) {
+  // EXCEPT when the shouldExpandNode prop is changed...
+  if (oldNode && !recomputeExpandNode) {
     node.collapsed = oldNode.collapsed
   } else if (opts.shouldExpandNode) {
     node.collapsed = !opts.shouldExpandNode(node)
@@ -146,6 +148,7 @@ export function recurseObjectProperties(
           treeMap,
           oldTreeMap,
           iteratedValues,
+          recomputeExpandNode,
           opts
         )
       )

@@ -86,7 +86,10 @@
   }
   function handleToggleExpandTrTreeView() {
     expandTrTreeView = !expandTrTreeView
-    transactionRecursionOpts = { ...transactionRecursionOpts }
+    transactionRecursionOpts = {
+      ...transactionRecursionOpts,
+      shouldExpandNode: () => expandTrTreeView
+    }
   }
 </script>
 
