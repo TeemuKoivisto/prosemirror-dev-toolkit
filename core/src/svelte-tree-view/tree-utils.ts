@@ -39,6 +39,7 @@ export function getValueType(value: any): ValueType {
   }
 }
 
+// From the old dev-tools, originally from redux-dev-tools
 // case 'Object':
 //   case 'Error':
 //   case 'Array':
@@ -60,23 +61,27 @@ export function getValueType(value: any): ValueType {
 //     return () => 'undefined';
 //   case 'Function':
 //   case 'Symbol':
-export function objType(obj: any) {
-  const type = Object.prototype.toString.call(obj).slice(8, -1)
-  if (type === 'Object') {
-    if (typeof obj[Symbol.iterator] === 'function') {
-      return 'Iterable'
-    }
-    return obj.constructor.name
-  }
-  return type
-}
+// export function objType(obj: any) {
+//   const type = Object.prototype.toString.call(obj).slice(8, -1)
+//   if (type === 'Object') {
+//     if (typeof obj[Symbol.iterator] === 'function') {
+//       return 'Iterable'
+//     }
+//     return obj.constructor.name
+//   }
+//   return type
+// }
 
 function getChildren(value: any): [string, any][] {
   switch (getValueType(value)) {
     case 'array':
       return value.map((v: any, i: number) => [i.toString(), v])
     case 'map':
-      return Array.from(value.entries())
+      const entries: [any, any][] = Array.from(value.entries())
+      return entries.map(([key, value], i: number) => [`[map entry ${i}]`, {
+        '[key]': key,
+        '[value]': value,
+      }])
     case 'set':
       return Array.from(value.values()).map((v: any, i: number) => [i.toString(), v])
     case 'object':
