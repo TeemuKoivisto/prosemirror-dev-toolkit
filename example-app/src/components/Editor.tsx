@@ -51,8 +51,8 @@ interface Props {
 
 export function Editor(props: Props) {
   const { useDevTools } = props
-  const editorStore = useMemo(() => new EditorStore(useDevTools ? 'dev-tools' : 'dev-toolkit'), [])
-  const debouncedSync = useMemo(() => debounce(editorStore.syncCurrentEditorState, 250), [])
+  const editorStore = useMemo(() => new EditorStore(useDevTools ? 'dev-tools' : 'dev-toolkit'), [useDevTools])
+  const debouncedSync = useMemo(() => debounce(editorStore.syncCurrentEditorState, 250), [editorStore.syncCurrentEditorState])
 
   function handleEdit() {
     debouncedSync()

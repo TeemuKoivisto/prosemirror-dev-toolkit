@@ -1,4 +1,4 @@
-import { EditorView } from 'prosemirror-view'
+import type { EditorView } from 'prosemirror-view'
 import DevTools from './DevTools.svelte'
 import {
   subscribeToDispatchTransaction,
@@ -21,18 +21,32 @@ function createOrFindPlace() {
   return place
 }
 
+let removeCallback: (() => void) | undefined
+
 export function applyDevTools(view: EditorView, opts: DevToolsOpts = {}) {
   const place = createOrFindPlace()
-  new DevTools({
+  const comp = new DevTools({
     target: place,
     props: {
       view,
       ...opts
     }
   })
+
+  // Bind the component's life-cycle to the editorView to automatically unmount the devTools
+  const oldDestroyFn = view.destroy.bind(view)
+  view.destroy = () => {
+    oldDestroyFn()
+    removeCallback && removeCallback()
+  }
+
   subscribeToDispatchTransaction(view)
+  removeCallback = () => {
+    unsubscribeDispatchTransaction()
+    comp.$destroy()
+  }
 }
 
 export function removeDevTools() {
-  unsubscribeDispatchTransaction()
+  removeCallback && removeCallback()
 }
