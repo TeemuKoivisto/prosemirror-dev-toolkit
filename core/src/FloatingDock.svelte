@@ -1,11 +1,4 @@
 <style lang="scss">
-  :root {
-    --font-sans: Helvetica Neue, Calibri Light, Roboto, sans-serif;
-    --font-small: 11px;
-    --font-medium: 13px;
-    --font-large: 16px;
-    --height-tabs-menu: 48px;
-  }
   .floating-dock-wrapper {
     position: fixed;
     width: 0px;
@@ -15,10 +8,10 @@
     z-index: 99999999;
   }
   .floating-dock {
-    background-color: #363755;
+    background-color: var(--color-blue-bg);
     position: fixed;
     z-index: 1;
-    box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 4px 0px;
+    box-shadow: rgba($color-black, 0.3) 0px 0px 4px 0px;
     left: 0px;
     top: 50%;
     width: 100%;
@@ -38,10 +31,10 @@
     height: 100%;
   }
   .snapshot-btn {
-    background: rgba(255, 162, 177, 0.6);
+    background: rgba($color-red-light, 0.6);
     border: 0;
     border-radius: 3px;
-    color: #fff;
+    color: var(--color-white);
     cursor: pointer;
     font-size: 12px;
     height: 24px;
@@ -51,14 +44,14 @@
     right: 32px;
     top: -28px;
     &:hover {
-      background: rgba(255, 162, 177, 0.8);
+      background: rgba($color-red-light, 0.8);
     }
   }
   .close-btn {
-    background: rgba(255, 162, 177, 0.6);
+    background: rgba($color-red-light, 0.6);
     border: 0;
     border-radius: 3px;
-    color: #fff;
+    color: var(--color-white);
     cursor: pointer;
     height: 24px;
     position: absolute;
@@ -66,12 +59,8 @@
     top: -28px;
     width: 24px;
     &:hover {
-      background: rgba(255, 162, 177, 0.8);
+      background: rgba($color-red-light, 0.8);
     }
-  }
-  * {
-    font-family: var(--font-sans);
-    font-size: var(--font-medium);
   }
 </style>
 
@@ -87,6 +76,7 @@
   import { getContext, onMount } from 'svelte'
   import { APP_CONTEXT } from './context.ts'
   import { saveSnapshot } from './tabs/snapshots/snapshots.store.ts'
+  import './global.scss'
 
   export let onClose
 

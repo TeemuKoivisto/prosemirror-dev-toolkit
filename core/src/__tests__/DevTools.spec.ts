@@ -13,6 +13,7 @@ let editorView: EditorView
 describe('DevTools.svelte', () => {
   beforeAll(() => {
     const el = document.createElement('div')
+    el.id = 'pm-editor'
     editorView = createEditorInstance(el)
   })
 

@@ -10,15 +10,15 @@
     background: transparent;
     border: 0;
     border-bottom: 2px solid transparent;
-    color: white;
+    color: var(--color-white);
     cursor: pointer;
     height: 100%;
     padding: 1em;
     &:hover {
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba($color-white, 0.05);
     }
     &.active {
-      border-bottom: 2px solid #ffa2b1;
+      border-bottom: 2px solid var(--color-red-light);
     }
   }
 </style>

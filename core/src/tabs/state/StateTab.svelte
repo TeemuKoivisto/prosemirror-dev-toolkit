@@ -1,9 +1,4 @@
 <style lang="scss">
-  :root {
-    --json-tree-label-color: rgb(133, 217, 239);
-    --json-tree-string-color: rgb(184, 226, 72);
-    --json-tree-number-color: rgb(184, 226, 72);
-  }
   .top-row {
     align-items: center;
     display: flex;
@@ -13,7 +8,7 @@
     overflow: scroll;
   }
   .right-panel {
-    border-left: 1px solid rgba(255, 162, 177, 0.2);
+    border-left: 1px solid rgba($color-red-light, 0.2);
     flex-grow: 0;
     min-width: 200px;
     width: 200px;
@@ -29,7 +24,7 @@
     content: '▼';
   }
   .no-marks {
-    color: #85d9ef;
+    color: var(--color-blue-light);
     margin: 0.5em 0 1em 1em;
   }
   :global(.tree-view) {

@@ -19,7 +19,7 @@
   }
   .equal-diff {
     align-items: center;
-    color: #ffa2b1;
+    color: var(--color-red-light);
     display: flex;
     font-size: 14px;
     height: 100%;

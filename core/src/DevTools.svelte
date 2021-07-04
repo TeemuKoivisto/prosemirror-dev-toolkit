@@ -1,3 +1,31 @@
+<style lang="scss">
+  :global(:root) {
+    --font-sans: Helvetica Neue, Calibri Light, Roboto, sans-serif;
+    --font-small: 11px;
+    --font-medium: 13px;
+    --font-large: 16px;
+    --height-tabs-menu: 48px;
+    --color-black: #222;
+    --color-blue-bg: #363755;
+    --color-blue-light: #85d9ef;
+    /* --color-green-text: #b8e248; */
+    --color-gray-light: #d3d3d9;
+    --color-green: green; // diff inserted
+    --color-green-light: #87cc86; // diff deleted color
+    --color-purple: #604c68; // borders in eg lists
+    --color-red: #d66363; // diff deleted
+    --color-red-gray: rgb(187, 145, 163); // h2 color
+    --color-red-light: rgb(255, 162, 177);
+    --color-yellow: #eaea37; // diff updated
+    --color-white: #fff;
+  }
+
+  section {
+    font-family: var(--font-sans);
+    font-size: var(--font-medium);
+  }
+</style>
+
 <script lang="ts">
   import { onMount, setContext } from 'svelte'
   import { EditorView } from 'prosemirror-view'
@@ -39,8 +67,10 @@
   }
 </script>
 
-{#if devToolsExpanded}
-  <FloatingDock onClose={handleFloatingDockClose} />
-{:else}
-  <FloatingBtn on:click={handleFloatingBtnClick} {buttonPosition} />
-{/if}
+<section>
+  {#if devToolsExpanded}
+    <FloatingDock onClose={handleFloatingDockClose} />
+  {:else}
+    <FloatingBtn on:click={handleFloatingBtnClick} {buttonPosition} />
+  {/if}
+</section>

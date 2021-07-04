@@ -1,18 +1,18 @@
 <style>
   .added {
     display: inline-block;
-    background: #87cc86;
+    background: var(--color-green-light);
     border-radius: 1px;
-    color: green;
+    color: var(--color-green);
     padding: 1px 2px;
     text-indent: 0;
     min-height: 1ex;
   }
   .deleted {
     display: inline-block;
-    background: #d66363;
+    background: var(--color-red);
     border-radius: 1px;
-    color: #ffe6e6;
+    color: var(--color-gray-light);
     padding: 1px 2px;
     text-decoration: line-through;
     text-indent: 0;
@@ -22,10 +22,10 @@
     word-break: break-all;
   }
   .updated .added {
-    background: #eaea37;
+    background: var(--color-yellow);
   }
   .arrow {
-    color: #87cc86;
+    color: var(--color-green-light);
   }
 </style>
 

@@ -1,6 +1,6 @@
 <style lang="scss">
   ul {
-    color: white;
+    color: var(--color-white);
     list-style: none;
     margin: 0;
     padding: 0;
@@ -8,12 +8,12 @@
     width: 100%;
   }
   li + li {
-    border-top: 1px solid #604c68;
+    border-top: 1px solid var(--color-purple);
   }
   button {
     background: transparent;
     border: 0;
-    color: #d3d3d9;
+    color: var(--color-gray-light);
     cursor: pointer;
     display: flex;
     font-family: monospace;
@@ -23,20 +23,20 @@
     text-transform: uppercase;
     width: 100%;
     &:hover {
-      background: rgba(255, 162, 177, 0.4);
-      color: white;
+      background: rgba($color-red-light, 0.4);
+      color: var(--color-white);
     }
     &.selected {
-      background: rgba(255, 162, 177, 0.4);
+      background: rgba($color-red-light, 0.4);
       &.empty {
-        background: #50445d;
+        background: var(--color-purple);
       }
     }
     &.empty {
       background: transparent;
-      color: #63637b;
+      color: var(--color-purple);
       &:hover {
-        background: #50445d;
+        background: var(--color-purple);
       }
     }
   }

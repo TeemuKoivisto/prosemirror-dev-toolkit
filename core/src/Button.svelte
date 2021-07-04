@@ -3,17 +3,17 @@
     background: transparent;
     border: 0;
     border-radius: 2px;
-    color: #d3d3d9;
+    color: var(--color-gray-light);
     cursor: pointer;
     font-size: var(--font-small);
     padding: 6px 10px;
     text-transform: uppercase;
     &:hover {
-      background: rgba(255, 162, 177, 0.4);
-      color: white;
+      background: rgba($color-red-light, 0.4);
+      color: var(--color-white);
     }
     &.selected {
-      background: rgba(255, 162, 177, 0.4);
+      background: rgba($color-red-light, 0.4);
     }
   }
 </style>

@@ -98,7 +98,7 @@
     margin: 0;
     padding: 0 0.5em;
     &:hover {
-      background: rgba(255, 162, 177, 0.4);
+      background: rgba($color-red-light, 0.4);
       border-radius: 2px;
       color: white;
     }

@@ -1,9 +1,9 @@
-<style lang="css">
+<style lang="scss">
   .floating-btn {
-    background: #363755;
+    background: var(--color-blue-bg);
     border: 0;
     border-radius: 50%;
-    box-shadow: 0 0 30px rgb(0 0 0 / 30%);
+    box-shadow: 0 0 30px rgba($color-black, 0.3);
     cursor: pointer;
     position: fixed;
     padding: 4px 6px;

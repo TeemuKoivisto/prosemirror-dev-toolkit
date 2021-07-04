@@ -13,11 +13,11 @@
     width: 190px;
   }
   .right-panel {
-    border-left: 1px solid rgba(255, 162, 177, 0.2);
+    border-left: 1px solid rgba($color-red-light, 0.2);
   }
   .empty-state {
     align-items: center;
-    color: #ffa2b1;
+    color: var(--color-red-light);
     display: flex;
     font-size: 14px;
     height: 100%;

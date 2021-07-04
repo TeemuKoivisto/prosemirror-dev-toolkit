@@ -44,7 +44,9 @@ export default {
         // enable run-time checks when not in production
         dev: !isProduction
       },
-      preprocess: autoPreprocess()
+      preprocess: autoPreprocess({
+        scss: { prependData: `@import 'src/global.scss';` }
+      })
     }),
     postcss(),
     resolve({

@@ -1,7 +1,7 @@
 <style lang="scss">
   .wrapper {
-    border-left: 1px solid #363755;
-    border-right: 1px solid #363755;
+    border-left: 1px solid var(--color-blue-bg);
+    border-right: 1px solid var(--color-blue-bg);
     display: flex;
     flex-direction: column;
     padding: 0 12px;
@@ -11,20 +11,20 @@
     }
   }
   .container {
-    background: #363755;
-    color: black;
+    background: var(--color-blue-bg);
+    color: var(--color-black);
     display: flex;
     font-size: 13px;
     margin-top: 3px;
   }
   .number-box {
     padding: 3px 6px;
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba($color-white, 0.3);
   }
   button {
     background: transparent;
     border: 0;
-    color: #272624;
+    color: var(--color-black);
     cursor: pointer;
     display: flex;
     height: 100%;
@@ -32,16 +32,16 @@
     white-space: pre;
     width: 100%;
     &:hover {
-      background: rgba(255, 162, 177, 0.4);
-      color: white;
+      background: rgba($color-red-light, 0.4);
+      color: var(--color-white);
     }
     &.selected {
-      background: rgba(255, 162, 177, 0.4);
+      background: rgba($color-red-light, 0.4);
     }
   }
   .inline-children {
-    border-left: 1px solid #606178;
-    border-right: 1px solid #606178;
+    border-left: 1px solid var(--color-purple);
+    border-right: 1px solid var(--color-purple);
     display: flex;
     flex-wrap: wrap;
     padding: 0 12px;
