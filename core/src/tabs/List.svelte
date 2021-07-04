@@ -29,14 +29,14 @@
     &.selected {
       background: rgba($color-red-light, 0.4);
       &.empty {
-        background: var(--color-purple);
+        background: var(--color-purple-dark);
       }
     }
     &.empty {
       background: transparent;
-      color: var(--color-purple);
+      color: var(--color-purple-light);
       &:hover {
-        background: var(--color-purple);
+        background: var(--color-purple-dark);
       }
     }
   }

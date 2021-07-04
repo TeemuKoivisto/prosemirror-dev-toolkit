@@ -12,7 +12,9 @@
     --color-gray-light: #d3d3d9;
     --color-green: green; // diff inserted
     --color-green-light: #87cc86; // diff deleted color
-    --color-purple: #604c68; // borders in eg lists
+    --color-purple-dark: rgb(80, 68, 93); // list darker bg
+    --color-purple: rgb(96, 76, 104); // borders in eg lists
+    --color-purple-light: rgb(99, 99, 123); // list text color
     --color-red: #d66363; // diff deleted
     --color-red-gray: rgb(187, 145, 163); // h2 color
     --color-red-light: rgb(255, 162, 177);
