@@ -10,12 +10,10 @@
     min-width: 220px;
     width: 220px;
   }
-  :global(.m-top) {
+  :global(.split-view .m-top) {
     margin-top: 0.5em;
   }
-  :global(.hidden) {
-    visibility: hidden;
-  }
+
 </style>
 
 <script lang="ts">

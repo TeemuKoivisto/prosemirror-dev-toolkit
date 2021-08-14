@@ -13,9 +13,6 @@
     overflow: scroll;
     padding: 1em;
   }
-  :global(.hidden) {
-    visibility: hidden;
-  }
 </style>
 
 <script lang="ts">

@@ -26,9 +26,6 @@
     justify-content: center;
     width: 100%;
   }
-  :global(.hidden) {
-    visibility: hidden;
-  }
 </style>
 
 <script lang="ts">

@@ -13,7 +13,7 @@
     min-width: 200px;
     width: 200px;
   }
-  :global(.selection-btn) {
+  :global(.split-view .selection-btn) {
     height: 24px;
     width: 35px;
   }
@@ -27,7 +27,7 @@
     color: var(--color-blue-light);
     margin: 0.5em 0 1em 1em;
   }
-  :global(.tree-view) {
+  :global(.split-view .tree-view) {
     margin: 0.5em 0 1em 0;
   }
 </style>
