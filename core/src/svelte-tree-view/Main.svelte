@@ -23,6 +23,7 @@
     font-family: Helvetica Neue, Calibri Light, Roboto, sans-serif;
     font-size: 13px;
     height: max-content;
+    width: max-content;
   }
 </style>
 
