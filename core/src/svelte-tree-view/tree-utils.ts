@@ -78,10 +78,13 @@ function getChildren(value: any): [string, any][] {
       return value.map((v: any, i: number) => [i.toString(), v])
     case 'map':
       const entries: [any, any][] = Array.from(value.entries())
-      return entries.map(([key, value], i: number) => [`[map entry ${i}]`, {
-        '[key]': key,
-        '[value]': value,
-      }])
+      return entries.map(([key, value], i: number) => [
+        `[map entry ${i}]`,
+        {
+          '[key]': key,
+          '[value]': value
+        }
+      ])
     case 'set':
       return Array.from(value.values()).map((v: any, i: number) => [i.toString(), v])
     case 'object':

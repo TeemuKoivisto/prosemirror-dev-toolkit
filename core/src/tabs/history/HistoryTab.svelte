@@ -77,7 +77,7 @@
   }
   /**
    * Handles the clicks of the history entries.
-   * 
+   *
    * Sets the clicked entry as the selectedEntry but in the case of topNode, meaning
    * in a selection group (shown with [x] number) the entry has a sublist of entries
    * where the previous is duplicated as the first entry. Therefore on expanding the group
