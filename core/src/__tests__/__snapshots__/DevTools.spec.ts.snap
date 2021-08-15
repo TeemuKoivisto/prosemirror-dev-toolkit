@@ -3,107 +3,122 @@
 exports[`DevTools.svelte should open by clicking the floating button 1`] = `
 <body>
   <div>
-    <div
-      class="floating-dock-wrapper svelte-11h0kl9"
+    <section
+      class="svelte-3ecbdl"
     >
       <div
-        class="floating-dock svelte-11h0kl9"
-        style="top: 50%; height: 50%;"
+        class="floating-dock-wrapper svelte-bg17ae"
       >
         <div
-          class="resizing-div svelte-11h0kl9"
-        />
-         
-        <div
-          class="container svelte-11h0kl9"
+          class="floating-dock svelte-bg17ae"
+          style="top: 50%; height: 50%;"
         >
           <div
-            class="svelte-11h0kl9"
-          >
-            <button
-              class="snapshot-btn svelte-11h0kl9"
-            >
-              Save snapshot
-            </button>
-             
-            <button
-              class="close-btn svelte-11h0kl9"
-            >
-              X
-            </button>
-          </div>
+            class="resizing-div svelte-bg17ae"
+          />
            
-          <ul
-            class="tabs-menu svelte-jy18ep"
+          <div
+            class="container svelte-bg17ae"
           >
-            <li>
-              <button
-                class="svelte-jy18ep"
-              >
-                STATE
-              </button>
-            </li>
-             
-            <li>
-              <button
-                class="svelte-jy18ep"
-              >
-                HISTORY
-              </button>
-            </li>
-             
-            <li>
-              <button
-                class="svelte-jy18ep"
-              >
-                PLUGINS
-              </button>
-            </li>
-             
-            <li>
-              <button
-                class="svelte-jy18ep"
-              >
-                SCHEMA
-              </button>
-            </li>
-             
-            <li>
-              <button
-                class="svelte-jy18ep"
-              >
-                STRUCTURE
-              </button>
-            </li>
-             
-            <li>
-              <button
-                class="svelte-jy18ep active"
-              >
-                SNAPSHOTS
-              </button>
-            </li>
-          </ul>
-           
-          <section
-            class="svelte-qshaer"
-          >
-             
             <div
-              class="right-panel svelte-13a8fti"
-              slot="right"
+              class="svelte-bg17ae"
             >
-              <div
-                class="no-snapshots svelte-13a8fti"
+              <button
+                class="snapshot-btn svelte-bg17ae"
               >
-                Save snapshots by clicking "Save snapshot" button.
-              </div>
+                Save snapshot
+              </button>
+               
+              <button
+                class="close-btn svelte-bg17ae"
+              >
+                X
+              </button>
             </div>
-          </section>
+             
+            <ul
+              class="tabs-menu svelte-1x0h1wr"
+            >
+              <li
+                class="svelte-1x0h1wr"
+              >
+                <button
+                  class="svelte-1x0h1wr"
+                >
+                  STATE
+                </button>
+              </li>
+               
+              <li
+                class="svelte-1x0h1wr"
+              >
+                <button
+                  class="svelte-1x0h1wr"
+                >
+                  HISTORY
+                </button>
+              </li>
+               
+              <li
+                class="svelte-1x0h1wr"
+              >
+                <button
+                  class="svelte-1x0h1wr"
+                >
+                  PLUGINS
+                </button>
+              </li>
+               
+              <li
+                class="svelte-1x0h1wr"
+              >
+                <button
+                  class="svelte-1x0h1wr"
+                >
+                  SCHEMA
+                </button>
+              </li>
+               
+              <li
+                class="svelte-1x0h1wr"
+              >
+                <button
+                  class="svelte-1x0h1wr"
+                >
+                  STRUCTURE
+                </button>
+              </li>
+               
+              <li
+                class="svelte-1x0h1wr"
+              >
+                <button
+                  class="svelte-1x0h1wr active"
+                >
+                  SNAPSHOTS
+                </button>
+              </li>
+            </ul>
+             
+            <section
+              class="split-view svelte-1uhzwor"
+            >
+               
+              <div
+                class="right-panel svelte-jstmjc"
+                slot="right"
+              >
+                <div
+                  class="no-snapshots svelte-jstmjc"
+                >
+                  Save snapshots by clicking "Save snapshot" button.
+                </div>
+              </div>
+            </section>
+          </div>
         </div>
       </div>
-    </div>
-    
+    </section>
   </div>
 </body>
 `;
@@ -111,434 +126,259 @@ exports[`DevTools.svelte should open by clicking the floating button 1`] = `
 exports[`DevTools.svelte should render 1`] = `
 <body>
   <div>
-    <div
-      class="floating-dock-wrapper svelte-11h0kl9"
+    <section
+      class="svelte-3ecbdl"
     >
       <div
-        class="floating-dock svelte-11h0kl9"
-        style="top: 50%; height: 50%;"
+        class="floating-dock-wrapper svelte-bg17ae"
       >
         <div
-          class="resizing-div svelte-11h0kl9"
-        />
-         
-        <div
-          class="container svelte-11h0kl9"
+          class="floating-dock svelte-bg17ae"
+          style="top: 50%; height: 50%;"
         >
           <div
-            class="svelte-11h0kl9"
-          >
-            <button
-              class="snapshot-btn svelte-11h0kl9"
-            >
-              Save snapshot
-            </button>
-             
-            <button
-              class="close-btn svelte-11h0kl9"
-            >
-              X
-            </button>
-          </div>
+            class="resizing-div svelte-bg17ae"
+          />
            
-          <ul
-            class="tabs-menu svelte-jy18ep"
-          >
-            <li>
-              <button
-                class="svelte-jy18ep active"
-              >
-                STATE
-              </button>
-            </li>
-             
-            <li>
-              <button
-                class="svelte-jy18ep"
-              >
-                HISTORY
-              </button>
-            </li>
-             
-            <li>
-              <button
-                class="svelte-jy18ep"
-              >
-                PLUGINS
-              </button>
-            </li>
-             
-            <li>
-              <button
-                class="svelte-jy18ep"
-              >
-                SCHEMA
-              </button>
-            </li>
-             
-            <li>
-              <button
-                class="svelte-jy18ep"
-              >
-                STRUCTURE
-              </button>
-            </li>
-             
-            <li>
-              <button
-                class="svelte-jy18ep"
-              >
-                SNAPSHOTS
-              </button>
-            </li>
-          </ul>
-           
-          <section
-            class="svelte-qshaer"
+          <div
+            class="container svelte-bg17ae"
           >
             <div
-              class="left-panel svelte-w3fzk6"
-              slot="left"
+              class="svelte-bg17ae"
             >
-              <div
-                class="top-row svelte-w3fzk6"
+              <button
+                class="snapshot-btn svelte-bg17ae"
               >
-                <h2
-                  class="svelte-w3fzk6"
-                >
-                  Current doc
-                </h2>
-                 
-                <button
-                  class="svelte-12kwmti"
-                >
-                  log
-                </button>
-              </div>
+                Save snapshot
+              </button>
                
-              <section
-                class="tree-view svelte-1puolwz"
+              <button
+                class="close-btn svelte-bg17ae"
               >
-                <li
-                  class="row svelte-1v9lzao"
-                  data-tree-id="[0]"
-                >
-                   
-                  <div
-                    class="node-key svelte-1v9lzao p-left"
-                  >
-                    type
-                    :
-                  </div>
-                   
-                  <div
-                    class="node-value svelte-1v9lzao"
-                    data-type="string"
-                  >
-                    "doc"
-                  </div>
-                   
-                  <div
-                    class="buttons svelte-1v9lzao"
-                  >
-                    <button
-                      class="log-copy-button svelte-1v9lzao"
-                    >
-                      log
-                    </button>
-                     
-                    <button
-                      class="log-copy-button svelte-1v9lzao"
-                    >
-                      copy
-                    </button>
-                  </div>
-                </li>
-                 
-                
-                <li
-                  class="row svelte-1v9lzao collapsed"
-                  data-tree-id="[1]"
-                >
-                  <button
-                    class="arrow-btn collapsed svelte-1v9lzao"
-                  >
-                    ▶
-                  </button>
-                   
-                  <div
-                    class="node-key svelte-1v9lzao has-children"
-                  >
-                    content
-                    :
-                  </div>
-                   
-                  <div
-                    class="node-value svelte-1v9lzao has-children"
-                    data-type="array"
-                  >
-                     [] 1 items
-                  </div>
-                   
-                  <div
-                    class="buttons svelte-1v9lzao"
-                  >
-                    <button
-                      class="log-copy-button svelte-1v9lzao"
-                    >
-                      log
-                    </button>
-                     
-                    <button
-                      class="log-copy-button svelte-1v9lzao"
-                    >
-                      copy
-                    </button>
-                  </div>
-                </li>
-                 
-                
-              </section>
+                X
+              </button>
             </div>
              
-            <div
-              class="right-panel svelte-w3fzk6"
-              slot="right"
+            <ul
+              class="tabs-menu svelte-1x0h1wr"
+            >
+              <li
+                class="svelte-1x0h1wr"
+              >
+                <button
+                  class="svelte-1x0h1wr active"
+                >
+                  STATE
+                </button>
+              </li>
+               
+              <li
+                class="svelte-1x0h1wr"
+              >
+                <button
+                  class="svelte-1x0h1wr"
+                >
+                  HISTORY
+                </button>
+              </li>
+               
+              <li
+                class="svelte-1x0h1wr"
+              >
+                <button
+                  class="svelte-1x0h1wr"
+                >
+                  PLUGINS
+                </button>
+              </li>
+               
+              <li
+                class="svelte-1x0h1wr"
+              >
+                <button
+                  class="svelte-1x0h1wr"
+                >
+                  SCHEMA
+                </button>
+              </li>
+               
+              <li
+                class="svelte-1x0h1wr"
+              >
+                <button
+                  class="svelte-1x0h1wr"
+                >
+                  STRUCTURE
+                </button>
+              </li>
+               
+              <li
+                class="svelte-1x0h1wr"
+              >
+                <button
+                  class="svelte-1x0h1wr"
+                >
+                  SNAPSHOTS
+                </button>
+              </li>
+            </ul>
+             
+            <section
+              class="split-view svelte-1uhzwor"
             >
               <div
-                class="top-row svelte-w3fzk6"
+                class="left-panel svelte-kgddam"
+                slot="left"
               >
-                <h2
-                  class="svelte-w3fzk6"
-                >
-                  Selection
-                </h2>
-                 
-                <button
-                  class="selection-btn svelte-12kwmti"
-                >
-                  <span
-                    class="caret-icon svelte-w3fzk6"
-                  />
-                </button>
-              </div>
-               
-              <section
-                class="tree-view svelte-1puolwz"
-              >
-                <li
-                  class="row svelte-1v9lzao"
-                  data-tree-id="[0]"
-                >
-                   
-                  <div
-                    class="node-key svelte-1v9lzao p-left"
-                  >
-                    jsonID
-                    :
-                  </div>
-                   
-                  <div
-                    class="node-value svelte-1v9lzao"
-                    data-type="string"
-                  >
-                    "text"
-                  </div>
-                   
-                  <div
-                    class="buttons svelte-1v9lzao"
-                  >
-                     
-                  </div>
-                </li>
-                 
-                
-                <li
-                  class="row svelte-1v9lzao"
-                  data-tree-id="[1]"
-                >
-                   
-                  <div
-                    class="node-key svelte-1v9lzao p-left"
-                  >
-                    empty
-                    :
-                  </div>
-                   
-                  <div
-                    class="node-value svelte-1v9lzao"
-                    data-type="boolean"
-                  >
-                    true
-                  </div>
-                   
-                  <div
-                    class="buttons svelte-1v9lzao"
-                  >
-                     
-                  </div>
-                </li>
-                 
-                
-                <li
-                  class="row svelte-1v9lzao"
-                  data-tree-id="[2]"
-                >
-                   
-                  <div
-                    class="node-key svelte-1v9lzao p-left"
-                  >
-                    anchor
-                    :
-                  </div>
-                   
-                  <div
-                    class="node-value svelte-1v9lzao"
-                    data-type="number"
-                  >
-                    1
-                  </div>
-                   
-                  <div
-                    class="buttons svelte-1v9lzao"
-                  >
-                     
-                  </div>
-                </li>
-                 
-                
-                <li
-                  class="row svelte-1v9lzao"
-                  data-tree-id="[3]"
-                >
-                   
-                  <div
-                    class="node-key svelte-1v9lzao p-left"
-                  >
-                    from
-                    :
-                  </div>
-                   
-                  <div
-                    class="node-value svelte-1v9lzao"
-                    data-type="number"
-                  >
-                    1
-                  </div>
-                   
-                  <div
-                    class="buttons svelte-1v9lzao"
-                  >
-                     
-                  </div>
-                </li>
-                 
-                
-                <li
-                  class="row svelte-1v9lzao"
-                  data-tree-id="[4]"
-                >
-                   
-                  <div
-                    class="node-key svelte-1v9lzao p-left"
-                  >
-                    head
-                    :
-                  </div>
-                   
-                  <div
-                    class="node-value svelte-1v9lzao"
-                    data-type="number"
-                  >
-                    1
-                  </div>
-                   
-                  <div
-                    class="buttons svelte-1v9lzao"
-                  >
-                     
-                  </div>
-                </li>
-                 
-                
-                <li
-                  class="row svelte-1v9lzao"
-                  data-tree-id="[5]"
-                >
-                   
-                  <div
-                    class="node-key svelte-1v9lzao p-left"
-                  >
-                    to
-                    :
-                  </div>
-                   
-                  <div
-                    class="node-value svelte-1v9lzao"
-                    data-type="number"
-                  >
-                    1
-                  </div>
-                   
-                  <div
-                    class="buttons svelte-1v9lzao"
-                  >
-                     
-                  </div>
-                </li>
-                 
-                
-              </section>
-               
-              <div
-                class="svelte-w3fzk6"
-              >
-                <h2
-                  class="svelte-w3fzk6"
-                >
-                  Active marks
-                </h2>
-                 
                 <div
-                  class="no-marks svelte-w3fzk6"
+                  class="top-row svelte-kgddam"
                 >
-                  No active marks
+                  <h2
+                    class="svelte-kgddam"
+                  >
+                    Current doc
+                  </h2>
+                   
+                  <button
+                    class="svelte-gbjxau"
+                  >
+                    log
+                  </button>
                 </div>
-              </div>
-               
-              <div
-                class="svelte-w3fzk6"
-              >
-                <h2
-                  class="svelte-w3fzk6"
-                >
-                  Document stats
-                </h2>
                  
                 <section
-                  class="tree-view svelte-1puolwz"
+                  class="tree-view svelte-1hxrafq"
+                  style=""
                 >
                   <li
-                    class="row svelte-1v9lzao"
+                    class="row svelte-6i69n3"
                     data-tree-id="[0]"
                   >
                      
                     <div
-                      class="node-key svelte-1v9lzao p-left"
+                      class="node-key svelte-6i69n3 p-left"
                     >
-                      nodeSize
+                      type
                       :
                     </div>
                      
                     <div
-                      class="node-value svelte-1v9lzao"
-                      data-type="number"
+                      class="node-value svelte-6i69n3"
+                      data-type="string"
                     >
-                      4
+                      "doc"
                     </div>
                      
                     <div
-                      class="buttons svelte-1v9lzao"
+                      class="buttons svelte-6i69n3"
+                    >
+                      <button
+                        class="log-copy-button svelte-6i69n3"
+                      >
+                        log
+                      </button>
+                       
+                      <button
+                        class="log-copy-button svelte-6i69n3"
+                      >
+                        copy
+                      </button>
+                    </div>
+                  </li>
+                   
+                  
+                  <li
+                    class="row svelte-6i69n3 collapsed"
+                    data-tree-id="[1]"
+                  >
+                    <button
+                      class="arrow-btn collapsed svelte-6i69n3"
+                    >
+                      ▶
+                    </button>
+                     
+                    <div
+                      class="node-key svelte-6i69n3 has-children"
+                    >
+                      content
+                      :
+                    </div>
+                     
+                    <div
+                      class="node-value svelte-6i69n3 has-children"
+                      data-type="array"
+                    >
+                       [] 1 items
+                    </div>
+                     
+                    <div
+                      class="buttons svelte-6i69n3"
+                    >
+                      <button
+                        class="log-copy-button svelte-6i69n3"
+                      >
+                        log
+                      </button>
+                       
+                      <button
+                        class="log-copy-button svelte-6i69n3"
+                      >
+                        copy
+                      </button>
+                    </div>
+                  </li>
+                   
+                  
+                </section>
+              </div>
+               
+              <div
+                class="right-panel svelte-kgddam"
+                slot="right"
+              >
+                <div
+                  class="top-row svelte-kgddam"
+                >
+                  <h2
+                    class="svelte-kgddam"
+                  >
+                    Selection
+                  </h2>
+                   
+                  <button
+                    class="selection-btn svelte-gbjxau"
+                  >
+                    <span
+                      class="caret-icon svelte-kgddam"
+                    />
+                  </button>
+                </div>
+                 
+                <section
+                  class="tree-view svelte-1hxrafq"
+                  style=""
+                >
+                  <li
+                    class="row svelte-6i69n3"
+                    data-tree-id="[0]"
+                  >
+                     
+                    <div
+                      class="node-key svelte-6i69n3 p-left"
+                    >
+                      jsonID
+                      :
+                    </div>
+                     
+                    <div
+                      class="node-value svelte-6i69n3"
+                      data-type="string"
+                    >
+                      "text"
+                    </div>
+                     
+                    <div
+                      class="buttons svelte-6i69n3"
                     >
                        
                     </div>
@@ -546,26 +386,134 @@ exports[`DevTools.svelte should render 1`] = `
                    
                   
                   <li
-                    class="row svelte-1v9lzao"
+                    class="row svelte-6i69n3"
                     data-tree-id="[1]"
                   >
                      
                     <div
-                      class="node-key svelte-1v9lzao p-left"
+                      class="node-key svelte-6i69n3 p-left"
                     >
-                      childCount
+                      empty
                       :
                     </div>
                      
                     <div
-                      class="node-value svelte-1v9lzao"
+                      class="node-value svelte-6i69n3"
+                      data-type="boolean"
+                    >
+                      true
+                    </div>
+                     
+                    <div
+                      class="buttons svelte-6i69n3"
+                    >
+                       
+                    </div>
+                  </li>
+                   
+                  
+                  <li
+                    class="row svelte-6i69n3"
+                    data-tree-id="[2]"
+                  >
+                     
+                    <div
+                      class="node-key svelte-6i69n3 p-left"
+                    >
+                      anchor
+                      :
+                    </div>
+                     
+                    <div
+                      class="node-value svelte-6i69n3"
                       data-type="number"
                     >
                       1
                     </div>
                      
                     <div
-                      class="buttons svelte-1v9lzao"
+                      class="buttons svelte-6i69n3"
+                    >
+                       
+                    </div>
+                  </li>
+                   
+                  
+                  <li
+                    class="row svelte-6i69n3"
+                    data-tree-id="[3]"
+                  >
+                     
+                    <div
+                      class="node-key svelte-6i69n3 p-left"
+                    >
+                      from
+                      :
+                    </div>
+                     
+                    <div
+                      class="node-value svelte-6i69n3"
+                      data-type="number"
+                    >
+                      1
+                    </div>
+                     
+                    <div
+                      class="buttons svelte-6i69n3"
+                    >
+                       
+                    </div>
+                  </li>
+                   
+                  
+                  <li
+                    class="row svelte-6i69n3"
+                    data-tree-id="[4]"
+                  >
+                     
+                    <div
+                      class="node-key svelte-6i69n3 p-left"
+                    >
+                      head
+                      :
+                    </div>
+                     
+                    <div
+                      class="node-value svelte-6i69n3"
+                      data-type="number"
+                    >
+                      1
+                    </div>
+                     
+                    <div
+                      class="buttons svelte-6i69n3"
+                    >
+                       
+                    </div>
+                  </li>
+                   
+                  
+                  <li
+                    class="row svelte-6i69n3"
+                    data-tree-id="[5]"
+                  >
+                     
+                    <div
+                      class="node-key svelte-6i69n3 p-left"
+                    >
+                      to
+                      :
+                    </div>
+                     
+                    <div
+                      class="node-value svelte-6i69n3"
+                      data-type="number"
+                    >
+                      1
+                    </div>
+                     
+                    <div
+                      class="buttons svelte-6i69n3"
                     >
                        
                     </div>
@@ -573,13 +521,98 @@ exports[`DevTools.svelte should render 1`] = `
                    
                   
                 </section>
+                 
+                <div
+                  class="svelte-kgddam"
+                >
+                  <h2
+                    class="svelte-kgddam"
+                  >
+                    Active marks
+                  </h2>
+                   
+                  <div
+                    class="no-marks svelte-kgddam"
+                  >
+                    No active marks
+                  </div>
+                </div>
+                 
+                <div
+                  class="svelte-kgddam"
+                >
+                  <h2
+                    class="svelte-kgddam"
+                  >
+                    Document stats
+                  </h2>
+                   
+                  <section
+                    class="tree-view svelte-1hxrafq"
+                    style=""
+                  >
+                    <li
+                      class="row svelte-6i69n3"
+                      data-tree-id="[0]"
+                    >
+                       
+                      <div
+                        class="node-key svelte-6i69n3 p-left"
+                      >
+                        nodeSize
+                        :
+                      </div>
+                       
+                      <div
+                        class="node-value svelte-6i69n3"
+                        data-type="number"
+                      >
+                        4
+                      </div>
+                       
+                      <div
+                        class="buttons svelte-6i69n3"
+                      >
+                         
+                      </div>
+                    </li>
+                     
+                    
+                    <li
+                      class="row svelte-6i69n3"
+                      data-tree-id="[1]"
+                    >
+                       
+                      <div
+                        class="node-key svelte-6i69n3 p-left"
+                      >
+                        childCount
+                        :
+                      </div>
+                       
+                      <div
+                        class="node-value svelte-6i69n3"
+                        data-type="number"
+                      >
+                        1
+                      </div>
+                       
+                      <div
+                        class="buttons svelte-6i69n3"
+                      >
+                         
+                      </div>
+                    </li>
+                     
+                    
+                  </section>
+                </div>
               </div>
-            </div>
-          </section>
+            </section>
+          </div>
         </div>
       </div>
-    </div>
-    
+    </section>
   </div>
 </body>
 `;

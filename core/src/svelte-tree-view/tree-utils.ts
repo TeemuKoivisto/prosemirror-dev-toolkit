@@ -86,7 +86,7 @@ function getChildren(value: any): [string, any][] {
         }
       ])
     case 'set':
-      return Array.from(value.values()).map((v: any, i: number) => [i.toString(), v])
+      return Array.from(value.values()).map((v: any, i: number) => [`[set entry ${i}]`, v])
     case 'object':
       return Object.entries(value)
     default:

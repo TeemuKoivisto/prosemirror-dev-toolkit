@@ -3340,6 +3340,11 @@ jest-runtime@^27.0.6:
     strip-bom "^4.0.0"
     yargs "^16.0.3"
 
+jest-scss-transform@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/jest-scss-transform/-/jest-scss-transform-1.0.1.tgz#3c1cc0f512b0836accec0f2e352863fc894f333f"
+  integrity sha512-Z7uY+ip5qHu/QR05ZDYM9P5bkJjoCbtdkRZbpsPoBLCw9Eg/z5Wkk12E2k2vrV4J148YW7g3tdn/ZijfKKL01A==
+
 jest-serializer@^27.0.6:
   version "27.0.6"
   resolved "https://registry.yarnpkg.com/jest-serializer/-/jest-serializer-27.0.6.tgz#93a6c74e0132b81a2d54623251c46c498bb5bec1"
