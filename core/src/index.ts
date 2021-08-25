@@ -9,6 +9,10 @@ import { DevToolsOpts } from './types'
 
 const DEVTOOLS_CLASS_NAME = '__prosemirror-dev-toolkit__'
 
+// Make the dev tools available globally for some scripting shenanigans
+// @ts-ignore
+window.applyDevTools = applyDevTools
+
 function createOrFindPlace() {
   let place: HTMLElement | null = document.querySelector(`.${DEVTOOLS_CLASS_NAME}`)
 

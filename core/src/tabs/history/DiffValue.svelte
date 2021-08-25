@@ -30,7 +30,7 @@
 </style>
 
 <script lang="ts">
-  export let value, defaultFormatter
+  export let value, node, defaultFormatter
 
   function replaceSpacesWithNonBreakingSpace(value: string) {
     return value.replace(/\s/gm, ' ')
