@@ -20,6 +20,9 @@
     "styled-components": "^5.2.3",
     "typescript": "4.2.4"
   },
+  "resolutions": {
+    "@types/prosemirror-model": ">=1.13.0"
+  },
   "scripts": {
     "predeploy": "yarn build",
     "deploy": "gh-pages -d build",

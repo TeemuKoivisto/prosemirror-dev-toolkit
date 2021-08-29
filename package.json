@@ -1,7 +1,8 @@
 {
   "private": true,
   "workspaces": [
-    "core"
+    "core",
+    "example-app"
   ],
   "scripts": {
     "start": "concurrently --kill-others 'cd ./core && yarn watch' 'cd example-app && yarn start'"

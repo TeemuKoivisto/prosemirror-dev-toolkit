@@ -1,7 +1,7 @@
 import alias from '@rollup/plugin-alias'
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
-import typescript from 'rollup-plugin-typescript2'
+import typescript from '@wessberg/rollup-plugin-ts'
 import svelte from 'rollup-plugin-svelte'
 import autoPreprocess from 'svelte-preprocess'
 import postcss from 'rollup-plugin-postcss'
@@ -19,7 +19,8 @@ export default {
   output: [
     {
       file: pkg.main,
-      format: 'cjs',
+      format: 'umd',
+      name: 'prosemirror-dev-toolkit',
       sourcemap: isProduction
     },
     {
@@ -29,7 +30,7 @@ export default {
     }
   ],
   external: [
-    ...Object.keys(pkg.dependencies || {}),
+    // ...Object.keys(pkg.dependencies || {}),
     // ...Object.keys(pkg.devDependencies || {}),
     ...Object.keys(pkg.peerDependencies || {})
   ],
