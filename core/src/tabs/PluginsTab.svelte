@@ -32,13 +32,12 @@
   import type { Plugin } from 'prosemirror-state'
   import { latestEntry } from '../state/stateHistory.store.ts'
 
-  import { APP_CONTEXT } from '../context.ts'
   import SplitView from './SplitView.svelte'
   import TreeView from '../svelte-tree-view/Main.svelte'
   import List from './List.svelte'
   import Button from '../Button.svelte'
 
-  const { view } = getContext(APP_CONTEXT)
+  const { view } = getContext('editor-view')
   let expandPluginState = false
   let recursionOpts = {
     maxDepth: 10,

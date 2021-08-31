@@ -35,14 +35,13 @@
   import FloatingBtn from './FloatingBtn.svelte'
   import FloatingDock from './FloatingDock.svelte'
 
-  import { APP_CONTEXT } from './context.ts'
   import type { ButtonPosition } from './types.ts'
 
   export let view: EditorView,
     devToolsExpanded = false,
     buttonPosition: ButtonPosition = 'bottom-right'
 
-  setContext(APP_CONTEXT, {
+  setContext('editor-view', {
     view
   })
 

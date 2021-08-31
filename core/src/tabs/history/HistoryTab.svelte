@@ -29,10 +29,6 @@
 </style>
 
 <script lang="ts">
-  import { getContext } from 'svelte'
-  import { writable } from 'svelte/store'
-
-  import { APP_CONTEXT } from '../../context.ts'
   import { stateHistory, shownHistoryGroups, latestEntry } from '../../state/stateHistory.store.ts'
   import type { HistoryEntry, HistoryGroup } from '../../state/types.ts'
   import { mapDocDeltaChildren, mapSelectionDeltaChildren } from './mapDeltas.ts'
@@ -43,7 +39,6 @@
   import DiffValue from './DiffValue.svelte'
   import Button from '../../Button.svelte'
 
-  const { view } = getContext(APP_CONTEXT)
   let selectedEntry = undefined,
     showTr = false
 

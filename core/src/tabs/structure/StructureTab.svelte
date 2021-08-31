@@ -13,12 +13,10 @@
   :global(.split-view .m-top) {
     margin-top: 0.5em;
   }
-
 </style>
 
 <script lang="ts">
   import { getContext } from 'svelte'
-  import { APP_CONTEXT } from '../../context.ts'
   import { latestEntry } from '../../state/stateHistory.store.ts'
 
   import SplitView from '../SplitView.svelte'
@@ -26,7 +24,7 @@
   import DocView from './DocView.svelte'
   import Button from '../../Button.svelte'
 
-  const { view } = getContext(APP_CONTEXT)
+  const { view } = getContext('editor-view')
   let doc = view.state.doc
   let selectedNode = view.state.doc
   $: jsonNode = selectedNode.toJSON()

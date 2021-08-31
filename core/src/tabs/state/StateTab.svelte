@@ -35,7 +35,6 @@
 <script lang="ts">
   import { getContext } from 'svelte'
   import { get } from 'svelte/store'
-  import { APP_CONTEXT } from '../../context.ts'
   import { latestEntry } from '../../state/stateHistory.store.ts'
   import { getActiveMarks } from '../../state/getActiveMarks.ts'
   import { createSelection, createFullSelection } from './selection.ts'
@@ -44,7 +43,7 @@
   import TreeView from '../../svelte-tree-view/Main.svelte'
   import Button from '../../Button.svelte'
 
-  const { view } = getContext(APP_CONTEXT)
+  const { view } = getContext('editor-view')
   let doc = view.state.doc.toJSON()
   let selection = createSelection(view.state.selection)
   let currentState = view.state

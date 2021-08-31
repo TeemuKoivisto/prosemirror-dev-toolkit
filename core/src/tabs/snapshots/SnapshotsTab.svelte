@@ -17,14 +17,13 @@
   import { getContext } from 'svelte'
   import { writable } from 'svelte/store'
 
-  import { APP_CONTEXT } from '../../context.ts'
   import SplitView from './../SplitView.svelte'
   import SnapshotsList from './SnapshotsList.svelte'
   import { snapshots, deleteSnapshot, updateSnapshot, restoreSnapshot } from './snapshots.store.ts'
   import { resetHistory } from '../../state/actions.ts'
   import type { Snapshot } from './snapshots.store.ts'
 
-  const { view } = getContext(APP_CONTEXT)
+  const { view } = getContext('editor-view')
 
   function handleDeleteSnapshot(snapshot: Snapshot) {
     deleteSnapshot(snapshot)

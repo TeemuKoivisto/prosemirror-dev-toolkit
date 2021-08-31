@@ -74,13 +74,12 @@
   import SnapshotsTab from './tabs/snapshots/SnapshotsTab.svelte'
 
   import { getContext, onMount } from 'svelte'
-  import { APP_CONTEXT } from './context.ts'
   import { saveSnapshot } from './tabs/snapshots/snapshots.store.ts'
   import './global.scss'
 
   export let onClose
 
-  const { view } = getContext(APP_CONTEXT)
+  const { view } = getContext('editor-view')
   let openTab = 'state',
     dockTop = 50,
     dockHeight = 50

@@ -18,12 +18,11 @@
 <script lang="ts">
   import { getContext } from 'svelte'
 
-  import { APP_CONTEXT } from '../context.ts'
   import SplitView from './SplitView.svelte'
   import TreeView from '../svelte-tree-view/Main.svelte'
   import Button from '../Button.svelte'
 
-  const { view } = getContext(APP_CONTEXT)
+  const { view } = getContext('editor-view')
 
   let nodes = view.state.schema.nodes
   let marks = view.state.schema.marks
