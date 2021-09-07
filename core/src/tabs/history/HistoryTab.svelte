@@ -34,7 +34,7 @@
   import { mapDocDeltaChildren, mapSelectionDeltaChildren } from './mapDeltas.ts'
 
   import SplitView from '../SplitView.svelte'
-  import TreeView from '../../svelte-tree-view/Main.svelte'
+  import TreeView from 'svelte-tree-view'
   import HistoryList from './HistoryList.svelte'
   import DiffValue from './DiffValue.svelte'
   import Button from '../../Button.svelte'

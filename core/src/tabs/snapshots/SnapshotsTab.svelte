@@ -15,7 +15,6 @@
 
 <script lang="ts">
   import { getContext } from 'svelte'
-  import { writable } from 'svelte/store'
 
   import SplitView from './../SplitView.svelte'
   import SnapshotsList from './SnapshotsList.svelte'

@@ -1,5 +1,5 @@
 import type { Delta } from 'jsondiffpatch'
-import type { ITreeNode, ValueType } from 'src/svelte-tree-view/types'
+import type { ITreeNode, ValueType } from 'svelte-tree-view'
 
 // function postprocessValue(value: any) {
 //   if (value && value._t === 'a') {

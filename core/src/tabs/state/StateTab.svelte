@@ -34,13 +34,12 @@
 
 <script lang="ts">
   import { getContext } from 'svelte'
-  import { get } from 'svelte/store'
   import { latestEntry } from '../../state/stateHistory.store.ts'
   import { getActiveMarks } from '../../state/getActiveMarks.ts'
   import { createSelection, createFullSelection } from './selection.ts'
 
   import SplitView from '../SplitView.svelte'
-  import TreeView from '../../svelte-tree-view/Main.svelte'
+  import TreeView from 'svelte-tree-view'
   import Button from '../../Button.svelte'
 
   const { view } = getContext('editor-view')

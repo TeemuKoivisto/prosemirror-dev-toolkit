@@ -19,7 +19,7 @@
   import { getContext } from 'svelte'
 
   import SplitView from './SplitView.svelte'
-  import TreeView from '../svelte-tree-view/Main.svelte'
+  import TreeView from 'svelte-tree-view'
   import Button from '../Button.svelte'
 
   const { view } = getContext('editor-view')
