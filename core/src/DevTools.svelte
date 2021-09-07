@@ -22,6 +22,25 @@
     --color-white: #fff;
   }
 
+  :root {
+    --tree-view-base00: #363755;
+    --tree-view-base01: #604D49;
+    --tree-view-base02: #6D5A55;
+    --tree-view-base03: #D1929B;
+    --tree-view-base04: #B79F8D;
+    --tree-view-base05: #F9F8F2;
+    --tree-view-base06: #F7F4F1;
+    --tree-view-base07: #FAF8F5;
+    --tree-view-base08: #FA3E7E;
+    --tree-view-base09: #FD993C;
+    --tree-view-base0A: #F6BF81;
+    --tree-view-base0B: #B8E248;
+    --tree-view-base0C: #B4EFE4;
+    --tree-view-base0D: #85D9EF;
+    --tree-view-base0E: #BE87FF;
+    --tree-view-base0F: #D6724C;
+  }
+
   section {
     font-family: var(--font-sans);
     font-size: var(--font-medium);
