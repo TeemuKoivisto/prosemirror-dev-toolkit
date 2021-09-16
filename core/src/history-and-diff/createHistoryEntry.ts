@@ -4,7 +4,7 @@ import { prettyPrint } from 'html'
 
 import { diff } from './diff'
 import { addPropertiesToTransaction } from './transaction'
-import type { HistoryEntry } from './types'
+import type { HistoryEntry } from '$typings/history'
 
 function buildSelection(selection: Selection) {
   return {

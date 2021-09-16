@@ -1,8 +1,13 @@
-import { get } from 'svelte/store'
+import { get, writable } from 'svelte/store'
 import { EditorState, Transaction } from 'prosemirror-state'
 
-import { stateHistory, shownHistoryGroups, latestEntry } from './stateHistory.store'
-import { createHistoryEntry } from './createHistoryEntry'
+import { createHistoryEntry } from '../history-and-diff/createHistoryEntry'
+
+import type { HistoryEntry, HistoryGroup } from '$typings/history'
+
+export const stateHistory = writable(new Map<string, HistoryEntry>())
+export const shownHistoryGroups = writable([] as HistoryGroup[])
+export const latestEntry = writable<HistoryEntry | undefined>(undefined)
 
 export function appendNewHistoryEntry(tr: Transaction, state: EditorState) {
   const entryMap = get(stateHistory)

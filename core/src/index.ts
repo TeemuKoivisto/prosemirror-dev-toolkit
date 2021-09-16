@@ -3,7 +3,7 @@ import DevTools from './DevTools.svelte'
 import {
   subscribeToDispatchTransaction,
   unsubscribeDispatchTransaction
-} from './state/subscribeToTransactions'
+} from './history-and-diff/subscribeToTransactions'
 
 import { DevToolsOpts } from './types'
 

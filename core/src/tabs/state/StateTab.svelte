@@ -1,7 +1,7 @@
 <script lang="ts">
   import { getContext } from 'svelte'
-  import { latestEntry } from '$state/stateHistory.store'
-  import { getActiveMarks } from '$state/getActiveMarks'
+  import { latestEntry } from '$stores/stateHistory'
+  import { getActiveMarks } from './getActiveMarks'
   import { createSelection, createFullSelection } from './selection'
 
   import SplitView from '../SplitView.svelte'

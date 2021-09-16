@@ -1,7 +1,7 @@
 import type { EditorView } from 'prosemirror-view'
 import type { Transaction } from 'prosemirror-state'
 
-import { appendNewHistoryEntry } from './actions'
+import { appendNewHistoryEntry } from '$stores/stateHistory'
 
 let active = false
 

@@ -1,11 +1,7 @@
 import type { EditorView } from 'prosemirror-view'
 import { writable } from 'svelte/store'
 
-export interface Snapshot {
-  name: string
-  timestamp: number
-  doc: { [key: string]: any }
-}
+import type { Snapshot } from '$typings/snapshots'
 
 const SNAPSHOTS_KEY = '__prosemirror-dev-toolkit__snapshots'
 

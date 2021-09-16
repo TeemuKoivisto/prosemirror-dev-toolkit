@@ -1,7 +1,7 @@
 <script lang="ts">
   import { getContext } from 'svelte'
   import type { EditorState, Plugin } from 'prosemirror-state'
-  import { latestEntry } from '$state/stateHistory.store'
+  import { latestEntry } from '$stores/stateHistory'
 
   import SplitView from './SplitView.svelte'
   import TreeView from 'svelte-tree-view'

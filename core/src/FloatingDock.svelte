@@ -8,7 +8,7 @@
   import SnapshotsTab from './tabs/snapshots/SnapshotsTab.svelte'
 
   import { getContext, onMount } from 'svelte'
-  import { saveSnapshot } from './tabs/snapshots/snapshots.store'
+  import { saveSnapshot } from '$stores/snapshots'
   import './global.scss'
 
   export let onClose: () => void

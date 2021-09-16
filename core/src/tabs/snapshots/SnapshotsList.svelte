@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Snapshot } from './snapshots.store'
+  import type { Snapshot } from '$typings/snapshots'
 
   export let snapshots: Snapshot[] = [],
     onUpdate: (snap: Snapshot) => void,

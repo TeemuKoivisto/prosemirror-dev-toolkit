@@ -1,11 +1,16 @@
 <script lang="ts">
   import { getContext } from 'svelte'
 
-  import SplitView from './../SplitView.svelte'
+  import SplitView from '$tabs/SplitView.svelte'
   import SnapshotsList from './SnapshotsList.svelte'
-  import { snapshots, deleteSnapshot, updateSnapshot, restoreSnapshot } from './snapshots.store'
-  import { resetHistory } from '$state/actions'
-  import type { Snapshot } from './snapshots.store'
+  import {
+    snapshots,
+    deleteSnapshot,
+    updateSnapshot,
+    restoreSnapshot
+  } from '$stores/snapshots'
+  import { resetHistory } from '$stores/stateHistory'
+  import type { Snapshot } from '$typings/snapshots'
 
   const { view } = getContext('editor-view')
 

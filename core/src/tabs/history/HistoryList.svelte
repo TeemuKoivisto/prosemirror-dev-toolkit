@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { HistoryEntry } from '$state/types'
+  import type { HistoryEntry } from '$typings/history'
 
   export let listItems: {
       isGroup: boolean

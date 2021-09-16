@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Node as PMNode, Schema } from 'prosemirror-model'
   import { getContext } from 'svelte'
-  import { latestEntry } from '$state/stateHistory.store'
+  import { latestEntry } from '$stores/stateHistory'
 
   import SplitView from '../SplitView.svelte'
   import TreeView from 'svelte-tree-view'

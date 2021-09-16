@@ -18,8 +18,9 @@
     "noEmit": true,
     "baseUrl": ".",
     "paths": {
-      "$state/*": ["src/state/*"],
-      "$tabs/*": ["src/tabs/*"]
+      "$stores/*": ["src/stores/*"],
+      "$tabs/*": ["src/tabs/*"],
+      "$typings/*": ["src/typings/*"]
     }
   },
   "include": ["src"],

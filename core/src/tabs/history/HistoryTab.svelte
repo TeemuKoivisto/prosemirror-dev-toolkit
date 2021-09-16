@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { stateHistory, shownHistoryGroups, latestEntry } from '$state/stateHistory.store'
-  import type { HistoryEntry, HistoryGroup } from '$state/types'
+  import { stateHistory, shownHistoryGroups, latestEntry } from '$stores/stateHistory'
+  import type { HistoryEntry, HistoryGroup } from '$typings/history'
   import { mapDocDeltaChildren, mapSelectionDeltaChildren } from './mapDeltas'
 
   import SplitView from '../SplitView.svelte'
