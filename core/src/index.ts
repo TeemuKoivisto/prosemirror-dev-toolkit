@@ -36,6 +36,8 @@ export function applyDevTools(view: EditorView, opts: DevToolsOpts = {}) {
       ...opts
     }
   })
+  // @ts-ignore Make the editor view available since it might be handy for quick debugging
+  window.editorView = view
 
   // Bind the component's life-cycle to the editorView to automatically unmount the devTools
   const oldDestroyFn = view.destroy.bind(view)

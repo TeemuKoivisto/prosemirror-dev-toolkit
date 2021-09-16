@@ -1,7 +1,7 @@
 import alias from '@rollup/plugin-alias'
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
-import typescript from '@wessberg/rollup-plugin-ts'
+import typescript from 'rollup-plugin-ts'
 import svelte from 'rollup-plugin-svelte'
 import autoPreprocess from 'svelte-preprocess'
 import postcss from 'rollup-plugin-postcss'
@@ -52,6 +52,7 @@ export default {
     }),
     postcss(),
     resolve({
+      browser: true,
       dedupe: ['svelte']
     }),
     isProduction && terser()
