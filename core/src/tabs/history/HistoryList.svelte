@@ -1,3 +1,39 @@
+<script lang="ts">
+  export let listItems = [],
+    selectedId,
+    onSelect
+</script>
+
+<ul>
+  {#each listItems as group, groupIdx}
+    <li class:selected={!group.expanded && selectedId === group.topEntry.id}>
+      <button
+        class:is-group={group.isGroup}
+        on:click={() => onSelect(group.topEntry.id, groupIdx, true)}
+      >
+        <span>
+          {group.topEntry.timeStr}
+          {#if group.isGroup}
+            [{group.entries.length}]
+          {/if}
+        </span>
+        {#if group.isGroup && group.entries.length > 1}
+          <span class="caret-icon" class:expanded={group.expanded} />
+        {/if}
+      </button>
+    </li>
+    {#if group.isGroup && group.expanded}
+      {#each group.entries as subEntry}
+        <li class:selected={selectedId === subEntry.id}>
+          <button class="p-left" on:click={() => onSelect(subEntry.id, groupIdx, false)}>
+            {subEntry.timeStr}
+          </button>
+        </li>
+      {/each}
+    {/if}
+  {/each}
+</ul>
+
 <style lang="scss">
   ul {
     color: var(--color-white);
@@ -45,39 +81,3 @@
     content: '▼';
   }
 </style>
-
-<script lang="ts">
-  export let listItems = [],
-    selectedId,
-    onSelect
-</script>
-
-<ul>
-  {#each listItems as group, groupIdx}
-    <li class:selected={!group.expanded && selectedId === group.topEntry.id}>
-      <button
-        class:is-group={group.isGroup}
-        on:click={() => onSelect(group.topEntry.id, groupIdx, true)}
-      >
-        <span>
-          {group.topEntry.timeStr}
-          {#if group.isGroup}
-            [{group.entries.length}]
-          {/if}
-        </span>
-        {#if group.isGroup && group.entries.length > 1}
-          <span class="caret-icon" class:expanded={group.expanded} />
-        {/if}
-      </button>
-    </li>
-    {#if group.isGroup && group.expanded}
-      {#each group.entries as subEntry}
-        <li class:selected={selectedId === subEntry.id}>
-          <button class="p-left" on:click={() => onSelect(subEntry.id, groupIdx, false)}>
-            {subEntry.timeStr}
-          </button>
-        </li>
-      {/each}
-    {/if}
-  {/each}
-</ul>

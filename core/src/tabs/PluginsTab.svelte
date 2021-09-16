@@ -1,36 +1,7 @@
-<style lang="scss">
-  .top-row {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.5em;
-  }
-  .left-panel {
-    flex-grow: 0;
-    overflow: scroll;
-    padding: 0;
-    min-width: 190px;
-    width: 190px;
-  }
-  .right-panel {
-    border-left: 1px solid rgba($color-red-light, 0.2);
-  }
-  .empty-state {
-    align-items: center;
-    color: var(--color-red-light);
-    display: flex;
-    font-size: 14px;
-    height: 100%;
-    justify-content: center;
-    width: 100%;
-  }
-</style>
-
 <script lang="ts">
   import { getContext } from 'svelte'
-  import { writable } from 'svelte/store'
   import type { Plugin } from 'prosemirror-state'
-  import { latestEntry } from '../state/stateHistory.store.ts'
+  import { latestEntry } from '$state/stateHistory.store'
 
   import SplitView from './SplitView.svelte'
   import TreeView from 'svelte-tree-view'
@@ -99,3 +70,31 @@
     {/if}
   </div>
 </SplitView>
+
+<style lang="scss">
+  .top-row {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5em;
+  }
+  .left-panel {
+    flex-grow: 0;
+    overflow: scroll;
+    padding: 0;
+    min-width: 190px;
+    width: 190px;
+  }
+  .right-panel {
+    border-left: 1px solid rgba($color-red-light, 0.2);
+  }
+  .empty-state {
+    align-items: center;
+    color: var(--color-red-light);
+    display: flex;
+    font-size: 14px;
+    height: 100%;
+    justify-content: center;
+    width: 100%;
+  }
+</style>

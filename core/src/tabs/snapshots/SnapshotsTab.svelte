@@ -1,26 +1,11 @@
-<style lang="scss">
-  .right-panel {
-    padding: 0;
-  }
-  .no-snapshots {
-    align-items: center;
-    color: var(--color-red-light);
-    display: flex;
-    font-size: 14px;
-    height: 100%;
-    justify-content: center;
-    width: 100%;
-  }
-</style>
-
 <script lang="ts">
   import { getContext } from 'svelte'
 
   import SplitView from './../SplitView.svelte'
   import SnapshotsList from './SnapshotsList.svelte'
-  import { snapshots, deleteSnapshot, updateSnapshot, restoreSnapshot } from './snapshots.store.ts'
-  import { resetHistory } from '../../state/actions.ts'
-  import type { Snapshot } from './snapshots.store.ts'
+  import { snapshots, deleteSnapshot, updateSnapshot, restoreSnapshot } from './snapshots.store'
+  import { resetHistory } from '$state/actions'
+  import type { Snapshot } from './snapshots.store'
 
   const { view } = getContext('editor-view')
 
@@ -50,3 +35,18 @@
     {/if}
   </div>
 </SplitView>
+
+<style lang="scss">
+  .right-panel {
+    padding: 0;
+  }
+  .no-snapshots {
+    align-items: center;
+    color: var(--color-red-light);
+    display: flex;
+    font-size: 14px;
+    height: 100%;
+    justify-content: center;
+    width: 100%;
+  }
+</style>

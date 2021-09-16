@@ -1,3 +1,8 @@
+<section class="split-view">
+  <slot class="left-panel" name="left" />
+  <slot class="right-panel" name="right" />
+</section>
+
 <style lang="scss">
   section {
     border-top: 1px solid rgba($color-red-light, 0.2);
@@ -34,8 +39,3 @@
     visibility: hidden;
   }
 </style>
-
-<section class="split-view">
-  <slot class="left-panel" name="left" />
-  <slot class="right-panel" name="right" />
-</section>

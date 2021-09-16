@@ -37,8 +37,8 @@ export default {
   plugins: [
     alias({
       entries: [
-        { find: '@', replacement: path.resolve(__dirname, 'src') },
-        { find: '@tabs', replacement: path.resolve(__dirname, 'src/tabs') }
+        { find: '$state', replacement: path.resolve(__dirname, 'src/state') },
+        { find: '$tabs', replacement: path.resolve(__dirname, 'src/tabs') }
       ]
     }),
     commonjs(),
@@ -48,7 +48,7 @@ export default {
         // enable run-time checks when not in production
         dev: !isProduction
       },
-      preprocess: autoPreprocess(preprocessOptions),
+      preprocess: autoPreprocess(preprocessOptions)
     }),
     postcss(),
     resolve({

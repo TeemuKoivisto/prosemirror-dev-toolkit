@@ -6,5 +6,5 @@ const preprocessOptions = {
 
 module.exports = {
   preprocess: autoPreprocess(preprocessOptions),
-  preprocessOptions,
+  preprocessOptions
 }

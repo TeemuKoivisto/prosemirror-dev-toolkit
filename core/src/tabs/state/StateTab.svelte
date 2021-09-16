@@ -1,42 +1,8 @@
-<style lang="scss">
-  .top-row {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-  }
-  .left-panel {
-    overflow: scroll;
-  }
-  .right-panel {
-    border-left: 1px solid rgba($color-red-light, 0.2);
-    flex-grow: 0;
-    min-width: 200px;
-    width: 200px;
-  }
-  :global(.split-view .selection-btn) {
-    height: 24px;
-    width: 35px;
-  }
-  .caret-icon::before {
-    content: '▶';
-  }
-  .caret-icon.expanded::before {
-    content: '▼';
-  }
-  .no-marks {
-    color: var(--color-blue-light);
-    margin: 0.5em 0 1em 1em;
-  }
-  :global(.split-view .tree-view) {
-    margin: 0.5em 0 1em 0;
-  }
-</style>
-
 <script lang="ts">
   import { getContext } from 'svelte'
-  import { latestEntry } from '../../state/stateHistory.store.ts'
-  import { getActiveMarks } from '../../state/getActiveMarks.ts'
-  import { createSelection, createFullSelection } from './selection.ts'
+  import { latestEntry } from '$state/stateHistory.store'
+  import { getActiveMarks } from '$state/getActiveMarks'
+  import { createSelection, createFullSelection } from './selection'
 
   import SplitView from '../SplitView.svelte'
   import TreeView from 'svelte-tree-view'
@@ -134,3 +100,37 @@
     </div>
   </div>
 </SplitView>
+
+<style lang="scss">
+  .top-row {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+  }
+  .left-panel {
+    overflow: scroll;
+  }
+  .right-panel {
+    border-left: 1px solid rgba($color-red-light, 0.2);
+    flex-grow: 0;
+    min-width: 200px;
+    width: 200px;
+  }
+  :global(.split-view .selection-btn) {
+    height: 24px;
+    width: 35px;
+  }
+  .caret-icon::before {
+    content: '▶';
+  }
+  .caret-icon.expanded::before {
+    content: '▼';
+  }
+  .no-marks {
+    color: var(--color-blue-light);
+    margin: 0.5em 0 1em 1em;
+  }
+  :global(.split-view .tree-view) {
+    margin: 0.5em 0 1em 0;
+  }
+</style>

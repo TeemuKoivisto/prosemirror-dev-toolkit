@@ -1,3 +1,21 @@
+<script lang="ts">
+  export let listItems = [],
+    selectedKey,
+    onSelect
+</script>
+
+<ul>
+  {#each listItems as item}
+    <li>
+      <button
+        class:selected={selectedKey === item.key}
+        class:empty={item.empty}
+        on:click={() => onSelect(item)}>{item.value}</button
+      >
+    </li>
+  {/each}
+</ul>
+
 <style lang="scss">
   ul {
     color: var(--color-white);
@@ -41,21 +59,3 @@
     }
   }
 </style>
-
-<script lang="ts">
-  export let listItems = [],
-    selectedKey,
-    onSelect
-</script>
-
-<ul>
-  {#each listItems as item}
-    <li>
-      <button
-        class:selected={selectedKey === item.key}
-        class:empty={item.empty}
-        on:click={() => onSelect(item)}>{item.value}</button
-      >
-    </li>
-  {/each}
-</ul>

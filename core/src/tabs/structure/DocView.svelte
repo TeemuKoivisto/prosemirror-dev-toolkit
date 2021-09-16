@@ -1,7 +1,7 @@
 <script lang="ts">
   import { setContext } from 'svelte'
   import DocNode from './DocNode.svelte'
-  import { buildColors } from './colors.ts'
+  import { buildColors } from './colors'
 
   export let doc,
     schema,

@@ -14,8 +14,8 @@ export function subscribeToDispatchTransaction(view: EditorView) {
       dispatchTransaction: (tr: Transaction) => {
         if (oldDispatchFn) {
           oldDispatchFn(tr)
-        } else {
-          view.updateState(view.state.apply(tr))
+          // } else {
+          //   view.updateState(view.state.apply(tr))
         }
         if (active) {
           appendNewHistoryEntry(tr, view.state)

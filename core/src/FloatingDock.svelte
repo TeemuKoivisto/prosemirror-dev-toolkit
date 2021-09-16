@@ -1,3 +1,83 @@
+<script lang="ts">
+  import TabsMenu from './tabs/TabsMenu.svelte'
+  import StateTab from './tabs/state/StateTab.svelte'
+  import HistoryTab from './tabs/history/HistoryTab.svelte'
+  import PluginsTab from './tabs/PluginsTab.svelte'
+  import SchemaTab from './tabs/SchemaTab.svelte'
+  import StructureTab from './tabs/structure/StructureTab.svelte'
+  import SnapshotsTab from './tabs/snapshots/SnapshotsTab.svelte'
+
+  import { getContext, onMount } from 'svelte'
+  import { saveSnapshot } from './tabs/snapshots/snapshots.store'
+  import './global.scss'
+
+  export let onClose
+
+  const { view } = getContext('editor-view')
+  let openTab = 'state',
+    dockTop = 50,
+    dockHeight = 50
+
+  onMount(() => {
+    return () => {
+      document.removeEventListener('mousemove', dragMove)
+      document.removeEventListener('mouseup', dragEnd)
+    }
+  })
+
+  function handleResizeMouseDown(e: any) {
+    document.addEventListener('mousemove', dragMove)
+    document.addEventListener('mouseup', dragEnd)
+  }
+  function dragMove(evt: MouseEvent) {
+    evt.preventDefault()
+    dockTop = (100 * evt.clientY) / window.innerHeight
+    dockHeight = 100 * (1 - evt.clientY / window.innerHeight)
+  }
+  function dragEnd(evt: MouseEvent) {
+    evt.preventDefault()
+    document.removeEventListener('mousemove', dragMove)
+    document.removeEventListener('mouseup', dragEnd)
+  }
+  function handleSaveSnapshot() {
+    const snapshotName = prompt('Enter snapshot name', Date.now().toString())
+    if (snapshotName) {
+      saveSnapshot(snapshotName, view.state.doc.toJSON())
+    }
+  }
+  function handleClickTab(tab: string) {
+    openTab = tab
+  }
+</script>
+
+<div class="floating-dock-wrapper">
+  <div class="floating-dock" style={`top: ${dockTop}%; height: ${dockHeight}%;`}>
+    <div class="resizing-div" on:mousedown={handleResizeMouseDown} />
+    <div class="container">
+      <div>
+        <button class="snapshot-btn" on:click={handleSaveSnapshot}>Save snapshot</button>
+        <button class="close-btn" on:click={onClose}>X</button>
+      </div>
+      <TabsMenu onClickTab={handleClickTab} active={openTab} />
+      {#if openTab === 'state'}
+        <StateTab />
+      {:else if openTab === 'history'}
+        <HistoryTab />
+      {:else if openTab === 'plugins'}
+        <PluginsTab />
+      {:else if openTab === 'schema'}
+        <SchemaTab />
+      {:else if openTab === 'structure'}
+        <StructureTab />
+      {:else if openTab === 'snapshots'}
+        <SnapshotsTab />
+      {:else}
+        <p>nuting here</p>
+      {/if}
+    </div>
+  </div>
+</div>
+
 <style lang="scss">
   .floating-dock-wrapper {
     position: fixed;
@@ -63,83 +143,3 @@
     }
   }
 </style>
-
-<script lang="ts">
-  import TabsMenu from './tabs/TabsMenu.svelte'
-  import StateTab from './tabs/state/StateTab.svelte'
-  import HistoryTab from './tabs/history/HistoryTab.svelte'
-  import PluginsTab from './tabs/PluginsTab.svelte'
-  import SchemaTab from './tabs/SchemaTab.svelte'
-  import StructureTab from './tabs/structure/StructureTab.svelte'
-  import SnapshotsTab from './tabs/snapshots/SnapshotsTab.svelte'
-
-  import { getContext, onMount } from 'svelte'
-  import { saveSnapshot } from './tabs/snapshots/snapshots.store.ts'
-  import './global.scss'
-
-  export let onClose
-
-  const { view } = getContext('editor-view')
-  let openTab = 'state',
-    dockTop = 50,
-    dockHeight = 50
-
-  onMount(() => {
-    return () => {
-      document.removeEventListener('mousemove', dragMove)
-      document.removeEventListener('mouseup', dragEnd)
-    }
-  })
-
-  function handleResizeMouseDown(e: any) {
-    document.addEventListener('mousemove', dragMove)
-    document.addEventListener('mouseup', dragEnd)
-  }
-  function dragMove(evt: MouseEvent) {
-    evt.preventDefault()
-    dockTop = (100 * evt.clientY) / window.innerHeight
-    dockHeight = 100 * (1 - evt.clientY / window.innerHeight)
-  }
-  function dragEnd(evt: MouseEvent) {
-    evt.preventDefault()
-    document.removeEventListener('mousemove', dragMove)
-    document.removeEventListener('mouseup', dragEnd)
-  }
-  function handleSaveSnapshot() {
-    const snapshotName = prompt('Enter snapshot name', Date.now())
-    if (snapshotName) {
-      saveSnapshot(snapshotName, view.state.doc.toJSON())
-    }
-  }
-  function handleClickTab(tab: string) {
-    openTab = tab
-  }
-</script>
-
-<div class="floating-dock-wrapper">
-  <div class="floating-dock" style={`top: ${dockTop}%; height: ${dockHeight}%;`}>
-    <div class="resizing-div" on:mousedown={handleResizeMouseDown} />
-    <div class="container">
-      <div>
-        <button class="snapshot-btn" on:click={handleSaveSnapshot}>Save snapshot</button>
-        <button class="close-btn" on:click={onClose}>X</button>
-      </div>
-      <TabsMenu onClickTab={handleClickTab} active={openTab} />
-      {#if openTab === 'state'}
-        <StateTab />
-      {:else if openTab === 'history'}
-        <HistoryTab />
-      {:else if openTab === 'plugins'}
-        <PluginsTab />
-      {:else if openTab === 'schema'}
-        <SchemaTab />
-      {:else if openTab === 'structure'}
-        <StructureTab />
-      {:else if openTab === 'snapshots'}
-        <SnapshotsTab />
-      {:else}
-        <p>nuting here</p>
-      {/if}
-    </div>
-  </div>
-</div>

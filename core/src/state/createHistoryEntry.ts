@@ -52,7 +52,7 @@ export function createHistoryEntry(
   const selection = state.selection
   const domFragment = serializer.serializeFragment(selection.content().content)
 
-  let selectedElementsAsHtml = []
+  const selectedElementsAsHtml = []
   if (domFragment) {
     let child = domFragment.firstChild as HTMLElement | null
     while (child) {

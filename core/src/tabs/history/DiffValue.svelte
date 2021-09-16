@@ -1,34 +1,3 @@
-<style>
-  .added {
-    display: inline-block;
-    background: var(--color-green-light);
-    border-radius: 1px;
-    color: var(--color-green);
-    padding: 1px 2px;
-    text-indent: 0;
-    min-height: 1ex;
-  }
-  .deleted {
-    display: inline-block;
-    background: var(--color-red);
-    border-radius: 1px;
-    color: var(--color-gray-light);
-    padding: 1px 2px;
-    text-decoration: line-through;
-    text-indent: 0;
-    min-height: 1ex;
-  }
-  .updated {
-    word-break: break-all;
-  }
-  .updated .added {
-    background: var(--color-yellow);
-  }
-  .arrow {
-    color: var(--color-green-light);
-  }
-</style>
-
 <script lang="ts">
   export let value, node, defaultFormatter
 
@@ -91,3 +60,34 @@
 {:else}
   {defaultFormatter(value)}
 {/if}
+
+<style>
+  .added {
+    display: inline-block;
+    background: var(--color-green-light);
+    border-radius: 1px;
+    color: var(--color-green);
+    padding: 1px 2px;
+    text-indent: 0;
+    min-height: 1ex;
+  }
+  .deleted {
+    display: inline-block;
+    background: var(--color-red);
+    border-radius: 1px;
+    color: var(--color-gray-light);
+    padding: 1px 2px;
+    text-decoration: line-through;
+    text-indent: 0;
+    min-height: 1ex;
+  }
+  .updated {
+    word-break: break-all;
+  }
+  .updated .added {
+    background: var(--color-yellow);
+  }
+  .arrow {
+    color: var(--color-green-light);
+  }
+</style>

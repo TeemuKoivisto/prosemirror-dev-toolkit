@@ -18,8 +18,8 @@
     "noEmit": true,
     "baseUrl": ".",
     "paths": {
-      "@": ["src"],
-      "@tabs": ["src/tabs"]
+      "$state/*": ["src/state/*"],
+      "$tabs/*": ["src/tabs/*"]
     }
   },
   "include": ["src"],

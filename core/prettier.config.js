@@ -4,7 +4,7 @@ module.exports = {
   printWidth: 100,
   plugins: ['prettier-plugin-svelte'],
   semi: false,
-  svelteSortOrder: 'options-styles-scripts-markup',
+  svelteSortOrder: 'options-scripts-markup-styles',
   svelteStrictMode: false,
   svelteBracketNewLine: true,
   svelteIndentScriptAndStyle: true,

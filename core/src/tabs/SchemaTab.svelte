@@ -1,20 +1,3 @@
-<style lang="scss">
-  .top-row {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-  }
-  .left-panel {
-    overflow: scroll;
-    padding: 1em;
-  }
-  .right-panel {
-    border-left: 1px solid rgba($color-red-light, 0.2);
-    overflow: scroll;
-    padding: 1em;
-  }
-</style>
-
 <script lang="ts">
   import { getContext } from 'svelte'
 
@@ -62,3 +45,20 @@
     />
   </div>
 </SplitView>
+
+<style lang="scss">
+  .top-row {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+  }
+  .left-panel {
+    overflow: scroll;
+    padding: 1em;
+  }
+  .right-panel {
+    border-left: 1px solid rgba($color-red-light, 0.2);
+    overflow: scroll;
+    padding: 1em;
+  }
+</style>

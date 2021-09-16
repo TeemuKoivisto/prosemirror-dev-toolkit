@@ -1,3 +1,14 @@
+<script lang="ts">
+  export let selected = false
+  let buttonProps = {
+    class: [$$restProps.class]
+  }
+</script>
+
+<button on:click on:mouseover on:mouseenter on:mouseleave {...buttonProps} class:selected
+  ><slot /></button
+>
+
 <style lang="scss">
   button {
     background: transparent;
@@ -17,14 +28,3 @@
     }
   }
 </style>
-
-<script lang="ts">
-  export let selected = false
-  let buttonProps = {
-    class: [$$restProps.class]
-  }
-</script>
-
-<button on:click on:mouseover on:mouseenter on:mouseleave {...buttonProps} class:selected
-  ><slot /></button
->

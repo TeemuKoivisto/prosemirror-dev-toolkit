@@ -1,23 +1,6 @@
-<style lang="scss">
-  .top-row {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-  }
-  .right-panel {
-    border-left: 1px solid rgba($color-red-light, 0.2);
-    flex-grow: 0;
-    min-width: 220px;
-    width: 220px;
-  }
-  :global(.split-view .m-top) {
-    margin-top: 0.5em;
-  }
-</style>
-
 <script lang="ts">
   import { getContext } from 'svelte'
-  import { latestEntry } from '../../state/stateHistory.store.ts'
+  import { latestEntry } from '$state/stateHistory.store'
 
   import SplitView from '../SplitView.svelte'
   import TreeView from 'svelte-tree-view'
@@ -67,3 +50,20 @@
     />
   </div>
 </SplitView>
+
+<style lang="scss">
+  .top-row {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+  }
+  .right-panel {
+    border-left: 1px solid rgba($color-red-light, 0.2);
+    flex-grow: 0;
+    min-width: 220px;
+    width: 220px;
+  }
+  :global(.split-view .m-top) {
+    margin-top: 0.5em;
+  }
+</style>

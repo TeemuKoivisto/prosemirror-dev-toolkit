@@ -1,43 +1,3 @@
-<style lang="scss">
-  .floating-btn {
-    background: var(--color-blue-bg);
-    border: 0;
-    border-radius: 50%;
-    box-shadow: 0 0 30px rgba($color-black, 0.3);
-    cursor: pointer;
-    position: fixed;
-    padding: 4px 6px;
-    transition: opacity 0.3s;
-    -webkit-transition: opacity 0.3s;
-    z-index: 99999;
-  }
-  .floating-btn.bottom-right {
-    bottom: 16px;
-    right: 16px;
-  }
-  .floating-btn.bottom-left {
-    bottom: 16px;
-    left: 16px;
-  }
-  .floating-btn.top-right {
-    top: 16px;
-    right: 16px;
-  }
-  .floating-btn.top-left {
-    top: 16px;
-    left: 16px;
-  }
-  .floating-btn:hover {
-    opacity: 0.7;
-  }
-  .floating-btn > svg {
-    width: 34px;
-    height: 34px;
-    position: relative;
-    bottom: -2px;
-  }
-</style>
-
 <script lang="ts">
   export let buttonPosition
 </script>
@@ -111,3 +71,43 @@
     </defs>
   </svg>
 </button>
+
+<style lang="scss">
+  .floating-btn {
+    background: var(--color-blue-bg);
+    border: 0;
+    border-radius: 50%;
+    box-shadow: 0 0 30px rgba($color-black, 0.3);
+    cursor: pointer;
+    position: fixed;
+    padding: 4px 6px;
+    transition: opacity 0.3s;
+    -webkit-transition: opacity 0.3s;
+    z-index: 99999;
+  }
+  .floating-btn.bottom-right {
+    bottom: 16px;
+    right: 16px;
+  }
+  .floating-btn.bottom-left {
+    bottom: 16px;
+    left: 16px;
+  }
+  .floating-btn.top-right {
+    top: 16px;
+    right: 16px;
+  }
+  .floating-btn.top-left {
+    top: 16px;
+    left: 16px;
+  }
+  .floating-btn:hover {
+    opacity: 0.7;
+  }
+  .floating-btn > svg {
+    width: 34px;
+    height: 34px;
+    position: relative;
+    bottom: -2px;
+  }
+</style>

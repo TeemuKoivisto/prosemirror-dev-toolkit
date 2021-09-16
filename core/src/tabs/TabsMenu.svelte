@@ -1,28 +1,3 @@
-<style lang="scss">
-  ul {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    overflow-x: scroll;
-    padding: 0;
-  }
-  button {
-    background: transparent;
-    border: 0;
-    border-bottom: 2px solid transparent;
-    color: var(--color-white);
-    cursor: pointer;
-    height: 100%;
-    padding: 1em;
-    &:hover {
-      background: rgba($color-white, 0.05);
-    }
-    &.active {
-      border-bottom: 2px solid var(--color-red-light);
-    }
-  }
-</style>
-
 <script lang="ts">
   export let active, onClickTab
 </script>
@@ -55,3 +30,28 @@
     >
   </li>
 </ul>
+
+<style lang="scss">
+  ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    overflow-x: scroll;
+    padding: 0;
+  }
+  button {
+    background: transparent;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    color: var(--color-white);
+    cursor: pointer;
+    height: 100%;
+    padding: 1em;
+    &:hover {
+      background: rgba($color-white, 0.05);
+    }
+    &.active {
+      border-bottom: 2px solid var(--color-red-light);
+    }
+  }
+</style>

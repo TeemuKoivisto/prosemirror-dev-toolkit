@@ -1,3 +1,46 @@
+<script lang="ts">
+  import { getContext } from 'svelte'
+
+  const { selected, colors, handleNodeClick } = getContext('doc-view')
+
+  export let node,
+    startPos,
+    isRoot = false
+
+  $: color = colors[node.type.name]
+  $: name =
+    node.isText && node.marks.length > 0
+      ? `${node.type.name} - [${node.marks.map(m => m.type.name).join(', ')}]`
+      : node.type.name
+  $: startPositions = Array(node.childCount)
+    .fill(undefined)
+    .reduce((acc, _, idx) => {
+      if (idx === 0) {
+        return [isRoot ? 0 : startPos + 1]
+      }
+      let prev = acc[idx - 1]
+      let cur = node.child(idx - 1)
+      return [...acc, prev + cur.nodeSize]
+    }, [])
+  $: endPos = startPos + node.nodeSize
+  $: inlineChildren = node.content.content.every(n => n.isInline)
+</script>
+
+<div class={`${$$props.class || ''} wrapper`} class:root={isRoot}>
+  <div class="container" style={`background: ${color}`}>
+    <div class="number-box">{startPos}</div>
+    <button class:selected={false} on:click={() => handleNodeClick(node)}>{name}</button>
+    <div class="number-box">{endPos}</div>
+  </div>
+  <div class:inline-children={inlineChildren}>
+    {#if node.content.size !== 0}
+      {#each node.content.content as child, i}
+        <svelte:self node={child} startPos={startPositions[i]} />
+      {/each}
+    {/if}
+  </div>
+</div>
+
 <style lang="scss">
   .wrapper {
     border-left: 1px solid var(--color-blue-bg);
@@ -51,46 +94,3 @@
     }
   }
 </style>
-
-<script lang="ts">
-  import { getContext } from 'svelte'
-
-  const { selected, colors, handleNodeClick } = getContext('doc-view')
-
-  export let node,
-    startPos,
-    isRoot = false
-
-  $: color = colors[node.type.name]
-  $: name =
-    node.isText && node.marks.length > 0
-      ? `${node.type.name} - [${node.marks.map(m => m.type.name).join(', ')}]`
-      : node.type.name
-  $: startPositions = Array(node.childCount)
-    .fill(undefined)
-    .reduce((acc, _, idx) => {
-      if (idx === 0) {
-        return [isRoot ? 0 : startPos + 1]
-      }
-      let prev = acc[idx - 1]
-      let cur = node.child(idx - 1)
-      return [...acc, prev + cur.nodeSize]
-    }, [])
-  $: endPos = startPos + node.nodeSize
-  $: inlineChildren = node.content.content.every(n => n.isInline)
-</script>
-
-<div class={`${$$props.class || ''} wrapper`} class:root={isRoot}>
-  <div class="container" style={`background: ${color}`}>
-    <div class="number-box">{startPos}</div>
-    <button class:selected={false} on:click={() => handleNodeClick(node)}>{name}</button>
-    <div class="number-box">{endPos}</div>
-  </div>
-  <div class:inline-children={inlineChildren}>
-    {#if node.content.size !== 0}
-      {#each node.content.content as child, i}
-        <svelte:self node={child} startPos={startPositions[i]} />
-      {/each}
-    {/if}
-  </div>
-</div>

@@ -1,37 +1,7 @@
-<style lang="scss">
-  .left-panel {
-    flex-grow: 0;
-    padding: 0;
-    min-width: 190px;
-    width: 190px;
-  }
-  .title-container {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-  }
-  .entry-row + .entry-row {
-    margin-top: 1em;
-  }
-  .selection-html {
-    margin: 0.5em 0 0 0;
-    padding: 0;
-  }
-  .equal-diff {
-    align-items: center;
-    color: var(--color-red-light);
-    display: flex;
-    font-size: 14px;
-    height: 100%;
-    justify-content: center;
-    width: 100%;
-  }
-</style>
-
 <script lang="ts">
-  import { stateHistory, shownHistoryGroups, latestEntry } from '../../state/stateHistory.store.ts'
-  import type { HistoryEntry, HistoryGroup } from '../../state/types.ts'
-  import { mapDocDeltaChildren, mapSelectionDeltaChildren } from './mapDeltas.ts'
+  import { stateHistory, shownHistoryGroups, latestEntry } from '$state/stateHistory.store'
+  import type { HistoryEntry, HistoryGroup } from '$state/types'
+  import { mapDocDeltaChildren, mapSelectionDeltaChildren } from './mapDeltas'
 
   import SplitView from '../SplitView.svelte'
   import TreeView from 'svelte-tree-view'
@@ -183,3 +153,33 @@
     {/if}
   </div>
 </SplitView>
+
+<style lang="scss">
+  .left-panel {
+    flex-grow: 0;
+    padding: 0;
+    min-width: 190px;
+    width: 190px;
+  }
+  .title-container {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+  }
+  .entry-row + .entry-row {
+    margin-top: 1em;
+  }
+  .selection-html {
+    margin: 0.5em 0 0 0;
+    padding: 0;
+  }
+  .equal-diff {
+    align-items: center;
+    color: var(--color-red-light);
+    display: flex;
+    font-size: 14px;
+    height: 100%;
+    justify-content: center;
+    width: 100%;
+  }
+</style>
