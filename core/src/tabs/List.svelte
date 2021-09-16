@@ -1,7 +1,7 @@
 <script lang="ts">
-  export let listItems = [],
-    selectedKey,
-    onSelect
+  export let listItems: { key: string; value: string }[] = [],
+    selectedKey: string,
+    onSelect: (item: { key: string; value: string }) => void
 </script>
 
 <ul>

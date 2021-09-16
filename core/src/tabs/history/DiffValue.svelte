@@ -1,5 +1,7 @@
 <script lang="ts">
-  export let value, node, defaultFormatter
+  import type { ITreeNode } from 'svelte-tree-view'
+
+  export let value: any, node: ITreeNode, defaultFormatter: (val: any) => string
 
   function replaceSpacesWithNonBreakingSpace(value: string) {
     return value.replace(/\s/gm, ' ')

@@ -1,5 +1,7 @@
 <script lang="ts">
-  export let buttonPosition
+  import type { ButtonPosition } from './types'
+
+  export let buttonPosition: ButtonPosition
 </script>
 
 <button class={`floating-btn ${buttonPosition}`} on:click>

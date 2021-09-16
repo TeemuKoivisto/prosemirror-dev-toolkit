@@ -11,7 +11,7 @@
   import { saveSnapshot } from './tabs/snapshots/snapshots.store'
   import './global.scss'
 
-  export let onClose
+  export let onClose: () => void
 
   const { view } = getContext('editor-view')
   let openTab = 'state',

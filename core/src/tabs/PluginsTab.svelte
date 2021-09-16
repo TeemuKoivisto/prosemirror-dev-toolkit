@@ -1,6 +1,6 @@
 <script lang="ts">
   import { getContext } from 'svelte'
-  import type { Plugin } from 'prosemirror-state'
+  import type { EditorState, Plugin } from 'prosemirror-state'
   import { latestEntry } from '$state/stateHistory.store'
 
   import SplitView from './SplitView.svelte'
@@ -15,7 +15,7 @@
     stopCircularRecursion: true,
     shouldExpandNode: () => expandPluginState
   }
-  let editorState = view.state
+  let editorState: EditorState = view.state
   let plugins = editorState.plugins
   let selectedPlugin = plugins[0]
   $: pluginState = selectedPlugin?.getState(editorState)

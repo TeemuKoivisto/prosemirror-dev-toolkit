@@ -9,7 +9,7 @@
   import DiffValue from './DiffValue.svelte'
   import Button from '../../Button.svelte'
 
-  let selectedEntry = undefined,
+  let selectedEntry: HistoryEntry | undefined = undefined,
     showTr = false
 
   let expandTrTreeView = false
@@ -34,8 +34,8 @@
   }
   function handleLogTr() {
     console.info('%c [prosemirror-dev-toolkit]: Property added to window._tr', 'color: #b8e248')
-    console.log(selectedEntry.tr)
-    window._tr = selectedEntry.tr
+    console.log(selectedEntry?.tr)
+    window._tr = selectedEntry?.tr
   }
   /**
    * Handles the clicks of the history entries.

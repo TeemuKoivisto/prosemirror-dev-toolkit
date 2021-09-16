@@ -1,17 +1,19 @@
 <script lang="ts">
   import { setContext } from 'svelte'
+  import type { Node as PMNode, Schema } from 'prosemirror-model'
+
   import DocNode from './DocNode.svelte'
   import { buildColors } from './colors'
 
-  export let doc,
-    schema,
+  export let doc: PMNode,
+    schema: Schema,
     selected = { type: '', start: 0, end: 0 },
-    handleNodeSelect
+    handleNodeSelect: (n: PMNode) => void
 
   setContext('doc-view', {
     selected,
     colors: buildColors(schema),
-    handleNodeClick(n: any) {
+    handleNodeClick(n: PMNode) {
       handleNodeSelect(n)
     }
   })

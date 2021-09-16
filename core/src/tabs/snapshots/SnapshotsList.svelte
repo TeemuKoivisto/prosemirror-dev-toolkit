@@ -1,17 +1,18 @@
 <script lang="ts">
   import type { Snapshot } from './snapshots.store'
 
-  export let snapshots = [],
-    onUpdate,
-    onRestore,
-    onDelete
-  let editedSnap
-  let timer
+  export let snapshots: Snapshot[] = [],
+    onUpdate: (snap: Snapshot) => void,
+    onRestore: (snap: Snapshot) => void,
+    onDelete: (snap: Snapshot) => void
 
-  const debounceUpdate = (s: Snapshot) => {
+  let editedSnap: Snapshot | undefined
+  let timer: number | undefined
+
+  const debounceUpdate = () => {
     clearTimeout(timer)
     timer = setTimeout(() => {
-      onUpdate(editedSnap)
+      onUpdate(editedSnap as Snapshot)
     }, 150)
   }
 
@@ -19,11 +20,13 @@
     editedSnap = snap
   }
   function handleNameChange(evt: any) {
-    editedSnap.name = evt.target.value
-    debounceUpdate()
+    if (editedSnap) {
+      editedSnap.name = evt.target.value
+      debounceUpdate()
+    }
   }
   function handleNameKeyPress(evt: any) {
-    if (evt.key === 'Enter') {
+    if (evt.key === 'Enter' && editedSnap) {
       onUpdate(editedSnap)
       clearTimeout(timer)
       editedSnap = undefined

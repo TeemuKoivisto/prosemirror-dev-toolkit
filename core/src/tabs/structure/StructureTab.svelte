@@ -1,4 +1,5 @@
 <script lang="ts">
+  import type { Node as PMNode, Schema } from 'prosemirror-model'
   import { getContext } from 'svelte'
   import { latestEntry } from '$state/stateHistory.store'
 
@@ -8,17 +9,17 @@
   import Button from '../../Button.svelte'
 
   const { view } = getContext('editor-view')
-  let doc = view.state.doc
+  let doc: PMNode = view.state.doc
   let selectedNode = view.state.doc
   $: jsonNode = selectedNode.toJSON()
-  let schema = view.state.schema
+  let schema: Schema = view.state.schema
 
   latestEntry.subscribe(e => {
     if (!e) return
     doc = e.state.doc
   })
 
-  function handleNodeSelect(n: any) {
+  function handleNodeSelect(n: PMNode) {
     selectedNode = n
   }
   function handleClickLogNode() {

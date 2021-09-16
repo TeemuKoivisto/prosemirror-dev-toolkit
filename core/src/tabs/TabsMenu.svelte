@@ -1,5 +1,5 @@
 <script lang="ts">
-  export let active, onClickTab
+  export let active: string, onClickTab: (tab: string) => void
 </script>
 
 <ul class="tabs-menu">

@@ -1,10 +1,11 @@
 <script lang="ts">
   import { getContext } from 'svelte'
+  import type { Node as PMNode } from 'prosemirror-model'
 
   const { selected, colors, handleNodeClick } = getContext('doc-view')
 
-  export let node,
-    startPos,
+  export let node: PMNode,
+    startPos: number,
     isRoot = false
 
   $: color = colors[node.type.name]
@@ -12,6 +13,7 @@
     node.isText && node.marks.length > 0
       ? `${node.type.name} - [${node.marks.map(m => m.type.name).join(', ')}]`
       : node.type.name
+
   $: startPositions = Array(node.childCount)
     .fill(undefined)
     .reduce((acc, _, idx) => {
@@ -22,6 +24,7 @@
       let cur = node.child(idx - 1)
       return [...acc, prev + cur.nodeSize]
     }, [])
+
   $: endPos = startPos + node.nodeSize
   $: inlineChildren = node.content.content.every(n => n.isInline)
 </script>

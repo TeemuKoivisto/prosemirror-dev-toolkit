@@ -6,13 +6,14 @@
 
   import SplitView from '../SplitView.svelte'
   import TreeView from 'svelte-tree-view'
+  import type { ITreeNode } from 'svelte-tree-view'
   import Button from '../../Button.svelte'
 
   const { view } = getContext('editor-view')
   let doc = view.state.doc.toJSON()
   let selection = createSelection(view.state.selection)
   let currentState = view.state
-  let activeMarks = []
+  let activeMarks: string[] = []
   let nodeSize = view.state.doc.nodeSize
   let childCount = view.state.doc.childCount
   let expandedSelection = false

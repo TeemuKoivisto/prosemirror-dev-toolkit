@@ -1,7 +1,14 @@
 <script lang="ts">
-  export let listItems = [],
-    selectedId,
-    onSelect
+  import type { HistoryEntry } from '$state/types'
+
+  export let listItems: {
+      isGroup: boolean
+      topEntry: HistoryEntry | undefined
+      entries: (HistoryEntry | undefined)[]
+      expanded: boolean
+    }[] = [],
+    selectedId: string,
+    onSelect: (id: string, groupIdx: number, wasTopNode: boolean) => void
 </script>
 
 <ul>
