@@ -4,9 +4,9 @@
   import { getActiveMarks } from './getActiveMarks'
   import { createSelection, createFullSelection } from './selection'
 
-  import SplitView from '../SplitView.svelte'
   import TreeView from 'svelte-tree-view'
   import type { ITreeNode } from 'svelte-tree-view'
+  import SplitView from '../SplitView.svelte'
   import Button from '../../Button.svelte'
 
   const { view } = getContext('editor-view')

@@ -3,8 +3,8 @@
   import { getContext } from 'svelte'
   import { latestEntry } from '$stores/stateHistory'
 
-  import SplitView from '../SplitView.svelte'
   import TreeView from 'svelte-tree-view'
+  import SplitView from '../SplitView.svelte'
   import DocView from './DocView.svelte'
   import Button from '../../Button.svelte'
 

@@ -3,12 +3,7 @@
 
   import SplitView from '$tabs/SplitView.svelte'
   import SnapshotsList from './SnapshotsList.svelte'
-  import {
-    snapshots,
-    deleteSnapshot,
-    updateSnapshot,
-    restoreSnapshot
-  } from '$stores/snapshots'
+  import { snapshots, deleteSnapshot, updateSnapshot, restoreSnapshot } from '$stores/snapshots'
   import { resetHistory } from '$stores/stateHistory'
   import type { Snapshot } from '$typings/snapshots'
 

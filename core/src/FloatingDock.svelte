@@ -1,4 +1,8 @@
 <script lang="ts">
+  import { getContext, onMount } from 'svelte'
+
+  import { saveSnapshot } from '$stores/snapshots'
+
   import TabsMenu from './tabs/TabsMenu.svelte'
   import StateTab from './tabs/state/StateTab.svelte'
   import HistoryTab from './tabs/history/HistoryTab.svelte'
@@ -7,8 +11,6 @@
   import StructureTab from './tabs/structure/StructureTab.svelte'
   import SnapshotsTab from './tabs/snapshots/SnapshotsTab.svelte'
 
-  import { getContext, onMount } from 'svelte'
-  import { saveSnapshot } from '$stores/snapshots'
   import './global.scss'
 
   export let onClose: () => void

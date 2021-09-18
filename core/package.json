@@ -7,9 +7,25 @@
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "svelte": "src/index.ts",
+  "types": "dist/index.d.ts",
   "files": [
     "src",
     "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TeemuKoivisto/prosemirror-dev-toolkit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/issues"
+  },
+  "keywords": [
+    "prosemirror",
+    "svelte",
+    "dev",
+    "devtools",
+    "typescript",
+    "inspector"
   ],
   "scripts": {
     "build": "rimraf build && rollup -c",

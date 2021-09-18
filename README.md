@@ -1,4 +1,4 @@
-# [prosemirror-dev-toolkit](https://teemukoivisto.github.io/prosemirror-dev-toolkit/)
+# [prosemirror-dev-toolkit](https://teemukoivisto.github.io/prosemirror-dev-toolkit/) [![version](https://img.shields.io/npm/v/prosemirror-dev-toolkit?style=flat-square)](https://www.npmjs.com/package/prosemirror-dev-toolkit)
 
 This is a rewrite of [prosemirror-dev-tools](https://github.com/d4rkr00t/prosemirror-dev-tools) which I'm a big fan of, yet have felt it could use some improvements. Since the repo didn't seem that actively maintained and also because I wanted to remove the hard dependency to React, use TypeScript and make the whole thing smaller, I took it to my own hands to rewrite it in Svelte.
 
