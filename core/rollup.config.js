@@ -42,8 +42,6 @@ export default {
         { find: '$typings', replacement: path.resolve(__dirname, 'src/typings') }
       ]
     }),
-    commonjs(),
-    typescript(),
     svelte({
       compilerOptions: {
         // enable run-time checks when not in production
@@ -51,6 +49,8 @@ export default {
       },
       preprocess: autoPreprocess(preprocessOptions)
     }),
+    commonjs(),
+    typescript(),
     postcss(),
     resolve({
       browser: true,

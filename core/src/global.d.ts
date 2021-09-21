@@ -16,5 +16,3 @@ declare module 'html' {
   }
   export const prettyPrint = (html: string, opts?: Opts) => string
 }
-
-// TODO need to expand prosemirror-model to provide content.content for Fragments and key for Plugins

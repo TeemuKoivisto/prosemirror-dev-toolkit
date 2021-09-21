@@ -80,7 +80,7 @@
     "html": "^1.0.0",
     "jsondiffpatch": "^0.4.1",
     "prosemirror-model": "^1.14.3",
-    "svelte-tree-view": "^0.0.7"
+    "svelte-tree-view": "^1.0.0"
   },
   "resolutions": {
     "@types/prosemirror-model": ">=1.13.0"
