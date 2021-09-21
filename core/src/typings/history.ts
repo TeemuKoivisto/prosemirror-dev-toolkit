@@ -1,4 +1,4 @@
-import { EditorState, Transaction } from 'prosemirror-state'
+import type { EditorState, Transaction } from 'prosemirror-state'
 
 export interface HistoryEntry {
   id: string

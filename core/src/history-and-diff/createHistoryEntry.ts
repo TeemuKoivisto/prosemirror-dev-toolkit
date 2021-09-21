@@ -1,4 +1,4 @@
-import { EditorState, Selection, Transaction } from 'prosemirror-state'
+import type { EditorState, Selection, Transaction } from 'prosemirror-state'
 import { DOMSerializer } from 'prosemirror-model'
 import { prettyPrint } from 'html'
 
