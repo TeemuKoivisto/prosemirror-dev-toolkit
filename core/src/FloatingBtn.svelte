@@ -82,7 +82,7 @@
     box-shadow: 0 0 30px rgba($color-black, 0.3);
     cursor: pointer;
     position: fixed;
-    padding: 4px 6px;
+    padding: 6px;
     transition: opacity 0.3s;
     -webkit-transition: opacity 0.3s;
     z-index: 99999;
@@ -107,9 +107,9 @@
     opacity: 0.7;
   }
   .floating-btn > svg {
+    display: block;
     width: 34px;
     height: 34px;
     position: relative;
-    bottom: -2px;
   }
 </style>

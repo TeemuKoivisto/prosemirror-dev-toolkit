@@ -11,8 +11,6 @@
   import StructureTab from './tabs/structure/StructureTab.svelte'
   import SnapshotsTab from './tabs/snapshots/SnapshotsTab.svelte'
 
-  import './global.scss'
-
   export let onClose: () => void
 
   const { view } = getContext('editor-view')
