@@ -1,4 +1,5 @@
-const autoPreprocess = require('svelte-preprocess')
+import autoPreprocess from 'svelte-preprocess'
+import { resolve } from 'path'
 
 const preprocessOptions = {
   scss: { prependData: `@import 'src/global.scss';` },
@@ -7,7 +8,19 @@ const preprocessOptions = {
   }
 }
 
-module.exports = {
+export default {
   preprocess: autoPreprocess(preprocessOptions),
-  preprocessOptions
+  preprocessOptions,
+  kit: {
+    target: '#svelte',
+    vite: {
+      resolve: {
+        alias: {
+          $stores: resolve('./src/stores'),
+          $tabs: resolve('./src/tabs'),
+          $typings: resolve('./src/typings'),
+        },
+      },
+    },
+  }
 }

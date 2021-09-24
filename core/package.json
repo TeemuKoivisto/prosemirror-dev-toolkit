@@ -6,8 +6,8 @@
   "homepage": "https://teemukoivisto.github.io/prosemirror-dev-toolkit/",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
-  "svelte": "src/index.ts",
   "types": "dist/index.d.ts",
+  "type": "module",
   "files": [
     "src",
     "dist"
@@ -85,7 +85,7 @@
     "html": "^1.0.0",
     "jsondiffpatch": "^0.4.1",
     "prosemirror-model": "^1.14.3",
-    "svelte-tree-view": "^1.0.0"
+    "svelte-tree-view": "^1.0.3"
   },
   "resolutions": {
     "@types/prosemirror-model": ">=1.13.0"

@@ -14,5 +14,5 @@ declare module 'html' {
     unformatted?: string[]
     indent_scripts?: 'keep' | 'separate' | 'normal'
   }
-  export const prettyPrint = (html: string, opts?: Opts) => string
+  export function prettyPrint(html: string, opts?: Opts): string
 }
