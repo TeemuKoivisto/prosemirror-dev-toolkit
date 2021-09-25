@@ -171,7 +171,7 @@ export const schema: ExampleSchema = new Schema<Nodes, Marks>({
           tag: 'b',
           getAttrs: (p) => {
             const node = p as HTMLElement
-            return node.style.fontWeight != 'normal' && null
+            return node.style.fontWeight !== 'normal' && null
           },
         },
         {
