@@ -3,7 +3,14 @@
 
   import SplitView from '$tabs/SplitView.svelte'
   import SnapshotsList from './SnapshotsList.svelte'
-  import { snapshots, deleteSnapshot, updateSnapshot, restoreSnapshot } from '$stores/snapshots'
+  import {
+    snapshots,
+    selectedSnapshot,
+    deleteSnapshot,
+    updateSnapshot,
+    toggleViewSnapshot,
+    restoreSnapshot
+  } from '$stores/snapshots'
   import { resetHistory } from '$stores/stateHistory'
   import type { Snapshot } from '$typings/snapshots'
 
@@ -11,6 +18,9 @@
 
   function handleDeleteSnapshot(snapshot: Snapshot) {
     deleteSnapshot(snapshot)
+  }
+  function handleViewSnapshot(snapshot?: Snapshot) {
+    toggleViewSnapshot(view, snapshot)
   }
   function handleRestoreSnapshot(snapshot: Snapshot) {
     restoreSnapshot(view, snapshot)
@@ -28,9 +38,11 @@
     {:else}
       <SnapshotsList
         snapshots={$snapshots}
-        onDelete={handleDeleteSnapshot}
+        selectedSnapshot={$selectedSnapshot}
+        onView={handleViewSnapshot}
         onRestore={handleRestoreSnapshot}
         onUpdate={handleUpdateSnapshot}
+        onDelete={handleDeleteSnapshot}
       />
     {/if}
   </div>

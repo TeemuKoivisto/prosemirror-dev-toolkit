@@ -8,7 +8,7 @@ import {
 import { DevToolsOpts } from './types'
 
 declare global {
-  interface Window { 
+  interface Window {
     applyDevTools: any
     editorView: any
     _node: any
@@ -19,8 +19,10 @@ declare global {
 
 const DEVTOOLS_CLASS_NAME = '__prosemirror-dev-toolkit__'
 
-// Make the dev tools available globally for some scripting shenanigans
-window.applyDevTools = applyDevTools
+try {
+  // Make the dev tools available globally for some scripting shenanigans
+  if (typeof window !== 'undefined') window.applyDevTools = applyDevTools
+} catch (err) {}
 
 function createOrFindPlace() {
   let place: HTMLElement | null = document.querySelector(`.${DEVTOOLS_CLASS_NAME}`)
@@ -45,8 +47,10 @@ export function applyDevTools(view: EditorView, opts: DevToolsOpts = {}) {
       ...opts
     }
   })
-  // Make the editor view available since it might be handy for quick debugging
-  window.editorView = view
+  try {
+    // Make the editor view available since it might be handy for quick debugging
+    if (typeof window !== 'undefined') window.editorView = view
+  } catch (err) {}
 
   // Bind the component's life-cycle to the editorView to automatically unmount the devTools
   const oldDestroyFn = view.destroy.bind(view)

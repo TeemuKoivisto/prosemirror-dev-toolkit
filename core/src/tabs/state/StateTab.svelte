@@ -60,6 +60,9 @@
       showLogButton
       showCopyButton
       valueFormatter={formatDocNodeValue}
+      recursionOpts={{
+        maxDepth: 13
+      }}
     />
   </div>
   <div slot="right" class="right-panel">

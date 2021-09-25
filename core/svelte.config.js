@@ -18,9 +18,9 @@ export default {
         alias: {
           $stores: resolve('./src/stores'),
           $tabs: resolve('./src/tabs'),
-          $typings: resolve('./src/typings'),
-        },
-      },
-    },
+          $typings: resolve('./src/typings')
+        }
+      }
+    }
   }
 }

@@ -1,14 +1,14 @@
 <script lang="ts">
   import type { ITreeNode } from 'svelte-tree-view'
 
-  export let value: any, node: ITreeNode, defaultFormatter: (val: any) => string
+  export const node: ITreeNode | undefined = undefined
+  export let value: any, defaultFormatter: (val: any) => string
 
   function replaceSpacesWithNonBreakingSpace(value: string) {
     return value.replace(/\s/gm, ' ')
   }
-  function parseTextDiff(textDiff: string[]) {
+  function parseTextDiff(textDiff: string) {
     const diffByLines = textDiff.split(/\n/gm).slice(1)
-
     return diffByLines.map(line => {
       const type = line.startsWith('-') ? 'delete' : line.startsWith('+') ? 'add' : 'raw'
 

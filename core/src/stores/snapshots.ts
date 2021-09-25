@@ -1,11 +1,14 @@
 import type { EditorView } from 'prosemirror-view'
-import { writable } from 'svelte/store'
+import type { EditorState } from 'prosemirror-state'
+import { get, writable } from 'svelte/store'
 
 import type { Snapshot } from '$typings/snapshots'
 
 const SNAPSHOTS_KEY = '__prosemirror-dev-toolkit__snapshots'
 
 export const snapshots = writable<Snapshot[]>([])
+export const selectedSnapshot = writable<Snapshot | undefined>()
+export const previousEditorState = writable<EditorState | undefined>()
 
 const persisted = typeof window !== 'undefined' ? localStorage.getItem(SNAPSHOTS_KEY) : null
 if (persisted && persisted.length > 0) {
@@ -22,6 +25,17 @@ snapshots.subscribe(val => {
     localStorage.setItem(SNAPSHOTS_KEY, JSON.stringify(val))
   }
 })
+
+function setEditorDoc(view: EditorView, doc: { [key: string]: any }) {
+  // Hack to use EditorState.create without explicitly calling EditorState, thus
+  // avoiding having to include it as a dependency
+  const newState = Object.getPrototypeOf(view.state).constructor.create({
+    schema: view.state.schema,
+    plugins: view.state.plugins,
+    doc: view.state.schema.nodeFromJSON(doc)
+  })
+  view.updateState(newState)
+}
 
 export function saveSnapshot(snapshotName: string, doc: { [key: string]: any }) {
   const snap: Snapshot = {
@@ -45,20 +59,31 @@ export function updateSnapshot(snapshot: Snapshot) {
 
 export function deleteSnapshot(snapshot: Snapshot) {
   snapshots.update(val => val.filter(s => s.timestamp !== snapshot.timestamp))
+  const selected = get(selectedSnapshot)
+  if (selected?.timestamp === snapshot.timestamp) {
+    selectedSnapshot.set(undefined)
+  }
+}
+
+export function toggleViewSnapshot(view: EditorView, snap?: Snapshot) {
+  if (snap) {
+    const prevState = get(previousEditorState)
+    if (!prevState) previousEditorState.set(view.state)
+    setEditorDoc(view, snap.doc)
+  } else {
+    const prevState = get(previousEditorState)
+    if (!prevState) {
+      console.error('No previous state to restore!')
+    } else {
+      view.updateState(prevState)
+    }
+    previousEditorState.set(undefined)
+  }
+  selectedSnapshot.set(snap)
 }
 
 export function restoreSnapshot(view: EditorView, snap: Snapshot) {
-  // Hack to use EditorState.create without explicitly calling EditorState, thus
-  // avoiding having to include it as a dependency
-  const newState = Object.getPrototypeOf(view.state).constructor.create({
-    schema: view.state.schema,
-    plugins: view.state.plugins,
-    doc: view.state.schema.nodeFromJSON(snap.doc)
-  })
-  view.updateState(newState)
-
-  // this.setState({
-  //   history: [createHistoryEntry(newState)],
-  //   state: newState,
-  // });
+  setEditorDoc(view, snap.doc)
+  previousEditorState.set(undefined)
+  selectedSnapshot.set(undefined)
 }

@@ -2,11 +2,14 @@
   import type { Snapshot } from '$typings/snapshots'
 
   export let snapshots: Snapshot[] = [],
+    selectedSnapshot: Snapshot | undefined = undefined,
     onUpdate: (snap: Snapshot) => void,
+    onView: (snap?: Snapshot) => void,
     onRestore: (snap: Snapshot) => void,
     onDelete: (snap: Snapshot) => void
 
   let editedSnap: Snapshot | undefined
+  let deleteSnap: Snapshot | undefined
   let timer: number | undefined
 
   const debounceUpdate = () => {
@@ -18,6 +21,7 @@
 
   function handleSnapDoubleclick(snap: Snapshot) {
     editedSnap = snap
+    deleteSnap = undefined
   }
   function handleNameChange(evt: any) {
     if (editedSnap) {
@@ -30,6 +34,27 @@
       onUpdate(editedSnap)
       clearTimeout(timer)
       editedSnap = undefined
+      deleteSnap = undefined
+    }
+  }
+  function handleClickView(snap: Snapshot) {
+    if (selectedSnapshot?.timestamp === snap.timestamp) {
+      onView()
+    } else {
+      onView(snap)
+    }
+    deleteSnap = undefined
+  }
+  function handleRestoreClick(snap: Snapshot) {
+    onRestore(snap)
+    deleteSnap = undefined
+  }
+  function handleClickDelete(snap: Snapshot) {
+    if (!deleteSnap || deleteSnap.timestamp !== snap.timestamp) {
+      deleteSnap = snap
+    } else {
+      onDelete(snap)
+      deleteSnap = undefined
     }
   }
 </script>
@@ -46,8 +71,21 @@
       {:else}
         <div on:dblclick={() => handleSnapDoubleclick(snap)}>{snap.name}</div>
       {/if}
-      <button on:click={() => onDelete(snap)}> Delete </button>
-      <button on:click={() => onRestore(snap)}> Restore </button>
+      <button on:click={() => handleClickView(snap)}>
+        {#if selectedSnapshot?.timestamp === snap.timestamp}
+          Hide
+        {:else}
+          Show
+        {/if}
+      </button>
+      <button on:click={() => handleRestoreClick(snap)}>Restore</button>
+      <button on:click={() => handleClickDelete(snap)}>
+        {#if deleteSnap?.timestamp === snap.timestamp}
+          Confirm Delete
+        {:else}
+          Delete
+        {/if}
+      </button>
     </li>
   {/each}
 </ul>

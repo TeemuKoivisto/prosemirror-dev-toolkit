@@ -30,8 +30,8 @@
   "scripts": {
     "build": "rimraf build && rollup -c",
     "format": "prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|svelte|md|graphql|mdx)\"",
-    "lint": "eslint --cache --ext .js,.ts,.tsx ./src",
-    "lint:fix": "eslint --fix --ext .js,.ts,.tsx ./src",
+    "lint": "eslint --cache --ext .js,.ts,.tsx,.svelte ./src",
+    "lint:fix": "eslint --fix --ext .js,.ts,.tsx,.svelte ./src",
     "preversion": "yarn test",
     "version": "yarn build",
     "postversion": "git push && git push --tags",
@@ -39,7 +39,7 @@
     "postpublish": "rm README.md LICENSE",
     "svelte-check": "svelte-check",
     "test": "jest src",
-    "watch": "rollup -cw"
+    "watch": "rimraf dist && rollup -cw"
   },
   "devDependencies": {
     "@rollup/plugin-alias": "^3.1.5",
