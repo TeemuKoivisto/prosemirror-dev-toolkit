@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { onMount } from 'svelte'
+  import { onDestroy } from 'svelte'
   import { getContext } from '$context'
 
-  import { saveSnapshot } from '$stores/snapshots'
+  import { saveSnapshot, importSnapshot } from '$stores/snapshots'
 
   import TabsMenu from './tabs/TabsMenu.svelte'
   import StateTab from './tabs/state/StateTab.svelte'
@@ -17,13 +17,12 @@
   const { view } = getContext('editor-view')
   let openTab = 'state',
     dockTop = 50,
-    dockHeight = 50
+    dockHeight = 50,
+    fileinput: HTMLInputElement
 
-  onMount(() => {
-    return () => {
-      document.removeEventListener('mousemove', dragMove)
-      document.removeEventListener('mouseup', dragEnd)
-    }
+  onDestroy(() => {
+    document.removeEventListener('mousemove', dragMove)
+    document.removeEventListener('mouseup', dragEnd)
   })
 
   function handleResizeMouseDown(e: any) {
@@ -41,10 +40,38 @@
     document.removeEventListener('mouseup', dragEnd)
   }
   function handleSaveSnapshot() {
-    const snapshotName = prompt('Enter snapshot name', Date.now().toString())
+    const defaultName = new Date().toLocaleString('sv')
+    const snapshotName = prompt('Enter snapshot name', defaultName)
     if (snapshotName) {
       saveSnapshot(snapshotName, view.state.doc.toJSON())
     }
+  }
+  function handleImportSnapshot() {
+    fileinput.click()
+  }
+  function handleFileSelected(
+    e: Event & {
+      currentTarget: EventTarget & HTMLInputElement
+    }
+  ) {
+    const target = <HTMLInputElement>e.target
+    Array.from(target.files || []).forEach(file => {
+      const reader = new FileReader()
+      reader.readAsText(file)
+      reader.onload = (e) => {
+        const data = typeof e.target?.result === 'string' ? e.target?.result : ''
+        try {
+          const json = JSON.parse(data)
+          if (!json || typeof json !== 'object') {
+            throw Error('Imported snapshot was not a JSON object' + json)
+          }
+          const name = file.name.slice(0, file.name.lastIndexOf('.'))
+          importSnapshot(name, json, view.state.schema)
+        } catch (err) {
+          console.error('Failed to import snapshot: ' + err)
+        }
+      }
+    })
   }
   function handleClickTab(tab: string) {
     openTab = tab
@@ -56,9 +83,18 @@
     <div class="resizing-div" on:mousedown={handleResizeMouseDown} />
     <div class="container">
       <div>
-        <button class="snapshot-btn" on:click={handleSaveSnapshot}>Save snapshot</button>
+        <button class="snap-save-btn" on:click={handleSaveSnapshot}>Save snapshot</button>
+        <button class="snap-import-btn" on:click={handleImportSnapshot}>Import snapshot</button>
         <button class="close-btn" on:click={onClose}>X</button>
       </div>
+      <input
+        style="display:none"
+        type="file"
+        accept=".json"
+        multiple
+        on:change={handleFileSelected}
+        bind:this={fileinput}
+      />
       <TabsMenu onClickTab={handleClickTab} active={openTab} />
       {#if openTab === 'state'}
         <StateTab />
@@ -111,7 +147,24 @@
   .container {
     height: 100%;
   }
-  .snapshot-btn {
+  .snap-save-btn {
+    background: rgba($color-red-light, 0.6);
+    border: 0;
+    border-radius: 3px;
+    color: var(--color-white);
+    cursor: pointer;
+    font-size: 12px;
+    height: 24px;
+    line-height: 25px;
+    padding: 0 6px;
+    position: absolute;
+    right: 134px;
+    top: -28px;
+    &:hover {
+      background: rgba($color-red-light, 0.8);
+    }
+  }
+  .snap-import-btn {
     background: rgba($color-red-light, 0.6);
     border: 0;
     border-radius: 3px;

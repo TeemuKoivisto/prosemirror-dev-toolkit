@@ -3,6 +3,7 @@ import type { EditorState } from 'prosemirror-state'
 import { get, writable } from 'svelte/store'
 
 import type { Snapshot } from '$typings/snapshots'
+import { Schema } from 'prosemirror-model'
 
 const SNAPSHOTS_KEY = '__prosemirror-dev-toolkit__snapshots'
 
@@ -42,6 +43,16 @@ export function saveSnapshot(snapshotName: string, doc: { [key: string]: any }) 
     name: snapshotName,
     timestamp: Date.now(),
     doc
+  }
+  snapshots.update(val => [snap, ...val])
+}
+
+export function importSnapshot(snapshotName: string, json: { [key: string]: unknown }, schema: Schema) {
+  const doc = schema.nodeFromJSON(json)
+  const snap: Snapshot = {
+    name: snapshotName,
+    timestamp: Date.now(),
+    doc: doc.toJSON()
   }
   snapshots.update(val => [snap, ...val])
 }
