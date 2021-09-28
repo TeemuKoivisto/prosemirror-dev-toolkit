@@ -6,6 +6,7 @@
     onUpdate: (snap: Snapshot) => void,
     onView: (snap?: Snapshot) => void,
     onRestore: (snap: Snapshot) => void,
+    onExport: (snap: Snapshot) => void,
     onDelete: (snap: Snapshot) => void
 
   let editedSnap: Snapshot | undefined
@@ -49,6 +50,10 @@
     onRestore(snap)
     deleteSnap = undefined
   }
+  function handleExportClick(snap: Snapshot) {
+    onExport(snap)
+    deleteSnap = undefined
+  }
   function handleClickDelete(snap: Snapshot) {
     if (!deleteSnap || deleteSnap.timestamp !== snap.timestamp) {
       deleteSnap = snap
@@ -79,6 +84,7 @@
         {/if}
       </button>
       <button on:click={() => handleRestoreClick(snap)}>Restore</button>
+      <button on:click={() => handleExportClick(snap)}>Export</button>
       <button on:click={() => handleClickDelete(snap)}>
         {#if deleteSnap?.timestamp === snap.timestamp}
           Confirm Delete

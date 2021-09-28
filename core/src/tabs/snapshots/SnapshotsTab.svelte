@@ -6,28 +6,20 @@
   import {
     snapshots,
     selectedSnapshot,
-    deleteSnapshot,
     updateSnapshot,
     toggleViewSnapshot,
-    restoreSnapshot
+    restoreSnapshot,
+    exportSnapshot,
+    deleteSnapshot
   } from '$stores/snapshots'
   import { resetHistory } from '$stores/stateHistory'
   import type { Snapshot } from '$typings/snapshots'
 
   const { view } = getContext('editor-view')
 
-  function handleDeleteSnapshot(snapshot: Snapshot) {
-    deleteSnapshot(snapshot)
-  }
-  function handleViewSnapshot(snapshot?: Snapshot) {
-    toggleViewSnapshot(view, snapshot)
-  }
   function handleRestoreSnapshot(snapshot: Snapshot) {
     restoreSnapshot(view, snapshot)
     resetHistory()
-  }
-  function handleUpdateSnapshot(snapshot: Snapshot) {
-    updateSnapshot(snapshot)
   }
 </script>
 
@@ -39,10 +31,11 @@
       <SnapshotsList
         snapshots={$snapshots}
         selectedSnapshot={$selectedSnapshot}
-        onView={handleViewSnapshot}
+        onUpdate={updateSnapshot}
+        onView={snap => toggleViewSnapshot(view, snap)}
         onRestore={handleRestoreSnapshot}
-        onUpdate={handleUpdateSnapshot}
-        onDelete={handleDeleteSnapshot}
+        onExport={exportSnapshot}
+        onDelete={deleteSnapshot}
       />
     {/if}
   </div>

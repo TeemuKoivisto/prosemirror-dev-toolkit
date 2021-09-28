@@ -27,20 +27,22 @@
 
   $: endPos = startPos + node.nodeSize
   $: inlineChildren = node.content.content.every(n => n.isInline)
+
+  function handleNameClick() {
+    handleNodeClick(node)
+  }
 </script>
 
 <div class={`${$$props.class || ''} wrapper`} class:root={isRoot}>
   <div class="container" style={`background: ${color}`}>
     <div class="number-box">{startPos}</div>
-    <button class:selected={false} on:click={() => handleNodeClick(node)}>{name}</button>
+    <button class:selected={false} on:click={handleNameClick}>{name}</button>
     <div class="number-box">{endPos}</div>
   </div>
   <div class:inline-children={inlineChildren}>
-    {#if node.content.size !== 0}
-      {#each node.content.content as child, i}
-        <svelte:self node={child} startPos={startPositions[i]} />
-      {/each}
-    {/if}
+    {#each node.content.content as child, i}
+      <svelte:self node={child} startPos={startPositions[i]} />
+    {/each}
   </div>
 </div>
 

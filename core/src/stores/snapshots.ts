@@ -57,14 +57,6 @@ export function updateSnapshot(snapshot: Snapshot) {
   )
 }
 
-export function deleteSnapshot(snapshot: Snapshot) {
-  snapshots.update(val => val.filter(s => s.timestamp !== snapshot.timestamp))
-  const selected = get(selectedSnapshot)
-  if (selected?.timestamp === snapshot.timestamp) {
-    selectedSnapshot.set(undefined)
-  }
-}
-
 export function toggleViewSnapshot(view: EditorView, snap?: Snapshot) {
   if (snap) {
     const prevState = get(previousEditorState)
@@ -86,4 +78,20 @@ export function restoreSnapshot(view: EditorView, snap: Snapshot) {
   setEditorDoc(view, snap.doc)
   previousEditorState.set(undefined)
   selectedSnapshot.set(undefined)
+}
+
+export function exportSnapshot(snapshot: Snapshot) {
+  const a = document.createElement('a')
+  const file = new Blob([JSON.stringify(snapshot.doc)], { type: 'application/json' })
+  a.href = URL.createObjectURL(file)
+  a.download = `${snapshot.name}.json`
+  a.click()
+}
+
+export function deleteSnapshot(snapshot: Snapshot) {
+  snapshots.update(val => val.filter(s => s.timestamp !== snapshot.timestamp))
+  const selected = get(selectedSnapshot)
+  if (selected?.timestamp === snapshot.timestamp) {
+    selectedSnapshot.set(undefined)
+  }
 }
