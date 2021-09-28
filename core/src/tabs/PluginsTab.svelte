@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getContext } from 'svelte'
+  import { getContext } from '$context'
   import type { EditorState, Plugin } from 'prosemirror-state'
   import { latestEntry } from '$stores/stateHistory'
 

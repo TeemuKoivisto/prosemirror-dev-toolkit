@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getContext } from 'svelte'
+  import { getContext } from '$context'
   import { latestEntry } from '$stores/stateHistory'
   import { getActiveMarks } from './getActiveMarks'
   import { createSelection, createFullSelection } from './selection'

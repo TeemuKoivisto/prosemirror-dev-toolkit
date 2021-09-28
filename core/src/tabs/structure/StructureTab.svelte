@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Node as PMNode, Schema } from 'prosemirror-model'
-  import { getContext } from 'svelte'
+  import { getContext } from '$context'
   import { latestEntry } from '$stores/stateHistory'
 
   import TreeView from 'svelte-tree-view'

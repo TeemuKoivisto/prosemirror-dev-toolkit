@@ -18,6 +18,7 @@
     "noEmit": true,
     "baseUrl": ".",
     "paths": {
+      "$context": ["src/context"],
       "$stores/*": ["src/stores/*"],
       "$tabs/*": ["src/tabs/*"],
       "$typings/*": ["src/typings/*"]

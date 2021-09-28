@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getContext } from 'svelte'
+  import { getContext } from '$context'
   import type { Node as PMNode } from 'prosemirror-model'
 
   const { selected, colors, handleNodeClick } = getContext('doc-view')

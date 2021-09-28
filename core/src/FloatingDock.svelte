@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { getContext, onMount } from 'svelte'
+  import { onMount } from 'svelte'
+  import { getContext } from '$context'
 
   import { saveSnapshot } from '$stores/snapshots'
 

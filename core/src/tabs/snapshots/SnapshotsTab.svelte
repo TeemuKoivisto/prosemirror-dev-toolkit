@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getContext } from 'svelte'
+  import { getContext } from '$context'
 
   import SplitView from '$tabs/SplitView.svelte'
   import SnapshotsList from './SnapshotsList.svelte'

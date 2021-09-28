@@ -37,6 +37,7 @@ export default {
   plugins: [
     alias({
       entries: [
+        { find: '$context', replacement: path.resolve(__dirname, 'src/context') },
         { find: '$stores', replacement: path.resolve(__dirname, 'src/stores') },
         { find: '$tabs', replacement: path.resolve(__dirname, 'src/tabs') },
         { find: '$typings', replacement: path.resolve(__dirname, 'src/typings') }

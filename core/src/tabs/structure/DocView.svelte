@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { setContext } from 'svelte'
+  import { setContext } from '$context'
   import type { Node as PMNode, Schema } from 'prosemirror-model'
 
   import DocNode from './DocNode.svelte'
@@ -13,9 +13,7 @@
   setContext('doc-view', {
     selected,
     colors: buildColors(schema),
-    handleNodeClick(n: PMNode) {
-      handleNodeSelect(n)
-    }
+    handleNodeClick: handleNodeSelect
   })
 </script>
 

@@ -1,6 +1,7 @@
 <script lang="ts">
-  import { onMount, setContext } from 'svelte'
+  import { onMount } from 'svelte'
   import type { EditorView } from 'prosemirror-view'
+  import { setContext } from '$context'
 
   import FloatingBtn from './FloatingBtn.svelte'
   import FloatingDock from './FloatingDock.svelte'
@@ -12,7 +13,7 @@
     buttonPosition: ButtonPosition = 'bottom-right'
 
   setContext('editor-view', {
-    view
+    view,
   })
 
   onMount(() => {

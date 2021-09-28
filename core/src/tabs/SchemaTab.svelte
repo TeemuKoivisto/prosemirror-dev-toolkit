@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getContext } from 'svelte'
+  import { getContext } from '$context'
 
   import TreeView from 'svelte-tree-view'
   import SplitView from './SplitView.svelte'
