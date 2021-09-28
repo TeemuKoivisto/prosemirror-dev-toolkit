@@ -13,10 +13,14 @@
   let selectedNode = view.state.doc
   $: jsonNode = selectedNode.toJSON()
   let schema: Schema = view.state.schema
+  let timer: number | undefined
 
   latestEntry.subscribe(e => {
     if (!e) return
-    doc = e.state.doc
+    clearTimeout(timer)
+		timer = setTimeout(() => {
+      doc = e.state.doc
+		}, 100)
   })
 
   function handleNodeSelect(n: PMNode) {
@@ -45,9 +49,6 @@
     <TreeView
       class="m-top"
       data={jsonNode}
-      recursionOpts={{
-        shouldExpandNode: () => true
-      }}
     />
   </div>
 </SplitView>
