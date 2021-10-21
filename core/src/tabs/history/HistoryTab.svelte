@@ -69,7 +69,7 @@
     <!-- Cant use optional chaining here as it wont get transpiled correctly to ES5 :( -->
     <HistoryList
       {listItems}
-      selectedId={selectedEntry && selectedEntry.id}
+      selectedId={selectedEntry?.id || ''}
       onSelect={handleEntrySelect}
     />
   </div>

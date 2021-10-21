@@ -1,6 +1,7 @@
 <script lang="ts">
   import { getContext } from '$context'
   import type { Node as PMNode } from 'prosemirror-model'
+  import type { Fragment } from '$typings/pm'
 
   const { selected, colors, handleNodeClick } = getContext('doc-view')
 
@@ -8,6 +9,7 @@
     startPos: number,
     isRoot = false
 
+  $: fragment = node.content as Fragment
   $: color = colors[node.type.name]
   $: name =
     node.isText && node.marks.length > 0
@@ -26,7 +28,7 @@
     }, [])
 
   $: endPos = startPos + node.nodeSize
-  $: inlineChildren = node.content.content.every(n => n.isInline)
+  $: inlineChildren = fragment.content.every(n => n.isInline)
 
   function handleNameClick() {
     handleNodeClick(node)
@@ -40,7 +42,7 @@
     <div class="number-box">{endPos}</div>
   </div>
   <div class:inline-children={inlineChildren}>
-    {#each node.content.content as child, i}
+    {#each fragment.content as child, i}
       <svelte:self node={child} startPos={startPositions[i]} />
     {/each}
   </div>

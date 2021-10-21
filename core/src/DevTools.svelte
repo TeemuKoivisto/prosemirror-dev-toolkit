@@ -34,7 +34,7 @@
     devToolsExpanded = false
     const html = document && document.querySelector('html')
     if (html) {
-      html.style.marginBottom = null
+      html.style.marginBottom = ''
     }
   }
 </script>

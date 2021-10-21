@@ -28,27 +28,3 @@ export function getActiveMarks(state: EditorState): string[] {
     return Array.from(activeMarks)
   }
 }
-
-// export function getActiveMarks(editorState: EditorState) {
-//   const selection = editorState.selection
-//   let marks: string[] = []
-
-//   if (selection.empty) {
-//     marks = selection.storedMarks || selection.$from.marks()
-//   } else {
-//     editorState.doc.nodesBetween(selection.from, selection.to, node => {
-//       marks = marks.concat(node.marks)
-//     })
-//   }
-
-//   marks = marks
-//     .reduce((acc, mark) => {
-//       if (acc.indexOf(mark) === -1) {
-//         acc.push(mark)
-//       }
-//       return acc
-//     }, [])
-//     .map(m => m.toJSON())
-
-//   return marks
-// }

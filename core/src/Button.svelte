@@ -5,7 +5,7 @@
   }
 </script>
 
-<button on:click on:mouseover on:mouseenter on:mouseleave {...buttonProps} class:selected
+<button on:click on:mouseover on:mouseenter on:mouseleave on:focus {...buttonProps} class:selected
   ><slot /></button
 >
 

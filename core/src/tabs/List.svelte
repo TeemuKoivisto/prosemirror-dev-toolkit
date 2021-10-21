@@ -9,7 +9,6 @@
     <li>
       <button
         class:selected={selectedKey === item.key}
-        class:empty={item.empty}
         on:click={() => onSelect(item)}>{item.value}</button
       >
     </li>

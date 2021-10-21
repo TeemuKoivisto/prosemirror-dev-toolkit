@@ -1,12 +1,14 @@
 <script lang="ts">
   import { getContext } from '$context'
-  import type { EditorState, Plugin } from 'prosemirror-state'
+  import type { EditorState } from 'prosemirror-state'
   import { latestEntry } from '$stores/stateHistory'
 
   import SplitView from './SplitView.svelte'
   import TreeView from 'svelte-tree-view'
   import List from './List.svelte'
   import Button from '../Button.svelte'
+
+  import type { Plugin } from '$typings/pm'
 
   const { view } = getContext('editor-view')
   let expandPluginState = false
@@ -16,7 +18,7 @@
     shouldExpandNode: () => expandPluginState
   }
   let editorState: EditorState = view.state
-  let plugins = editorState.plugins
+  let plugins = editorState.plugins as Plugin[]
   let selectedPlugin = plugins[0]
   $: pluginState = selectedPlugin?.getState(editorState)
   $: listItems = plugins.map((p: Plugin) => ({
@@ -28,12 +30,12 @@
   latestEntry.subscribe(e => {
     if (!e) return
     editorState = e.state
-    plugins = editorState.plugins
-    selectedPlugin = plugins.find(p => p.key === selectedPlugin.key)
+    plugins = editorState.plugins as Plugin[]
+    selectedPlugin = plugins.find(p => p.key === selectedPlugin.key) as Plugin
   })
 
   function handlePluginSelect(item: { key: string; value: string }) {
-    selectedPlugin = plugins.find(p => p.key === item.key)
+    selectedPlugin = plugins.find(p => p.key === item.key) as Plugin
   }
   function handleToggleExpand() {
     expandPluginState = !expandPluginState

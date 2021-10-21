@@ -5,7 +5,7 @@
   import { createSelection, createFullSelection } from './selection'
 
   import TreeView from 'svelte-tree-view'
-  import type { ITreeNode } from 'svelte-tree-view'
+  import type { TreeNode } from 'svelte-tree-view'
   import SplitView from '../SplitView.svelte'
   import Button from '../../Button.svelte'
 
@@ -41,7 +41,7 @@
       selection = createSelection(currentState.selection)
     }
   }
-  function formatDocNodeValue(val: any, n: ITreeNode) {
+  function formatDocNodeValue(val: any, n: TreeNode) {
     if (n.type === 'object' && val.type) {
       return `{} ${val.type}`
     }
@@ -72,18 +72,13 @@
         ><span class="caret-icon" class:expanded={expandedSelection} /></Button
       >
     </div>
-    <!-- See https://github.com/sveltejs/svelte/issues/3165#issuecomment-804354493 -->
-    {#each [...[]] as _}
-      <div />
-    {:else}
-      <TreeView
-        class="tree-view"
-        data={selection}
-        recursionOpts={{
-          maxDepth: 10
-        }}
-      />
-    {/each}
+    <TreeView
+      class="tree-view"
+      data={selection}
+      recursionOpts={{
+        maxDepth: 10
+      }}
+    />
     <div>
       <h2>Active marks</h2>
       {#if activeMarks.length === 0}

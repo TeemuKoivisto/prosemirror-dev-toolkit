@@ -13,13 +13,13 @@
 
 <ul>
   {#each listItems as group, groupIdx}
-    <li class:selected={!group.expanded && selectedId === group.topEntry.id}>
+    <li class:selected={!group.expanded && selectedId === group?.topEntry?.id}>
       <button
         class:is-group={group.isGroup}
-        on:click={() => onSelect(group.topEntry.id, groupIdx, true)}
+        on:click={() => group.topEntry && onSelect(group.topEntry.id, groupIdx, true)}
       >
         <span>
-          {group.topEntry.timeStr}
+          {group?.topEntry?.timeStr}
           {#if group.isGroup}
             [{group.entries.length}]
           {/if}
@@ -31,9 +31,9 @@
     </li>
     {#if group.isGroup && group.expanded}
       {#each group.entries as subEntry}
-        <li class:selected={selectedId === subEntry.id}>
-          <button class="p-left" on:click={() => onSelect(subEntry.id, groupIdx, false)}>
-            {subEntry.timeStr}
+        <li class:selected={selectedId === subEntry?.id}>
+          <button class="p-left" on:click={() => subEntry && onSelect(subEntry.id, groupIdx, false)}>
+            {subEntry?.timeStr}
           </button>
         </li>
       {/each}

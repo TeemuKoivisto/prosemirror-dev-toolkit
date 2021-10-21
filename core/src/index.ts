@@ -1,3 +1,4 @@
+import type { Transaction } from 'prosemirror-state'
 import type { EditorView } from 'prosemirror-view'
 import DevTools from './DevTools.svelte'
 import {
@@ -6,14 +7,16 @@ import {
 } from './history-and-diff/subscribeToTransactions'
 
 import { DevToolsOpts } from './types'
+import type { Plugin } from './typings/pm'
 
 declare global {
   interface Window {
-    applyDevTools: any
-    editorView: any
-    _node: any
-    _tr: any
-    _plugin: any
+    applyDevTools: typeof applyDevTools
+    editorView?: EditorView
+    _node?: any
+    _doc?: { [key: string]: any }
+    _tr?: Transaction
+    _plugin?: [Plugin, any]
   }
 }
 
