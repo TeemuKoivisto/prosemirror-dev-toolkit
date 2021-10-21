@@ -7,9 +7,9 @@ let active = false
 
 export function subscribeToDispatchTransaction(view: EditorView) {
   active = true
-  const oldDispatchFn = view.someProp('dispatchTransaction')
   // Use timeout to make sure other hooks don't interfere with our patching of dispatchTransaction
   setTimeout(() => {
+    const oldDispatchFn = view.someProp('dispatchTransaction').bind(view)
     view.setProps({
       dispatchTransaction: (tr: Transaction) => {
         if (oldDispatchFn) {
