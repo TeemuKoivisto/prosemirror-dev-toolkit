@@ -43,6 +43,9 @@ let removeCallback: (() => void) | undefined
 
 export function applyDevTools(view: EditorView, opts: DevToolsOpts = {}) {
   const place = createOrFindPlace()
+  // Destroy the old DevTools instance
+  removeCallback && removeCallback()
+
   const comp = new DevTools({
     target: place,
     props: {
