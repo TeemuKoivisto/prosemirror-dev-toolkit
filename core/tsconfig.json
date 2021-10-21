@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "lib": ["dom", "dom.iterable", "esnext"],
     "types": ["svelte", "jest", "@testing-library/jest-dom"],
     "allowJs": true,

@@ -20,7 +20,7 @@
   let selectedPlugin = plugins[0]
   $: pluginState = selectedPlugin?.getState(editorState)
   $: listItems = plugins.map((p: Plugin) => ({
-    key: p.key,
+    key: p.key, // TODO this can be undefined??
     value: p.key.toUpperCase(),
     empty: !p.getState(editorState)
   }))
