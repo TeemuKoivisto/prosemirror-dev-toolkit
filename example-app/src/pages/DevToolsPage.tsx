@@ -7,7 +7,10 @@ import { Editor } from '../components/Editor'
 export function DevToolsPage() {
   return (
     <Container>
-      <PageHeader />
+      <header>
+        <h1><a href="https://github.com/d4rkr00t/prosemirror-dev-tools">Original prosemirror-dev-tools</a></h1>
+        <p><a href="https://github.com/d4rkr00t/prosemirror-dev-tools">Github repo</a></p>
+      </header>
       <Editor useDevTools/>
     </Container>
   )

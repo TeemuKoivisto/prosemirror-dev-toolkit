@@ -2,7 +2,7 @@
 
 This is a rewrite of [prosemirror-dev-tools](https://github.com/d4rkr00t/prosemirror-dev-tools) which I'm a big fan of, yet have felt it could use some improvements. Since the old version didn't seem that actively maintained and also because I wanted to remove the hard dependency to React, use TypeScript and make the whole thing smaller, I took it to my own hands to rewrite it in Svelte.
 
-Unlike React, Svelte compiles directly to JS without having to bundle in a runtime which should make the library smaller to use in projects that don't use React. I also pruned some of the extra dependencies by using just vanilla Svelte features and made the thing injectable as stand-alone script.
+Unlike React, Svelte compiles directly to JS without having to bundle a runtime which should make the library smaller to use in projects that don't use React. I also pruned some of the extra dependencies by using just vanilla Svelte features and have experimented making the library injectable as a stand-alone script.
 
 ## [Demo](https://teemukoivisto.github.io/prosemirror-dev-toolkit/)
 
@@ -67,11 +67,11 @@ A bit more complicated tab it shows the document in a neat block view with a sid
 
 ## Snapshots
 
-Shows the stored snapshots (toJSON'd topNode eg "doc") in localStorage. The changed I've made are switching to date strings instead of unix timestamps for default names. Then, you can double-click the snapshot to edits its name. Show replaces the current doc with the snapshot doc, allowing you to revert it with Hide. Restore does a one-way replacement of the doc with the snapshot. Export toJSON's and downloads the snapshot. You have to now double-click Delete to delete to prevent occasional misclicks. There's also a new "Import snapshot" button to replace state from JSON snapshot.
+Shows the stored snapshots (toJSON'd topNode eg "doc") in localStorage. The changes I've made are switching to date strings instead of unix timestamps for default names. Then, you can double-click the snapshot to edit its name. 'Show' button replaces the current doc with the snapshot doc, allowing you to revert it with 'Hide'. 'Restore' does a one-way replacement of the doc with the snapshot. 'Export' toJSONs and downloads the snapshot. You have to now double-click 'Delete' to prevent occasional misclicks. There's also a new 'Import snapshot' button above the main panel to replace the doc with exported snapshot.
 
 ## Other things
 
-I have tried bundling the library as minified UMD module that can be injected from a CDN. It works in most cases but since it's a bit experimental still, it's not part of the build yet. Uses quite contrived hacks to gain access to the EditorView from the `pmViewDesc` property in a live PM editor instance. Could be used to turn this into a Chrome extension.
+I have tried bundling the library as minified UMD module that can be injected from a CDN. It works in most cases but since it's a bit experimental still, it's not part of the build yet. I've had to use quite contrived hacks to gain access to the EditorView from the `pmViewDesc` property in a live PM editor instance. Could be used to turn this into a Chrome extension.
 
 ## How to run locally
 

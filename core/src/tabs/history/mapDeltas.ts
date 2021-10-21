@@ -1,5 +1,5 @@
 import type { Delta } from 'jsondiffpatch'
-import type { ITreeNode, ValueType } from 'svelte-tree-view'
+import type { TreeNode, ValueType } from 'svelte-tree-view'
 
 // function postprocessValue(value: any) {
 //   if (value && value._t === 'a') {
@@ -23,7 +23,7 @@ import type { ITreeNode, ValueType } from 'svelte-tree-view'
 export function mapSelectionDeltaChildren(
   _val: any,
   type: ValueType,
-  _parent: ITreeNode
+  _parent: TreeNode
 ): [string, any][] | undefined {
   if (type !== 'array') return
   return []
