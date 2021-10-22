@@ -4,13 +4,13 @@
 
   import { saveSnapshot, importSnapshot } from '$stores/snapshots'
 
-  import TabsMenu from './tabs/TabsMenu.svelte'
-  import StateTab from './tabs/state/StateTab.svelte'
-  import HistoryTab from './tabs/history/HistoryTab.svelte'
-  import PluginsTab from './tabs/PluginsTab.svelte'
-  import SchemaTab from './tabs/SchemaTab.svelte'
-  import StructureTab from './tabs/structure/StructureTab.svelte'
-  import SnapshotsTab from './tabs/snapshots/SnapshotsTab.svelte'
+  import TabsMenu from '$tabs/TabsMenu.svelte'
+  import StateTab from '$tabs/state/StateTab.svelte'
+  import HistoryTab from '$tabs/history/HistoryTab.svelte'
+  import PluginsTab from '$tabs/PluginsTab.svelte'
+  import SchemaTab from '$tabs/SchemaTab.svelte'
+  import StructureTab from '$tabs/structure/StructureTab.svelte'
+  import SnapshotsTab from '$tabs/snapshots/SnapshotsTab.svelte'
 
   export let onClose: () => void
 

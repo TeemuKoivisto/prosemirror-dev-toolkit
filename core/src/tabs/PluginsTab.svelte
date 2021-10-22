@@ -6,7 +6,7 @@
   import SplitView from './SplitView.svelte'
   import TreeView from 'svelte-tree-view'
   import List from './List.svelte'
-  import Button from '../Button.svelte'
+  import Button from '$components/Button.svelte'
 
   import type { Plugin } from '$typings/pm'
 

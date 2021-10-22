@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { ButtonPosition } from './types'
+  import type { ButtonPosition } from '../types'
 
   export let buttonPosition: ButtonPosition
 </script>

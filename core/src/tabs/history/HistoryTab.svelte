@@ -7,7 +7,7 @@
   import TreeView from 'svelte-tree-view'
   import HistoryList from './HistoryList.svelte'
   import DiffValue from './DiffValue.svelte'
-  import Button from '../../Button.svelte'
+  import Button from '$components/Button.svelte'
 
   let selectedEntry: HistoryEntry | undefined = undefined,
     showTr = false

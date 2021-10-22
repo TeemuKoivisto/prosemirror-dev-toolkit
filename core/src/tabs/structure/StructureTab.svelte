@@ -6,7 +6,7 @@
   import TreeView from 'svelte-tree-view'
   import SplitView from '../SplitView.svelte'
   import DocView from './DocView.svelte'
-  import Button from '../../Button.svelte'
+  import Button from '$components/Button.svelte'
 
   const { view } = getContext('editor-view')
   let doc: PMNode = view.state.doc

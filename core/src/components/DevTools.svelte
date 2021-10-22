@@ -6,7 +6,7 @@
   import FloatingBtn from './FloatingBtn.svelte'
   import FloatingDock from './FloatingDock.svelte'
 
-  import type { ButtonPosition } from './types'
+  import type { ButtonPosition } from '../types'
 
   export let view: EditorView,
     devToolsExpanded = false,

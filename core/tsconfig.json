@@ -18,6 +18,7 @@
     "noEmit": true,
     "baseUrl": ".",
     "paths": {
+      "$components": ["src/components/*"],
       "$context": ["src/context"],
       "$stores/*": ["src/stores/*"],
       "$tabs/*": ["src/tabs/*"],
