@@ -35,21 +35,23 @@
   }
 </script>
 
-<div class={`${$$props.class || ''} wrapper`} class:root={isRoot}>
-  <div class="container" style={`background: ${color}`}>
+<li class={`${$$props.class || ''} doc-node`} class:root={isRoot}>
+  <div class="doc-node-body" style={`background: ${color}`}>
     <div class="number-box">{startPos}</div>
-    <button class:selected={false} on:click={handleNameClick}>{name}</button>
+    <button class:selected={false} aria-label="Show node info button" on:click={handleNameClick}
+      >{name}</button
+    >
     <div class="number-box">{endPos}</div>
   </div>
-  <div class:inline-children={inlineChildren}>
+  <ul class:inline-children={inlineChildren}>
     {#each fragment.content as child, i}
       <svelte:self node={child} startPos={startPositions[i]} />
     {/each}
-  </div>
-</div>
+  </ul>
+</li>
 
 <style lang="scss">
-  .wrapper {
+  .doc-node {
     border-left: 1px solid var(--color-blue-bg);
     border-right: 1px solid var(--color-blue-bg);
     display: flex;
@@ -60,7 +62,7 @@
       padding: 0;
     }
   }
-  .container {
+  .doc-node-body {
     background: var(--color-blue-bg);
     color: var(--color-black);
     display: flex;
@@ -89,13 +91,19 @@
       background: rgba($color-red-light, 0.4);
     }
   }
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
   .inline-children {
     border-left: 1px solid var(--color-purple);
     border-right: 1px solid var(--color-purple);
     display: flex;
     flex-wrap: wrap;
     padding: 0 12px;
-    & > :global(div) {
+    /* TODO this hurts my soul */
+    & > :global(.doc-node) {
       flex-grow: 1;
       padding: 0;
     }

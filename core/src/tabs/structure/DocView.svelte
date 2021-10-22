@@ -17,4 +17,14 @@
   })
 </script>
 
-<DocNode class={$$props.class} node={doc} startPos={0} depth={0} isRoot />
+<ul>
+  <DocNode class={$$props.class} node={doc} startPos={0} depth={0} isRoot />
+</ul>
+
+<style>
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+</style>

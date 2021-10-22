@@ -17,7 +17,7 @@ import { EditorView } from 'prosemirror-view'
 import { Plugin, Transaction } from 'prosemirror-state'
 
 import '@testing-library/cypress/add-commands'
-
+import 'cypress-plugin-snapshots/commands'
 import './commands'
 
 declare global {

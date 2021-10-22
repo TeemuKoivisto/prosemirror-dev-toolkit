@@ -12,12 +12,15 @@
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 
+import { initPlugin } from 'cypress-plugin-snapshots/plugin'
+
 let shouldSkip = false
 
 /**
  * @type {Cypress.PluginConfig}
  */
-export default on => {
+export default (on: Cypress.PluginEvents, config: Cypress.PluginConfigOptions) => {
+  initPlugin(on, config)
   on('task', {
     resetShouldSkipFlag() {
       shouldSkip = false

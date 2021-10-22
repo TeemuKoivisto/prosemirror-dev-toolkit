@@ -74,18 +74,22 @@
           on:keypress={handleNameKeyPress}
         />
       {:else}
-        <div on:dblclick={() => handleSnapDoubleclick(snap)}>{snap.name}</div>
+        <button
+          class="unstyled-btn"
+          aria-label="Edit snapshot name button"
+          on:dblclick={() => handleSnapDoubleclick(snap)}>{snap.name}</button
+        >
       {/if}
-      <button on:click={() => handleClickView(snap)}>
+      <button class="snapshot-btn" on:click={() => handleClickView(snap)}>
         {#if selectedSnapshot?.timestamp === snap.timestamp}
           Hide
         {:else}
           Show
         {/if}
       </button>
-      <button on:click={() => handleRestoreClick(snap)}>Restore</button>
-      <button on:click={() => handleExportClick(snap)}>Export</button>
-      <button on:click={() => handleClickDelete(snap)}>
+      <button class="snapshot-btn" on:click={() => handleRestoreClick(snap)}>Restore</button>
+      <button class="snapshot-btn" on:click={() => handleExportClick(snap)}>Export</button>
+      <button class="snapshot-btn" on:click={() => handleClickDelete(snap)}>
         {#if deleteSnap?.timestamp === snap.timestamp}
           Confirm Delete
         {:else}
@@ -128,7 +132,19 @@
     padding: 2px;
     width: 100%;
   }
-  button {
+  .unstyled-btn {
+    background: transparent;
+    border: 0;
+    color: var(--color-white);
+    cursor: pointer;
+    display: block;
+    font-family: monospace;
+    margin: 0;
+    padding: 0;
+    text-align: start;
+    width: 100%;
+  }
+  .snapshot-btn {
     background: transparent;
     border: 0;
     border-radius: 3px;
