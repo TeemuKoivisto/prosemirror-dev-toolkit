@@ -16,13 +16,18 @@ describe('# Snapshots tab', () => {
 
   it('Should show snapshots and allow interacting with them', () => {
     cy.devTools().find('ul.tabs-menu li button').contains('SNAPSHOTS').click()
-    cy.get('*').contains('Save snapshots by clicking "Save snapshot" button.').should('have.length', 1)
+    cy.get('*')
+      .contains('Save snapshots by clicking "Save snapshot" button.')
+      .should('have.length', 1)
 
     cy.window().then(window => {
       const { editorView: view } = window
       const tr = view.state.tr
       const schema = view.state.schema
-      tr.insert(1, schema.nodes.paragraph.create(null, schema.text(TEST_TEXT, [schema.marks.bold.create()])))
+      tr.insert(
+        1,
+        schema.nodes.paragraph.create(null, schema.text(TEST_TEXT, [schema.marks.bold.create()]))
+      )
       view.dispatch(tr)
     })
 
@@ -33,7 +38,7 @@ describe('# Snapshots tab', () => {
     // There should exist no snapshots yet
     cy.get('.right-panel li').should('have.length', 0)
 
-    cy.window().then(($win) => {
+    cy.window().then($win => {
       // This stubs the window prompt which would halt execution otherwise
       cy.stub($win, 'prompt').returns(TEST_SNAPSHOT)
       cy.get('button').contains('Save snapshot').click()
@@ -84,8 +89,8 @@ describe('# Snapshots tab', () => {
 
     cy.get('.floating-dock').toMatchImageSnapshot({
       imageConfig: {
-        threshold: 0.001,
-      },
+        threshold: 0.001
+      }
     })
   })
 })

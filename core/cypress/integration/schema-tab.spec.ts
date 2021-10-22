@@ -28,12 +28,18 @@ describe('# Schema tab', () => {
     cy.get('li').contains('code:').parent().find('button.arrow-btn').click()
     cy.get('.svelte-tree-view').eq(1).find('li').should('have.length', 12)
     // The schema property here should not be effected by the left panel
-    cy.get('.svelte-tree-view').eq(1).find('li').contains('schema:').parent().find('div.node-value').should('have.text', ' {} 7 keys')
+    cy.get('.svelte-tree-view')
+      .eq(1)
+      .find('li')
+      .contains('schema:')
+      .parent()
+      .find('div.node-value')
+      .should('have.text', ' {} 7 keys')
 
     cy.get('.floating-dock').toMatchImageSnapshot({
       imageConfig: {
-        threshold: 0.001,
-      },
+        threshold: 0.001
+      }
     })
   })
 })

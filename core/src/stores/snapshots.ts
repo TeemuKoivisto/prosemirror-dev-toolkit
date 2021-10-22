@@ -47,7 +47,11 @@ export function saveSnapshot(snapshotName: string, doc: { [key: string]: any }) 
   snapshots.update(val => [snap, ...val])
 }
 
-export function importSnapshot(snapshotName: string, json: { [key: string]: unknown }, schema: Schema) {
+export function importSnapshot(
+  snapshotName: string,
+  json: { [key: string]: unknown },
+  schema: Schema
+) {
   const doc = schema.nodeFromJSON(json)
   const snap: Snapshot = {
     name: snapshotName,

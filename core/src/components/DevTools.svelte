@@ -13,7 +13,7 @@
     buttonPosition: ButtonPosition = 'bottom-right'
 
   setContext('editor-view', {
-    view,
+    view
   })
 
   onMount(() => {

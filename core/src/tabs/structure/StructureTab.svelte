@@ -18,9 +18,9 @@
   latestEntry.subscribe(e => {
     if (!e) return
     clearTimeout(timer)
-		timer = setTimeout(() => {
+    timer = setTimeout(() => {
       doc = e.state.doc
-		}, 100)
+    }, 100)
   })
 
   function handleNodeSelect(n: PMNode) {
@@ -46,10 +46,7 @@
       <h2>Node info</h2>
       <Button on:click={handleClickLogNode}>log</Button>
     </div>
-    <TreeView
-      class="m-top"
-      data={jsonNode}
-    />
+    <TreeView class="m-top" data={jsonNode} />
   </div>
 </SplitView>
 

@@ -7,9 +7,8 @@
 <ul>
   {#each listItems as item}
     <li>
-      <button
-        class:selected={selectedKey === item.key}
-        on:click={() => onSelect(item)}>{item.value}</button
+      <button class:selected={selectedKey === item.key} on:click={() => onSelect(item)}
+        >{item.value}</button
       >
     </li>
   {/each}

@@ -67,11 +67,7 @@
 <SplitView>
   <div slot="left" class="left-panel">
     <!-- Cant use optional chaining here as it wont get transpiled correctly to ES5 :( -->
-    <HistoryList
-      {listItems}
-      selectedId={selectedEntry?.id || ''}
-      onSelect={handleEntrySelect}
-    />
+    <HistoryList {listItems} selectedId={selectedEntry?.id || ''} onSelect={handleEntrySelect} />
   </div>
   <div slot="right" class="right-panel">
     {#if selectedEntry}

@@ -2,7 +2,7 @@
   import type { TreeNode } from 'svelte-tree-view'
 
   export let value: any, node: TreeNode, defaultFormatter: (val: any) => string
-  
+
   $: nodeVal = node.value
 
   function replaceSpacesWithNonBreakingSpace(value: string) {

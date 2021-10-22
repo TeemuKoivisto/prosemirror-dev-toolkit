@@ -58,7 +58,7 @@
     Array.from(target.files || []).forEach(file => {
       const reader = new FileReader()
       reader.readAsText(file)
-      reader.onload = (e) => {
+      reader.onload = e => {
         const data = typeof e.target?.result === 'string' ? e.target?.result : ''
         try {
           const json = JSON.parse(data)
@@ -85,7 +85,8 @@
       <div>
         <button class="snap-save-btn" on:click={handleSaveSnapshot}>Save snapshot</button>
         <button class="snap-import-btn" on:click={handleImportSnapshot}>Import snapshot</button>
-        <button class="close-btn" aria-label="Close dev-toolkit button" on:click={onClose}>X</button>
+        <button class="close-btn" aria-label="Close dev-toolkit button" on:click={onClose}>X</button
+        >
       </div>
       <input
         style="display:none"

@@ -19,14 +19,21 @@ describe('# Structure tab', () => {
     cy.get('button').contains('doc').parent().find('.number-box').eq(1).should('have.text', '4')
     cy.get('button').contains('paragraph').click()
     // Clicking paragraph node should have changed the right panel's Node info
-    cy.get('li').contains('type:').parent().find('div.node-value').should('have.text', '"paragraph"')
+    cy.get('li')
+      .contains('type:')
+      .parent()
+      .find('div.node-value')
+      .should('have.text', '"paragraph"')
 
     // Insert some content to see if the DocView changes
     cy.window().then(window => {
       const { editorView: view } = window
       const tr = view.state.tr
       const schema = view.state.schema
-      tr.insert(1, schema.nodes.paragraph.create(null, schema.text(TEST_TEXT, [schema.marks.bold.create()])))
+      tr.insert(
+        1,
+        schema.nodes.paragraph.create(null, schema.text(TEST_TEXT, [schema.marks.bold.create()]))
+      )
       view.dispatch(tr)
     })
 
@@ -36,8 +43,8 @@ describe('# Structure tab', () => {
 
     cy.get('.floating-dock').toMatchImageSnapshot({
       imageConfig: {
-        threshold: 0.001,
-      },
+        threshold: 0.001
+      }
     })
   })
 })

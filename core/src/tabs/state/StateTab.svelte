@@ -69,10 +69,7 @@
         ><span class="caret-icon" class:expanded={expandedSelection} /></Button
       >
     </div>
-    <TreeView
-      class="tree-view"
-      data={selection}
-    />
+    <TreeView class="tree-view" data={selection} />
     <div>
       <h2>Active marks</h2>
       {#if activeMarks.length === 0}

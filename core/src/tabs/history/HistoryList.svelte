@@ -32,7 +32,10 @@
     {#if group.isGroup && group.expanded}
       {#each group.entries as subEntry}
         <li class:selected={selectedId === subEntry?.id}>
-          <button class="p-left" on:click={() => subEntry && onSelect(subEntry.id, groupIdx, false)}>
+          <button
+            class="p-left"
+            on:click={() => subEntry && onSelect(subEntry.id, groupIdx, false)}
+          >
             {subEntry?.timeStr}
           </button>
         </li>

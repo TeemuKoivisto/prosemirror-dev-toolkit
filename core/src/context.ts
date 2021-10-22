@@ -10,8 +10,8 @@ export type Contexts = {
   }
   'doc-view': {
     selected: {
-      type: string,
-      start: number,
+      type: string
+      start: number
       end: number
     }
     colors: ReturnType<typeof buildColors>
@@ -19,10 +19,7 @@ export type Contexts = {
   }
 }
 
-export function setContext<K extends keyof Contexts>(
-  ctx: K,
-  val: Contexts[K]
-) {
+export function setContext<K extends keyof Contexts>(ctx: K, val: Contexts[K]) {
   return setCtx(ctx, val)
 }
 

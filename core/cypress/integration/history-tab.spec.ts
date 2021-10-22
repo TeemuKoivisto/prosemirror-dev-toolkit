@@ -1,4 +1,4 @@
-import { TextSelection } from "prosemirror-state"
+import { TextSelection } from 'prosemirror-state'
 
 const TEST_TEXT = 'asdf qwer'
 
@@ -20,7 +20,10 @@ describe('# History tab', () => {
       view.dispatch(view.state.tr)
       const tr = view.state.tr
       const schema = view.state.schema
-      tr.insert(1, schema.nodes.paragraph.create(null, schema.text(TEST_TEXT, [schema.marks.bold.create()])))
+      tr.insert(
+        1,
+        schema.nodes.paragraph.create(null, schema.text(TEST_TEXT, [schema.marks.bold.create()]))
+      )
       tr.setSelection(new TextSelection(tr.doc.resolve(4)))
       tr.setMeta('hello', { recipient: 'world' })
       view.dispatch(tr)
@@ -34,7 +37,7 @@ describe('# History tab', () => {
     // SELECTION DIFF
     cy.get('h2').contains('Selection diff').should('have.length', 1)
     cy.get('li').contains('anchor:').parent().find('div.node-value').should('have.text', '1 => 4')
-    
+
     // TRANSACTION
     cy.get('h2').contains('Transaction').should('have.length', 1)
     cy.get('button').contains('show').click()
@@ -43,7 +46,11 @@ describe('# History tab', () => {
     cy.get('li').contains('docChanged:').parent().find('div.node-value').should('have.text', 'true')
     cy.get('li').contains('meta:').parent().find('button.arrow-btn').click()
     cy.get('li').contains('hello:').parent().find('button.arrow-btn').click()
-    cy.get('li').contains('recipient:').parent().find('div.node-value').should('have.text', '"world"')
+    cy.get('li')
+      .contains('recipient:')
+      .parent()
+      .find('div.node-value')
+      .should('have.text', '"world"')
 
     // Replaces some of the old content to generate a diff with deletion, update and insertion
     cy.window().then(window => {
@@ -57,12 +64,25 @@ describe('# History tab', () => {
     // There should be one more history entry
     cy.get('.left-panel').find('li').should('have.length', 3)
     cy.get('span.deleted').contains('[{"type":"bold"}]').should('have.length', 1)
-    cy.get('.svelte-tree-view').eq(0).find('li').contains('text:').parent().find('div.node-value').invoke('text').then((text) => {
-      // Replace non-breaking space (&nbsp;) with normal white-space 
-      expect(text.replace(/\u00a0/g, ' ')).equal('asdf qwerqwer asdf')
-    })
+    cy.get('.svelte-tree-view')
+      .eq(0)
+      .find('li')
+      .contains('text:')
+      .parent()
+      .find('div.node-value')
+      .invoke('text')
+      .then(text => {
+        // Replace non-breaking space (&nbsp;) with normal white-space
+        expect(text.replace(/\u00a0/g, ' ')).equal('asdf qwerqwer asdf')
+      })
 
-    cy.get('.svelte-tree-view').eq(0).find('li').contains('2:').parent().find('div.node-value').should('have.text', '{"type":"paragr…r"}]}')
+    cy.get('.svelte-tree-view')
+      .eq(0)
+      .find('li')
+      .contains('2:')
+      .parent()
+      .find('div.node-value')
+      .should('have.text', '{"type":"paragr…r"}]}')
 
     // Can't do visual snapshots as history entries and transactions both use unstubbed timestamps
   })
@@ -79,7 +99,10 @@ describe('# History tab', () => {
       view.dispatch(view.state.tr)
       const tr = view.state.tr
       const schema = view.state.schema
-      tr.insert(1, schema.nodes.paragraph.create(null, schema.text(TEST_TEXT, [schema.marks.bold.create()])))
+      tr.insert(
+        1,
+        schema.nodes.paragraph.create(null, schema.text(TEST_TEXT, [schema.marks.bold.create()]))
+      )
       tr.setSelection(new TextSelection(tr.doc.resolve(4)))
       tr.setMeta('hello', { recipient: 'world' })
       view.dispatch(tr)

@@ -1,4 +1,4 @@
-import { TextSelection } from "prosemirror-state"
+import { TextSelection } from 'prosemirror-state'
 
 const TEST_TEXT = 'asdf qwer'
 
@@ -29,7 +29,7 @@ describe('# State tab', () => {
 
     // ACTIVE MARKS
     cy.get('div').contains('No active marks').should('have.length', 1)
-    
+
     // DOCUMENT STATS
     cy.get('li').contains('nodeSize:').parent().find('.node-value').should('have.text', '4')
     cy.get('li').contains('childCount:').parent().find('.node-value').should('have.text', '1')
@@ -39,7 +39,10 @@ describe('# State tab', () => {
       const { editorView: view } = window
       const tr = view.state.tr
       const schema = view.state.schema
-      tr.insert(1, schema.nodes.paragraph.create(null, schema.text(TEST_TEXT, [schema.marks.bold.create()])))
+      tr.insert(
+        1,
+        schema.nodes.paragraph.create(null, schema.text(TEST_TEXT, [schema.marks.bold.create()]))
+      )
       tr.setSelection(new TextSelection(tr.doc.resolve(4)))
       view.dispatch(tr)
     })
@@ -52,8 +55,8 @@ describe('# State tab', () => {
 
     cy.get('.floating-dock').toMatchImageSnapshot({
       imageConfig: {
-        threshold: 0.001,
-      },
+        threshold: 0.001
+      }
     })
   })
 })

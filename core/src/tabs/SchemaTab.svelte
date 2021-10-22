@@ -23,7 +23,7 @@
       showLogButton
       showCopyButton
       recursionOpts={{
-        stopCircularRecursion: true,
+        stopCircularRecursion: true
       }}
     />
   </div>
@@ -38,7 +38,7 @@
       showLogButton
       showCopyButton
       recursionOpts={{
-        stopCircularRecursion: true,
+        stopCircularRecursion: true
       }}
     />
   </div>
