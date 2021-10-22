@@ -13309,10 +13309,10 @@ svelte-preprocess@^4.9.4:
     sorcery "^0.10.0"
     strip-indent "^3.0.0"
 
-svelte-tree-view@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/svelte-tree-view/-/svelte-tree-view-1.1.0.tgz#640dd09b7c48621b7ef05f47ade0db13c67a29fc"
-  integrity sha512-HAC2yCmyM7HOQB/cPULTepflsJ0QIi6EnP6aJhgk8nejD+z54/MZGImyH4nn/mcGH1INCnZEyLcASK/zq89r0Q==
+svelte-tree-view@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/svelte-tree-view/-/svelte-tree-view-1.1.2.tgz#6a4f9a363b04ca6b28d8d409308b3abda589d866"
+  integrity sha512-8YWvj+MqLX7CERBSjxsmfiKcQmv3Kv5vqKMD0qIP2YC1UHmT0O8qtWpDMc5N7U6sryrZIwrJv+3iwvsU739H7w==
 
 svelte@^3.42.6:
   version "3.42.6"

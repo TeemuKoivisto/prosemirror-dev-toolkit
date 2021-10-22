@@ -23,8 +23,7 @@
       showLogButton
       showCopyButton
       recursionOpts={{
-        maxDepth: 6,
-        omitKeys: ['nodes', 'marks', 'topNodeType']
+        stopCircularRecursion: true,
       }}
     />
   </div>
@@ -39,8 +38,7 @@
       showLogButton
       showCopyButton
       recursionOpts={{
-        maxDepth: 6,
-        omitKeys: ['nodes', 'marks', 'topNodeType']
+        stopCircularRecursion: true,
       }}
     />
   </div>

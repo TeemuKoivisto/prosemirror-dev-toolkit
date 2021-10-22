@@ -60,9 +60,6 @@
       showLogButton
       showCopyButton
       valueFormatter={formatDocNodeValue}
-      recursionOpts={{
-        maxDepth: 13
-      }}
     />
   </div>
   <div slot="right" class="right-panel">
@@ -75,9 +72,6 @@
     <TreeView
       class="tree-view"
       data={selection}
-      recursionOpts={{
-        maxDepth: 10
-      }}
     />
     <div>
       <h2>Active marks</h2>
