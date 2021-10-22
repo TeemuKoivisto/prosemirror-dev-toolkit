@@ -1,4 +1,8 @@
 {
   "baseUrl": "http://localhost:3300/prosemirror-dev-toolkit",
-  "viewportWidth": 1200
+  "viewportWidth": 1200,
+  "ignoreTestFiles": [
+    "**/__snapshots__/*",
+    "**/__image_snapshots__/*"
+  ]
 }

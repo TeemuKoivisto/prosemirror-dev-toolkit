@@ -21,7 +21,7 @@ describe('# State tab', () => {
     // SELECTION
     // In selection panel six items should be visible in the tree-view
     cy.get('.svelte-tree-view').eq(1).find('li').should('have.length', 6)
-    cy.get('li').contains('anchor').parent().find('div.node-value').should('have.text', '1')
+    cy.get('li').contains('anchor').parent().find('.node-value').should('have.text', '1')
     cy.get('button.selection-btn').first().click()
     // Having opened the selection dropdown clicking $anchor should expand even more nodes
     cy.get('li').contains('$anchor').parent().find('button.arrow-btn').click()
@@ -31,8 +31,8 @@ describe('# State tab', () => {
     cy.get('div').contains('No active marks').should('have.length', 1)
     
     // DOCUMENT STATS
-    cy.get('li').contains('nodeSize:').parent().find('div.node-value').should('have.text', '4')
-    cy.get('li').contains('childCount:').parent().find('div.node-value').should('have.text', '1')
+    cy.get('li').contains('nodeSize:').parent().find('.node-value').should('have.text', '4')
+    cy.get('li').contains('childCount:').parent().find('.node-value').should('have.text', '1')
 
     // Insert paragraph with bolded text and set selection inside it
     cy.window().then(window => {
@@ -44,9 +44,9 @@ describe('# State tab', () => {
       view.dispatch(tr)
     })
 
-    cy.get('li').contains('"bold"').parent().find('div.node-key').should('have.text', '0:')
-    cy.get('li').contains('nodeSize:').parent().find('div.node-value').should('have.text', '15')
-    cy.get('li').contains('childCount:').parent().find('div.node-value').should('have.text', '2')
+    cy.get('li').contains('"bold"').parent().find('.node-key').should('have.text', '0:')
+    cy.get('li').contains('nodeSize:').parent().find('.node-value').should('have.text', '15')
+    cy.get('li').contains('childCount:').parent().find('.node-value').should('have.text', '2')
 
     // TODO bug in selection dropdown.........
 

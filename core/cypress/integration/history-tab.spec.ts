@@ -57,21 +57,14 @@ describe('# History tab', () => {
     // There should be one more history entry
     cy.get('.left-panel').find('li').should('have.length', 3)
     cy.get('span.deleted').contains('[{"type":"bold"}]').should('have.length', 1)
-    cy.get('li').contains('text:').parent().find('div.node-value').invoke('text').then((text) => {
+    cy.get('.svelte-tree-view').eq(0).find('li').contains('text:').parent().find('div.node-value').invoke('text').then((text) => {
       // Replace non-breaking space (&nbsp;) with normal white-space 
       expect(text.replace(/\u00a0/g, ' ')).equal('asdf qwerqwer asdf')
     })
 
-    cy.get('li').contains('2:').parent().find('div.node-value').should('have.text', '{"type":"paragr…r"}]}')
+    cy.get('.svelte-tree-view').eq(0).find('li').contains('2:').parent().find('div.node-value').should('have.text', '{"type":"paragr…r"}]}')
 
-    // Must scroll to top before taking snapshot since transaction contains timestamps that are not
-    // stubbed, therefore being always different
-    cy.get('.right-panel').scrollTo('top')
-    cy.get('.floating-dock').toMatchImageSnapshot({
-      imageConfig: {
-        threshold: 0.001,
-      },
-    })
+    // Can't do visual snapshots as history entries and transactions both use unstubbed timestamps
   })
 
   it('Should group selection transactions and allow inspecting them', () => {
