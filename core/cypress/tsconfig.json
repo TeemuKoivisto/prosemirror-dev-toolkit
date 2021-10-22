@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["es5", "dom", "dom.iterable"],
+    "types": ["cypress", "@testing-library/cypress"]
+  },
+  "allowJs": true,
+  "include": ["**/*.d.ts", "**/*.js", "**/*.ts", "**/*.cjs", "**/*.mjs"]
+}

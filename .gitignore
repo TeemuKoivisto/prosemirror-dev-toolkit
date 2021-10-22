@@ -27,3 +27,6 @@ yarn-error.log*
 tmp/
 
 .eslintcache
+
+**/cypress/screenshots
+**/cypress/videos

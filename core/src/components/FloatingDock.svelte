@@ -85,7 +85,7 @@
       <div>
         <button class="snap-save-btn" on:click={handleSaveSnapshot}>Save snapshot</button>
         <button class="snap-import-btn" on:click={handleImportSnapshot}>Import snapshot</button>
-        <button class="close-btn" on:click={onClose}>X</button>
+        <button class="close-btn" aria-label="Close dev-toolkit button" on:click={onClose}>X</button>
       </div>
       <input
         style="display:none"
