@@ -80,7 +80,7 @@
           on:dblclick={() => handleSnapDoubleclick(snap)}>{snap.name}</button
         >
       {/if}
-      <button class="snapshot-btn" on:click={() => handleClickView(snap)}>
+      <button class="snapshot-btn ml-2" on:click={() => handleClickView(snap)}>
         {#if selectedSnapshot?.timestamp === snap.timestamp}
           Hide
         {:else}
@@ -158,5 +158,8 @@
       background: rgba($color-red-light, 0.4);
       color: var(--color-white);
     }
+  }
+  .ml-2 {
+    margin-left: 1rem;
   }
 </style>

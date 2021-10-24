@@ -84,7 +84,7 @@ describe('# Snapshots tab', () => {
 
     cy.get('button').contains('Delete').click()
     cy.get('.right-panel li').should('have.length', 1)
-    cy.get('button').contains('Confirm Delete').click()
+    cy.get('button').contains('confirm delete', { matchCase: false }).click()
     cy.get('.right-panel li').should('have.length', 0)
 
     cy.get('.floating-dock').toMatchImageSnapshot({
