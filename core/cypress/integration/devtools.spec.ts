@@ -5,7 +5,7 @@ describe('# DevTools', () => {
     cy.visit('/')
   })
 
-  xit('Should render and allow to be closed / reopened', () => {
+  it('Should render and allow to be closed / reopened', () => {
     cy.get('.__prosemirror-dev-toolkit__').should('have.length', 1)
     cy.devTools().should('have.length', 1)
     cy.devTools().find('ul.tabs-menu li').should('have.length', 6)

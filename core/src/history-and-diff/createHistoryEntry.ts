@@ -46,6 +46,7 @@ const highlightHtmlString = (html: string) =>
 export function createHistoryEntry(
   tr: Transaction,
   state: EditorState,
+  stateBeforeDispatch: EditorState,
   oldEntry?: HistoryEntry
 ): HistoryEntry {
   const serializer = DOMSerializer.fromSchema(state.schema)
@@ -61,10 +62,10 @@ export function createHistoryEntry(
     }
   }
 
-  const contentDiff = oldEntry ? diff(oldEntry.state.doc.toJSON(), state.doc.toJSON()) : undefined
-  const selectionDiff = oldEntry
-    ? diff(buildSelection(oldEntry.state.selection), buildSelection(state.selection))
-    : undefined
+  // As described in stateHistory.ts the first entry is a special exception
+  const prevState = oldEntry ? oldEntry.state : stateBeforeDispatch
+  const contentDiff = diff(prevState.doc.toJSON(), state.doc.toJSON())
+  const selectionDiff = diff(buildSelection(prevState.selection), buildSelection(state.selection))
 
   return {
     id: Math.random().toString() + Math.random().toString(),

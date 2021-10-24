@@ -13,13 +13,14 @@ export function subscribeToDispatchTransaction(view: EditorView) : Promise<void>
       oldDispatchFn = view.someProp('dispatchTransaction').bind(view)
       view.setProps({
         dispatchTransaction: (tr: Transaction) => {
+          const stateBeforeDispatch = view.state
           if (oldDispatchFn) {
             oldDispatchFn(tr)
             // } else {
             //   view.updateState(view.state.apply(tr))
           }
           if (active) {
-            appendNewHistoryEntry(tr, view.state)
+            appendNewHistoryEntry(tr, view.state, stateBeforeDispatch)
           }
         }
       })

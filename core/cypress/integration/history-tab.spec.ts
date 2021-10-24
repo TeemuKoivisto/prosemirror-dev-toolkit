@@ -15,9 +15,6 @@ describe('# History tab', () => {
 
     cy.window().then(window => {
       const { editorView: view } = window
-      // TODO this is because the first history entry is always set as selection so need two transactions
-      // to show diff...
-      view.dispatch(view.state.tr)
       const tr = view.state.tr
       const schema = view.state.schema
       tr.insert(
@@ -29,8 +26,8 @@ describe('# History tab', () => {
       view.dispatch(tr)
     })
 
-    // Should show now the dispatched transaction as history entry
-    cy.get('.left-panel').find('li').should('have.length', 2)
+    // Should show now the dispatched transaction as a history entry
+    cy.get('.left-panel').find('li').should('have.length', 1)
     cy.get('h2').contains('Doc diff').should('have.length', 1)
     cy.get('span').contains('{"type":"paragr…r"}]}').should('have.length', 1)
 
@@ -62,7 +59,9 @@ describe('# History tab', () => {
     })
 
     // There should be one more history entry
-    cy.get('.left-panel').find('li').should('have.length', 3)
+    cy.get('.left-panel').find('li').should('have.length', 2)
+    // There should be no history entry groups
+    cy.get('.left-panel').find('li').contains('[1]').should('have.length', 0)
     cy.get('span.deleted').contains('[{"type":"bold"}]').should('have.length', 1)
     cy.get('.svelte-tree-view')
       .eq(0)
