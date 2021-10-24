@@ -7,8 +7,8 @@ describe('# Structure tab', () => {
 
   it('Should show the DocView of the current and doc and Node info', () => {
     cy.devTools().find('ul.tabs-menu li button').contains('STRUCTURE').click()
-    cy.get('h2').contains('Current doc').should('have.length', 1)
-    cy.get('h2').contains('Node info').should('have.length', 1)
+    cy.get('.floating-dock h2').includesStringCount('Current doc').should('equal', 1)
+    cy.get('.floating-dock h2').includesStringCount('Node info').should('equal', 1)
 
     // Only 2 nodes should be visible in the 'Node info' panel
     cy.get('.svelte-tree-view').eq(0).find('li').should('have.length', 2)

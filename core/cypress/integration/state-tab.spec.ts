@@ -9,8 +9,8 @@ describe('# State tab', () => {
 
   it('Should allow expanding and collapsing and tree-view nodes', () => {
     cy.devTools().find('ul.tabs-menu li button').contains('STATE').should('have.length', 1)
-    cy.devTools().find('h2').contains('Current doc').should('have.length', 1)
-    cy.devTools().find('h2').contains('Selection').should('have.length', 1)
+    cy.get('.floating-dock h2').includesStringCount('Current doc').should('equal', 1)
+    cy.get('.floating-dock h2').includesStringCount('Selection').should('equal', 1)
 
     // CURRENT DOC
     // Only "type": "doc" and "content" should be visible in left panel

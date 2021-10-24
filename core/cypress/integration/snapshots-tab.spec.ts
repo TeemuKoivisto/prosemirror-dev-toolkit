@@ -18,7 +18,7 @@ describe('# Snapshots tab', () => {
     cy.devTools().find('ul.tabs-menu li button').contains('SNAPSHOTS').click()
     cy.get('*')
       .contains('Save snapshots by clicking "Save snapshot" button.')
-      .should('have.length', 1)
+      .should('exist')
 
     cy.window().then(window => {
       const { editorView: view } = window
@@ -34,7 +34,7 @@ describe('# Snapshots tab', () => {
     // The editor should have 4 elements
     cy.get('.ProseMirror').find('*').should('have.length', 4)
     // It should contain the inserted bold text
-    cy.get('.ProseMirror').find('strong').contains(TEST_TEXT).should('have.length', 1)
+    cy.get('.ProseMirror strong').includesStringCount(TEST_TEXT).should('equal', 1)
     // There should exist no snapshots yet
     cy.get('.right-panel li').should('have.length', 0)
 
@@ -45,13 +45,13 @@ describe('# Snapshots tab', () => {
     })
     // There should be now one snapshot
     cy.get('.right-panel li').should('have.length', 1)
-    cy.get('.right-panel li').contains(TEST_SNAPSHOT).should('have.length', 1)
+    cy.get('.right-panel li').includesStringCount(TEST_SNAPSHOT).should('equal', 1)
     // This should open an input to edit the snapshot's name
     cy.get('.right-panel li').contains(TEST_SNAPSHOT).dblclick()
     cy.get('.right-panel li').find('input').clear().type(TEST_SNAPSHOT_CHANGED).type('{enter}')
     // The name should have changed
-    cy.get('.right-panel li').contains(TEST_SNAPSHOT).should('have.length', 0)
-    cy.get('.right-panel li').contains(TEST_SNAPSHOT_CHANGED).should('have.length', 1)
+    cy.get('.right-panel li').contains(TEST_SNAPSHOT).should('not.exist')
+    cy.get('.right-panel li').contains(TEST_SNAPSHOT_CHANGED).should('exist')
 
     cy.window().then(window => {
       const { editorView: view } = window
@@ -67,7 +67,7 @@ describe('# Snapshots tab', () => {
 
     // Clicking 'Show' button should replace editor document with the snapshot data
     cy.get('.ProseMirror').find('*').should('have.length', 4)
-    cy.get('.ProseMirror strong').contains(TEST_TEXT).should('have.length', 1)
+    cy.get('.ProseMirror strong').includesStringCount(TEST_TEXT).should('equal', 1)
 
     cy.get('button').contains('Hide').click()
     cy.get('.ProseMirror strong').should('have.length', 0)
@@ -80,17 +80,32 @@ describe('# Snapshots tab', () => {
     cy.get('button').contains('Export').click()
     cy.readFile(getDownloaded(`${TEST_SNAPSHOT_CHANGED}.json`)).should('deep.equal', snapshot1)
 
-    // TODO test import
+    // Upload the snapshot
+    cy.get('.floating-dock input[type="file"]').attachFile('snapshot-1.json')
+    cy.get('.right-panel li').should('have.length', 2)
+
+    // Reset the devTools to see that the snapshots were persisted and contain the old doc
+    cy.resetDoc()
+    cy.devTools().find('.floating-btn').click()
+    cy.devTools().find('ul.tabs-menu li button').contains('SNAPSHOTS').click()
+    cy.get('.right-panel li').should('have.length', 2)
+    cy.get('.right-panel li').eq(0).contains('Show').click()
+    cy.get('.ProseMirror').find('*').should('have.length', 4)
+    cy.get('.ProseMirror strong').includesStringCount(TEST_TEXT).should('equal', 1)
 
     cy.get('button').contains('Delete').click()
-    cy.get('.right-panel li').should('have.length', 1)
+    cy.get('.right-panel li').should('have.length', 2)
     cy.get('button').contains('confirm delete', { matchCase: false }).click()
-    cy.get('.right-panel li').should('have.length', 0)
+    cy.get('.right-panel li').should('have.length', 1)
 
     cy.get('.floating-dock').toMatchImageSnapshot({
       imageConfig: {
         threshold: 0.001
       }
     })
+
+    cy.get('button').contains('Delete').click()
+    cy.get('button').contains('confirm delete', { matchCase: false }).click()
+    cy.get('.right-panel li').should('have.length', 0)
   })
 })

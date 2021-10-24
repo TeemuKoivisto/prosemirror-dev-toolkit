@@ -61,7 +61,7 @@ describe('# History tab', () => {
     // There should be one more history entry
     cy.get('.left-panel').find('li').should('have.length', 2)
     // There should be no history entry groups
-    cy.get('.left-panel').find('li').contains('[1]').should('have.length', 0)
+    cy.get('.left-panel').find('li').contains('[1]').should('not.exist')
     cy.get('span.deleted').contains('[{"type":"bold"}]').should('exist')
     cy.get('.svelte-tree-view')
       .eq(0)

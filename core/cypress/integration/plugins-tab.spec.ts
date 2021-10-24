@@ -7,12 +7,12 @@ describe('# Plugins tab', () => {
 
   it('Should show the default plugins and allow inspecting them', () => {
     cy.devTools().find('ul.tabs-menu li button').contains('PLUGINS').click()
-    cy.get('*').contains('Plugin has no state').should('have.length', 1)
+    cy.get('.floating-dock').includesStringCount('Plugin has no state').should('equal', 1)
     // There should be 9 plugins in total
     cy.get('.left-panel').find('li').should('have.length', 9)
 
     cy.get('li button').contains('HISTORY$').click()
-    cy.get('h2').contains('Plugin state').should('have.length', 1)
+    cy.get('h2').contains('Plugin state').should('exist')
 
     // The history plugin's tree-view should show only four nodes
     cy.get('.svelte-tree-view').eq(0).find('li').should('have.length', 4)

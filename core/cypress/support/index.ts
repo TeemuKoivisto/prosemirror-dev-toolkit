@@ -20,6 +20,7 @@ import type { Plugin } from '../../src/typings/pm'
 
 import '@testing-library/cypress/add-commands'
 import 'cypress-plugin-snapshots/commands'
+import 'cypress-file-upload'
 import './commands'
 
 declare global {

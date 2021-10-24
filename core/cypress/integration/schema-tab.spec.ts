@@ -5,8 +5,8 @@ describe('# Schema tab', () => {
 
   it('Should show the current schema nodes and marks', () => {
     cy.devTools().find('ul.tabs-menu li button').contains('SCHEMA').click()
-    cy.get('h2').contains('Nodes').should('have.length', 1)
-    cy.get('h2').contains('Marks').should('have.length', 1)
+    cy.get('.floating-dock').includesStringCount('Nodes').should('equal', 1)
+    cy.get('.floating-dock').includesStringCount('Marks').should('equal', 1)
 
     // There should be 9 nodes on the left panel
     cy.get('.svelte-tree-view').eq(0).find('li').should('have.length', 9)

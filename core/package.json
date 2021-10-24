@@ -57,6 +57,7 @@
     "@types/prosemirror-state": "^1.2.7",
     "@types/prosemirror-view": "^1.19.1",
     "cypress": "^8.4.1",
+    "cypress-file-upload": "^5.0.8",
     "cypress-plugin-snapshots": "^1.4.4",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
