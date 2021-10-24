@@ -47,11 +47,10 @@ describe('# State tab', () => {
       view.dispatch(tr)
     })
 
+    cy.get('.svelte-tree-view').eq(1).find('li').should('have.length', 19)
     cy.get('li').contains('"bold"').parent().find('.node-key').should('have.text', '0:')
     cy.get('li').contains('nodeSize:').parent().find('.node-value').should('have.text', '15')
     cy.get('li').contains('childCount:').parent().find('.node-value').should('have.text', '2')
-
-    // TODO bug in selection dropdown.........
 
     cy.get('.floating-dock').toMatchImageSnapshot({
       imageConfig: {

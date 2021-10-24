@@ -5,8 +5,8 @@ import { createHistoryEntry } from '../history-and-diff/createHistoryEntry'
 
 import type { HistoryEntry, HistoryGroup } from '$typings/history'
 
-export const stateHistory = writable(new Map<string, HistoryEntry>())
-export const shownHistoryGroups = writable([] as HistoryGroup[])
+export const stateHistory = writable<Map<string, HistoryEntry>>(new Map())
+export const shownHistoryGroups = writable<HistoryGroup[]>([])
 export const latestEntry = writable<HistoryEntry | undefined>(undefined)
 
 export function appendNewHistoryEntry(tr: Transaction, state: EditorState) {
@@ -41,4 +41,5 @@ export function appendNewHistoryEntry(tr: Transaction, state: EditorState) {
 export function resetHistory() {
   stateHistory.set(new Map())
   shownHistoryGroups.set([])
+  latestEntry.set(undefined)
 }

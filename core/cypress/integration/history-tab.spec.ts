@@ -84,7 +84,13 @@ describe('# History tab', () => {
       .find('div.node-value')
       .should('have.text', '{"type":"paragr…r"}]}')
 
-    // Can't do visual snapshots as history entries and transactions both use unstubbed timestamps
+    // Snapshot only the right panel since the left contains unmocked timestamps
+    cy.get('.right-panel').scrollTo('top')
+    cy.get('.right-panel').toMatchImageSnapshot({
+      imageConfig: {
+        threshold: 0.001
+      }
+    })
   })
 
   it('Should group selection transactions and allow inspecting them', () => {

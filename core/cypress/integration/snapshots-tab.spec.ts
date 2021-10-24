@@ -65,7 +65,7 @@ describe('# Snapshots tab', () => {
     cy.get('.ProseMirror strong').should('have.length', 0)
     cy.get('button').contains('Show').click()
 
-    // Clicking 'Show' button the snapshotted doc should contain the old data
+    // Clicking 'Show' button should replace editor document with the snapshot data
     cy.get('.ProseMirror').find('*').should('have.length', 4)
     cy.get('.ProseMirror strong').contains(TEST_TEXT).should('have.length', 1)
 

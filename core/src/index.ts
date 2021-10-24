@@ -5,6 +5,7 @@ import {
   subscribeToDispatchTransaction,
   unsubscribeDispatchTransaction
 } from './history-and-diff/subscribeToTransactions'
+import { resetHistory } from './stores/stateHistory'
 
 import { DevToolsOpts } from './types'
 import type { Plugin } from './typings/pm'
@@ -65,11 +66,13 @@ export function applyDevTools(view: EditorView, opts: DevToolsOpts = {}) {
     removeCallback && removeCallback()
   }
 
-  subscribeToDispatchTransaction(view)
   removeCallback = () => {
-    unsubscribeDispatchTransaction()
+    console.log('destroyed!')
+    resetHistory()
+    unsubscribeDispatchTransaction(view)
     comp.$destroy()
   }
+  return subscribeToDispatchTransaction(view)
 }
 
 export function removeDevTools() {

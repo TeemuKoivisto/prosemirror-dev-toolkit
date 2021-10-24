@@ -14,7 +14,9 @@
 // ***********************************************************
 
 import { EditorView } from 'prosemirror-view'
-import { Plugin, Transaction } from 'prosemirror-state'
+import { Transaction } from 'prosemirror-state'
+import { applyDevTools } from '../../src'
+import type { Plugin } from '../../src/typings/pm'
 
 import '@testing-library/cypress/add-commands'
 import 'cypress-plugin-snapshots/commands'
@@ -22,6 +24,7 @@ import './commands'
 
 declare global {
   interface Window {
+    applyDevTools: typeof applyDevTools
     editorView?: EditorView
     _node?: any
     _doc?: { [key: string]: any }
