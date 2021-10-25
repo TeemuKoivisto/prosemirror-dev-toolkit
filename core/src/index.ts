@@ -44,8 +44,8 @@ let removeCallback: (() => void) | undefined
 
 export function applyDevTools(view: EditorView, opts: DevToolsOpts = {}) {
   const place = createOrFindPlace()
-  // Destroy the old DevTools instance
-  removeCallback && removeCallback()
+
+  removeDevTools()
 
   const comp = new DevTools({
     target: place,
@@ -62,14 +62,15 @@ export function applyDevTools(view: EditorView, opts: DevToolsOpts = {}) {
   // Bind the component's life-cycle to the editorView to automatically unmount the devTools
   const oldDestroyFn = view.destroy.bind(view)
   view.destroy = () => {
+    // DevTools must always be removed before view as the resetDispatch requires view to be still present
+    removeDevTools()
     oldDestroyFn()
-    removeCallback && removeCallback()
   }
 
   removeCallback = () => {
-    console.log('destroyed!')
     resetHistory()
-    unsubscribeDispatchTransaction(view)
+    unsubscribeDispatchTransaction()
+    // TODO add test to check no "Component already destroyed" warnings appear
     comp.$destroy()
   }
   return subscribeToDispatchTransaction(view)
@@ -77,4 +78,5 @@ export function applyDevTools(view: EditorView, opts: DevToolsOpts = {}) {
 
 export function removeDevTools() {
   removeCallback && removeCallback()
+  removeCallback = undefined
 }
