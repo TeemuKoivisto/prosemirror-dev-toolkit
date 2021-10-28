@@ -25,7 +25,7 @@
   },
   "scripts": {
     "start": "PORT=3300 react-scripts start",
-    "preview": "PUBLIC_URL=/ serve ./build",
+    "preview": "serve ./build",
     "build": "react-scripts build",
     "build:no-prefix": "PUBLIC_URL=/ react-scripts build",
     "test": "react-scripts test",
