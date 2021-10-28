@@ -1,0 +1,71 @@
+name: Build and test pull requests
+
+on: [pull_request, workflow_dispatch]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node_version }}
+
+      - name: Load cached dependencies
+        uses: actions/cache@v2.1.5
+        id: cache
+        with:
+          path: |
+            **/node_modules
+            /home/runner/.cache/Cypress
+          key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install dependencies
+        id: install-dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn install
+
+      - name: Run type check and unit tests
+        run: |
+          cd core
+          yarn svelte-check
+          yarn test:unit
+
+      - name: Build
+        run: |
+          cd core
+          chmod +x ./build.js
+          yarn build
+
+      - name: Run tests with Cypress
+        id: cypress
+        uses: cypress-io/github-action@v2
+        with:
+          cache-key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('**/yarn.lock') }}
+          start: yarn --cwd ./example-app start
+          wait-on: 'http://localhost:3000'
+          project: ./core
+          browser: chrome
+          quiet: true
+
+      - name: Export screenshots (on failure only)
+        uses: actions/upload-artifact@v2.2.3
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: ./core/cypress/screenshots
+          retention-days: 7
+
+      - name: Export screen recordings (on failure only)
+        uses: actions/upload-artifact@v2.2.3
+        if: failure()
+        with:
+          name: cypress-videos
+          path: ./core/cypress/videos
+          retention-days: 7
