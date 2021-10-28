@@ -45,8 +45,6 @@ export function PMEditor(props: EditorProps) {
       state,
       dispatchTransaction,
     })
-    // @ts-ignore
-    if (window) window.editorView = view
     return view
   }
 
