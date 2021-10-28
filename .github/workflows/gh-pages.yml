@@ -24,8 +24,17 @@ jobs:
         with:
           node-version: ${{ matrix.node_version }}
 
+      - name: Load cached dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            **/node_modules
+            /home/runner/.cache/Cypress
+          key: ${{ runner.os }}-node${{ matrix.node-version }}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: ${{ runner.os }}-yarn
+
       - name: Install dependencies
-        run: yarn
+        run: yarn install
 
       - name: Build library
         run: |
@@ -38,9 +47,9 @@ jobs:
         with:
           cache-key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('**/yarn.lock') }}
           start: yarn --cwd ./example-app start
-          wait-on: 'http://localhost:3000'
+          wait-on: 'http://localhost:3300/prosemirror-dev-toolkit'
           project: ./core
-          browser: chrome
+          browser: electron
           quiet: true
 
       - name: Export screenshots (on failure only)
