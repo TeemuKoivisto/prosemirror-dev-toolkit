@@ -18,17 +18,16 @@ jobs:
           node-version: ${{ matrix.node_version }}
 
       - name: Load cached dependencies
-        uses: actions/cache@v2.1.5
-        id: cache
+        uses: actions/cache@v2
         with:
           path: |
             **/node_modules
             /home/runner/.cache/Cypress
-          key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-node${{ matrix.node-version }}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
 
       - name: Install dependencies
-        id: install-dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
 
       - name: Run type check and unit tests
@@ -48,7 +47,7 @@ jobs:
         with:
           cache-key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('**/yarn.lock') }}
           start: yarn --cwd ./example-app start
-          wait-on: 'http://localhost:3000'
+          wait-on: 'http://localhost:3000/prosemirror-dev-toolkit'
           project: ./core
           browser: chrome
           quiet: true
