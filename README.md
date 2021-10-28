@@ -78,7 +78,7 @@ I have tried bundling the library as minified UMD module that can be injected fr
 1. `yarn`
 2. `yarn start`
 
-Should open a React app at http://localhost:3000/prosemirror-dev-toolkit/
+Should open a React app at http://localhost:3300/prosemirror-dev-toolkit/
 
 ## Tests
 
