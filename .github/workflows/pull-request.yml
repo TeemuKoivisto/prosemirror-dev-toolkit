@@ -23,7 +23,7 @@ jobs:
 
       - name: Load cached dependencies
         uses: actions/cache@v2
-        id: yarn-cache
+        id:  cache-yarn-cache
         with:
           path: |
             ${{ steps.yarn-cache-dir-path.outputs.dir }}
@@ -70,12 +70,4 @@ jobs:
         with:
           name: cypress-screenshots
           path: ./core/cypress/screenshots
-          retention-days: 7
-
-      - name: Export screen recordings (on failure only)
-        uses: actions/upload-artifact@v2.2.3
-        if: failure()
-        with:
-          name: cypress-videos
-          path: ./core/cypress/videos
           retention-days: 7
