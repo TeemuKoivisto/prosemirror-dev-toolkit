@@ -6,7 +6,7 @@ import svelte from 'rollup-plugin-svelte'
 import autoPreprocess from 'svelte-preprocess'
 import postcss from 'rollup-plugin-postcss'
 import babel from 'rollup-plugin-babel'
-import { terser } from 'rollup-plugin-terser'
+// import { terser } from 'rollup-plugin-terser'
 
 import path from 'path'
 
@@ -80,8 +80,7 @@ export default {
     resolve({
       browser: true,
       dedupe: ['svelte']
-    }),
-    isProduction && terser()
+    })
   ],
   watch: {
     clearScreen: false
