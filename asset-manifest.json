@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/prosemirror-dev-toolkit/static/css/main.1adb62e5.chunk.css",
+    "main.js": "/prosemirror-dev-toolkit/static/js/main.f21ed3c8.chunk.js",
+    "main.js.map": "/prosemirror-dev-toolkit/static/js/main.f21ed3c8.chunk.js.map",
+    "runtime-main.js": "/prosemirror-dev-toolkit/static/js/runtime-main.62ec34b2.js",
+    "runtime-main.js.map": "/prosemirror-dev-toolkit/static/js/runtime-main.62ec34b2.js.map",
+    "static/js/2.5b5bc8e1.chunk.js": "/prosemirror-dev-toolkit/static/js/2.5b5bc8e1.chunk.js",
+    "static/js/2.5b5bc8e1.chunk.js.map": "/prosemirror-dev-toolkit/static/js/2.5b5bc8e1.chunk.js.map",
+    "static/js/3.1011f7e9.chunk.js": "/prosemirror-dev-toolkit/static/js/3.1011f7e9.chunk.js",
+    "static/js/3.1011f7e9.chunk.js.map": "/prosemirror-dev-toolkit/static/js/3.1011f7e9.chunk.js.map",
+    "static/js/4.5954ad83.chunk.js": "/prosemirror-dev-toolkit/static/js/4.5954ad83.chunk.js",
+    "static/js/4.5954ad83.chunk.js.map": "/prosemirror-dev-toolkit/static/js/4.5954ad83.chunk.js.map",
+    "index.html": "/prosemirror-dev-toolkit/index.html",
+    "static/css/main.1adb62e5.chunk.css.map": "/prosemirror-dev-toolkit/static/css/main.1adb62e5.chunk.css.map",
+    "static/js/2.5b5bc8e1.chunk.js.LICENSE.txt": "/prosemirror-dev-toolkit/static/js/2.5b5bc8e1.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.62ec34b2.js",
+    "static/js/2.5b5bc8e1.chunk.js",
+    "static/css/main.1adb62e5.chunk.css",
+    "static/js/main.f21ed3c8.chunk.js"
+  ]
+}
