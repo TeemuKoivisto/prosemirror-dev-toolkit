@@ -3,12 +3,13 @@ import type { Transaction } from 'prosemirror-state'
 
 import { appendNewHistoryEntry } from '$stores/stateHistory'
 
-let active = false, resetDispatch: (() => void) | undefined = undefined
+let active = false,
+  resetDispatch: (() => void) | undefined = undefined
 
-export function subscribeToDispatchTransaction(view: EditorView) : Promise<void> {
+export function subscribeToDispatchTransaction(view: EditorView): Promise<void> {
   active = true
   // Use timeout to make sure other hooks don't interfere with our patching of dispatchTransaction
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     setTimeout(() => {
       resetDispatch && resetDispatch()
       const oldDispatchFn = (view.someProp('dispatchTransaction') || view.dispatch).bind(view)

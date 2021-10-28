@@ -16,9 +16,7 @@ describe('# Snapshots tab', () => {
 
   it('Should show snapshots and allow interacting with them', () => {
     cy.devTools().find('ul.tabs-menu li button').contains('SNAPSHOTS').click()
-    cy.get('*')
-      .contains('Save snapshots by clicking "Save snapshot" button.')
-      .should('exist')
+    cy.get('*').contains('Save snapshots by clicking "Save snapshot" button.').should('exist')
 
     cy.window().then(window => {
       const { editorView: view } = window
@@ -107,7 +105,7 @@ describe('# Snapshots tab', () => {
     cy.get('.floating-dock .container section').toMatchImageSnapshot({
       imageConfig: {
         threshold: 0.001
-      },
+      }
     })
   })
 })

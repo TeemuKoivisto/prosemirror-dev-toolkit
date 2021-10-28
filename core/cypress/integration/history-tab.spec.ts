@@ -130,15 +130,17 @@ describe('# History tab', () => {
     cy.get('h2').contains('Selection diff', { matchCase: false }).should('exist')
 
     // Change the selection again
-    cy.window().then(window => {
-      const { editorView: view } = window
-      const tr = view.state.tr
-      tr.setSelection(new TextSelection(tr.doc.resolve(1), tr.doc.resolve(10)))
-      view.dispatch(view.state.tr)
-      // NOTE: it seems the includesStringCount command doesn't work as intended or that between dispatching
-      // a transaction and Cypress test executing the test is run in parallel, thus you have to setTimeout(() => x, 0)
-      // in order to let the ProseMirror flush the update.
-    }).wait(0)
+    cy.window()
+      .then(window => {
+        const { editorView: view } = window
+        const tr = view.state.tr
+        tr.setSelection(new TextSelection(tr.doc.resolve(1), tr.doc.resolve(10)))
+        view.dispatch(view.state.tr)
+        // NOTE: it seems the includesStringCount command doesn't work as intended or that between dispatching
+        // a transaction and Cypress test executing the test is run in parallel, thus you have to setTimeout(() => x, 0)
+        // in order to let the ProseMirror flush the update.
+      })
+      .wait(0)
 
     // The selection should be grouped with the current group, thus items should stay same
     cy.get('.left-panel').find('li').should('have.length', 3)

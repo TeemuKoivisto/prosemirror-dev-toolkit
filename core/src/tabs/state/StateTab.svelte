@@ -23,7 +23,9 @@
     const { state } = e
     currentState = state
     doc = state.doc.toJSON()
-    selection = expandedSelection ? createFullSelection(state.selection) : createSelection(state.selection)
+    selection = expandedSelection
+      ? createFullSelection(state.selection)
+      : createSelection(state.selection)
     activeMarks = getActiveMarks(state)
     nodeSize = state.doc.nodeSize
     childCount = state.doc.childCount
