@@ -19,10 +19,9 @@ export type Contexts = {
   }
 }
 
-export function setContext<K extends keyof Contexts>(ctx: K, val: Contexts[K]) {
-  return setCtx(ctx, val)
-}
+export const setContext = <K extends keyof Contexts & string>(
+  ctx: K,
+  val: Contexts[K]
+) => setCtx(ctx, val)
 
-export function getContext<K extends keyof Contexts>(ctx: K) {
-  return getCtx(ctx) as Contexts[K]
-}
+export const getContext = <K extends keyof Contexts & string>(ctx: K) => getCtx(ctx) as Contexts[K]
