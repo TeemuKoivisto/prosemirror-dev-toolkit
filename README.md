@@ -35,7 +35,7 @@ I use some hacky JS tricks to gain access to EditorState directly from the provi
 
 As in the old tools, the toolkit consists of 6 tabs which interact with the PM editor in various ways. Basically what happens is the dev-toolkit injects itself into the DOM, visible as the rounded button in the bottom right corner. It also replaces the dispatchTransaction method of the EditorView to be able to track the transactions as they occur.
 
-Another useful thing it can do is persist snapshots and hydrate them, to which I also added export/import functionality, that makes replaying editor bugs easier. They don't work with Yjs however as it blocks any updates to state that are not triggered through Yjs. I might add that some day. Also in the old dev-tools there was a node picker to inspect PM nodes but I'm not sure is it working properly and alas, haven't gotten around remaking it.
+Another useful thing it can do is persist snapshots and hydrate them, to which I also added export/import functionality that makes replaying editor bugs easier. They don't work with Yjs however as it blocks any updates to state that are not triggered through Yjs. Might fix that when I have time. Also in the old dev-tools there was a node picker to inspect PM nodes but I'm not sure is it working properly and alas, haven't gotten around remaking it.
 
 ## State
 
@@ -47,7 +47,7 @@ History tab shows the last dispatched transaction with a diff of the changed con
 
 Copying the old diffing logic was perhaps the most annoying feature to implement as it required me to wrap my head around the jsondiffpatch's delta format and figure out how to rewrite them as Svelte components. Somewhat interesting topic, certainly, but quite tedious. I changed the original colors to a perhaps more distinct palette and added the transaction to the history entry as well. I've found it quite useful.
 
-I added some new features to the trees such as 'log' and 'copy' buttons which logs the node to window (eg into `_node` variable) or add it to your clipboard.
+I added some new features to the trees such as 'log' and 'copy' buttons which log the node to window (eg into `_node` variable) or add it to your clipboard.
 
 You can hydrate a state from a transaction by double-clicking it. This, however, fails with Yjs so be advised. I have thought of adding import/export of transaction history to allow replaying them but haven't had time for it.
 
@@ -71,7 +71,7 @@ Shows the stored snapshots (toJSON'd topNode eg "doc") in localStorage. The chan
 
 ## Other things
 
-I have tried bundling the library as minified UMD module that can be injected from a CDN. It works in most cases but since it's a bit experimental still, it's not part of the build yet. I've had to use quite contrived hacks to gain access to the EditorView from the `pmViewDesc` property in a live PM editor instance. Could be used to turn this into a Chrome extension.
+I have tried bundling the library as minified UMD module that can be injected from a CDN. It works in most cases but since it's a bit experimental still, it's not part of the build yet. It uses some silly hacks to gain access to the EditorView from the `pmViewDesc` property in a live PM editor instance. Could be used to turn this into a Chrome extension.
 
 ## How to run locally
 
@@ -80,5 +80,6 @@ I have tried bundling the library as minified UMD module that can be injected fr
 
 Should open a React app at http://localhost:3000/prosemirror-dev-toolkit/
 
-## Commands
+## Tests
 
+Tests as currently require you to launch the example app and then run `yarn test:e2e` in the `core` directory. I kinda skipped the unit tests since Jest was just too much trouble to work with although Cypress has its rough edges too. I hope I have covered at least most of the basic cases to avoid sudden regressions.
