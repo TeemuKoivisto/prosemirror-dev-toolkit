@@ -19,8 +19,8 @@
   }
   let editorState: EditorState = view.state
   let plugins = editorState.plugins as Plugin[]
-  let selectedPlugin = plugins[0]
-  $: pluginState = selectedPlugin?.getState(editorState)
+  let selectedPlugin = plugins[0] as Plugin | undefined
+  $: pluginState = selectedPlugin?.getState(editorState) as unknown
   $: listItems = plugins.map((p: Plugin) => ({
     key: p.key, // TODO this can be undefined??
     value: p.key.toUpperCase(),
@@ -31,7 +31,7 @@
     if (!e) return
     editorState = e.state
     plugins = editorState.plugins as Plugin[]
-    selectedPlugin = plugins.find(p => p.key === selectedPlugin.key) as Plugin
+    selectedPlugin = plugins.find(p => p.key === selectedPlugin?.key) as Plugin
   })
 
   function handlePluginSelect(item: { key: string; value: string }) {
@@ -51,7 +51,7 @@
 
 <SplitView>
   <div slot="left" class="left-panel">
-    <List {listItems} selectedKey={selectedPlugin.key} onSelect={handlePluginSelect} />
+    <List {listItems} selectedKey={selectedPlugin?.key} onSelect={handlePluginSelect} />
   </div>
   <div slot="right" class="right-panel">
     {#if pluginState}

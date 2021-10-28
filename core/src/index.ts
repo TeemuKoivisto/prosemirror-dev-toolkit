@@ -17,7 +17,7 @@ declare global {
     _node?: any
     _doc?: { [key: string]: any }
     _tr?: Transaction
-    _plugin?: [Plugin, any]
+    _plugin?: [Plugin | undefined, unknown]
   }
 }
 

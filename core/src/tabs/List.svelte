@@ -1,6 +1,6 @@
 <script lang="ts">
   export let listItems: { key: string; value: string }[] = [],
-    selectedKey: string,
+    selectedKey: string | undefined,
     onSelect: (item: { key: string; value: string }) => void
 </script>
 
