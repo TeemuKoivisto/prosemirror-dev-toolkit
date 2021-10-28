@@ -61,7 +61,7 @@ jobs:
           wait-on: 'http://localhost:5000'
           config: baseUrl=http://localhost:5000
           project: ./core
-          browser: electron
+          browser: chrome
           quiet: true
 
       - name: Export screenshots (on failure only)
