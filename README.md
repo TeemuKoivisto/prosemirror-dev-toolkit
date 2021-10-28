@@ -29,7 +29,7 @@ import applyDevTools from 'prosemirror-dev-toolkit'
   }
 ```
 
-I use some hacky JS tricks to gain access to both EditorState and DOMSerializer that previously required bundling both prosemirror-state and prosemirror-model. Another issue I had with the old dev tools was its quite heavy node_modules (200 MBs). These plus the need for customizing the tools was why I wanted to redo it.
+I use some hacky JS tricks to gain access to EditorState directly from the provided instance which removes the need to bundle `prosemirror-state`. However, I couldn't figure out a way to extract `DOMSerializer` from `prosemirror-model` which makes this a little bit bigger when injected. But it shouldn't at least cause errors with multiple prosemirror-models loaded simultaneously. Otherwise, I think the dependencies should be smaller than in the old dev tools which I found at times reaching sizes of 200 MBs.
 
 # Features
 
