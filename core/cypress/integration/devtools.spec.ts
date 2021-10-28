@@ -26,7 +26,7 @@ describe('# DevTools', () => {
   it('Should unmount and remount correctly when applyDevTools is called multiple times', () => {
     cy.devTools().find('ul.tabs-menu li').should('have.length', 6)
 
-    cy.window().then(async (window) => {
+    cy.window().then(async window => {
       const { applyDevTools, editorView: view } = window
       await applyDevTools(view)
       await applyDevTools(view)
@@ -36,7 +36,7 @@ describe('# DevTools', () => {
     cy.devTools().find('ul.tabs-menu li button').contains('HISTORY').click()
     cy.get('.left-panel').find('li').should('have.length', 0)
 
-    cy.window().then(async (window) => {
+    cy.window().then(async window => {
       const { editorView: view } = window
       const tr = view.state.tr
       const schema = view.state.schema
@@ -49,7 +49,7 @@ describe('# DevTools', () => {
 
     cy.get('.left-panel').find('li').should('have.length', 1)
 
-    cy.window().then(async (window) => {
+    cy.window().then(async window => {
       const { editorView: view } = window
       const tr = view.state.tr
       const schema = view.state.schema
@@ -62,16 +62,16 @@ describe('# DevTools', () => {
 
     cy.get('.left-panel').find('li').should('have.length', 2)
 
-    cy.window().then(async (window) => {
+    cy.window().then(async window => {
       const { applyDevTools, editorView: view } = window
       await applyDevTools(view)
     })
-    
+
     cy.devTools().find('.floating-btn').click()
     cy.devTools().find('ul.tabs-menu li button').contains('HISTORY').click()
     cy.get('.left-panel').find('li').should('have.length', 0)
 
-    cy.window().then(async (window) => {
+    cy.window().then(async window => {
       const { editorView: view } = window
       const tr = view.state.tr
       const schema = view.state.schema

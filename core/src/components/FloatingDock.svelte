@@ -25,7 +25,7 @@
     document.removeEventListener('mouseup', dragEnd)
   })
 
-  function handleResizeMouseDown(e: any) {
+  function handleResizeMouseDown() {
     document.addEventListener('mousemove', dragMove)
     document.addEventListener('mouseup', dragEnd)
   }

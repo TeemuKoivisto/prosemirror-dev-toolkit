@@ -9,7 +9,11 @@ export const stateHistory = writable<Map<string, HistoryEntry>>(new Map())
 export const shownHistoryGroups = writable<HistoryGroup[]>([])
 export const latestEntry = writable<HistoryEntry | undefined>(undefined)
 
-export function appendNewHistoryEntry(tr: Transaction, state: EditorState, stateBeforeDispatch: EditorState) {
+export function appendNewHistoryEntry(
+  tr: Transaction,
+  state: EditorState,
+  stateBeforeDispatch: EditorState
+) {
   const entryMap = get(stateHistory)
   const prevGroup = get(shownHistoryGroups)[0]
   const oldEntry = entryMap.get(prevGroup?.topEntryId || '')

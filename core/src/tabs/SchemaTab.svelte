@@ -45,6 +45,10 @@
 </SplitView>
 
 <style lang="scss">
+  :global(.hidden) {
+    display: none;
+    visibility: hidden;
+  }
   .top-row {
     align-items: center;
     display: flex;

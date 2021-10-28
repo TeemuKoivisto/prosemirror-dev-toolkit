@@ -35,17 +35,19 @@ describe('# State tab', () => {
     cy.get('li').contains('childCount:').parent().find('.node-value').should('have.text', '1')
 
     // Insert paragraph with bolded text and set selection inside it
-    cy.window().then(window => {
-      const { editorView: view } = window
-      const tr = view.state.tr
-      const schema = view.state.schema
-      tr.insert(
-        1,
-        schema.nodes.paragraph.create(null, schema.text(TEST_TEXT, [schema.marks.bold.create()]))
-      )
-      tr.setSelection(new TextSelection(tr.doc.resolve(4)))
-      view.dispatch(tr)
-    }).wait(0)
+    cy.window()
+      .then(window => {
+        const { editorView: view } = window
+        const tr = view.state.tr
+        const schema = view.state.schema
+        tr.insert(
+          1,
+          schema.nodes.paragraph.create(null, schema.text(TEST_TEXT, [schema.marks.bold.create()]))
+        )
+        tr.setSelection(new TextSelection(tr.doc.resolve(4)))
+        view.dispatch(tr)
+      })
+      .wait(0)
 
     cy.get('.svelte-tree-view').eq(1).find('li').should('have.length', 19)
     cy.get('li').contains('"bold"').parent().find('.node-key').should('have.text', '0:')

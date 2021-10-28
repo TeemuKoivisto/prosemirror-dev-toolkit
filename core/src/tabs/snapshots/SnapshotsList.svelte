@@ -117,11 +117,6 @@
     display: flex;
     font-family: monospace;
     padding: 6px 18px;
-    & > div {
-      align-items: center;
-      display: flex;
-      flex-grow: 1;
-    }
   }
   input {
     background: transparent;

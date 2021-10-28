@@ -5,8 +5,8 @@ import typescript from 'rollup-plugin-ts'
 import svelte from 'rollup-plugin-svelte'
 import autoPreprocess from 'svelte-preprocess'
 import postcss from 'rollup-plugin-postcss'
-import babel from "rollup-plugin-babel"
-import { terser } from 'rollup-plugin-terser'
+import babel from 'rollup-plugin-babel'
+// import { terser } from 'rollup-plugin-terser'
 
 import path from 'path'
 
@@ -55,33 +55,32 @@ export default {
     commonjs(),
     typescript(),
     babel({
-      extensions: [".js", ".mjs", ".html", ".svelte"],
+      extensions: ['.js', '.mjs', '.html', '.svelte'],
       runtimeHelpers: true,
-      exclude: ["node_modules/@babel/**"],
+      exclude: ['node_modules/@babel/**'],
       presets: [
         [
-          "@babel/preset-env",
+          '@babel/preset-env',
           {
-            targets: "> 0.25%, not dead",
-          },
-        ],
+            targets: '> 0.25%, not dead'
+          }
+        ]
       ],
       plugins: [
-        "@babel/plugin-syntax-dynamic-import",
+        '@babel/plugin-syntax-dynamic-import',
         [
-          "@babel/plugin-transform-runtime",
+          '@babel/plugin-transform-runtime',
           {
-            useESModules: true,
-          },
-        ],
-      ],
+            useESModules: true
+          }
+        ]
+      ]
     }),
     postcss(),
     resolve({
       browser: true,
       dedupe: ['svelte']
-    }),
-    isProduction && terser()
+    })
   ],
   watch: {
     clearScreen: false
