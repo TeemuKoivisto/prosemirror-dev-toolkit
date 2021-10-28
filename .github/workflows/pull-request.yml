@@ -43,7 +43,7 @@ jobs:
       - name: Build example-app
         run: |
           cd example-app
-          yarn build
+          yarn build:no-prefix
 
       - name: Run Cypress tests
         id: cypress
@@ -52,6 +52,7 @@ jobs:
           cache-key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('**/yarn.lock') }}
           start: yarn --cwd ./example-app preview
           wait-on: 'http://localhost:5000'
+          config: baseUrl=http://localhost:5000
           project: ./core
           browser: electron
           quiet: true

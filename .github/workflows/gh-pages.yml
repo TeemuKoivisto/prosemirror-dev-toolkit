@@ -41,18 +41,13 @@ jobs:
           cd core
           yarn build
 
-      - name: Build example-app
-        run: |
-          cd example-app
-          yarn build
-
       - name: Run Cypress tests
         id: cypress
         uses: cypress-io/github-action@v2
         with:
           cache-key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('**/yarn.lock') }}
-          start: yarn --cwd ./example-app preview
-          wait-on: 'http://localhost:5000'
+          start: yarn --cwd ./example-app start
+          wait-on: 'http://localhost:3300/prosemirror-dev-toolkit'
           project: ./core
           browser: electron
           quiet: true
@@ -72,6 +67,11 @@ jobs:
           name: cypress-videos
           path: ./core/cypress/videos
           retention-days: 7
+
+      - name: Build example-app
+        run: |
+          cd example-app
+          yarn build
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
