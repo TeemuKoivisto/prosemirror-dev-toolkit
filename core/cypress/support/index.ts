@@ -32,6 +32,35 @@ declare global {
     _tr?: Transaction
     _plugin?: [Plugin | undefined, unknown]
   }
+  // eslint-disable-next-line
+  namespace Cypress {
+    interface Chainable {
+      devTools: () => Cypress.Chainable<JQuery<HTMLElement>>
+      resetDoc: () => Cypress.Chainable<JQuery<HTMLElement>>
+      includesStringCount: (str: string) => Cypress.Chainable<number>
+
+      // https://github.com/meinaart/cypress-plugin-snapshots
+      toMatchSnapshot(options?: Partial<{
+        ignoreExtralFields: boolean,
+        ignoreExtraArrayItems: boolean,
+        normalizeJson: boolean,
+        replace: any,
+        name: string
+      }>): Chainable<null>;
+  
+      toMatchImageSnapshot(options?: Partial<{
+        imageConfig: Partial<{
+          createDiffImage: boolean,
+          threshold: number,
+          thresholdType: "percent" | "pixels",
+          resizeDevicePixelRatio: boolean
+        }>,
+        screenshotConfig: Partial<ScreenshotDefaultsOptions>,
+        name: string,
+        separator: string
+      }>): Chainable<null>;
+    }
+  }
 }
 
 function abortEarly() {

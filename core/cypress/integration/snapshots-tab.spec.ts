@@ -98,14 +98,16 @@ describe('# Snapshots tab', () => {
     cy.get('button').contains('confirm delete', { matchCase: false }).click()
     cy.get('.right-panel li').should('have.length', 1)
 
-    cy.get('.floating-dock').toMatchImageSnapshot({
-      imageConfig: {
-        threshold: 0.001
-      }
-    })
-
     cy.get('button').contains('Delete').click()
     cy.get('button').contains('confirm delete', { matchCase: false }).click()
     cy.get('.right-panel li').should('have.length', 0)
+
+    // I have to select only the main section without the tab list since there's some weird bug with Cypress
+    // https://github.com/cypress-io/cypress/issues/8415
+    cy.get('.floating-dock .container section').toMatchImageSnapshot({
+      imageConfig: {
+        threshold: 0.001
+      },
+    })
   })
 })

@@ -34,6 +34,7 @@
     display: flex;
     font-family: monospace;
     font-size: var(--font-small);
+    font-weight: 100;
     height: 100%;
     padding: 6px 18px;
     text-transform: uppercase;

@@ -45,7 +45,7 @@ describe('# State tab', () => {
       )
       tr.setSelection(new TextSelection(tr.doc.resolve(4)))
       view.dispatch(tr)
-    })
+    }).wait(0)
 
     cy.get('.svelte-tree-view').eq(1).find('li').should('have.length', 19)
     cy.get('li').contains('"bold"').parent().find('.node-key').should('have.text', '0:')
