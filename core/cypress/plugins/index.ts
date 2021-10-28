@@ -31,15 +31,4 @@ export default (on: Cypress.PluginEvents, config: Cypress.PluginConfigOptions) =
       return shouldSkip
     }
   })
-  on('before:browser:launch', (browser, launchOptions) => {
-    if (browser.name === 'chrome') {
-      // This is needed to kinda fix headed tests as the screenshot snapshots otherwise differ
-      // versus the headless snapshots. But since it's more trouble than it's worth, I'm going to
-      // remove this
-      launchOptions.args.push('--window-size=1280,720')
-      launchOptions.args.push('--start-fullscreen')
-    }
-
-    return launchOptions
-  })
 }
