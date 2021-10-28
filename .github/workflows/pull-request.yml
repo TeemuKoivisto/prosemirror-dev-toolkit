@@ -37,13 +37,12 @@ jobs:
           yarn svelte-check
           yarn test:unit
 
-      - name: Build
+      - name: Build library
         run: |
           cd core
-          chmod +x ./build.js
           yarn build
 
-      - name: Run tests with Cypress
+      - name: Run Cypress tests
         id: cypress
         uses: cypress-io/github-action@v2
         with:

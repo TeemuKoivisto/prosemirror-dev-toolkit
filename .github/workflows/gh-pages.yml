@@ -32,6 +32,33 @@ jobs:
           cd core
           yarn build
 
+      - name: Run Cypress tests
+        id: cypress
+        uses: cypress-io/github-action@v2
+        with:
+          cache-key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('**/yarn.lock') }}
+          start: yarn --cwd ./example-app start
+          wait-on: 'http://localhost:3000'
+          project: ./core
+          browser: chrome
+          quiet: true
+
+      - name: Export screenshots (on failure only)
+        uses: actions/upload-artifact@v2.2.3
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: ./core/cypress/screenshots
+          retention-days: 7
+
+      - name: Export screen recordings (on failure only)
+        uses: actions/upload-artifact@v2.2.3
+        if: failure()
+        with:
+          name: cypress-videos
+          path: ./core/cypress/videos
+          retention-days: 7
+
       - name: Build example-app
         run: |
           cd example-app
