@@ -13,7 +13,7 @@
   let selectedNode = view.state.doc
   $: jsonNode = selectedNode.toJSON()
   let schema: Schema = view.state.schema
-  let timer: number | undefined
+  let timer: ReturnType<typeof setTimeout>
 
   latestEntry.subscribe(e => {
     if (!e) return
@@ -51,6 +51,10 @@
 </SplitView>
 
 <style lang="scss">
+  :global(.hidden) {
+    display: none;
+    visibility: hidden;
+  }
   .top-row {
     align-items: center;
     display: flex;

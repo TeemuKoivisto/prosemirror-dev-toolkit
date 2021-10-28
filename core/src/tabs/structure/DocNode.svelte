@@ -3,7 +3,7 @@
   import type { Node as PMNode } from 'prosemirror-model'
   import type { Fragment } from '$typings/pm'
 
-  const { selected, colors, handleNodeClick } = getContext('doc-view')
+  const { colors, handleNodeClick } = getContext('doc-view')
 
   export let node: PMNode,
     startPos: number,
