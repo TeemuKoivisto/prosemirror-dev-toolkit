@@ -35,7 +35,7 @@ declare global {
   // eslint-disable-next-line
   namespace Cypress {
     interface Chainable {
-      interrupt: () => Promise<void>
+      interrupt: () => void
       devTools: () => Cypress.Chainable<JQuery<HTMLElement>>
       resetDoc: () => Cypress.Chainable<JQuery<HTMLElement>>
       includesStringCount: (str: string) => Cypress.Chainable<number>
