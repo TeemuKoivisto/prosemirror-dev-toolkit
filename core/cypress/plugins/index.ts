@@ -32,7 +32,7 @@ export default (on: Cypress.PluginEvents, config: Cypress.PluginConfigOptions) =
     }
   })
   on('before:browser:launch', (browser, launchOptions) => {
-    if (browser.family === 'chromium' && browser.isHeadless) {
+    if (browser.family === 'chromium' && browser.name !== 'electron') {
       launchOptions.args.push('--hide-scrollbars')
     }
     return launchOptions
