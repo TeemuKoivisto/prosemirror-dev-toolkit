@@ -104,7 +104,7 @@ describe('# Snapshots tab', () => {
     // https://github.com/cypress-io/cypress/issues/8415
     cy.get('.floating-dock .container section').toMatchImageSnapshot({
       imageConfig: {
-        threshold: 0.01
+        threshold: 0.1
       }
     })
   })

@@ -37,7 +37,7 @@ describe('# Plugins tab', () => {
     cy.get('li button').contains('EXAMPLE-PLUGIN$').click()
     cy.get('.floating-dock').toMatchImageSnapshot({
       imageConfig: {
-        threshold: 0.01
+        threshold: 0.1
       }
     })
   })
