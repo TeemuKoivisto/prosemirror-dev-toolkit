@@ -12,11 +12,16 @@ export function subscribeToDispatchTransaction(view: EditorView): Promise<void> 
   return new Promise(resolve => {
     setTimeout(() => {
       resetDispatch && resetDispatch()
-      const oldDispatchFn = (view.someProp('dispatchTransaction') || view.dispatch).bind(view)
+      const oldDispatchFn = view.someProp('dispatchTransaction')?.bind(view)
       view.setProps({
-        dispatchTransaction: (tr: Transaction) => {
+        dispatchTransaction(tr: Transaction) {
           const stateBeforeDispatch = view.state
-          oldDispatchFn(tr)
+          if (oldDispatchFn) {
+            oldDispatchFn(tr)
+          } else {
+            const state = this.state.apply(tr)
+            this.updateState(state)
+          }
           if (active) {
             appendNewHistoryEntry(tr, view.state, stateBeforeDispatch)
           }

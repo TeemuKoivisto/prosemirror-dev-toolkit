@@ -18,18 +18,18 @@ interface EditorProps {
 
 export function PMEditor(props: EditorProps) {
   const { className = '' } = props
-  const editorViewRef = useRef(null)
-  const editorRef = useRef<EditorView | null>(null)
+  const editorDOMRef = useRef(null)
+  const editorViewRef = useRef<EditorView | null>(null)
 
   useLayoutEffect(() => {
     const state = createEditorState()
-    const editorViewDOM = editorViewRef.current
+    const editorViewDOM = editorDOMRef.current
     if (editorViewDOM) {
-      editorRef.current = createEditorView(editorViewDOM, state)
-      props.onEditorReady && props?.onEditorReady(editorRef.current)
+      editorViewRef.current = createEditorView(editorViewDOM, state)
+      props.onEditorReady && props?.onEditorReady(editorViewRef.current)
     }
     return () => {
-      editorRef.current?.destroy()
+      editorViewRef.current?.destroy()
     }
   // eslint-disable-next-line
   }, [])
@@ -50,17 +50,17 @@ export function PMEditor(props: EditorProps) {
   }
 
   function dispatchTransaction(transaction: Transaction) {
-    if (!editorRef.current) {
+    if (!editorViewRef.current) {
       return
     }
-    const editorState = editorRef.current.state.apply(transaction)
-    editorRef.current.updateState(editorState)
+    const editorState = editorViewRef.current.state.apply(transaction)
+    editorViewRef.current.updateState(editorState)
     if (props.onEdit) {
       props.onEdit(editorState)
     }
   }
 
   return (
-    <div id="example-editor" ref={editorViewRef} className={className}/>
+    <div id="example-editor" ref={editorDOMRef} className={className}/>
   )
 }
