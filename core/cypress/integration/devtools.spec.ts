@@ -18,7 +18,7 @@ describe('# DevTools', () => {
     cy.scrollTo('bottom')
     cy.get('.floating-dock').toMatchImageSnapshot({
       imageConfig: {
-        threshold: 0.001
+        threshold: 0.01
       }
     })
   })

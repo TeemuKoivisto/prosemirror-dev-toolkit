@@ -87,7 +87,7 @@ describe('# History tab', () => {
     cy.get('.right-panel').scrollTo('top')
     cy.get('.right-panel').toMatchImageSnapshot({
       imageConfig: {
-        threshold: 0.001
+        threshold: 0.01
       }
     })
   })
@@ -160,7 +160,7 @@ describe('# History tab', () => {
     cy.get('h2').contains('Selection content', { matchCase: false }).should('exist')
     cy.get('.right-panel').toMatchImageSnapshot({
       imageConfig: {
-        threshold: 0.001
+        threshold: 0.01
       }
     })
 
@@ -183,7 +183,7 @@ describe('# History tab', () => {
     cy.get('h2').contains('Selection content', { matchCase: false }).should('exist')
     cy.get('.right-panel').toMatchImageSnapshot({
       imageConfig: {
-        threshold: 0.001
+        threshold: 0.01
       }
     })
   })

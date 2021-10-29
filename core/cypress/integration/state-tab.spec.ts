@@ -56,7 +56,7 @@ describe('# State tab', () => {
 
     cy.get('.floating-dock').toMatchImageSnapshot({
       imageConfig: {
-        threshold: 0.001
+        threshold: 0.01
       }
     })
   })
