@@ -15,7 +15,7 @@ describe('# DevTools', () => {
     cy.devTools().find('.floating-btn').click()
     cy.devTools().find('.floating-dock').should('have.length', 1)
     cy.devTools().find('ul.tabs-menu li').should('have.length', 6)
-    cy.scrollTo('bottom')
+    // cy.scrollTo('bottom')
     cy.get('.floating-dock').toMatchImageSnapshot({
       imageConfig: {
         threshold: 0.1

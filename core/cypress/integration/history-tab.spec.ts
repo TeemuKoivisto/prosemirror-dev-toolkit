@@ -85,7 +85,7 @@ describe('# History tab', () => {
 
     // Snapshot only the right panel since the left contains unmocked timestamps
     cy.get('.right-panel').scrollTo('top')
-    cy.get('.right-panel').toMatchImageSnapshot({
+    cy.get('.floating-dock').toMatchImageSnapshot({
       imageConfig: {
         threshold: 0.1
       }
