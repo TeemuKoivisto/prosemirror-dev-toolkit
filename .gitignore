@@ -29,5 +29,7 @@ tmp/
 .eslintcache
 
 **/cypress/screenshots
+**/cypress/**/*.actual.png
+**/cypress/**/*.diff.png
 **/cypress/videos
 **/cypress/downloads

@@ -47,21 +47,15 @@ jobs:
           cd core
           yarn build
 
-      - name: Build example-app
-        run: |
-          cd example-app
-          yarn build:no-prefix
-
       - name: Run Cypress tests
         id: cypress
         uses: cypress-io/github-action@v2
         with:
           cache-key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('**/yarn.lock') }}
-          start: yarn --cwd ./example-app preview
-          wait-on: 'http://localhost:5000'
-          config: baseUrl=http://localhost:5000
+          start: yarn --cwd ./example-app start
+          wait-on: 'http://localhost:3300/prosemirror-dev-toolkit'
           project: ./core
-          browser: chrome
+          browser: electron
           quiet: true
 
       - name: Export screenshots (on failure only)
@@ -69,5 +63,15 @@ jobs:
         if: failure()
         with:
           name: cypress-screenshots
-          path: ./core/cypress/screenshots
+          path: |
+            ./core/cypress/**/*.actual.png
+            ./core/cypress/**/*.diff.png
+          retention-days: 7
+
+      - name: Export screen recordings (on failure only)
+        uses: actions/upload-artifact@v2.2.3
+        if: failure()
+        with:
+          name: cypress-videos
+          path: ./core/cypress/videos
           retention-days: 7
