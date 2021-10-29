@@ -11,7 +11,6 @@ export function subscribeToDispatchTransaction(view: EditorView): Promise<void> 
   // Use timeout to make sure other hooks don't interfere with our patching of dispatchTransaction
   return new Promise(resolve => {
     setTimeout(() => {
-      resetDispatch && resetDispatch()
       const oldDispatchFn = view.someProp('dispatchTransaction')?.bind(view)
       view.setProps({
         dispatchTransaction(tr: Transaction) {

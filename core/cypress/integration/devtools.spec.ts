@@ -5,7 +5,7 @@ describe('# DevTools', () => {
     cy.visit('/')
   })
 
-  it('Should render and allow to be closed / reopened', () => {
+  xit('Should render and allow to be closed / reopened', () => {
     cy.get('.__prosemirror-dev-toolkit__').should('have.length', 1)
     cy.devTools().should('have.length', 1)
     cy.devTools().find('ul.tabs-menu li').should('have.length', 6)
@@ -27,7 +27,7 @@ describe('# DevTools', () => {
   // fails to unsubscribe properly. Then test it without dispatchTransaction in /plain page for the same issues.
   const pages = ['', '/plain']
   pages.forEach(page => {
-    it('Should unmount and remount correctly when applyDevTools is called multiple times', () => {
+    xit('Should unmount and remount correctly when applyDevTools is called multiple times', () => {
       cy.visit(page)
       cy.devTools().find('ul.tabs-menu li').should('have.length', 6)
   
@@ -89,5 +89,33 @@ describe('# DevTools', () => {
   
       cy.get('.left-panel').find('li').should('have.length', 1)
     })
+  })
+
+  it('Should unmount without errors or warning when navigating pages', () => {
+    cy.get('.__prosemirror-dev-toolkit__').should('have.length', 1)
+    cy.visit('/no-editor')
+    cy.get('.__prosemirror-dev-toolkit__').should('have.length', 0)
+    cy.visit('/')
+    cy.visit('/plain')
+    cy.visit('/')
+    cy.visit('/plain')
+    cy.get('.__prosemirror-dev-toolkit__').should('have.length', 1)
+
+    // Test that transactions trigger properly and history entries are updated
+    cy.devTools().find('ul.tabs-menu li button').contains('HISTORY').click()
+    cy.get('.left-panel').find('li').should('have.length', 0)
+
+    cy.window().then(async window => {
+      const { editorView: view } = window
+      const tr = view.state.tr
+      const schema = view.state.schema
+      tr.insert(
+        1,
+        schema.nodes.paragraph.create(null, schema.text(TEST_TEXT, [schema.marks.bold.create()]))
+      )
+      view.dispatch(tr)
+    })
+
+    cy.get('.left-panel').find('li').should('have.length', 1)
   })
 })

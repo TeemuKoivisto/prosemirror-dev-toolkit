@@ -35,7 +35,7 @@ export function PlainPMPage() {
       <header>
         <h1><a href="https://github.com/TeemuKoivisto/prosemirror-dev-toolkit">prosemirror-dev-toolkit</a></h1>
         <p>Github repo</p>
-        <p>This page mounts a ProseMirror editor without any customization and which is used in Cypress tests</p>
+        <p>This page mounts a ProseMirror editor without any extra props and it's used in Cypress tests</p>
       </header>
       <div id="plain-editor" ref={editorDOMRef}/>
     </Container>
