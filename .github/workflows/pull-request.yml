@@ -55,7 +55,7 @@ jobs:
           start: yarn --cwd ./example-app start
           wait-on: 'http://localhost:3300/prosemirror-dev-toolkit'
           project: ./core
-          browser: chrome
+          browser: electron
           quiet: true
 
       - name: Export screenshots (on failure only)
