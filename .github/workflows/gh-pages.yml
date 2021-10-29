@@ -36,6 +36,12 @@ jobs:
       - name: Install dependencies
         run: yarn --frozen-lockfile
 
+      - name: Run type check and unit tests
+        run: |
+          cd core
+          yarn svelte-check
+          yarn test:unit
+
       - name: Build library
         run: |
           cd core
