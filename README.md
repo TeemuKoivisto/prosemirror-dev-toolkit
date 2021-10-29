@@ -84,4 +84,4 @@ Should open a React app at http://localhost:3300/prosemirror-dev-toolkit/
 
 Tests as currently require you to launch the example app and then run `yarn test:e2e` in the `core` directory. I kinda skipped the unit tests since Jest was just too much trouble to work with although Cypress has its rough edges too. I hope I have covered at least most of the basic cases to avoid sudden regressions.
 
-test6
+test7
