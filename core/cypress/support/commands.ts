@@ -8,6 +8,10 @@
 // https://on.cypress.io/custom-commands
 // ***********************************************
 
+Cypress.Commands.add('interrupt', () => {
+  eval("window.top.document.body.querySelector('header button.stop').click()")
+})
+
 Cypress.Commands.add('devTools', () => {
   return cy.get('.__prosemirror-dev-toolkit__')
 })

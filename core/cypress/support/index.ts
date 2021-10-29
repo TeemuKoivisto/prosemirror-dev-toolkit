@@ -35,6 +35,7 @@ declare global {
   // eslint-disable-next-line
   namespace Cypress {
     interface Chainable {
+      interrupt: () => Promise<void>
       devTools: () => Cypress.Chainable<JQuery<HTMLElement>>
       resetDoc: () => Cypress.Chainable<JQuery<HTMLElement>>
       includesStringCount: (str: string) => Cypress.Chainable<number>
@@ -72,7 +73,7 @@ function abortEarly() {
     return cy.task('shouldSkip', true)
   }
   cy.task('shouldSkip').then(value => {
-    if (value) this.skip()
+    if (value) return cy.interrupt()
   })
 }
 
