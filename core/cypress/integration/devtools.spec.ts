@@ -33,60 +33,30 @@ describe('# DevTools', () => {
   
       cy.window().then(async window => {
         const { applyDevTools, editorView: view } = window
-        await applyDevTools(view)
-        await applyDevTools(view)
+        applyDevTools(view)
+        applyDevTools(view)
       })
   
       cy.devTools().find('.floating-btn').click()
       cy.devTools().find('ul.tabs-menu li button').contains('HISTORY').click()
       cy.get('.left-panel').find('li').should('have.length', 0)
-  
-      cy.window().then(async window => {
-        const { editorView: view } = window
-        const tr = view.state.tr
-        const schema = view.state.schema
-        tr.insert(
-          1,
-          schema.nodes.paragraph.create(null, schema.text(TEST_TEXT, [schema.marks.bold.create()]))
-        )
-        view.dispatch(tr)
-      })
-  
+
+      cy.pmInsParagraphBolded(TEST_TEXT)
       cy.get('.left-panel').find('li').should('have.length', 1)
   
-      cy.window().then(async window => {
-        const { editorView: view } = window
-        const tr = view.state.tr
-        const schema = view.state.schema
-        tr.insert(
-          1,
-          schema.nodes.paragraph.create(null, schema.text(TEST_TEXT, [schema.marks.bold.create()]))
-        )
-        view.dispatch(tr)
-      })
-  
+      cy.pmInsParagraphBolded(TEST_TEXT)
       cy.get('.left-panel').find('li').should('have.length', 2)
   
       cy.window().then(async window => {
         const { applyDevTools, editorView: view } = window
-        await applyDevTools(view)
+        applyDevTools(view)
       })
   
       cy.devTools().find('.floating-btn').click()
       cy.devTools().find('ul.tabs-menu li button').contains('HISTORY').click()
       cy.get('.left-panel').find('li').should('have.length', 0)
   
-      cy.window().then(async window => {
-        const { editorView: view } = window
-        const tr = view.state.tr
-        const schema = view.state.schema
-        tr.insert(
-          1,
-          schema.nodes.paragraph.create(null, schema.text(TEST_TEXT, [schema.marks.bold.create()]))
-        )
-        view.dispatch(tr)
-      })
-  
+      cy.pmInsParagraphBolded(TEST_TEXT)
       cy.get('.left-panel').find('li').should('have.length', 1)
     })
   })
@@ -112,17 +82,7 @@ describe('# DevTools', () => {
     cy.devTools().find('ul.tabs-menu li button').contains('HISTORY').click()
     cy.get('.left-panel').find('li').should('have.length', 0)
 
-    cy.window().then(async window => {
-      const { editorView: view } = window
-      const tr = view.state.tr
-      const schema = view.state.schema
-      tr.insert(
-        1,
-        schema.nodes.paragraph.create(null, schema.text(TEST_TEXT, [schema.marks.bold.create()]))
-      )
-      view.dispatch(tr)
-    })
-
+    cy.pmInsParagraphBolded(TEST_TEXT)
     cy.get('.left-panel').find('li').should('have.length', 1)
   })
 })

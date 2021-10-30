@@ -22,7 +22,7 @@ Cypress.Commands.add('resetDoc', () => {
     const { applyDevTools, editorView: view } = window
     const tr = view.state.tr
     view.dispatch(tr.delete(1, view.state.doc.nodeSize - 2))
-    await applyDevTools(view)
+    applyDevTools(view)
   })
 })
 
