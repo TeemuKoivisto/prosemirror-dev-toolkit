@@ -20,6 +20,7 @@
     clearTimeout(timer)
     timer = setTimeout(() => {
       doc = e.state.doc
+      selectedNode = doc
     }, 100)
   })
 

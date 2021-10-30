@@ -15,6 +15,8 @@ export function NavBar(props: IProps) {
       <Nav>
         <Link to="/" exact activeClassName="current">Front page</Link>
         <Link to="/dev-tools" exact activeClassName="current">Dev tools</Link>
+        <Link to="/plain" exact activeClassName="current">Plain</Link>
+        <Link to="/no-editor" exact activeClassName="current">No editor</Link>
       </Nav>
     </Container>
   )

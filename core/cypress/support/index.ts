@@ -39,6 +39,7 @@ declare global {
       devTools: () => Cypress.Chainable<JQuery<HTMLElement>>
       resetDoc: () => Cypress.Chainable<JQuery<HTMLElement>>
       includesStringCount: (str: string) => Cypress.Chainable<number>
+      pmInsParagraphBolded: (str: string) => Cypress.Chainable<Cypress.AUTWindow>
 
       // https://github.com/meinaart/cypress-plugin-snapshots
       toMatchSnapshot(

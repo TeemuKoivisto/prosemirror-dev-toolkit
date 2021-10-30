@@ -11,3 +11,7 @@ And all of this worked locally but immediately as I started using Cypress in a G
 Switching Chrome to Electron didn't help. One error was that the scrollbars were visible in CI which was fixable with a flag to Chrome but some font-weight differences still occurred which I tried to fix no avail. Only solution I found was to decrease the accuracy of the screenshot snapshots which seem to capture still the biggest changes but omit the little font-size variations.
 
 What a nightmare but I hope this will pay off in some degree. I tested TestCafe too and while its API and overall architecture seemed a little better it had no free-to-use GUI and failed on a simple h2 withText selector so I'm stuck with Cypress I guess.
+
+If the right panel disappears when you make the window too small, you can resize it back by moving your cursor to the right edge (you should get the col-resize pointer). An interesting feature.. https://github.com/cypress-io/cypress/issues/2132
+
+You can also try reinstalling everything if all else fails: `yarn cy cache clear && yarn install --force`

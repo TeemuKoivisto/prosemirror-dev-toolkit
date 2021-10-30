@@ -1,3 +1,7 @@
+import Sinon from 'cypress/types/sinon'
+import snapshot0 from '../fixtures/snapshot-0.json'
+import snapshot1 from '../fixtures/snapshot-1.json'
+
 const TEST_TEXT = 'asdf qwer'
 
 describe('# Structure tab', () => {
@@ -46,5 +50,45 @@ describe('# Structure tab', () => {
         threshold: 0.1
       }
     })
+  })
+
+  it('Should show the DocView of the current and doc and Node info', () => {
+    cy.visit('/', {
+      onBeforeLoad(win) {
+        // Stub the window console functions. Stubbing returns a mocked value while spy leaves it as it is
+        cy.spy(win.console, 'log').as('consoleLog')
+        cy.stub(win.console, 'info').as('consoleInfo')
+        cy.stub(win.console, 'error').as('consoleError')
+      }
+    })
+    cy.devTools().find('ul.tabs-menu li button').contains('STRUCTURE').click()
+
+    // Click the LOG button in the node info
+    cy.get('.right-panel button').contains('Log', { matchCase: false }).click()
+    cy.get('@consoleInfo').should('be.calledWith', '%c [prosemirror-dev-toolkit]: Property added to window._node')
+    cy.window().then(window => {
+      const { _node } = window
+      const spy = window.console.log as Cypress.Agent<Sinon.SinonSpy>
+      const doc = spy.getCall(1).args[0].toJSON() || {}
+      // The logged node should be an empty doc
+      expect(JSON.stringify(doc)).to.be.eq(JSON.stringify(snapshot0))
+      expect(JSON.stringify(_node.toJSON())).to.be.eq(JSON.stringify(snapshot0))
+    })
+
+    // Insert a paragraph with bolded text. NOTE: needs to wait(100) for some odd reason, it could be the UI
+    // doesn't update fast enough which would be weird.
+    cy.pmInsParagraphBolded(TEST_TEXT).wait(100)
+
+    cy.get('.right-panel button').contains('Log', { matchCase: false }).click()
+    cy.get('@consoleInfo').should('be.calledWith', '%c [prosemirror-dev-toolkit]: Property added to window._node')
+    cy.window().then(window => {
+      const { _node } = window
+      const spy = window.console.log as Cypress.Agent<Sinon.SinonSpy>
+      const doc = spy.getCall(2).args[0].toJSON() || {}
+      // The logged node should now have been updated
+      expect(JSON.stringify(doc)).to.be.eq(JSON.stringify(snapshot1))
+      expect(JSON.stringify(_node.toJSON())).to.be.eq(JSON.stringify(snapshot1))
+    })
+    cy.get('@consoleError').should('be.callCount', 0)
   })
 })

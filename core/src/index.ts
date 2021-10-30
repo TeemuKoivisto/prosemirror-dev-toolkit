@@ -67,13 +67,14 @@ export function applyDevTools(view: EditorView, opts: DevToolsOpts = {}) {
     oldDestroyFn()
   }
 
+  subscribeToDispatchTransaction(view)
+
   removeCallback = () => {
     resetHistory()
     unsubscribeDispatchTransaction()
     // TODO add test to check no "Component already destroyed" warnings appear
     comp.$destroy()
   }
-  return subscribeToDispatchTransaction(view)
 }
 
 export function removeDevTools() {

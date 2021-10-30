@@ -23,65 +23,66 @@ describe('# DevTools', () => {
     })
   })
 
-  it('Should unmount and remount correctly when applyDevTools is called multiple times', () => {
-    cy.devTools().find('ul.tabs-menu li').should('have.length', 6)
+  // First test the front page where the dispatchTransaction prop is provided incase subscribeToTransactions
+  // fails to unsubscribe properly. Then test it without dispatchTransaction in /plain page for the same issues.
+  const pages = ['', '/plain']
+  pages.forEach(page => {
+    it('Should unmount and remount correctly when applyDevTools is called multiple times', () => {
+      cy.visit(page)
+      cy.devTools().find('ul.tabs-menu li').should('have.length', 6)
+  
+      cy.window().then(async window => {
+        const { applyDevTools, editorView: view } = window
+        applyDevTools(view)
+        applyDevTools(view)
+      })
+  
+      cy.devTools().find('.floating-btn').click()
+      cy.devTools().find('ul.tabs-menu li button').contains('HISTORY').click()
+      cy.get('.left-panel').find('li').should('have.length', 0)
 
-    cy.window().then(async window => {
-      const { applyDevTools, editorView: view } = window
-      await applyDevTools(view)
-      await applyDevTools(view)
+      cy.pmInsParagraphBolded(TEST_TEXT)
+      cy.get('.left-panel').find('li').should('have.length', 1)
+  
+      cy.pmInsParagraphBolded(TEST_TEXT)
+      cy.get('.left-panel').find('li').should('have.length', 2)
+  
+      cy.window().then(async window => {
+        const { applyDevTools, editorView: view } = window
+        applyDevTools(view)
+      })
+  
+      cy.devTools().find('.floating-btn').click()
+      cy.devTools().find('ul.tabs-menu li button').contains('HISTORY').click()
+      cy.get('.left-panel').find('li').should('have.length', 0)
+  
+      cy.pmInsParagraphBolded(TEST_TEXT)
+      cy.get('.left-panel').find('li').should('have.length', 1)
     })
+  })
 
-    cy.devTools().find('.floating-btn').click()
+  it('Should unmount without errors or warning when navigating pages', () => {
+    cy.get('.__prosemirror-dev-toolkit__').should('have.length', 1)
+    cy.get('.floating-dock ul.tabs-menu li').should('have.length', 6)
+    cy.visit('/plain')
+    cy.get('.__prosemirror-dev-toolkit__').should('have.length', 1)
+    cy.get('.floating-dock ul.tabs-menu li').should('have.length', 6)
+    cy.visit('/')
+    cy.get('.__prosemirror-dev-toolkit__').should('have.length', 1)
+    cy.get('.floating-dock ul.tabs-menu li').should('have.length', 6)
+    cy.visit('/no-editor')
+    cy.get('.__prosemirror-dev-toolkit__').should('have.length', 0)
+    cy.get('.floating-dock ul.tabs-menu li').should('have.length', 0)
+    cy.visit('/')
+    cy.visit('/plain')
+    cy.get('.__prosemirror-dev-toolkit__').should('have.length', 1)
+    cy.get('.floating-dock ul.tabs-menu li').should('have.length', 6)
+
+    // Test that transactions trigger properly and history entries are updated
     cy.devTools().find('ul.tabs-menu li button').contains('HISTORY').click()
     cy.get('.left-panel').find('li').should('have.length', 0)
 
-    cy.window().then(async window => {
-      const { editorView: view } = window
-      const tr = view.state.tr
-      const schema = view.state.schema
-      tr.insert(
-        1,
-        schema.nodes.paragraph.create(null, schema.text(TEST_TEXT, [schema.marks.bold.create()]))
-      )
-      view.dispatch(tr)
-    })
-
-    cy.get('.left-panel').find('li').should('have.length', 1)
-
-    cy.window().then(async window => {
-      const { editorView: view } = window
-      const tr = view.state.tr
-      const schema = view.state.schema
-      tr.insert(
-        1,
-        schema.nodes.paragraph.create(null, schema.text(TEST_TEXT, [schema.marks.bold.create()]))
-      )
-      view.dispatch(tr)
-    })
-
-    cy.get('.left-panel').find('li').should('have.length', 2)
-
-    cy.window().then(async window => {
-      const { applyDevTools, editorView: view } = window
-      await applyDevTools(view)
-    })
-
-    cy.devTools().find('.floating-btn').click()
-    cy.devTools().find('ul.tabs-menu li button').contains('HISTORY').click()
-    cy.get('.left-panel').find('li').should('have.length', 0)
-
-    cy.window().then(async window => {
-      const { editorView: view } = window
-      const tr = view.state.tr
-      const schema = view.state.schema
-      tr.insert(
-        1,
-        schema.nodes.paragraph.create(null, schema.text(TEST_TEXT, [schema.marks.bold.create()]))
-      )
-      view.dispatch(tr)
-    })
-
+    cy.pmInsParagraphBolded(TEST_TEXT)
     cy.get('.left-panel').find('li').should('have.length', 1)
   })
 })

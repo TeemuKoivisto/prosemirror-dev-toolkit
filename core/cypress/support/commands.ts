@@ -22,7 +22,7 @@ Cypress.Commands.add('resetDoc', () => {
     const { applyDevTools, editorView: view } = window
     const tr = view.state.tr
     view.dispatch(tr.delete(1, view.state.doc.nodeSize - 2))
-    await applyDevTools(view)
+    applyDevTools(view)
   })
 })
 
@@ -37,4 +37,17 @@ Cypress.Commands.add('includesStringCount', { prevSubject: true }, (subject: any
     .then(() => {
       return count
     })
+})
+
+Cypress.Commands.add('pmInsParagraphBolded', (text: string) => {
+  return cy.window().then(window => {
+    const { editorView: view } = window
+    const tr = view.state.tr
+    const schema = view.state.schema
+    tr.insert(
+      1,
+      schema.nodes.paragraph.create(null, schema.text(text, [schema.marks.bold.create()]))
+    )
+    view.dispatch(tr)
+  })
 })
