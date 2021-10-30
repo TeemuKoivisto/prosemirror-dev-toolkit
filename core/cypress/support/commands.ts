@@ -38,3 +38,16 @@ Cypress.Commands.add('includesStringCount', { prevSubject: true }, (subject: any
       return count
     })
 })
+
+Cypress.Commands.add('pmInsParagraphBolded', (text: string) => {
+  return cy.window().then(window => {
+    const { editorView: view } = window
+    const tr = view.state.tr
+    const schema = view.state.schema
+    tr.insert(
+      1,
+      schema.nodes.paragraph.create(null, schema.text(text, [schema.marks.bold.create()]))
+    )
+    view.dispatch(tr)
+  })
+})

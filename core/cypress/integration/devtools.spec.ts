@@ -5,7 +5,7 @@ describe('# DevTools', () => {
     cy.visit('/')
   })
 
-  xit('Should render and allow to be closed / reopened', () => {
+  it('Should render and allow to be closed / reopened', () => {
     cy.get('.__prosemirror-dev-toolkit__').should('have.length', 1)
     cy.devTools().should('have.length', 1)
     cy.devTools().find('ul.tabs-menu li').should('have.length', 6)
@@ -27,7 +27,7 @@ describe('# DevTools', () => {
   // fails to unsubscribe properly. Then test it without dispatchTransaction in /plain page for the same issues.
   const pages = ['', '/plain']
   pages.forEach(page => {
-    xit('Should unmount and remount correctly when applyDevTools is called multiple times', () => {
+    it('Should unmount and remount correctly when applyDevTools is called multiple times', () => {
       cy.visit(page)
       cy.devTools().find('ul.tabs-menu li').should('have.length', 6)
   
@@ -93,13 +93,20 @@ describe('# DevTools', () => {
 
   it('Should unmount without errors or warning when navigating pages', () => {
     cy.get('.__prosemirror-dev-toolkit__').should('have.length', 1)
+    cy.get('.floating-dock ul.tabs-menu li').should('have.length', 6)
+    cy.visit('/plain')
+    cy.get('.__prosemirror-dev-toolkit__').should('have.length', 1)
+    cy.get('.floating-dock ul.tabs-menu li').should('have.length', 6)
+    cy.visit('/')
+    cy.get('.__prosemirror-dev-toolkit__').should('have.length', 1)
+    cy.get('.floating-dock ul.tabs-menu li').should('have.length', 6)
     cy.visit('/no-editor')
     cy.get('.__prosemirror-dev-toolkit__').should('have.length', 0)
-    cy.visit('/')
-    cy.visit('/plain')
+    cy.get('.floating-dock ul.tabs-menu li').should('have.length', 0)
     cy.visit('/')
     cy.visit('/plain')
     cy.get('.__prosemirror-dev-toolkit__').should('have.length', 1)
+    cy.get('.floating-dock ul.tabs-menu li').should('have.length', 6)
 
     // Test that transactions trigger properly and history entries are updated
     cy.devTools().find('ul.tabs-menu li button').contains('HISTORY').click()
