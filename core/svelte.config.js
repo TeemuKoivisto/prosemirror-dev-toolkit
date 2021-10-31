@@ -3,9 +3,6 @@ import { resolve } from 'path'
 
 const preprocessOptions = {
   scss: { prependData: `@import 'src/global.scss';` },
-  typescript: {
-    tsconfigFile: './tsconfig.json'
-  }
 }
 
 export default {

@@ -32,7 +32,9 @@ export default {
   ],
   external: [
     // ...Object.keys(pkg.dependencies || {}),
-    // ...Object.keys(pkg.devDependencies || {}),
+    // TODO: It seems svelte-tree-view must be bundled together with the dev-toolkit otherwise the React app
+    // is unable to load it.
+    ...Object.keys(pkg.dependencies || {}).filter(d => d !== 'svelte-tree-view'),
     ...Object.keys(pkg.peerDependencies || {})
   ],
   plugins: [
@@ -52,8 +54,13 @@ export default {
       },
       preprocess: autoPreprocess(svelteConfig.preprocessOptions)
     }),
-    commonjs(),
     typescript(),
+    resolve({
+      browser: true,
+      mainFields: ['svelte', 'browser', 'module', 'main'],
+      dedupe: ['svelte']
+    }),
+    commonjs(),
     babel({
       extensions: ['.js', '.mjs', '.html', '.svelte'],
       runtimeHelpers: true,
@@ -77,10 +84,6 @@ export default {
       ]
     }),
     postcss(),
-    resolve({
-      browser: true,
-      dedupe: ['svelte']
-    })
   ],
   watch: {
     clearScreen: false

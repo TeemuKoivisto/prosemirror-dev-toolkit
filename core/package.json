@@ -95,7 +95,7 @@
     "html": "^1.0.0",
     "jsondiffpatch": "^0.4.1",
     "prosemirror-model": "^1.14.3",
-    "svelte-tree-view": "^1.1.2"
+    "svelte-tree-view": "^1.1.3"
   },
   "jest": {
     "testMatch": [
