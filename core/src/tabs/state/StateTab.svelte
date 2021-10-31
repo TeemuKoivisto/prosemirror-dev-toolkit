@@ -119,7 +119,7 @@
     content: '▼';
   }
   .no-marks {
-    color: var(--color-blue-light);
+    color: $color-blue-light;
     margin: 0.5em 0 1em 1em;
   }
   :global(.split-view .tree-view) {

@@ -43,7 +43,7 @@
     background: transparent;
     border: 0;
     border-bottom: 2px solid transparent;
-    color: var(--color-white);
+    color: $color-white;
     cursor: pointer;
     height: 100%;
     padding: 1em;
@@ -51,7 +51,7 @@
       background: rgba($color-white, 0.05);
     }
     &.active {
-      border-bottom: 2px solid var(--color-red-light);
+      border-bottom: 2px solid $color-red-light;
     }
   }
 </style>

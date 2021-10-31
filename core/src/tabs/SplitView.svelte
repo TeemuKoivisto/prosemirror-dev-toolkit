@@ -6,13 +6,13 @@
 <style lang="scss">
   section {
     border-top: 1px solid rgba($color-red-light, 0.2);
-    color: var(--color-white);
+    color: $color-white;
     display: flex;
     height: calc(100% - var(--height-tabs-menu));
     width: 100%;
   }
   :global(.split-view h2) {
-    color: var(--color-red-gray);
+    color: $color-red-gray;
     font-family: var(--font-sans);
     font-size: var(--font-medium);
     font-weight: 400;

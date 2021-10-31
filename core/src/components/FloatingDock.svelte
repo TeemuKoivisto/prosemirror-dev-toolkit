@@ -126,7 +126,7 @@
     z-index: 99999999;
   }
   .floating-dock {
-    background-color: var(--color-blue-bg);
+    background-color: $color-blue-bg;
     position: fixed;
     z-index: 1;
     box-shadow: rgba($color-black, 0.3) 0px 0px 4px 0px;
@@ -152,7 +152,7 @@
     background: rgba($color-red-light, 0.6);
     border: 0;
     border-radius: 3px;
-    color: var(--color-white);
+    color: $color-white;
     cursor: pointer;
     font-size: 12px;
     height: 24px;
@@ -169,7 +169,7 @@
     background: rgba($color-red-light, 0.6);
     border: 0;
     border-radius: 3px;
-    color: var(--color-white);
+    color: $color-white;
     cursor: pointer;
     font-size: 12px;
     height: 24px;
@@ -186,7 +186,7 @@
     background: rgba($color-red-light, 0.6);
     border: 0;
     border-radius: 3px;
-    color: var(--color-white);
+    color: $color-white;
     cursor: pointer;
     height: 24px;
     position: absolute;

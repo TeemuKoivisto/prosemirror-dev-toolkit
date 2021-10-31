@@ -16,7 +16,7 @@
 
 <style lang="scss">
   ul {
-    color: var(--color-white);
+    color: $color-white;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -24,12 +24,12 @@
     width: 100%;
   }
   li + li {
-    border-top: 1px solid var(--color-purple);
+    border-top: 1px solid $color-purple;
   }
   button {
     background: transparent;
     border: 0;
-    color: var(--color-gray-light);
+    color: $color-gray-light;
     cursor: pointer;
     display: flex;
     font-family: monospace;
@@ -41,7 +41,7 @@
     width: 100%;
     &:hover {
       background: rgba($color-red-light, 0.4);
-      color: var(--color-white);
+      color: $color-white;
     }
     &.selected {
       background: rgba($color-red-light, 0.4);

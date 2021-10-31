@@ -47,7 +47,7 @@
   }
   .no-snapshots {
     align-items: center;
-    color: var(--color-red-light);
+    color: $color-red-light;
     display: flex;
     font-size: 14px;
     height: 100%;

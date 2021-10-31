@@ -76,7 +76,7 @@
 
 <style lang="scss">
   .floating-btn {
-    background: var(--color-blue-bg);
+    background: $color-blue-bg;
     border: 0;
     border-radius: 50%;
     box-shadow: 0 0 30px rgba($color-black, 0.3);

@@ -14,14 +14,14 @@
     background: transparent;
     border: 0;
     border-radius: 2px;
-    color: var(--color-gray-light);
+    color: $color-gray-light;
     cursor: pointer;
     font-size: var(--font-small);
     padding: 6px 10px;
     text-transform: uppercase;
     &:hover {
       background: rgba($color-red-light, 0.4);
-      color: var(--color-white);
+      color: $color-white;
     }
     &.selected {
       background: rgba($color-red-light, 0.4);

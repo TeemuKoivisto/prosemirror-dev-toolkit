@@ -64,21 +64,21 @@
   {defaultFormatter(nodeVal)}
 {/if}
 
-<style>
+<style lang="scss">
   .added {
     display: inline-block;
-    background: var(--color-green-light);
+    background: $color-green-light;
     border-radius: 1px;
-    color: var(--color-green);
+    color: $color-green;
     padding: 1px 2px;
     text-indent: 0;
     min-height: 1ex;
   }
   .deleted {
     display: inline-block;
-    background: var(--color-red);
+    background: $color-red;
     border-radius: 1px;
-    color: var(--color-gray-light);
+    color: $color-gray-light;
     padding: 1px 2px;
     text-decoration: line-through;
     text-indent: 0;
@@ -88,9 +88,9 @@
     word-break: break-all;
   }
   .updated .added {
-    background: var(--color-yellow);
+    background: $color-yellow;
   }
   .arrow {
-    color: var(--color-green-light);
+    color: $color-green-light;
   }
 </style>

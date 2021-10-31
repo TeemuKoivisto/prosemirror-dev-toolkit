@@ -52,8 +52,8 @@
 
 <style lang="scss">
   .doc-node {
-    border-left: 1px solid var(--color-blue-bg);
-    border-right: 1px solid var(--color-blue-bg);
+    border-left: 1px solid $color-blue-bg;
+    border-right: 1px solid $color-blue-bg;
     display: flex;
     flex-direction: column;
     padding: 0 12px;
@@ -63,8 +63,8 @@
     }
   }
   .doc-node-body {
-    background: var(--color-blue-bg);
-    color: var(--color-black);
+    background: $color-blue-bg;
+    color: $color-black;
     display: flex;
     font-size: 13px;
     margin-top: 3px;
@@ -76,7 +76,7 @@
   button {
     background: transparent;
     border: 0;
-    color: var(--color-black);
+    color: $color-black;
     cursor: pointer;
     display: flex;
     height: 100%;
@@ -85,7 +85,7 @@
     width: 100%;
     &:hover {
       background: rgba($color-red-light, 0.4);
-      color: var(--color-white);
+      color: $color-white;
     }
     &.selected {
       background: rgba($color-red-light, 0.4);
@@ -97,8 +97,8 @@
     padding: 0;
   }
   .inline-children {
-    border-left: 1px solid var(--color-purple);
-    border-right: 1px solid var(--color-purple);
+    border-left: 1px solid $color-purple;
+    border-right: 1px solid $color-purple;
     display: flex;
     flex-wrap: wrap;
     padding: 0 12px;
