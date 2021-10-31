@@ -1,5 +1,6 @@
 import type { EditorView } from 'prosemirror-view'
 import type { EditorState } from 'prosemirror-state'
+import type { Node as PMNode } from 'prosemirror-model'
 import { get, writable } from 'svelte/store'
 
 import type { Snapshot } from '$typings/snapshots'
@@ -28,14 +29,10 @@ snapshots.subscribe(val => {
 })
 
 function setEditorDoc(view: EditorView, doc: { [key: string]: any }) {
-  // Hack to use EditorState.create without explicitly calling EditorState, thus
-  // avoiding having to include it as a dependency
-  const newState = Object.getPrototypeOf(view.state).constructor.create({
-    schema: view.state.schema,
-    plugins: view.state.plugins,
-    doc: view.state.schema.nodeFromJSON(doc)
-  })
-  view.updateState(newState)
+  const node: PMNode = view.state.schema.nodeFromJSON(doc)
+  const tr = view.state.tr
+  tr.replaceWith(0, view.state.doc.nodeSize - 2, node.content)
+  view.dispatch(tr)
 }
 
 export function saveSnapshot(snapshotName: string, doc: { [key: string]: any }) {

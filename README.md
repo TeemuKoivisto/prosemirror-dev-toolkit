@@ -29,13 +29,13 @@ import applyDevTools from 'prosemirror-dev-toolkit'
   }
 ```
 
-I use some hacky JS tricks to gain access to EditorState directly from the provided instance which removes the need to bundle `prosemirror-state`. However, I couldn't figure out a way to extract `DOMSerializer` from `prosemirror-model` which makes this a little bit bigger when injected. But it shouldn't at least cause errors with multiple prosemirror-models loaded simultaneously. Otherwise, I think the dependencies should be smaller than in the old dev tools which I found at times reaching sizes of 200 MBs.
+I removed the dependency to `prosemirror-state` but could not find a way to extract `DOMSerializer` from `prosemirror-model` which increases the bundle size somewhat. But it doesn't at least cause errors with multiple prosemirror-models loaded simultaneously. Otherwise, I think the dependencies should be smaller than in the old dev tools which `node_modules` I found at times reaching sizes of 200 MBs.
 
 # Features
 
 As in the old tools, the toolkit consists of 6 tabs which interact with the PM editor in various ways. Basically what happens is the dev-toolkit injects itself into the DOM, visible as the rounded button in the bottom right corner. It also replaces the dispatchTransaction method of the EditorView to be able to track the transactions as they occur.
 
-Another useful thing it can do is persist snapshots and hydrate them, to which I also added export/import functionality that makes replaying editor bugs easier. They don't work with Yjs however as it blocks any updates to state that are not triggered through Yjs. Might fix that when I have time. Also in the old dev-tools there was a node picker to inspect PM nodes but I'm not sure is it working properly and alas, haven't gotten around remaking it.
+Another useful thing it can do is persist snapshots and hydrate them, to which I also added export/import from JSON. Using transactions to hydrate them works also with Yjs enabled. In the old dev-tools there was a node picker to inspect PM nodes that I have not had time to remake.
 
 ## State
 
@@ -55,7 +55,7 @@ You can hydrate a state from a transaction by double-clicking it. This, however,
 
 Shows the current plugins and their states. This is mostly the same as in the old tools but I added some convenience buttons to for example log the plugin to a `_plugin` object that you can manipulate from the console. Handy for inspecting the plugin editor props which are not visible from the plugin state.
 
-As a side-note, I'm sure I have not covered all possible object types beyond the common Objects/Arrays/Maps/Sets. Make an issue or PR if something's weird.
+As a side-note, I'm sure I have not covered all possible object types in `svelte-tree-view` beyond the common Objects/Arrays/Maps/Sets. Make an issue or PR if something's weird.
 
 ## Schema
 
@@ -71,7 +71,7 @@ Shows the stored snapshots (toJSON'd topNode eg "doc") in localStorage. The chan
 
 ## Other things
 
-I have tried bundling the library as minified UMD module that can be injected from a CDN. It works in most cases but since it's a bit experimental still, it's not part of the build yet. It uses some silly hacks to gain access to the EditorView from the `pmViewDesc` property in a live PM editor instance. Could be used to turn this into a Chrome extension.
+I have experimented with bundling the library as minified UMD module that can be injected as a stand-alone script. It works in most cases but since it's a bit experimental still, it's not part of the build yet. It uses some silly hacks to gain access to the EditorView from the `pmViewDesc` property in a live PM editor instance which can fail at times (https://prosemirror.net for example). Could be used to turn this into a Chrome extension.
 
 ## How to run locally
 
