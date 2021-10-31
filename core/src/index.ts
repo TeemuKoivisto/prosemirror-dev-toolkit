@@ -23,10 +23,8 @@ declare global {
 
 const DEVTOOLS_CLASS_NAME = '__prosemirror-dev-toolkit__'
 
-try {
-  // Make the dev tools available globally for some scripting shenanigans
-  if (typeof window !== 'undefined') window.applyDevTools = applyDevTools
-} catch (err) {}
+// Make the dev tools available globally for testing and other use
+if (typeof window !== 'undefined') window.applyDevTools = applyDevTools
 
 function createOrFindPlace() {
   let place: HTMLElement | null = document.querySelector(`.${DEVTOOLS_CLASS_NAME}`)
@@ -54,10 +52,8 @@ export function applyDevTools(view: EditorView, opts: DevToolsOpts = {}) {
       ...opts
     }
   })
-  try {
-    // Make the editor view available since it might be handy for quick debugging
-    if (typeof window !== 'undefined') window.editorView = view
-  } catch (err) {}
+  // Also add view to the window for testing and other debugging
+  if (typeof window !== 'undefined') window.editorView = view
 
   // Bind the component's life-cycle to the editorView to automatically unmount the devTools
   const oldDestroyFn = view.destroy.bind(view)
