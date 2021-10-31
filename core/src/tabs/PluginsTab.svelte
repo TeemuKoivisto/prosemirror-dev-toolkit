@@ -20,11 +20,12 @@
   let editorState: EditorState = view.state
   let plugins = editorState.plugins as Plugin[]
   let selectedPlugin = plugins[0] as Plugin | undefined
-  $: pluginState = selectedPlugin?.getState(editorState) as any
+  // I don't know how, but I've found in one editor plugin did not have getState method
+  $: pluginState = selectedPlugin?.getState ? selectedPlugin.getState(editorState) : undefined as any
   $: listItems = plugins.map((p: Plugin) => ({
-    key: p.key, // TODO this can be undefined??
+    key: p.key,
     value: p.key.toUpperCase(),
-    empty: !p.getState(editorState)
+    empty: !(p.getState && p.getState(editorState))
   }))
 
   latestEntry.subscribe(e => {

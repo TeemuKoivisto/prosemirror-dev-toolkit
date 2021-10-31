@@ -1,5 +1,5 @@
 <script lang="ts">
-  export let listItems: { key: string; value: string }[] = [],
+  export let listItems: { key: string; value: string; empty?: boolean }[] = [],
     selectedKey: string | undefined,
     onSelect: (item: { key: string; value: string }) => void
 </script>
@@ -7,8 +7,10 @@
 <ul>
   {#each listItems as item}
     <li>
-      <button class:selected={selectedKey === item.key} on:click={() => onSelect(item)}
-        >{item.value}</button
+      <button
+        class:selected={selectedKey === item.key}
+        class:empty={item.empty}
+        on:click={() => onSelect(item)}>{item.value}</button
       >
     </li>
   {/each}
@@ -42,9 +44,18 @@
     &:hover {
       background: rgba($color-red-light, 0.4);
       color: $color-white;
+      &.empty {
+        background: $color-purple-dark;
+      }
     }
     &.selected {
       background: rgba($color-red-light, 0.4);
+      &.empty {
+        background: $color-purple-dark;
+      }
+    }
+    &.empty {
+      color: $color-dim-text;
     }
   }
 </style>
