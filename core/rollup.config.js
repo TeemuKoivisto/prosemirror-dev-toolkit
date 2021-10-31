@@ -31,11 +31,13 @@ export default {
     }
   ],
   external: [
-    // ...Object.keys(pkg.dependencies || {}),
     // TODO: It seems svelte-tree-view must be bundled together with the dev-toolkit otherwise the React app
     // is unable to load it.
     ...Object.keys(pkg.dependencies || {}).filter(d => d !== 'svelte-tree-view'),
-    ...Object.keys(pkg.peerDependencies || {})
+    ...Object.keys(pkg.peerDependencies || {}),
+    // jsondiffpatch imports chalk, Node.js module, but which works in browser too yet
+    // Rollup doesn't like it (and because it's outdated version)
+    'chalk'
   ],
   plugins: [
     alias({
@@ -57,7 +59,7 @@ export default {
     typescript(),
     resolve({
       browser: true,
-      mainFields: ['svelte', 'browser', 'module', 'main'],
+      mainFields: ['svelte', 'module', 'browser', 'main'],
       dedupe: ['svelte']
     }),
     commonjs(),
