@@ -1,3 +1,4 @@
+import Sinon from 'cypress/types/sinon'
 import snapshot1 from '../fixtures/snapshot-1.json'
 
 import { join } from 'path'
@@ -19,7 +20,7 @@ describe('# Snapshots tab', () => {
     it('Should show snapshots and allow interacting with them, also with yjs', () => {
       cy.visit(page)
       cy.devTools().find('ul.tabs-menu li button').contains('SNAPSHOTS').click()
-      cy.get('*').contains('Save snapshots by clicking "Save snapshot" button.').should('exist')
+      cy.get('.floating-dock').find('*').contains('Save snapshots by clicking "Save snapshot" button.').should('exist')
   
       cy.pmInsParagraphBolded(TEST_TEXT)
   
@@ -89,12 +90,35 @@ describe('# Snapshots tab', () => {
       cy.get('.right-panel li').should('have.length', 2)
       cy.get('button').contains('confirm delete', { matchCase: false }).click()
       cy.get('.right-panel li').should('have.length', 1)
-      cy.get('*').contains('Save snapshots by clicking "Save snapshot" button.').should('not.exist')
+      cy.get('.floating-dock').find('*').contains('Save snapshots by clicking "Save snapshot" button.').should('not.exist')
   
       cy.get('button').contains('Delete').click()
       cy.get('button').contains('confirm delete', { matchCase: false }).click()
       cy.get('.right-panel li').should('have.length', 0)
-      cy.get('*').contains('Save snapshots by clicking "Save snapshot" button.').should('exist')
+      cy.get('.floating-dock').find('*').contains('Save snapshots by clicking "Save snapshot" button.').should('exist')
+    })
+  })
+
+  it('Should not crash when importing snapshots with malformed data or incompatible schema', () => {
+    cy.window().then(window => {
+      cy.spy(window.console, 'error').as('consoleError')
+    })
+
+    cy.devTools().find('ul.tabs-menu li button').contains('SNAPSHOTS').click()
+    cy.get('.floating-dock').find('*').contains('Save snapshots by clicking "Save snapshot" button.').should('exist')
+
+    cy.get('.floating-dock input[type="file"]').attachFile('snapshot-broken')
+    cy.get('.right-panel li').should('have.length', 0)
+
+    cy.get('.floating-dock input[type="file"]').attachFile('snapshot-incompatible.json').wait(100)
+    cy.get('.right-panel li').should('have.length', 0)
+
+    cy.window().then(window => {
+      const spy = window.console.error as Cypress.Agent<Sinon.SinonSpy>
+      const firstError = spy.getCall(0).args[0]
+      const secondError = spy.getCall(1).args[0]
+      expect(firstError).to.be.eq('Failed to import snapshot: SyntaxError: Unexpected end of JSON input')
+      expect(secondError).to.be.eq('Failed to import snapshot: RangeError: There is no mark type highlight in this schema')
     })
   })
 })
