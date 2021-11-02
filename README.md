@@ -50,9 +50,13 @@ Another useful thing it can do is persist snapshots and hydrate them, to which I
 
 ## State
 
+![State tab](https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/blob/master/core/cypress/integration/__image_snapshots__/%23%20State%20tab%20%20Should%20allow%20expanding%20and%20collapsing%20and%20tree-view%20nodes%20%230.png?raw=true)
+
 Shows the current toJSON'd state.doc as well as the selection, augmented by a few additional properties, active marks and a simple summary of the document. These tree views were implemented in the original with react-json-tree library which although ported to Svelte (svelte-json-tree) felt a little complex and difficult to customize. Instead, I wrote a simple recursive component and then rolled it out as a separate Svelte library: https://github.com/TeemuKoivisto/svelte-tree-view
 
 ## History
+
+![History tab](https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/blob/d1620e6007d14068c58f704cd1a0d7e6b393f428/core/cypress/integration/__image_snapshots__/%23%20History%20tab%20%20Should%20track%20transactions%20and%20show%20diffs%20%230.png?raw=true)
 
 History tab shows the last dispatched transaction with a diff of the changed content, diff of the changed selection, toDOM'd document slice between the selection start and end and the actual transaction at the bottom.
 
@@ -64,19 +68,27 @@ You can hydrate a state from a transaction by double-clicking it. This, however,
 
 ## Plugins
 
+![Plugins tab](https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/blob/master/core/cypress/integration/__image_snapshots__/%23%20Plugins%20tab%20%20Should%20show%20the%20default%20plugins%20and%20allow%20inspecting%20them%20%230.png?raw=true)
+
 Shows the current plugins and their states. This is mostly the same as in the old tools but I added some convenience buttons to for example log the plugin to a `_plugin` object that you can manipulate from the console. Handy for inspecting the plugin editor props which are not visible from the plugin state.
 
 As a side-note, I'm sure I have not covered all possible object types in `svelte-tree-view` beyond the common Objects/Arrays/Maps/Sets. Make an issue or PR if something's weird.
 
 ## Schema
 
+![Schema tab](https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/blob/master/core/cypress/integration/__image_snapshots__/%23%20Schema%20tab%20%20Should%20show%20the%20current%20schema%20nodes%20and%20marks%20%230.png?raw=true)
+
 Shows the current schema's nodes and marks. Same as in the old tools but I added circular node detection to make the recursion a little lighter. Not strictly needed as all the nodes are uncollapsed and can't be auto-expanded but hey, it's there.
 
 ## Structure
 
+![Structure tab](https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/blob/master/core/cypress/integration/__image_snapshots__/%23%20Structure%20tab%20%20Should%20show%20the%20DocView%20of%20the%20current%20and%20doc%20and%20Node%20info%20%230.png?raw=true)
+
 A bit more complicated tab it shows the document in a neat block view with a side panel to inspect the node contents. Auto-expanding the content was a bit too catastrophic with large trees so I removed that, as it was in the old tools. Thought about allowing selecting and deleting nodes directly from the DocView.
 
 ## Snapshots
+
+![Snapshots tab](https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/blob/d1620e6007d14068c58f704cd1a0d7e6b393f428/core/cypress/integration/__image_snapshots__/%23%20Snapshots%20tab%20%20Should%20show%20snapshots%20and%20allow%20interacting%20with%20them%20%230.png?raw=true)
 
 Shows the stored snapshots (toJSON'd topNode eg "doc") in localStorage. The changes I've made are switching to date strings instead of unix timestamps for default names. Then, you can double-click the snapshot to edit its name. 'Show' button replaces the current doc with the snapshot doc, allowing you to revert it with 'Hide'. 'Restore' does a one-way replacement of the doc with the snapshot. 'Export' toJSONs and downloads the snapshot. You have to now double-click 'Delete' to prevent occasional misclicks. There's also a new 'Import snapshot' button above the main panel to replace the doc with exported snapshot.
 
