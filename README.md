@@ -28,7 +28,7 @@ import applyDevTools from 'prosemirror-dev-toolkit'
   }
 ```
 
-There is no longer a direct dependency to `prosemirror-state` but I did not find a way to extract `DOMSerializer` from `prosemirror-model` without directly importing it. In total I was able to reduce the packages from x to 4? and most importantly the installed `node_modules` is no longer 200 MBs.
+There is no longer a dependency to `prosemirror-state` but I did not find a way to extract `DOMSerializer` from `prosemirror-model` without directly importing it. In total I was able to reduce the packages from ~13 to 4. and most importantly the installed `node_modules` can no longer reach sizes of 200 MBs.
 
 # API
 
@@ -44,9 +44,7 @@ export interface DevToolsOpts {
 
 As was in the old tools, prosemirror-dev-toolkit consists of 6 tabs which interact with the PM editor in various ways. Basically what happens is dev-toolkit injects itself into the DOM, visible as the rounded button in the bottom right corner, and then sets the dispatchTransaction prop of the EditorView to be able to track transactions.
 
-In addition it can persist snapshots and hydrate them which I enhanced by adding export/import from JSON as well as ensuring the functionality doesn't break with Yjs.
-
-Another useful thing it can do is persist snapshots and hydrate them, to which I also added export/import from JSON. Using transactions to hydrate them works also with Yjs enabled. In the old dev-tools there was a node picker to inspect PM nodes that I have not had time to remake.
+In addition it can persist snapshots and hydrate them which I enhanced by adding export/import from JSON as well as ensuring the functionality doesn't break with Yjs. In the old dev-tools there was a node picker to inspect PM nodes that I have not had time to remake.
 
 ## State
 
@@ -64,7 +62,7 @@ Copying the old diffing logic was perhaps the most annoying feature to implement
 
 I added some new features to the trees such as 'log' and 'copy' buttons which log the node to window (eg into `_node` variable) or add it to your clipboard.
 
-You can hydrate a state from a transaction by double-clicking it. This, however, fails with Yjs so be advised. I have thought of adding import/export of transaction history to allow replaying them but haven't had time for it.
+You can hydrate the doc from a transaction by double-clicking it. I have thought of adding import/export of transaction history to allow replaying them but haven't had time for it.
 
 ## Plugins
 
@@ -94,7 +92,7 @@ Shows the stored snapshots (toJSON'd topNode eg "doc") in localStorage. The chan
 
 ## Other things
 
-I have experimented with bundling the library as minified UMD module that can be injected as a stand-alone script. It works in most cases but since it's a bit experimental still, it's not part of the build yet. It uses some silly hacks to gain access to the EditorView from the `pmViewDesc` property in a live PM editor instance which can fail at times (https://prosemirror.net for example). Could be used to turn this into a Chrome extension.
+I have experimented with bundling the library as minified UMD module that can be injected as a stand-alone script. It works in most cases but since it's a bit experimental still, it's not part of the build yet. It uses some silly hacks to gain access to the EditorView from the `pmViewDesc` property in a live PM editor instance which can fail at times (https://prosemirror.net for example). I noticed it could have something to do with reimporting the view to window.view. Not sure though. Improvements welcome. This could be used to turn this into a Chrome extension.
 
 ## How to run locally
 
