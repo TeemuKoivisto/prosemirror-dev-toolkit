@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { createEventDispatcher } from 'svelte'
   import type { HistoryEntry } from '$typings/history'
 
   export let listItems: {
@@ -7,8 +8,12 @@
       entries: (HistoryEntry | undefined)[]
       expanded: boolean
     }[] = [],
-    selectedId: string,
-    onSelect: (id: string, groupIdx: number, wasTopNode: boolean) => void
+    selectedId: string
+
+  const dispatchClick = createEventDispatcher<{
+    'click-item': { id: string | undefined; groupIdx: number; wasTopNode: boolean }
+  }>()
+  const dispatchDblClick = createEventDispatcher<{ 'dblclick-item': { id?: string } }>()
 </script>
 
 <ul>
@@ -16,7 +21,9 @@
     <li class:selected={!group.expanded && selectedId === group?.topEntry?.id}>
       <button
         class:is-group={group.isGroup}
-        on:click={() => group.topEntry && onSelect(group.topEntry.id, groupIdx, true)}
+        on:click={() =>
+          dispatchClick('click-item', { id: group?.topEntry?.id, groupIdx, wasTopNode: true })}
+        on:dblclick={() => dispatchDblClick('dblclick-item', { id: group?.topEntry?.id })}
       >
         <span>
           {group?.topEntry?.timeStr}

@@ -2,15 +2,19 @@
   import { stateHistory, shownHistoryGroups, latestEntry } from '$stores/stateHistory'
   import type { HistoryEntry, HistoryGroup } from '$typings/history'
   import { mapDocDeltaChildren, mapSelectionDeltaChildren } from './mapDeltas'
+  import TreeView from 'svelte-tree-view'
 
   import SplitView from '../SplitView.svelte'
-  import TreeView from 'svelte-tree-view'
   import HistoryList from './HistoryList.svelte'
   import DiffValue from './DiffValue.svelte'
   import Button from '$components/Button.svelte'
 
+  import { getContext } from '$context'
+
   let selectedEntry: HistoryEntry | undefined = undefined,
     showTr = false
+
+  const { replaceEditorContent } = getContext('editor-view')
 
   let expandTrTreeView = false
   let transactionRecursionOpts = {
@@ -25,6 +29,7 @@
     entries: g.entryIds.map(id => $stateHistory.get(id)),
     expanded: g.expanded
   }))
+
   latestEntry.subscribe(v => {
     if (v) selectedEntry = v
   })
@@ -46,14 +51,22 @@
    * selecting the first sub-entry, otherwise collapsing but still keeping the topNode selected.
    * Kinda confusing but eh.
    */
-  function handleEntrySelect(id: string, groupIdx: number, wasTopNode: boolean) {
+  function handleEntrySelect(
+    e: CustomEvent<{ id: string | undefined; groupIdx: number; wasTopNode: boolean }>
+  ) {
+    const { id = '', groupIdx, wasTopNode } = e.detail
     selectedEntry = $stateHistory.get(id)
+    if (!selectedEntry) return
     const group = listItems[groupIdx]
     if (group.isGroup && group.entries.length > 1 && wasTopNode) {
       shownHistoryGroups.update(val =>
         val.map((g, idx) => (idx !== groupIdx ? g : { ...g, expanded: !g.expanded }))
       )
     }
+  }
+  function handleEntryDblClick(e: CustomEvent<{ id?: string }>) {
+    selectedEntry = $stateHistory.get(e.detail.id || '')
+    selectedEntry && replaceEditorContent(selectedEntry.state)
   }
   function handleToggleExpandTrTreeView() {
     expandTrTreeView = !expandTrTreeView
@@ -66,8 +79,12 @@
 
 <SplitView>
   <div slot="left" class="left-panel">
-    <!-- Cant use optional chaining here as it wont get transpiled correctly to ES5 :( -->
-    <HistoryList {listItems} selectedId={selectedEntry?.id || ''} onSelect={handleEntrySelect} />
+    <HistoryList
+      {listItems}
+      selectedId={selectedEntry?.id || ''}
+      on:click-item={handleEntrySelect}
+      on:dblclick-item={handleEntryDblClick}
+    />
   </div>
   <div slot="right" class="right-panel">
     {#if selectedEntry}

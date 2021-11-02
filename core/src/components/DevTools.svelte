@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte'
   import type { EditorView } from 'prosemirror-view'
+  import type { EditorState } from 'prosemirror-state'
   import { setContext } from '$context'
 
   import FloatingBtn from './FloatingBtn.svelte'
@@ -13,7 +14,12 @@
     buttonPosition: ButtonPosition = 'bottom-right'
 
   setContext('editor-view', {
-    view
+    view,
+    replaceEditorContent(state: EditorState) {
+      const tr = view.state.tr
+      tr.replaceWith(0, view.state.doc.nodeSize - 2, state.doc.content)
+      view.dispatch(tr)
+    }
   })
 
   onMount(() => {
