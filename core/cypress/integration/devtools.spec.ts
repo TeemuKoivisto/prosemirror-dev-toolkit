@@ -30,32 +30,32 @@ describe('# DevTools', () => {
     it('Should unmount and remount correctly when applyDevTools is called multiple times', () => {
       cy.visit(page)
       cy.devTools().find('ul.tabs-menu li').should('have.length', 6)
-  
+
       cy.window().then(async window => {
         const { applyDevTools, editorView: view } = window
         applyDevTools(view)
         applyDevTools(view)
       })
-  
+
       cy.devTools().find('.floating-btn').click()
       cy.devTools().find('ul.tabs-menu li button').contains('HISTORY').click()
       cy.get('.left-panel').find('li').should('have.length', 0)
 
       cy.pmInsParagraphBolded(TEST_TEXT)
       cy.get('.left-panel').find('li').should('have.length', 1)
-  
+
       cy.pmInsParagraphBolded(TEST_TEXT)
       cy.get('.left-panel').find('li').should('have.length', 2)
-  
+
       cy.window().then(async window => {
         const { applyDevTools, editorView: view } = window
         applyDevTools(view)
       })
-  
+
       cy.devTools().find('.floating-btn').click()
       cy.devTools().find('ul.tabs-menu li button').contains('HISTORY').click()
       cy.get('.left-panel').find('li').should('have.length', 0)
-  
+
       cy.pmInsParagraphBolded(TEST_TEXT)
       cy.get('.left-panel').find('li').should('have.length', 1)
     })

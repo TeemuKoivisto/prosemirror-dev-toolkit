@@ -20,17 +20,20 @@ describe('# Snapshots tab', () => {
     it('Should show snapshots and allow interacting with them, also with yjs', () => {
       cy.visit(page)
       cy.devTools().find('ul.tabs-menu li button').contains('SNAPSHOTS').click()
-      cy.get('.floating-dock').find('*').contains('Save snapshots by clicking "Save snapshot" button.').should('exist')
-  
+      cy.get('.floating-dock')
+        .find('*')
+        .contains('Save snapshots by clicking "Save snapshot" button.')
+        .should('exist')
+
       cy.pmInsParagraphBolded(TEST_TEXT)
-  
+
       // The editor should have 4 elements
       cy.get('.ProseMirror').find('*').should('have.length', 4)
       // It should contain the inserted bold text
       cy.get('.ProseMirror strong').includesStringCount(TEST_TEXT).should('equal', 1)
       // There should exist no snapshots yet
       cy.get('.right-panel li').should('have.length', 0)
-  
+
       cy.window().then($win => {
         // This stubs the window prompt which would halt execution otherwise
         cy.stub($win, 'prompt').returns(TEST_SNAPSHOT)
@@ -45,38 +48,38 @@ describe('# Snapshots tab', () => {
       // The name should have changed
       cy.get('.right-panel li').contains(TEST_SNAPSHOT).should('not.exist')
       cy.get('.right-panel li').contains(TEST_SNAPSHOT_CHANGED).should('exist')
-  
+
       cy.window().then(window => {
         const { editorView: view } = window
         const tr = view.state.tr
         tr.delete(0, view.state.doc.nodeSize - 2)
         view.dispatch(tr)
       })
-  
+
       // The editor content was deleted
       cy.get('.ProseMirror').find('*').should('have.length', 2)
       cy.get('.ProseMirror strong').should('have.length', 0)
       cy.get('button').contains('Show').click()
-  
+
       // Clicking 'Show' button should replace editor document with the snapshot data
       cy.get('.ProseMirror').find('*').should('have.length', 4)
       cy.get('.ProseMirror strong').includesStringCount(TEST_TEXT).should('equal', 1)
-  
+
       cy.get('button').contains('Hide').click()
       cy.get('.ProseMirror strong').should('have.length', 0)
-  
+
       // 'Restore' should replace the doc permanently with the snapshot doc
       cy.get('button').contains('Restore').click()
       cy.get('.ProseMirror strong').should('have.length', 1)
-  
+
       // This exports the snapshot as json
       cy.get('button').contains('Export').click()
       cy.readFile(getDownloaded(`${TEST_SNAPSHOT_CHANGED}.json`)).should('deep.equal', snapshot1)
-  
+
       // Upload the snapshot
       cy.get('.floating-dock input[type="file"]').attachFile('snapshot-1.json')
       cy.get('.right-panel li').should('have.length', 2)
-  
+
       // Reset the devTools to see that the snapshots were persisted and contain the old doc
       cy.resetDoc()
       cy.devTools().find('.floating-btn').click()
@@ -85,17 +88,23 @@ describe('# Snapshots tab', () => {
       cy.get('.right-panel li').eq(0).contains('Show').click()
       cy.get('.ProseMirror').find('*').should('have.length', 4)
       cy.get('.ProseMirror strong').includesStringCount(TEST_TEXT).should('equal', 1)
-  
+
       cy.get('button').contains('Delete').click()
       cy.get('.right-panel li').should('have.length', 2)
       cy.get('button').contains('confirm delete', { matchCase: false }).click()
       cy.get('.right-panel li').should('have.length', 1)
-      cy.get('.floating-dock').find('*').contains('Save snapshots by clicking "Save snapshot" button.').should('not.exist')
-  
+      cy.get('.floating-dock')
+        .find('*')
+        .contains('Save snapshots by clicking "Save snapshot" button.')
+        .should('not.exist')
+
       cy.get('button').contains('Delete').click()
       cy.get('button').contains('confirm delete', { matchCase: false }).click()
       cy.get('.right-panel li').should('have.length', 0)
-      cy.get('.floating-dock').find('*').contains('Save snapshots by clicking "Save snapshot" button.').should('exist')
+      cy.get('.floating-dock')
+        .find('*')
+        .contains('Save snapshots by clicking "Save snapshot" button.')
+        .should('exist')
     })
   })
 
@@ -105,7 +114,10 @@ describe('# Snapshots tab', () => {
     })
 
     cy.devTools().find('ul.tabs-menu li button').contains('SNAPSHOTS').click()
-    cy.get('.floating-dock').find('*').contains('Save snapshots by clicking "Save snapshot" button.').should('exist')
+    cy.get('.floating-dock')
+      .find('*')
+      .contains('Save snapshots by clicking "Save snapshot" button.')
+      .should('exist')
 
     cy.get('.floating-dock input[type="file"]').attachFile('snapshot-broken')
     cy.get('.right-panel li').should('have.length', 0)
@@ -117,8 +129,12 @@ describe('# Snapshots tab', () => {
       const spy = window.console.error as Cypress.Agent<Sinon.SinonSpy>
       const firstError = spy.getCall(0).args[0]
       const secondError = spy.getCall(1).args[0]
-      expect(firstError).to.be.eq('Failed to import snapshot: SyntaxError: Unexpected end of JSON input')
-      expect(secondError).to.be.eq('Failed to import snapshot: RangeError: There is no mark type highlight in this schema')
+      expect(firstError).to.be.eq(
+        'Failed to import snapshot: SyntaxError: Unexpected end of JSON input'
+      )
+      expect(secondError).to.be.eq(
+        'Failed to import snapshot: RangeError: There is no mark type highlight in this schema'
+      )
     })
   })
 })

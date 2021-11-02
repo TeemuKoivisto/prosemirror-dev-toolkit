@@ -65,7 +65,10 @@ describe('# Structure tab', () => {
 
     // Click the LOG button in the node info
     cy.get('.right-panel button').contains('Log', { matchCase: false }).click()
-    cy.get('@consoleInfo').should('be.calledWith', '%c [prosemirror-dev-toolkit]: Property added to window._node')
+    cy.get('@consoleInfo').should(
+      'be.calledWith',
+      '%c [prosemirror-dev-toolkit]: Property added to window._node'
+    )
     cy.window().then(window => {
       const { _node } = window
       const spy = window.console.log as Cypress.Agent<Sinon.SinonSpy>
@@ -80,7 +83,10 @@ describe('# Structure tab', () => {
     cy.pmInsParagraphBolded(TEST_TEXT).wait(100)
 
     cy.get('.right-panel button').contains('Log', { matchCase: false }).click()
-    cy.get('@consoleInfo').should('be.calledWith', '%c [prosemirror-dev-toolkit]: Property added to window._node')
+    cy.get('@consoleInfo').should(
+      'be.calledWith',
+      '%c [prosemirror-dev-toolkit]: Property added to window._node'
+    )
     cy.window().then(window => {
       const { _node } = window
       const spy = window.console.log as Cypress.Agent<Sinon.SinonSpy>

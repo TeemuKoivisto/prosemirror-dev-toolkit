@@ -20,7 +20,7 @@ export function YjsPage() {
     const yXmlFragment = ydoc.getXmlFragment('pm-doc')
     const state = EditorState.create({
       schema,
-      plugins: exampleSetup({ schema }).concat([
+      plugins: exampleSetup({ schema, history: false }).concat([
         ySyncPlugin(yXmlFragment, {
           permanentUserData: permanentUserData,
           colors: [
@@ -29,7 +29,6 @@ export function YjsPage() {
             { light: '#6eeb8333', dark: '#6eeb83' }
           ]
         }),
-        // yCursorPlugin(ctx.yjsProvider.provider.awareness),
         yUndoPlugin(),
         keymap({
           'Mod-z': undo,

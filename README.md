@@ -1,8 +1,8 @@
 # [prosemirror-dev-toolkit](https://github.com/TeemuKoivisto/prosemirror-dev-toolkit) [![version](https://img.shields.io/npm/v/prosemirror-dev-toolkit?style=flat-square)](https://www.npmjs.com/package/prosemirror-dev-toolkit) [![package minified size](https://img.shields.io/bundlephobia/min/prosemirror-dev-toolkit?style=flat-square&color=important)](https://bundlephobia.com/result?p=prosemirror-dev-toolkit) [![package size](https://img.shields.io/bundlephobia/minzip/prosemirror-dev-toolkit?style=flat-square)](https://bundlephobia.com/result?p=prosemirror-dev-toolkit)
 
-This is a rewrite of [prosemirror-dev-tools](https://github.com/d4rkr00t/prosemirror-dev-tools) which I'm a big fan of, yet have felt it could use some improvements. Since the old version didn't seem that actively maintained and also because I wanted to remove the hard dependency to React, use TypeScript and make the whole thing smaller, I took it to my own hands to rewrite it in Svelte.
+This is a rewrite of [prosemirror-dev-tools](https://github.com/d4rkr00t/prosemirror-dev-tools) which I'm a big fan of, yet have felt could use some improvements. Since it didn't seem that actively maintained anymore and also because I wanted to remove the hard dependency to React, use TypeScript and make the whole thing smaller, I took it to my own hands to rewrite it in Svelte.
 
-Unlike React, Svelte compiles directly to JS without having to bundle a runtime which should make the library smaller to use in projects that don't use React. I also pruned some of the extra dependencies by using just vanilla Svelte features and have experimented making the library injectable as a stand-alone script.
+Unlike React, Svelte compiles directly to JS without having to bundle a runtime which should make the library smaller to use in projects that don't use React. I also pruned some of the extra dependencies by using out-of-the-box Svelte features and have experimented making the library injectable as a stand-alone script.
 
 ## [Demo](https://teemukoivisto.github.io/prosemirror-dev-toolkit/)
 
@@ -22,18 +22,29 @@ import applyDevTools from 'prosemirror-dev-toolkit'
   function createEditorView(element: HTMLDivElement, state: EditorState) {
     const view = new EditorView({ mount: element }, {
       state,
-      dispatchTransaction,
     })
     applyDevTools(view)
     return view
   }
 ```
 
-I removed the dependency to `prosemirror-state` but could not find a way to extract `DOMSerializer` from `prosemirror-model` which increases the bundle size somewhat. But it doesn't at least cause errors with multiple prosemirror-models loaded simultaneously. Otherwise, I think the dependencies should be smaller than in the old dev tools which `node_modules` I found at times reaching sizes of 200 MBs.
+There is no longer a direct dependency to `prosemirror-state` but I did not find a way to extract `DOMSerializer` from `prosemirror-model` without directly importing it. In total I was able to reduce the packages from x to 4? and most importantly the installed `node_modules` is no longer 200 MBs.
+
+# API
+
+```ts
+export type ButtonPosition = 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left'
+export interface DevToolsOpts {
+  devToolsExpanded?: boolean
+  buttonPosition?: ButtonPosition
+}
+```
 
 # Features
 
-As in the old tools, the toolkit consists of 6 tabs which interact with the PM editor in various ways. Basically what happens is the dev-toolkit injects itself into the DOM, visible as the rounded button in the bottom right corner. It also replaces the dispatchTransaction method of the EditorView to be able to track the transactions as they occur.
+As was in the old tools, prosemirror-dev-toolkit consists of 6 tabs which interact with the PM editor in various ways. Basically what happens is dev-toolkit injects itself into the DOM, visible as the rounded button in the bottom right corner, and then sets the dispatchTransaction prop of the EditorView to be able to track transactions.
+
+In addition it can persist snapshots and hydrate them which I enhanced by adding export/import from JSON as well as ensuring the functionality doesn't break with Yjs.
 
 Another useful thing it can do is persist snapshots and hydrate them, to which I also added export/import from JSON. Using transactions to hydrate them works also with Yjs enabled. In the old dev-tools there was a node picker to inspect PM nodes that I have not had time to remake.
 
