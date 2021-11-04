@@ -41,7 +41,8 @@
         <li class:selected={selectedId === subEntry?.id}>
           <button
             class="p-left"
-            on:click={() => subEntry && onSelect(subEntry.id, groupIdx, false)}
+            on:click={() =>
+              dispatchClick('click-item', { id: subEntry?.id, groupIdx, wasTopNode: false })}
           >
             {subEntry?.timeStr}
           </button>
