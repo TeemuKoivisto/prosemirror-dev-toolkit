@@ -54,11 +54,10 @@ export function YjsPage() {
   return (
     <Container>
       <header>
-        <h1><a href="https://github.com/TeemuKoivisto/prosemirror-dev-toolkit">prosemirror-dev-toolkit</a></h1>
-        <p>Github repo</p>
-        <p>This editor uses Yjs collaboration which needs its own approach to replace editor state</p>
+        <h1><a href="https://teemukoivisto.github.io/prosemirror-dev-toolkit">prosemirror-dev-toolkit</a></h1>
+        <p>This editor uses Yjs collaboration which handles the updates to the editor state</p>
       </header>
-      <div id="plain-editor" ref={editorDOMRef}/>
+      <div className="pm-editor" ref={editorDOMRef}/>
     </Container>
   )
 }
