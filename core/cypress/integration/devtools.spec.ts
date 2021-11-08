@@ -30,32 +30,32 @@ describe('# DevTools', () => {
     it('Should unmount and remount correctly when applyDevTools is called multiple times', () => {
       cy.visit(page)
       cy.devTools().find('ul.tabs-menu li').should('have.length', 6)
-  
+
       cy.window().then(async window => {
         const { applyDevTools, editorView: view } = window
         applyDevTools(view)
         applyDevTools(view)
       })
-  
+
       cy.devTools().find('.floating-btn').click()
       cy.devTools().find('ul.tabs-menu li button').contains('HISTORY').click()
       cy.get('.left-panel').find('li').should('have.length', 0)
 
       cy.pmInsParagraphBolded(TEST_TEXT)
       cy.get('.left-panel').find('li').should('have.length', 1)
-  
+
       cy.pmInsParagraphBolded(TEST_TEXT)
       cy.get('.left-panel').find('li').should('have.length', 2)
-  
+
       cy.window().then(async window => {
         const { applyDevTools, editorView: view } = window
         applyDevTools(view)
       })
-  
+
       cy.devTools().find('.floating-btn').click()
       cy.devTools().find('ul.tabs-menu li button').contains('HISTORY').click()
       cy.get('.left-panel').find('li').should('have.length', 0)
-  
+
       cy.pmInsParagraphBolded(TEST_TEXT)
       cy.get('.left-panel').find('li').should('have.length', 1)
     })
@@ -64,19 +64,51 @@ describe('# DevTools', () => {
   it('Should unmount without errors or warning when navigating pages', () => {
     cy.get('.__prosemirror-dev-toolkit__').should('have.length', 1)
     cy.get('.floating-dock ul.tabs-menu li').should('have.length', 6)
-    cy.visit('/plain')
+
+    cy.visit('/plain', {
+      onBeforeLoad(win) {
+        cy.stub(win.console, 'warn').as('consoleWarn')
+        cy.stub(win.console, 'error').as('consoleError')
+      }
+    })
     cy.get('.__prosemirror-dev-toolkit__').should('have.length', 1)
     cy.get('.floating-dock ul.tabs-menu li').should('have.length', 6)
-    cy.visit('/')
+    cy.get('@consoleWarn').should('be.callCount', 0)
+    cy.get('@consoleError').should('be.callCount', 0)
+
+    cy.visit('/', {
+      onBeforeLoad(win) {
+        cy.stub(win.console, 'warn').as('consoleWarn')
+        cy.stub(win.console, 'error').as('consoleError')
+      }
+    })
     cy.get('.__prosemirror-dev-toolkit__').should('have.length', 1)
     cy.get('.floating-dock ul.tabs-menu li').should('have.length', 6)
-    cy.visit('/no-editor')
+    cy.get('@consoleWarn').should('be.callCount', 0)
+    cy.get('@consoleError').should('be.callCount', 0)
+
+    cy.visit('/no-editor', {
+      onBeforeLoad(win) {
+        cy.stub(win.console, 'warn').as('consoleWarn')
+        cy.stub(win.console, 'error').as('consoleError')
+      }
+    })
     cy.get('.__prosemirror-dev-toolkit__').should('have.length', 0)
     cy.get('.floating-dock ul.tabs-menu li').should('have.length', 0)
+    cy.get('@consoleWarn').should('be.callCount', 0)
+    cy.get('@consoleError').should('be.callCount', 0)
+
     cy.visit('/')
-    cy.visit('/plain')
+    cy.visit('/plain', {
+      onBeforeLoad(win) {
+        cy.stub(win.console, 'warn').as('consoleWarn')
+        cy.stub(win.console, 'error').as('consoleError')
+      }
+    })
     cy.get('.__prosemirror-dev-toolkit__').should('have.length', 1)
     cy.get('.floating-dock ul.tabs-menu li').should('have.length', 6)
+    cy.get('@consoleWarn').should('be.callCount', 0)
+    cy.get('@consoleError').should('be.callCount', 0)
 
     // Test that transactions trigger properly and history entries are updated
     cy.devTools().find('ul.tabs-menu li button').contains('HISTORY').click()

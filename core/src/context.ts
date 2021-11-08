@@ -1,4 +1,5 @@
 import { EditorView } from 'prosemirror-view'
+import type { EditorState } from 'prosemirror-state'
 import type { Node as PMNode } from 'prosemirror-model'
 import { getContext as getCtx, setContext as setCtx } from 'svelte'
 
@@ -7,6 +8,7 @@ import { buildColors } from './tabs/structure/colors'
 export type Contexts = {
   'editor-view': {
     view: EditorView
+    replaceEditorContent: (state: EditorState) => void
   }
   'doc-view': {
     selected: {
@@ -20,6 +22,6 @@ export type Contexts = {
 }
 
 export const setContext = <K extends keyof Contexts & string>(ctx: K, val: Contexts[K]) =>
-  setCtx(ctx, val)
+  setCtx<Contexts[K]>(ctx, val)
 
-export const getContext = <K extends keyof Contexts & string>(ctx: K) => getCtx(ctx) as Contexts[K]
+export const getContext = <K extends keyof Contexts & string>(ctx: K) => getCtx<Contexts[K]>(ctx)

@@ -2,7 +2,7 @@ import autoPreprocess from 'svelte-preprocess'
 import { resolve } from 'path'
 
 const preprocessOptions = {
-  scss: { prependData: `@import 'src/global.scss';` },
+  scss: { prependData: `@import 'src/global.scss';` }
 }
 
 export default {

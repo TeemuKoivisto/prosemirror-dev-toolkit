@@ -36,7 +36,7 @@ export default {
     ...Object.keys(pkg.dependencies || {}).filter(d => d !== 'svelte-tree-view'),
     ...Object.keys(pkg.peerDependencies || {}),
     // jsondiffpatch imports chalk, Node.js module, but which works in browser too yet
-    // Rollup doesn't like it (and because it's outdated version)
+    // Rollup doesn't like it (and because it's an outdated version)
     'chalk'
   ],
   plugins: [
@@ -85,7 +85,7 @@ export default {
         ]
       ]
     }),
-    postcss(),
+    postcss()
   ],
   watch: {
     clearScreen: false
