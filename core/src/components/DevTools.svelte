@@ -45,7 +45,7 @@
   }
 </script>
 
-<section>
+<section class="dev-tools">
   {#if devToolsExpanded}
     <FloatingDock onClose={handleFloatingDockClose} />
   {:else}
@@ -61,7 +61,10 @@
     --font-large: 16px;
     --height-tabs-menu: 48px;
   }
-  :root {
+  .dev-tools {
+    font-family: var(--font-sans);
+    font-size: var(--font-medium);
+
     --tree-view-base00: #363755;
     --tree-view-base01: #604d49;
     --tree-view-base02: #6d5a55;
@@ -78,9 +81,5 @@
     --tree-view-base0D: #85d9ef;
     --tree-view-base0E: #be87ff;
     --tree-view-base0F: #d6724c;
-  }
-  section {
-    font-family: var(--font-sans);
-    font-size: var(--font-medium);
   }
 </style>
