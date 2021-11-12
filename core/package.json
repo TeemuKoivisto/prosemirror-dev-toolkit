@@ -6,7 +6,7 @@
   "homepage": "https://teemukoivisto.github.io/prosemirror-dev-toolkit/",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
-  "types": "dist/index.es.d.ts",
+  "types": "dist/index.d.ts",
   "type": "module",
   "files": [
     "src",
