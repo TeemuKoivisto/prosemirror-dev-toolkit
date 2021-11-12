@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useLayoutEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { EditorView } from 'prosemirror-view'
 import { EditorState } from 'prosemirror-state'
@@ -11,7 +11,7 @@ export function PlainPMPage() {
   const editorDOMRef = useRef(null)
   const editorViewRef = useRef<EditorView | null>(null)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const state = EditorState.create({
       schema,
       plugins: exampleSetup({ schema }),

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useLayoutEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { EditorView } from 'prosemirror-view'
 import { EditorState } from 'prosemirror-state'
@@ -14,7 +14,7 @@ export function YjsPage() {
   const editorDOMRef = useRef(null)
   const editorViewRef = useRef<EditorView | null>(null)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const ydoc = new Y.Doc()
     const permanentUserData = new Y.PermanentUserData(ydoc)
     const yXmlFragment = ydoc.getXmlFragment('pm-doc')
