@@ -1,12 +1,15 @@
 <script lang="ts">
   export let selected = false
-  let buttonProps = {
-    class: [$$restProps.class]
-  }
 </script>
 
-<button on:click on:mouseover on:mouseenter on:mouseleave on:focus {...buttonProps} class:selected
-  ><slot /></button
+<button
+  on:click
+  on:mouseover
+  on:mouseenter
+  on:mouseleave
+  on:focus
+  class={`${$$props.class || ''}`}
+  class:selected><slot /></button
 >
 
 <style lang="scss">

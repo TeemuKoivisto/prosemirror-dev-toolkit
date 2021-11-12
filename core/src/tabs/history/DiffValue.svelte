@@ -1,9 +1,9 @@
 <script lang="ts">
   import type { TreeNode } from 'svelte-tree-view'
 
-  export let value: any, node: TreeNode, defaultFormatter: (val: any) => string
+  export let node: TreeNode, defaultFormatter: (val: any) => string
 
-  $: nodeVal = node.value
+  $: value = node.value
 
   function replaceSpacesWithNonBreakingSpace(value: string) {
     return value.replace(/\s/gm, ' ')
@@ -35,21 +35,21 @@
   }
 </script>
 
-{#if Array.isArray(nodeVal)}
+{#if Array.isArray(value)}
   <!-- The why https://github.com/benjamine/jsondiffpatch/blob/master/docs/deltas.md -->
-  {#if nodeVal.length === 1}
-    <span class="added">{getValueString(nodeVal[0])}</span>
-  {:else if nodeVal.length === 2}
+  {#if value.length === 1}
+    <span class="added">{getValueString(value[0])}</span>
+  {:else if value.length === 2}
     <span class="updated">
-      <span class="deleted">{getValueString(nodeVal[0])}</span>
+      <span class="deleted">{getValueString(value[0])}</span>
       <span class="arrow"> =&gt;</span>
-      <span class="added">{getValueString(nodeVal[1])}</span>
+      <span class="added">{getValueString(value[1])}</span>
     </span>
-  {:else if nodeVal.length === 3 && nodeVal[1] === 0 && nodeVal[2] === 0}
-    <span class="deleted">{getValueString(nodeVal[0])}</span>
-  {:else if nodeVal.length === 3 && nodeVal[2] === 2}
+  {:else if value.length === 3 && value[1] === 0 && value[2] === 0}
+    <span class="deleted">{getValueString(value[0])}</span>
+  {:else if value.length === 3 && value[2] === 2}
     <span class="updated">
-      {#each parseTextDiff(nodeVal[0]) as item}
+      {#each parseTextDiff(value[0]) as item}
         {#if item.delete}
           <span class="deleted">{item.delete}</span>
         {:else if item.add}
@@ -61,7 +61,7 @@
     </span>
   {/if}
 {:else}
-  {defaultFormatter(nodeVal)}
+  {defaultFormatter(value)}
 {/if}
 
 <style lang="scss">
