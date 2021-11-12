@@ -1,0 +1,102 @@
+name: Publish to NPM
+
+on:
+  release:
+    types: [created]
+
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node_version }}
+
+      - name: Load cached dependencies
+        uses: actions/cache@v2.1.5
+        id: cache
+        with:
+          path: |
+            **/node_modules
+            /home/runner/.cache/Cypress
+          key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+
+      - name: Run type check and unit tests
+        run: |
+          cd core
+          yarn svelte-check
+          yarn test:unit
+
+      - name: Run tests with Cypress
+        id: cypress
+        uses: cypress-io/github-action@v2
+        with:
+          cache-key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('**/yarn.lock') }}
+          start: yarn --cwd ./example-app start
+          wait-on: 'http://localhost:3300/prosemirror-dev-toolkit'
+          project: ./core
+          browser: chrome
+          quiet: true
+
+      - name: Export screenshots (on failure only)
+        uses: actions/upload-artifact@v2.2.3
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: ./core/cypress/screenshots
+          retention-days: 7
+
+      - name: Export screen recordings (on failure only)
+        uses: actions/upload-artifact@v2.2.3
+        if: failure()
+        with:
+          name: cypress-videos
+          path: ./core/cypress/videos
+          retention-days: 7
+
+  publish:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+
+      - name: Setup node
+        # Setup .npmrc file to publish to npm
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node_version }}
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Load cached dependencies
+        uses: actions/cache@v2.1.5
+        id: cache
+        with:
+          path: |
+            **/node_modules
+          key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+
+      - name: Build library
+        run: |
+          cd core
+          yarn build
+
+      - name: Publish to npm
+        run: yarn --cwd ./core publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
