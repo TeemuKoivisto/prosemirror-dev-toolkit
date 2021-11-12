@@ -59,6 +59,8 @@ jobs:
           project: ./core
           browser: chrome
           quiet: true
+        env:
+          SKIP_PREFLIGHT_CHECK: true
 
       - name: Export screenshots (on failure only)
         uses: actions/upload-artifact@v2.2.3

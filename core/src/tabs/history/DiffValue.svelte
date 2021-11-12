@@ -5,8 +5,8 @@
 
   $: value = node.value
 
-  function replaceSpacesWithNonBreakingSpace(value: string) {
-    return value.replace(/\s/gm, ' ')
+  function replaceSpacesWithNonBreakingSpace(str: string) {
+    return str.replace(/\s/gm, ' ')
   }
   function parseTextDiff(textDiff: string) {
     const diffByLines = textDiff.split(/\n/gm).slice(1)
