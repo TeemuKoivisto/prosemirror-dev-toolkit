@@ -87,6 +87,8 @@ As was in the old tools, prosemirror-dev-toolkit consists of 6 tabs which intera
 
 In addition it can persist snapshots and hydrate them which I enhanced by adding export/import from JSON as well as ensuring the functionality doesn't break with Yjs. In the old dev-tools there was a node picker to inspect PM nodes that I have not had time to remake.
 
+For quick live editor instance debugging I have added a script to inject the dev-toolkit directly from CDN: https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/blob/master/inject.js Not 100% bulletproof but works in most cases. Improvements welcome. Might use it to turn this into a Chrome extension.
+
 ## State
 
 ![State tab](https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/blob/master/core/cypress/integration/__image_snapshots__/%23%20State%20tab%20%20Should%20allow%20expanding%20and%20collapsing%20and%20tree-view%20nodes%20%230.png?raw=true)
@@ -132,10 +134,6 @@ A bit more complicated tab it shows the document in a neat block view with a sid
 Shows the stored snapshots (toJSON'd topNode eg "doc") in localStorage. The changes I've made are switching to date strings instead of unix timestamps for default names. Then, you can double-click the snapshot to edit its name. 'Show' button replaces the current doc with the snapshot doc, allowing you to revert it with 'Hide'. 'Restore' does a one-way replacement of the doc with the snapshot. And well I say one-way but since I don't erase the actual PM history you can Ctrl-z your way out of it.
 
 'Export' toJSONs and downloads the snapshot. You have to now double-click 'Delete' to prevent occasional misclicks. There's also a new 'Import snapshot' button above the main panel to replace the doc with exported snapshot.
-
-## Other things
-
-I have experimented with bundling the library as minified UMD module that can be injected as a stand-alone script. It works in most cases but since it's a bit experimental still, it's not part of the build yet. It uses some silly hacks to gain access to the EditorView from the `pmViewDesc` property in a live PM editor instance which can fail at times (https://prosemirror.net for example). I noticed it could have something to do with reimporting the view to window.view. Not sure though. Improvements welcome. This could be used to turn this into a Chrome extension.
 
 ## How to run locally
 
