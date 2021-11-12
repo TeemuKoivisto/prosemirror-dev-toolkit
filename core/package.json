@@ -35,7 +35,7 @@
     "lint": "eslint --cache --ext .js,.ts,.tsx,.svelte ./src",
     "lint:fix": "eslint --fix --ext .js,.ts,.tsx,.svelte ./src",
     "preversion": "yarn test",
-    "version": "yarn build",
+    "version": "yarn build && yarn bundle",
     "postversion": "git push && git push --tags",
     "prepublishOnly": "cp ../README.md . && cp ../LICENSE .",
     "postpublish": "rm README.md LICENSE",
