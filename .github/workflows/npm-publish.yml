@@ -107,10 +107,11 @@ jobs:
       - name: Install dependencies
         run: yarn --frozen-lockfile
 
-      - name: Build library
+      - name: Build library and create UMD bundle
         run: |
           cd core
           yarn build
+          yarn bundle
 
       - name: Publish to npm
         run: yarn --cwd ./core publish
