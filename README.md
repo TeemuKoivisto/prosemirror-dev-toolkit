@@ -14,8 +14,6 @@ And use it eg:
 
 ```ts
 import { applyDevTools } from 'prosemirror-dev-toolkit'
-// Or
-import applyDevTools from 'prosemirror-dev-toolkit'
 
 import { EditorState } from 'prosemirror-state'
 import { EditorView } from 'prosemirror-view'
@@ -78,7 +76,7 @@ declare global {
     _plugin?: [Plugin | undefined, unknown];
   }
 }
-export { applyDevTools, applyDevTools as default, removeDevTools, ButtonPosition, DevToolsOpts }
+export { applyDevTools, removeDevTools, ButtonPosition, DevToolsOpts }
 ```
 
 I am adding properties to the global Window interface which may or may not that convenient. From my perspective I don't have to ts-ignore those assignments but if you use those properties in your repos you'll have to obey the types or receive rather weird errors (that may take a moment to figure out).

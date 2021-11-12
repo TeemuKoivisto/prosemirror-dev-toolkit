@@ -16,4 +16,3 @@ declare global {
 
 export { applyDevTools, removeDevTools } from './applyDevTools'
 export * from './types'
-export { applyDevTools as default } from './applyDevTools'
