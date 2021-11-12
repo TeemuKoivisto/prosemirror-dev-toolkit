@@ -61,6 +61,6 @@ export function PMEditor(props: EditorProps) {
   }
 
   return (
-    <div id="example-editor" ref={editorDOMRef} className={className}/>
+    <div className={`${className || ''} pm-editor`} ref={editorDOMRef}/>
   )
 }

@@ -33,11 +33,10 @@ export function PlainPMPage() {
   return (
     <Container>
       <header>
-        <h1><a href="https://github.com/TeemuKoivisto/prosemirror-dev-toolkit">prosemirror-dev-toolkit</a></h1>
-        <p>Github repo</p>
+        <h1><a href="https://teemukoivisto.github.io/prosemirror-dev-toolkit">prosemirror-dev-toolkit</a></h1>
         <p>This page mounts a ProseMirror editor without any extra props and it's used in Cypress tests</p>
       </header>
-      <div id="plain-editor" ref={editorDOMRef}/>
+      <div className="pm-editor" ref={editorDOMRef}/>
     </Container>
   )
 }
