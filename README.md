@@ -87,7 +87,7 @@ As was in the old tools, prosemirror-dev-toolkit consists of 6 tabs which intera
 
 In addition it can persist snapshots and hydrate them which I enhanced by adding export/import from JSON as well as ensuring the functionality doesn't break with Yjs. In the old dev-tools there was a node picker to inspect PM nodes that I have not had time to remake.
 
-For quick live editor instance debugging I have added a script to inject the dev-toolkit directly from CDN: https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/blob/master/inject.js Not 100% bulletproof but works in most cases. Improvements welcome. Might use it to turn this into a Chrome extension.
+For quick live editor instance debugging I have added a script to inject the dev-toolkit directly from CDN: [inject.js](https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/blob/master/inject.js) Not 100% bulletproof but works in most cases. Improvements welcome. Might use it to turn this into a Chrome extension.
 
 ## State
 

@@ -33,6 +33,6 @@
     .then(response => response.text())
     .then(data => {
       eval(data)
-      window.applyDevTools(editorView, { buttonPosition: 'bottom-left' })
+      window.applyDevTools(editorView, { buttonPosition: 'bottom-right' })
     })
 })('.ProseMirror')
