@@ -40,18 +40,26 @@ There is no longer a dependency to `prosemirror-state` but I did not find a way 
 
 If you have a really smart bundler and you are trying to build your editor with dev-toolkit included, you might receive errors regarding its two outdated dependencies `html` and `jsondiffpatch`. `html` should be reasonably easy to import as CommonJS module but for `jsondiffpatch`, however, you might have to set its Node.js-only dependency `chalk` as an external import eg:
 
-rollup.config.js
-```ts
-
+svelte.config.js
+```js
 export default {
-  ...
-  external: ['chalk'],
-  ...
+  kit: {
+    vite: {
+      build: {
+        rollupOptions: {
+          external: ['chalk']
+        }
+      },
+      define: {
+        'process.env': process.env,
+      },
+    }
+  }
 }
-
 ```
 
-`jsondiffpatch` can be used in both browser and Node.js and it offers some special terminal magic using `chalk` (with a very outdated version) that we are not using and therefore it can be excluded from the bundle.
+`jsondiffpatch` can be used in both browser and Node.js and it offers some special terminal magic using `chalk` (with a very outdated version) that we are not using and therefore it can be excluded from the bundle. Additionally, it uses `process.env` which you might have to also polyfill. The `dist` folder contains `bundle.umd.min.js` that serves as a stand-alone version with all the dependencies included.
+
 </details>
 
 # API
