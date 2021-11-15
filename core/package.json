@@ -4,8 +4,8 @@
   "author": "Teemu Koivisto <teemukoivisto.xyz@gmail.com>",
   "license": "MIT",
   "homepage": "https://teemukoivisto.github.io/prosemirror-dev-toolkit/",
-  "main": "dist/index.js",
-  "module": "dist/index.es.js",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
   "files": [
@@ -28,7 +28,7 @@
     "inspector"
   ],
   "scripts": {
-    "build": "rimraf dist && rollup -c && rm dist/index.es.d.ts",
+    "build": "rimraf dist && rollup -c && rm dist/index.cjs.d.ts",
     "bundle": "UMD_BUNDLE=true rollup -c && rm dist/bundle.umd.min.d.ts",
     "watch": "rimraf dist && rollup -cw",
     "format": "prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|svelte|md|graphql|mdx)\"",
