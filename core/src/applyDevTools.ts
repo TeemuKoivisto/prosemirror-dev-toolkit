@@ -27,6 +27,16 @@ function createOrFindPlace() {
 
 let removeCallback: (() => void) | undefined
 
+/**
+ * Applies devTools to the given EditorView.
+ * 
+ * Will remove previous devTools instance first, then subscribes to the view's
+ * transactions by adding a dispatchTransaction prop. If previous dispatchTransaction
+ * prop exists, passes the transaction to it. Otherwise updates the state as normal.
+ * Will destroy itself whenever view is destroyed or removeDevTools() is called.
+ * @param view
+ * @param opts
+ */
 export function applyDevTools(view: EditorView, opts: DevToolsOpts = {}) {
   const place = createOrFindPlace()
 
