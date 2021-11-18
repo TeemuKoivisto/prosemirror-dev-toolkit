@@ -11,19 +11,31 @@ const SNAPSHOTS_KEY = '__prosemirror-dev-toolkit__snapshots'
 export const snapshots = writable<Snapshot[]>([])
 export const selectedSnapshot = writable<Snapshot | undefined>()
 export const previousEditorState = writable<EditorState | undefined>()
+let canAccessLocalStorage = true
 
-const persisted = typeof window !== 'undefined' ? localStorage.getItem(SNAPSHOTS_KEY) : null
-if (persisted && persisted.length > 0) {
+function hydrate() {
+  let persisted = null
   try {
-    const parsed = JSON.parse(persisted)
-    snapshots.set(parsed)
+    persisted = localStorage.getItem(SNAPSHOTS_KEY)
   } catch (err) {
-    console.error('Corrupted snapshots values in localStorage', err)
+    // Will crash when window is undefined, eg in server-side rendering
+    // but also in a codesandbox where you are denied access to localStorage
+    canAccessLocalStorage = false
+  }
+  if (persisted && persisted.length > 0) {
+    try {
+      const parsed = JSON.parse(persisted)
+      snapshots.set(parsed)
+    } catch (err) {
+      console.error('Corrupted snapshots values in localStorage', err)
+    }
   }
 }
 
+hydrate()
+
 snapshots.subscribe(val => {
-  if (typeof window !== 'undefined') {
+  if (canAccessLocalStorage) {
     localStorage.setItem(SNAPSHOTS_KEY, JSON.stringify(val))
   }
 })
