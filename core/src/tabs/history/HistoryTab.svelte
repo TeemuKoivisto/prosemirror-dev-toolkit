@@ -18,7 +18,7 @@
 
   let expandTrTreeView = false
   let transactionRecursionOpts = {
-    maxDepth: 12,
+    maxDepth: 24,
     stopCircularRecursion: true,
     omitKeys: ['schema'],
     shouldExpandNode: () => expandTrTreeView
