@@ -82,7 +82,6 @@
     display: flex;
     font-family: monospace;
     font-size: var(--font-small);
-    height: 100%;
     justify-content: space-between;
     padding: 6px 18px;
     text-transform: uppercase;
