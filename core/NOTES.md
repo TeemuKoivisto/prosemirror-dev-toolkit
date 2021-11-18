@@ -1,6 +1,6 @@
 # Testing with Cypress
 
-The screen snapshots tests will most likely fail when run in headed mode locally. The first bug on this matter I encountered was that the headless version will always run in full-screen while you have to config the windowed version to use full-screen to match the screenshots.
+The screen snapshots tests will most likely fail when run in headed mode locally (EDIT: apparently they've started working as I have upgraded my Cypress version). The first bug on this matter I encountered was that the headless version will always run in full-screen while you have to config the windowed version to use full-screen to match the screenshots.
 
 Yet then there was the matter of browsers - Cypress comes with Electron as the default browser which is quite similar to Chrome but has for example different outline colors (yellow). Causing things to break. Okay, I did switch both headless and headed to use Chrome but then came the random CSS mismatches after which I thought forget it, this is way too much work.
 

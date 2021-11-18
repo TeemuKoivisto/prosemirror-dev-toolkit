@@ -33,7 +33,7 @@ applyDevTools(view)
 ### [Code sandbox](https://codesandbox.io/s/summer-cookies-v4ck6)
 
 <details>
-  <summary>Notice about bundling prosemirror-dev-toolkit</summary>
+  <summary>About bundling and possible errors (with Vite/Rollup etc)</summary>
 
 \
 There is no longer a dependency to `prosemirror-state` but I did not find a way to extract `DOMSerializer` from `prosemirror-model` without directly importing it. In total I was able to reduce the packages from ~13 to 4. And most importantly the installed `node_modules` can no longer reach sizes of 200 MBs.

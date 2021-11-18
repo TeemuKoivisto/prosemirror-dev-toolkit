@@ -8,4 +8,4 @@ This is a loose list of features I'd like to implement into `prosemirror-dev-too
 - add tab to execute commands. Basically a (primitive) prosemirror REPL
 - make Chrome extension
 
-No time scales set. Just for reference for my and your's sake.
+No time schedules set. Just for reference for my and your's sake.
