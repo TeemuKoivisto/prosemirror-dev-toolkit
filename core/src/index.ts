@@ -9,7 +9,7 @@ declare global {
     editorView?: EditorView
     _node?: any
     _doc?: { [key: string]: any }
-    _tr?: Transaction
+    _trs?: Transaction[]
     _plugin?: [Plugin | undefined, unknown]
   }
 }

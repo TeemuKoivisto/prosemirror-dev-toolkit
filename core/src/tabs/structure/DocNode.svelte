@@ -31,7 +31,8 @@
   $: inlineChildren = fragment.content.every(n => n.isInline)
 
   function handleNameClick() {
-    handleNodeClick(node)
+    handleNodeClick(node, startPos)
+  }
   }
 </script>
 

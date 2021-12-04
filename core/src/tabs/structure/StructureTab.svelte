@@ -10,26 +10,31 @@
 
   const { view } = getContext('editor-view')
   let doc: PMNode = view.state.doc
-  let selectedNode = view.state.doc
-  $: jsonNode = selectedNode.toJSON()
+  let selected = { node: view.state.doc, pos: 0 }
+  $: jsonNode = selected.node.toJSON()
   let schema: Schema = view.state.schema
   let timer: ReturnType<typeof setTimeout>
 
   latestEntry.subscribe(e => {
-    if (!e) return
+    if (!e || selected.node.type === e.state.schema.topNodeType) return
+    e.trs.forEach(tr => {
+      selected.pos = tr.mapping.map(selected.pos)
+    })
     clearTimeout(timer)
     timer = setTimeout(() => {
       doc = e.state.doc
-      selectedNode = doc
+      const pos = selected.pos
+      const node = doc.nodeAt(pos)
+      selected = { node: node || doc, pos: node ? pos : 0 }
     }, 100)
   })
 
-  function handleNodeSelect(n: PMNode) {
-    selectedNode = n
+  function handleNodeSelect(node: PMNode, startPos: number, scroll = false) {
+    selected = { node, pos: startPos }
   }
   function handleClickLogNode() {
-    console.log(selectedNode)
-    window._node = selectedNode
+    console.log(selected)
+    window._node = selected
     console.info('%c [prosemirror-dev-toolkit]: Property added to window._node', 'color: #b8e248')
   }
 </script>

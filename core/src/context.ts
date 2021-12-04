@@ -17,7 +17,7 @@ export type Contexts = {
       end: number
     }
     colors: ReturnType<typeof buildColors>
-    handleNodeClick: (n: PMNode) => void
+    handleNodeClick: (n: PMNode, startPos: number, scrollInto?: boolean) => void
   }
 }
 

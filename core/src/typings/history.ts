@@ -3,7 +3,7 @@ import type { EditorState, Transaction } from 'prosemirror-state'
 export interface HistoryEntry {
   id: string
   state: EditorState
-  tr: Transaction
+  trs: Transaction[]
   timestamp: number
   timeStr: string
   contentDiff?: { [key: string]: any }

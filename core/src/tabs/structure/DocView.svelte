@@ -8,12 +8,12 @@
   export let doc: PMNode,
     schema: Schema,
     selected = { type: '', start: 0, end: 0 },
-    handleNodeSelect: (n: PMNode) => void
+    handleNodeSelect: (n: PMNode, startPos: number, scroll?: boolean) => void
 
   setContext('doc-view', {
     selected,
     colors: buildColors(schema),
-    handleNodeClick: handleNodeSelect
+    handleNodeClick: handleNodeSelect,
   })
 </script>
 
