@@ -16,7 +16,7 @@
   let timer: ReturnType<typeof setTimeout>
 
   latestEntry.subscribe(e => {
-    if (!e || selected.node.type === e.state.schema.topNodeType) return
+    if (!e) return
     e.trs.forEach(tr => {
       selected.pos = tr.mapping.map(selected.pos)
     })
