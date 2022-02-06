@@ -35,7 +35,11 @@ class EditorStore {
         },
         this.currentEditorState
       )
-      this.view.updateState(state)
+      try {
+        this.view.updateState(state)
+      } catch (err) {
+        this.currentEditorState = view.state
+      }
     }
   }
 
@@ -70,6 +74,7 @@ export function Editor(props: Props) {
   }
   return (
     <PMEditor
+      className="main"
       onEdit={handleEdit}
       onEditorReady={handleEditorReady}
     />

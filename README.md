@@ -76,7 +76,7 @@ declare global {
   interface Window {
     applyDevTools: typeof applyDevTools;
     editorView?: EditorView;
-    _node?: any;
+    _node?: { node: PMNode, pos: number };
     _doc?: {
       [key: string]: any;
     };

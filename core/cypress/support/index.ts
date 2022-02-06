@@ -13,6 +13,7 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
+import type { Node as PMNode } from 'prosemirror-model'
 import { EditorView } from 'prosemirror-view'
 import { Transaction } from 'prosemirror-state'
 import { applyDevTools } from '../../src'
@@ -27,7 +28,7 @@ declare global {
   interface Window {
     applyDevTools: typeof applyDevTools
     editorView?: EditorView
-    _node?: any
+    _node?: { node: PMNode, pos: number }
     _doc?: { [key: string]: any }
     _tr?: Transaction
     _plugin?: [Plugin | undefined, unknown]

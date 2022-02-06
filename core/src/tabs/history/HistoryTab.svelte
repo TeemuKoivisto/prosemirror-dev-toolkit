@@ -38,9 +38,9 @@
     showTr = !showTr
   }
   function handleLogTr() {
-    console.info('%c [prosemirror-dev-toolkit]: Property added to window._tr', 'color: #b8e248')
-    console.log(selectedEntry?.tr)
-    window._tr = selectedEntry?.tr
+    console.info('%c [prosemirror-dev-toolkit]: Property added to window._trs', 'color: #b8e248')
+    console.log(selectedEntry?.trs)
+    window._trs = selectedEntry?.trs
   }
   /**
    * Handles the clicks of the history entries.
@@ -138,7 +138,7 @@
         <div class="entry-row">
           <div class="title-container">
             <h2>Transaction</h2>
-            <div>
+            <div class="transaction-buttons">
               {#if showTr}
                 <Button on:click={handleToggleExpandTrTreeView}>
                   {expandTrTreeView ? 'collapse' : 'expand'}
@@ -153,7 +153,7 @@
           {#if showTr}
             <TreeView
               class="tree-view"
-              data={selectedEntry.tr}
+              data={selectedEntry.trs[0]}
               showLogButton
               showCopyButton
               recursionOpts={transactionRecursionOpts}
@@ -181,7 +181,9 @@
   .title-container {
     align-items: center;
     display: flex;
-    justify-content: space-between;
+  }
+  .transaction-buttons {
+    margin-left: 2rem;
   }
   .entry-row + .entry-row {
     margin-top: 1em;

@@ -10,7 +10,7 @@ export const shownHistoryGroups = writable<HistoryGroup[]>([])
 export const latestEntry = writable<HistoryEntry | undefined>(undefined)
 
 export function appendNewHistoryEntry(
-  tr: Transaction,
+  trs: Transaction[],
   state: EditorState,
   stateBeforeDispatch: EditorState
 ) {
@@ -20,7 +20,7 @@ export function appendNewHistoryEntry(
   // In the case of first entry there aren't oldEntries to diff against, therefore we have to use the state
   // before the transaction. We can't use it for the next entries because it will always be one state behind,
   // as the current state is the one _after_ the dispatch. You can observe this in the old dev-tools.
-  const newEntry = createHistoryEntry(tr, state, stateBeforeDispatch, oldEntry)
+  const newEntry = createHistoryEntry(trs, state, stateBeforeDispatch, oldEntry)
 
   stateHistory.update(val => new Map(val.set(newEntry.id, newEntry)))
   latestEntry.set(newEntry)

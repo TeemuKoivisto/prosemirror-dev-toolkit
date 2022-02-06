@@ -44,7 +44,7 @@ const highlightHtmlString = (html: string) =>
     .replace(regexp, "<span style='color: cadetblue;'>$&</span>")
 
 export function createHistoryEntry(
-  tr: Transaction,
+  trs: Transaction[],
   state: EditorState,
   stateBeforeDispatch: EditorState,
   oldEntry?: HistoryEntry
@@ -70,9 +70,9 @@ export function createHistoryEntry(
   return {
     id: Math.random().toString() + Math.random().toString(),
     state,
-    tr: addPropertiesToTransaction(tr),
-    timestamp: tr.time,
-    timeStr: formatTimestamp(tr.time),
+    trs: trs.map(tr => addPropertiesToTransaction(tr)),
+    timestamp: trs[0].time,
+    timeStr: formatTimestamp(trs[0].time),
     contentDiff,
     selectionDiff,
     selectionHtml: highlightHtmlString(

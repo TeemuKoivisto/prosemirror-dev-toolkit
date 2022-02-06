@@ -6,10 +6,6 @@ import { exampleSetup } from 'prosemirror-example-setup'
 import { schema } from './schema'
 import { examplePlugin } from './example-plugin'
 
-import './editor.css'
-import './prosemirror-example-setup.css'
-import './menu.css'
-
 interface EditorProps {
   className?: string
   onEditorReady?: (view: EditorView) => void
@@ -61,6 +57,6 @@ export function PMEditor(props: EditorProps) {
   }
 
   return (
-    <div className={`${className || ''} pm-editor`} ref={editorDOMRef}/>
+    <div className={`${className} pm-editor`} ref={editorDOMRef}/>
   )
 }

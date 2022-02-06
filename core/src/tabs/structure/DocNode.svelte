@@ -31,15 +31,21 @@
   $: inlineChildren = fragment.content.every(n => n.isInline)
 
   function handleNameClick() {
-    handleNodeClick(node)
+    handleNodeClick(node, startPos)
+  }
+  function handleNameDblClick() {
+    handleNodeClick(node, startPos, true)
   }
 </script>
 
 <li class={`${$$props.class || ''} doc-node`} class:root={isRoot}>
   <div class="doc-node-body" style={`background: ${color}`}>
     <div class="number-box">{startPos}</div>
-    <button class:selected={false} aria-label="Show node info button" on:click={handleNameClick}
-      >{name}</button
+    <button
+      class:selected={false}
+      aria-label="Show node info button"
+      on:click={handleNameClick}
+      on:dblclick={handleNameDblClick}>{name}</button
     >
     <div class="number-box">{endPos}</div>
   </div>
