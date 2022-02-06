@@ -80,7 +80,7 @@ declare global {
     _doc?: {
       [key: string]: any;
     };
-    _tr?: Transaction;
+    _trs?: Transaction[];
     _plugin?: [Plugin | undefined, unknown];
   }
 }
@@ -133,7 +133,7 @@ Shows the current schema's nodes and marks. Same as in the old tools but I added
 
 ![Structure tab](https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/blob/master/core/cypress/integration/__image_snapshots__/%23%20Structure%20tab%20%20Should%20show%20the%20DocView%20of%20the%20current%20and%20doc%20and%20Node%20info%20%230.png?raw=true)
 
-A bit more complicated tab it shows the document in a neat block view with a side panel to inspect the node contents. Auto-expanding the content was a bit too sluggish with large trees so I removed that, as it was in the old tools. Thought about allowing selecting and deleting nodes directly from the DocView.
+A bit more complicated tab it shows the document in a neat block view with a side panel to inspect the node contents. Auto-expands the content whenever it's within reasonable size (less than 50 children). You can double click nodes to scroll into them. Thought about allowing selecting and deleting nodes directly from the DocView.
 
 ## Snapshots
 
