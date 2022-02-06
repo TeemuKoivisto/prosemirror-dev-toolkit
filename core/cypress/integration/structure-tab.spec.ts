@@ -72,16 +72,17 @@ describe('# Structure tab', () => {
     cy.window().then(window => {
       const { _node } = window
       const spy = window.console.log as Cypress.Agent<Sinon.SinonSpy>
-      const doc = spy.getCall(1).args[0].toJSON() || {}
+      const doc = spy.getCall(1).args[0].node.toJSON() || {}
       // The logged node should be an empty doc
       expect(JSON.stringify(doc)).to.be.eq(JSON.stringify(snapshot0))
-      expect(JSON.stringify(_node.toJSON())).to.be.eq(JSON.stringify(snapshot0))
+      expect(JSON.stringify(_node.node.toJSON())).to.be.eq(JSON.stringify(snapshot0))
     })
 
     // Insert a paragraph with bolded text. NOTE: needs to wait(100) for some odd reason, it could be the UI
     // doesn't update fast enough which would be weird.
     cy.pmInsParagraphBolded(TEST_TEXT).wait(100)
 
+    cy.get('.left-panel button').contains('doc', { matchCase: false }).click()
     cy.get('.right-panel button').contains('Log', { matchCase: false }).click()
     cy.get('@consoleInfo').should(
       'be.calledWith',
@@ -90,10 +91,10 @@ describe('# Structure tab', () => {
     cy.window().then(window => {
       const { _node } = window
       const spy = window.console.log as Cypress.Agent<Sinon.SinonSpy>
-      const doc = spy.getCall(2).args[0].toJSON() || {}
+      const doc = spy.getCall(2).args[0].node.toJSON() || {}
       // The logged node should now have been updated
       expect(JSON.stringify(doc)).to.be.eq(JSON.stringify(snapshot1))
-      expect(JSON.stringify(_node.toJSON())).to.be.eq(JSON.stringify(snapshot1))
+      expect(JSON.stringify(_node.node.toJSON())).to.be.eq(JSON.stringify(snapshot1))
     })
     cy.get('@consoleError').should('be.callCount', 0)
   })
