@@ -1,6 +1,17 @@
+## 0.0.7 (2022-02-06)
+
+https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/compare/v0.0.6...v0.0.7
+
+### Features
+
+#### Structure tab
+
+Update selected node properly over transactions. Scroll into node on double click.
+Remove height: 100% from HistoryList button.
+
 ## 0.0.6 (2021-11-18)
 
-https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/commit/c78ed09e7d18d68e88806ec56d07571cceded5e0
+https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/compare/v0.0.5...v0.0.6
 
 ### Style fixes
 
@@ -8,7 +19,7 @@ Remove height: 100% from HistoryList button.
 
 ## 0.0.5 (2021-11-18)
 
-https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/commit/da00198f3748870e719e892628199808332f2a14
+https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/compare/v0.0.4...v0.0.5
 
 ### Bug fixes
 
@@ -16,7 +27,7 @@ Add try-catch when accessing localStorage. Crashes in sandbox otherwise.
 
 ## 0.0.4 (2021-11-18)
 
-https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/commit/5af2748841116e7f315ac5e243ec0913ae72e80f
+https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/compare/v0.0.3...v0.0.4
 
 ### Bug fixes
 
@@ -24,7 +35,7 @@ Import tree-view's behavior. Docs
 
 ## 0.0.3 (2021-11-15)
 
-https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/commit/732d097c0a424ef0f6639d4efefbbeb13a69e886
+https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/compare/v0.0.2...v0.0.3
 
 ### Bug fixes
 
@@ -32,7 +43,7 @@ Fix use .cjs for "main" import. Docs
 
 ## 0.0.2 (2021-11-12)
 
-https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/commit/adea00b2aa5885b728c9c82f62019f1cf6e450f1
+https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/compare/v0.0.1...v0.0.2
 
 ### Bug fixes
 
