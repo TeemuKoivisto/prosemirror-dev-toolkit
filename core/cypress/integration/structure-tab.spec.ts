@@ -14,8 +14,8 @@ describe('# Structure tab', () => {
     cy.get('.floating-dock h2').includesStringCount('Current doc').should('equal', 1)
     cy.get('.floating-dock h2').includesStringCount('Node info').should('equal', 1)
 
-    // Only 2 nodes should be visible in the 'Node info' panel
-    cy.get('.svelte-tree-view').eq(0).find('li').should('have.length', 2)
+    // 6 tree-view nodes should be visible in the 'Node info' panel
+    cy.get('.svelte-tree-view').eq(0).find('li').should('have.length', 6)
     cy.get('li').contains('type:').parent().find('div.node-value').should('have.text', '"doc"')
     // There should be 2 nodes in the left panel's DocView
     cy.get('.left-panel').find('.doc-node').should('have.length', 2)
