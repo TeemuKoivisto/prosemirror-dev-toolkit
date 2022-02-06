@@ -31,7 +31,7 @@
   onMount(() => {
     const html = document && document.querySelector('html')
     if (devToolsExpanded && html) {
-      html.style.marginBottom = '341px'
+      html.style.paddingBottom = '341px'
     }
   })
 
@@ -39,14 +39,14 @@
     devToolsExpanded = true
     const html = document && document.querySelector('html')
     if (html) {
-      html.style.marginBottom = '341px'
+      html.style.paddingBottom = '341px'
     }
   }
   function handleFloatingDockClose() {
     devToolsExpanded = false
     const html = document && document.querySelector('html')
     if (html) {
-      html.style.marginBottom = ''
+      html.style.paddingBottom = ''
     }
   }
 </script>

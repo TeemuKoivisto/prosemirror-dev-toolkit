@@ -80,7 +80,7 @@ declare global {
     _doc?: {
       [key: string]: any;
     };
-    _tr?: Transaction;
+    _trs?: Transaction[];
     _plugin?: [Plugin | undefined, unknown];
   }
 }

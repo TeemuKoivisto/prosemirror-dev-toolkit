@@ -30,7 +30,7 @@ declare global {
     editorView?: EditorView
     _node?: { node: PMNode, pos: number }
     _doc?: { [key: string]: any }
-    _tr?: Transaction
+    _trs?: Transaction[]
     _plugin?: [Plugin | undefined, unknown]
   }
   // eslint-disable-next-line
