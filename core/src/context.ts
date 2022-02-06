@@ -1,5 +1,5 @@
 import { EditorView } from 'prosemirror-view'
-import type { EditorState } from 'prosemirror-state'
+import type { EditorState, Transaction } from 'prosemirror-state'
 import type { Node as PMNode } from 'prosemirror-model'
 import { getContext as getCtx, setContext as setCtx } from 'svelte'
 
@@ -9,6 +9,10 @@ export type Contexts = {
   'editor-view': {
     view: EditorView
     replaceEditorContent: (state: EditorState) => void
+    execCmd: (cmd: (
+      state: EditorState,
+      dispatch?: (tr: Transaction) => void
+    ) => void) => void
   }
   'doc-view': {
     selected: {

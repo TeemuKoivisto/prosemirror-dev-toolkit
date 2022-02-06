@@ -24,13 +24,65 @@
     timer = setTimeout(() => {
       doc = e.state.doc
       const pos = selected.pos
-      const node = doc.nodeAt(pos)
-      selected = { node: node || doc, pos: node ? pos : 0 }
+      try {
+        // Must try-catch incase dev-tools is unmounted and editorView destroyed
+        const node = doc.nodeAt(pos)
+        selected = { node: node || doc, pos: node ? pos : 0 }
+      } catch (err) {}
     }, 100)
   })
 
+  /**
+   * Finds first parent that is scrollable
+   *
+   * Could use getComputedStyle(el).overflowY !== 'visible' but this seems to work ok as well.
+   * @param el
+   */
+  function getScrollableParent(el: HTMLElement | null | undefined): HTMLElement | undefined {
+    if (!el || el === document.body) return undefined
+    else if (el.scrollHeight !== el.clientHeight) return el
+    return getScrollableParent(el.parentElement)
+  }
   function handleNodeSelect(node: PMNode, startPos: number, scroll = false) {
     selected = { node, pos: startPos }
+    if (!scroll) return 
+    /**
+     * Some high order black magic right here for scrolling the node into view.
+     * 
+     * First, we need to ensure the node is visible within a scrollable element.
+     * Meaning that if there's a parent element with overflow: scroll/auto we have to
+     * scroll the element into view.
+     */
+    let nodeDom = view.nodeDOM(startPos)
+    // Text nodes don't have offsetTop property so we have to find a parent which has
+    while (nodeDom && !(nodeDom instanceof HTMLElement)) {
+      nodeDom = nodeDom.parentElement
+    }
+    // We'll omit hidden nodes since it might be more obvious that there's nothing to scroll into
+    if (!nodeDom || getComputedStyle(nodeDom).display === 'none') return
+    const parentWithScrollbar = getScrollableParent(view.dom as HTMLElement)
+    if (parentWithScrollbar) {
+      const alreadyScrolled = parentWithScrollbar.scrollTop
+      // So this is probably the most magic part. Basically if the parent has been scrolled over
+      // in the viewport (meaning it's below the absolute position of the current viewport top),
+      // we must offset the boundingRect's top as they are calculated from the viewport's top,
+      // not where the parent element actually is. Otherwise we would scroll downwards even though
+      // the node's top would already be enough to be shown. Real PITA to wrap your head around.
+      // Hopefully nobody has to ever fix this 😅
+      const parentOffset = parentWithScrollbar.offsetTop - window.scrollY
+      const parentTop = parentWithScrollbar.getBoundingClientRect().top - parentOffset
+      const nodeTop = nodeDom.getBoundingClientRect().top - parentOffset
+      // clientHeight / 2 seems to work as a carefully crafted heurestic..
+      const halfwayParent = parentWithScrollbar.clientHeight / 2
+      parentWithScrollbar.scroll(0, alreadyScrolled + parentTop + nodeTop - halfwayParent)
+    }
+    /**
+     * After that, incase the window has a scrollbar as well we want to scroll the
+     * element just above the dock
+     */
+    const nodeTop = view.coordsAtPos(startPos).top
+    const dockHeight = document.querySelector('.floating-dock')?.clientHeight || 0
+    window.scroll(0, nodeTop - dockHeight + nodeDom.clientHeight + window.scrollY)
   }
   function handleClickLogNode() {
     console.log(selected)
@@ -52,7 +104,9 @@
       <h2>Node info</h2>
       <Button on:click={handleClickLogNode}>log</Button>
     </div>
-    <TreeView class="m-top" data={jsonNode} />
+    <TreeView class="m-top" data={jsonNode} recursionOpts={{
+      shouldExpandNode: (n) => n.type !== 'array' || n.value.length <= 50
+    }}/>
   </div>
 </SplitView>
 

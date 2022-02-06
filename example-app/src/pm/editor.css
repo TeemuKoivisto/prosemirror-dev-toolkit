@@ -2,6 +2,11 @@
   border: 1px solid black;
 }
 
+.pm-editor.main {
+  overflow: scroll;
+  max-height: 500px;
+}
+
 .ProseMirror {
   min-height: 140px;
   overflow-wrap: break-word;
