@@ -1,3 +1,11 @@
+## 0.0.8 (2022-02-06)
+
+https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/compare/v0.0.7...v0.0.8
+
+### Style fixes
+
+Fix html margin-bottom not working in FireFox to provide space for the dock. Changed to padding-bottom.
+
 ## 0.0.7 (2022-02-06)
 
 https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/compare/v0.0.6...v0.0.7
