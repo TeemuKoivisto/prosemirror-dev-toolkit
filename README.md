@@ -32,35 +32,6 @@ applyDevTools(view)
 
 ### [Code sandbox](https://codesandbox.io/s/summer-cookies-v4ck6)
 
-<details>
-  <summary>About bundling and possible errors (with Vite/Rollup etc)</summary>
-
-\
-There is no longer a dependency to `prosemirror-state` but I did not find a way to extract `DOMSerializer` from `prosemirror-model` without directly importing it. In total I was able to reduce the packages from ~13 to 4. And most importantly the installed `node_modules` can no longer reach sizes of 200 MBs.
-
-If you have a really smart bundler and you are trying to build your editor with dev-toolkit included, you might receive errors regarding its two outdated dependencies `html` and `jsondiffpatch`. `html` should be reasonably easy to import as CommonJS module but for `jsondiffpatch`, however, you might have to set its Node.js-only dependency `chalk` as an external import eg:
-
-svelte.config.js
-```js
-export default {
-  kit: {
-    vite: {
-      build: {
-        rollupOptions: {
-          external: ['chalk']
-        }
-      },
-      define: {
-        'process.env': process.env,
-      },
-    }
-  }
-}
-```
-
-`jsondiffpatch` can be used in both browser and Node.js and it offers some special terminal magic using `chalk` (with a very outdated version) that we are not using and therefore it can be excluded from the bundle. Additionally, it uses `process.env` which you might have to also polyfill. The `dist` folder contains `bundle.umd.min.js` that serves as a stand-alone version with all the dependencies included.
-
-</details>
 
 # API
 

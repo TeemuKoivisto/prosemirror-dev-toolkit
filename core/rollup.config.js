@@ -73,13 +73,19 @@ const defaultBundles = {
     {
       file: pkg.main,
       format: 'cjs',
-      sourcemap: isProduction
+      sourcemap: isProduction,
+      paths: {
+        chalk: './empty.cjs'
+      }
     },
     {
       file: pkg.module,
       format: 'es',
-      sourcemap: isProduction
-    },
+      sourcemap: isProduction,
+      paths: {
+        chalk: './empty'
+      }
+    }
   ],
   external: [
     // TODO: It seems svelte-tree-view must be bundled together with the dev-toolkit otherwise the React app
@@ -103,12 +109,32 @@ const umdBundle = {
       file: './dist/bundle.umd.min.js',
       format: 'umd',
       name: 'prosemirror-dev-toolkit',
-    },
+      paths: {
+        chalk: './empty'
+      },
+      globals: { chalk: 'chalk' }
+    }
   ],
-  external: [
-    'chalk'
-  ],
-  plugins: [...plugins, terser()],
+  external: ['chalk'],
+  plugins: [...plugins, terser()]
 }
 
-export default createBundle ? umdBundle : defaultBundles
+const emptyBundles = {
+  input: 'src/empty.ts',
+  output: [
+    {
+      file: 'dist/empty.cjs',
+      format: 'cjs',
+      exports: 'default',
+      sourcemap: isProduction
+    },
+    {
+      file: 'dist/empty.js',
+      format: 'es',
+      exports: 'default',
+      sourcemap: isProduction
+    }
+  ]
+}
+
+export default createBundle ? umdBundle : [defaultBundles, emptyBundles]
