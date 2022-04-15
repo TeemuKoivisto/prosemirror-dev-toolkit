@@ -1,3 +1,11 @@
+## 0.0.9 (2022-04-15)
+
+https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/compare/v0.0.8...v0.0.9
+
+### Bug fixes
+
+* Bundle jsondiffpatch and remove chalk by @ocavue in https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/pull/12
+
 ## 0.0.8 (2022-02-06)
 
 https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/compare/v0.0.7...v0.0.8
