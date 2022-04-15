@@ -2,7 +2,7 @@
 
 This is a rewrite of [prosemirror-dev-tools](https://github.com/d4rkr00t/prosemirror-dev-tools) which I'm a big fan of, yet have felt could use some improvements. Since it didn't seem that actively maintained anymore and also because I wanted to remove the hard dependency to React, use TypeScript and make the whole thing smaller, I took it to my own hands to rewrite it in Svelte.
 
-Unlike React, Svelte compiles directly to JS without having to bundle a runtime which should make the library smaller to use in projects that don't use React. I also pruned some of the extra dependencies by using out-of-the-box Svelte features and have experimented making the library injectable as a stand-alone script.
+Unlike React, Svelte compiles directly to JS without having to bundle a runtime which should make the library smaller to use in projects that don't use React. I also pruned some of the extra dependencies by using out-of-the-box Svelte features and have experimented making the library injectable as a [stand-alone script](https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/blob/master/inject.js).
 
 ## [Demo](https://teemukoivisto.github.io/prosemirror-dev-toolkit/)
 
