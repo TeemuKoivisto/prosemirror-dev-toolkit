@@ -83,7 +83,7 @@ const defaultBundles = {
       format: 'es',
       sourcemap: isProduction,
       paths: {
-        chalk: './empty'
+        chalk: './empty.js'
       }
     }
   ],
