@@ -45,7 +45,6 @@ export function isSubscriptionPlugin(plugin: Plugin): boolean {
  * Directly remove the subscription plugin into the editor state.
  *
  * This is a hack since EditorState should be treated as immutable normally.
- * @param state
  */
 export function removeSubscriptionPlugin(state: EditorState) {
   for (let i = 0; i < state.plugins.length; i++) {
