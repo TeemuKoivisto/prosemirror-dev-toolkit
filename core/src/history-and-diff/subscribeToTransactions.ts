@@ -1,38 +1,34 @@
 import type { EditorView } from 'prosemirror-view'
-import type { EditorState, Transaction } from 'prosemirror-state'
+import type { Transaction } from 'prosemirror-state'
 
 import { appendNewHistoryEntry } from '$stores/stateHistory'
 
-type Applied = ReturnType<EditorState['applyTransaction']>
-
 let active = false,
-  applied: Applied | undefined = undefined,
   resetDispatch: (() => void) | undefined = undefined
 
 /**
  * Handler for dispatchTransaction that pushes trs to history and monkey patches applyTransaction
- * 
+ *
  * Incase the editor already has a `dispatchTransaction` prop, oldDispatchFn is called but because
  * that function would also call state.apply we'd run apply multiple times, causing plugins to see
  * transactions often twice. So we monkey patch the `applyTransaction` method and apply some reflection
  * magic to maintain this-context as well as remove the patch if the transaction is somehow different
  * from the original.
- * 
+ *
  * Why we have to monkey patch the method here and not once globally, is because the method is reset
  * to the original by ProseMirror at times so the function would not get called. Proxying `view.state.applyTransaction`
  * didn't also work.
- * 
+ *
  * The other option is to use Plugins to store the transactions https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/pull/15
  * which we'll revert to incase this one doesn't cover all the cases.
- * @param view 
- * @param oldDispatchFn 
- * @returns 
+ * @param view
+ * @param oldDispatchFn
+ * @returns
  */
 const handleDispatch =
-  (view: EditorView, oldDispatchFn: (tr: Transaction) => void) =>
-  (tr: Transaction) => {
+  (view: EditorView, oldDispatchFn: (tr: Transaction) => void) => (tr: Transaction) => {
     const stateBeforeDispatch = view.state
-    applied = view.state.applyTransaction(tr)
+    const applied = view.state.applyTransaction(tr)
     if (oldDispatchFn) {
       const oldFn = view.state.applyTransaction.bind(view.state)
       view.state.applyTransaction = function (trr) {
@@ -46,7 +42,7 @@ const handleDispatch =
     } else {
       view.updateState(applied.state)
     }
-    if (active && applied) {
+    if (active) {
       appendNewHistoryEntry(applied.transactions, view.state, stateBeforeDispatch)
     }
   }
