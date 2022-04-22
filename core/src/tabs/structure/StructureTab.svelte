@@ -45,10 +45,10 @@
   }
   function handleNodeSelect(node: PMNode, startPos: number, scroll = false) {
     selected = { node, pos: startPos }
-    if (!scroll) return 
+    if (!scroll) return
     /**
      * Some high order black magic right here for scrolling the node into view.
-     * 
+     *
      * First, we need to ensure the node is visible within a scrollable element.
      * Meaning that if there's a parent element with overflow: scroll/auto we have to
      * scroll the element into view.
@@ -104,9 +104,13 @@
       <h2>Node info</h2>
       <Button on:click={handleClickLogNode}>log</Button>
     </div>
-    <TreeView class="m-top" data={jsonNode} recursionOpts={{
-      shouldExpandNode: (n) => n.type !== 'array' || n.value.length <= 50
-    }}/>
+    <TreeView
+      class="m-top"
+      data={jsonNode}
+      recursionOpts={{
+        shouldExpandNode: n => n.type !== 'array' || n.value.length <= 50
+      }}
+    />
   </div>
 </SplitView>
 

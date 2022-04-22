@@ -9,10 +9,7 @@ export type Contexts = {
   'editor-view': {
     view: EditorView
     replaceEditorContent: (state: EditorState) => void
-    execCmd: (cmd: (
-      state: EditorState,
-      dispatch?: (tr: Transaction) => void
-    ) => void) => void
+    execCmd: (cmd: (state: EditorState, dispatch?: (tr: Transaction) => void) => void) => void
   }
   'doc-view': {
     selected: {

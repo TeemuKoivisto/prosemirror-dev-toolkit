@@ -28,7 +28,7 @@ declare global {
   interface Window {
     applyDevTools: typeof applyDevTools
     editorView?: EditorView
-    _node?: { node: PMNode, pos: number }
+    _node?: { node: PMNode; pos: number }
     _doc?: { [key: string]: any }
     _trs?: Transaction[]
     _plugin?: [Plugin | undefined, unknown]
