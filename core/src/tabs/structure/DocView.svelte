@@ -13,7 +13,7 @@
   setContext('doc-view', {
     selected,
     colors: buildColors(schema),
-    handleNodeClick: handleNodeSelect,
+    handleNodeClick: handleNodeSelect
   })
 </script>
 

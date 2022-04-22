@@ -29,7 +29,7 @@ let removeCallback: (() => void) | undefined
 
 /**
  * Applies devTools to the given EditorView.
- * 
+ *
  * Will remove previous devTools instance first, then subscribes to the view's
  * transactions by adding a dispatchTransaction prop. If previous dispatchTransaction
  * prop exists, passes the transaction to it. Otherwise updates the state as normal.

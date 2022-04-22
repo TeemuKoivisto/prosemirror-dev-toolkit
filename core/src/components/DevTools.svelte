@@ -15,10 +15,7 @@
 
   setContext('editor-view', {
     view,
-    execCmd(cmd: (
-      state: EditorState,
-      dispatch?: (tr: Transaction) => void
-    ) => void) {
+    execCmd(cmd: (state: EditorState, dispatch?: (tr: Transaction) => void) => void) {
       cmd(view.state, view.dispatch)
     },
     replaceEditorContent(state: EditorState) {
