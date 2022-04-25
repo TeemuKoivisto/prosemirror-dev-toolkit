@@ -5,34 +5,41 @@
  * a div with .ProseMirror class is a good guess. Then you just copy-paste this script
  * to the browser console and change the `viewOrSelector` parameter as needed.
  * 
- * In some cases the EditorView instance is already available in the window and due 
- * to some errors I haven't figured out, can cause problems when intercepted again
- * with the el.pmViewDesc.updateChildren hack.
- * 
- * In that case (eg https://prosemirror.net/) just use the available view instance directly:
- * `window.view`. Also if there is a strict CSP enabled you might need to disable it.
- * I've used this: https://chrome.google.com/webstore/detail/disable-content-security/ieelmcmcagommplceebfedjlakkhpden
+ * If there is a strict CSP enabled you might need to disable it. I've used this:
+ * https://chrome.google.com/webstore/detail/disable-content-security/ieelmcmcagommplceebfedjlakkhpden
  */
-((viewOrSelector) => {
-  let editorView
-  if (typeof viewOrSelector === 'string') {
-    const el = document.querySelector(viewOrSelector)
+ (async (viewOrSelector) => {
+  function getEditorView(selector) {
+    const el = document.querySelector(selector)
     const oldFn = el.pmViewDesc.updateChildren
-    el.pmViewDesc.updateChildren = (view, pos) => {
-      editorView = view
-      window.view = view
-      return Function.prototype.bind.apply(oldFn, view, pos)
+    const childWithSelectNode = Array.from(el.children)
+      .find(child => child.pmViewDesc && child.pmViewDesc.selectNode !== undefined)
+    if (childWithSelectNode === undefined) {
+      console.error('Failed to find a ProseMirror child NodeViewDesc with selectNode function (which is strange)')
+    } else {
+      childWithSelectNode.pmViewDesc.selectNode()
+      childWithSelectNode.pmViewDesc.deselectNode()
     }
-    el.children[0].pmViewDesc.selectNode()
-    el.children[0].pmViewDesc.deselectNode()
-  } else {
-    editorView = viewOrSelector
+    return new Promise((res, rej) => {
+      el.pmViewDesc.updateChildren = (view, pos) => {
+        el.pmViewDesc.updateChildren = oldFn
+        res(view)
+        return Function.prototype.bind.apply(oldFn, view, pos)
+      }
+    })
   }
 
-  fetch('https://unpkg.com/prosemirror-dev-toolkit/dist/bundle.umd.min.js')
-    .then(response => response.text())
-    .then(data => {
-      eval(data)
-      window.applyDevTools(editorView, { buttonPosition: 'bottom-right' })
-    })
+  const editorView = typeof viewOrSelector === 'string' ?
+    await getEditorView(viewOrSelector) : viewOrSelector
+
+  if (editorView) {
+    fetch('https://unpkg.com/prosemirror-dev-toolkit/dist/bundle.umd.min.js')
+      .then(response => response.text())
+      .then(data => {
+        eval(data)
+        window.applyDevTools(editorView, { buttonPosition: 'bottom-right' })
+      })
+  } else {
+    console.error('No EditorView found or provided')
+  }
 })('.ProseMirror')
