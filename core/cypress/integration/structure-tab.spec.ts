@@ -72,7 +72,7 @@ describe('# Structure tab', () => {
     cy.window().then(window => {
       const { _node } = window
       const spy = window.console.log as Cypress.Agent<Sinon.SinonSpy>
-      const doc = spy.getCall(1).args[0].node.toJSON() || {}
+      const doc = spy.getCall(0).args[0].node.toJSON() || {}
       // The logged node should be an empty doc
       expect(JSON.stringify(doc)).to.be.eq(JSON.stringify(snapshot0))
       expect(JSON.stringify(_node.node.toJSON())).to.be.eq(JSON.stringify(snapshot0))
@@ -91,7 +91,7 @@ describe('# Structure tab', () => {
     cy.window().then(window => {
       const { _node } = window
       const spy = window.console.log as Cypress.Agent<Sinon.SinonSpy>
-      const doc = spy.getCall(2).args[0].node.toJSON() || {}
+      const doc = spy.getCall(1).args[0].node.toJSON() || {}
       // The logged node should now have been updated
       expect(JSON.stringify(doc)).to.be.eq(JSON.stringify(snapshot1))
       expect(JSON.stringify(_node.node.toJSON())).to.be.eq(JSON.stringify(snapshot1))

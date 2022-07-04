@@ -1,14 +1,13 @@
 import * as React from 'react'
-import { render } from 'react-dom'
+import { createRoot } from 'react-dom/client'
 
-import { Routes } from './routes'
+import { Routes } from './Routes'
 
 import './index.css'
 import './pm/editor.css'
 import './pm/prosemirror-example-setup.css'
 import './pm/menu.css'
 
-render(
-  <Routes />,
-  document.getElementById('root')
-)
+const container = document.getElementById('root')
+const root = createRoot(container as HTMLElement)
+root.render(<Routes />)

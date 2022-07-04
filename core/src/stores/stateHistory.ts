@@ -10,7 +10,7 @@ export const shownHistoryGroups = writable<HistoryGroup[]>([])
 export const latestEntry = writable<HistoryEntry | undefined>(undefined)
 
 export function appendNewHistoryEntry(
-  trs: Transaction[],
+  trs: readonly Transaction[],
   state: EditorState,
   stateBeforeDispatch: EditorState
 ) {

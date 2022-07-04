@@ -26,7 +26,7 @@ let active = false,
  * @returns
  */
 const handleDispatch =
-  (view: EditorView, oldDispatchFn: (tr: Transaction) => void) => (tr: Transaction) => {
+  (view: EditorView, oldDispatchFn?: (tr: Transaction) => void) => (tr: Transaction) => {
     const stateBeforeDispatch = view.state
     const applied = view.state.applyTransaction(tr)
     if (oldDispatchFn) {
@@ -49,7 +49,7 @@ const handleDispatch =
 
 export function subscribeToDispatchTransaction(view: EditorView) {
   active = true
-  const oldDispatchFn = view.someProp('dispatchTransaction')?.bind(view)
+  const oldDispatchFn = view.props.dispatchTransaction?.bind(view)
   view.setProps({
     dispatchTransaction: handleDispatch(view, oldDispatchFn)
   })

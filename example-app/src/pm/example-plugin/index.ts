@@ -8,7 +8,7 @@ import { findAddedOrRemovedNodes } from './findChangedNodes'
 import { DummyClass } from './types'
 import type { TrackedNodes, PluginState } from './types'
 
-export const examplePluginKey = new PluginKey<PluginState, ExampleSchema>('example-plugin')
+export const examplePluginKey = new PluginKey<PluginState>('example-plugin')
 
 function joinStates(s1: TrackedNodes, s2: TrackedNodes) {
   const changedNodesMap = new Map(s1.changedNodesMap.entries())
@@ -59,7 +59,7 @@ export const examplePlugin = () =>
     },
     props: {
       decorations(state) {
-        return this.getState(state).decorationSet
+        return examplePluginKey.getState(state)?.decorationSet
       },
     },
   })
