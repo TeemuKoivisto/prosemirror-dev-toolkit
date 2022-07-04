@@ -22,7 +22,7 @@ jobs:
         run: echo "::set-output name=dir::$(yarn cache dir)"
 
       - name: Load cached dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id:  cache-yarn-cache
         with:
           path: |
@@ -47,9 +47,9 @@ jobs:
 
       - name: Run Cypress tests
         id: cypress
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v4
         with:
-          cache-key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('**/yarn.lock') }}
+          cache-key: node-v${{ matrix.node }}-on-${{ runner.os }}-hash-${{ hashFiles('yarn.lock') }}
           start: yarn --cwd ./example-app start
           wait-on: 'http://localhost:3300/prosemirror-dev-toolkit'
           project: ./core
