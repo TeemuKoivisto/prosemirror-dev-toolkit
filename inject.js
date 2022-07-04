@@ -9,11 +9,13 @@
  * https://chrome.google.com/webstore/detail/disable-content-security/ieelmcmcagommplceebfedjlakkhpden
  */
  (async (viewOrSelector) => {
+
   function getEditorView(selector) {
     const el = document.querySelector(selector)
     const oldFn = el.pmViewDesc.updateChildren
     const childWithSelectNode = Array.from(el.children)
       .find(child => child.pmViewDesc && child.pmViewDesc.selectNode !== undefined)
+
     if (childWithSelectNode === undefined) {
       console.error('Failed to find a ProseMirror child NodeViewDesc with selectNode function (which is strange)')
     } else {

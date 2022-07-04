@@ -6,6 +6,7 @@
     "allowJs": true,
     "declaration": true,
     "declarationDir": "./dist",
+    "outDir": "./dist",
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -18,7 +19,7 @@
     "noEmit": true,
     "baseUrl": ".",
     "paths": {
-      "$components": ["src/components/*"],
+      "$components/*": ["src/components/*"],
       "$context": ["src/context"],
       "$stores/*": ["src/stores/*"],
       "$tabs/*": ["src/tabs/*"],

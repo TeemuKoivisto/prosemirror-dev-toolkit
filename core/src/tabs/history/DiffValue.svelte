@@ -13,7 +13,7 @@
     return diffByLines.map(line => {
       const type = line.startsWith('-') ? 'delete' : line.startsWith('+') ? 'add' : 'raw'
 
-      return { [type]: replaceSpacesWithNonBreakingSpace(line.substr(1)) }
+      return { [type]: replaceSpacesWithNonBreakingSpace(line.slice(1)) }
     })
   }
   function stringifyAndShrink(v: any) {
@@ -24,7 +24,7 @@
     if (typeof str === 'undefined') {
       return 'undefined'
     }
-    return str.length > 22 ? `${str.substr(0, 15)}…${str.substr(-5)}` : str
+    return str.length > 22 ? `${str.slice(0, 15)}…${str.slice(-5)}` : str
   }
 
   function getValueString(raw: any) {

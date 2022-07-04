@@ -2,9 +2,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { RouteComponentProps } from 'react-router'
-
-interface IProps extends RouteComponentProps<{}> {
+interface IProps {
   className?: string
 }
 
@@ -13,11 +11,11 @@ export function NavBar(props: IProps) {
   return (
     <Container className={className}>
       <Nav>
-        <Link to="/" exact activeClassName="current">Front page</Link>
-        <Link to="/dev-tools" exact activeClassName="current">Dev tools</Link>
-        <Link to="/plain" exact activeClassName="current">Plain</Link>
-        <Link to="/yjs" exact activeClassName="current">Yjs</Link>
-        <Link to="/no-editor" exact activeClassName="current">No editor</Link>
+        <Link to="/" className={({ isActive }) => isActive ? 'current' : ''}>Front page</Link>
+        <Link to="/dev-tools" className={({ isActive }) => isActive ? 'current' : ''}>Dev tools</Link>
+        <Link to="/plain" className={({ isActive }) => isActive ? 'current' : ''}>Plain</Link>
+        <Link to="/yjs" className={({ isActive }) => isActive ? 'current' : ''}>Yjs</Link>
+        <Link to="/no-editor" className={({ isActive }) => isActive ? 'current' : ''}>No editor</Link>
       </Nav>
     </Container>
   )

@@ -8,6 +8,6 @@
     "start": "concurrently --kill-others 'cd ./core && yarn watch' 'cd example-app && yarn start'"
   },
   "devDependencies": {
-    "concurrently": "^5.3.0"
+    "concurrently": "^7.1.0"
   }
 }
