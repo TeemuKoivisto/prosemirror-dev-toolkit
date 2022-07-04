@@ -1,8 +1,6 @@
 import { Plugin, PluginKey } from 'prosemirror-state'
 import { DecorationSet } from 'prosemirror-view'
 
-import { ExampleSchema } from '../schema-types'
-
 import { findAddedOrRemovedNodes } from './findChangedNodes'
 
 import { DummyClass } from './types'
