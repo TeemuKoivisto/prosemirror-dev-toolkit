@@ -42,7 +42,8 @@ const handleDispatch =
     } else {
       view.updateState(applied.state)
     }
-    if (active) {
+    // If a plugin filtered a transaction, this would be an empty array
+    if (active && applied.transactions.length > 0) {
       appendNewHistoryEntry(applied.transactions, view.state, stateBeforeDispatch)
     }
   }
