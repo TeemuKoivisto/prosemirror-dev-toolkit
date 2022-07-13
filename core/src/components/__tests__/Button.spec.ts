@@ -9,7 +9,7 @@ import { vi } from 'vitest'
 // https://sveltesociety.dev/recipes/testing-and-debugging/unit-testing-svelte-component/
 
 describe('Button', () => {
-  it('should render correctly', async () => {
+  it('should render', async () => {
     const results = render(Button)
     const onClick = vi.fn()
     results.component.$on('click', onClick)

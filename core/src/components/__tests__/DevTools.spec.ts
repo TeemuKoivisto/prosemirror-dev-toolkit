@@ -7,7 +7,7 @@ import { EditorView } from 'prosemirror-view'
 import { vi } from 'vitest'
 
 import DevTools from '../DevTools.svelte'
-import { createEditorInstance } from './pm-test-utils'
+import { setupEditor } from '$test-utils/setupEditor'
 
 let editorView: EditorView
 
@@ -16,7 +16,7 @@ describe('DevTools.svelte', () => {
     const el = document.createElement('div')
     document.body.appendChild(el)
     el.id = 'pm-editor'
-    editorView = createEditorInstance(el)
+    editorView = setupEditor(el)
 
     vi.stubGlobal('prompt', (str: string) => undefined)
   })
@@ -26,7 +26,7 @@ describe('DevTools.svelte', () => {
       props: {
         view: editorView,
         buttonPosition: 'top-left',
-        devToolsExpanded: false
+        devToolsExpanded: true
       }
     })
 
@@ -35,7 +35,7 @@ describe('DevTools.svelte', () => {
   })
 
   it('should open by clicking the floating button', async () => {
-    const results = render(DevTools, { props: { view: editorView, devToolsExpanded: true } })
+    const results = render(DevTools, { props: { view: editorView } })
     const button = results.container.querySelector('button')
     expect(button).not.toBeNull()
 

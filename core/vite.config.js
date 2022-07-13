@@ -12,12 +12,13 @@ export default defineConfig({
       $context: resolve('./src/context'),
       $stores: resolve('./src/stores'),
       $tabs: resolve('./src/tabs'),
+      '$test-utils': resolve('./src/test-utils'),
       $typings: resolve('./src/typings')
     }
   },
   test: {
     globals: true,
     environment: 'jsdom',
-    setupFiles: ['src/setupTests.js']
+    setupFiles: ['src/test-utils/setupTests.js']
   }
 })

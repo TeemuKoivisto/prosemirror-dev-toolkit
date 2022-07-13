@@ -23,6 +23,7 @@
       "$context": ["src/context"],
       "$stores/*": ["src/stores/*"],
       "$tabs/*": ["src/tabs/*"],
+      "$test-utils/*": ["src/test-utils/*"],
       "$typings/*": ["src/typings/*"]
     }
   },
