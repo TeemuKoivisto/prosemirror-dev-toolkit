@@ -5,7 +5,17 @@ import { resolve } from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [svelte()],
+  plugins: [svelte({
+    experimental: {
+      dynamicCompileOptions: () => {
+        return {
+          cssHash: ({ hash, css, name, filename }) => {
+            return `s-${name}-${hash(css)}`;
+          }
+        }
+      }
+    }
+  })],
   resolve: {
     alias: {
       $components: resolve('./src/components'),
