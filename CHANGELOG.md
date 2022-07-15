@@ -1,3 +1,34 @@
+## 1.0.1 (2022-07-15)
+
+## What's Changed
+* fix: check for empty array incase transactions were filtered & restore unit tests by @TeemuKoivisto in https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/pull/18
+
+**Full Changelog**: https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/compare/v1.0.0...v1.0.1
+
+## 1.0.0 (2022-07-04)
+
+As it appears there aren't any fatal bugs remaining, publishing the first "complete" version seems appropriate. This also includes upgrading all dependencies which shouldn't make any breaking changes.
+
+## What's Changed
+* Update dependencies by @TeemuKoivisto in https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/pull/17
+
+**Full Changelog**: https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/compare/v0.0.11...v1.0.0
+
+## 0.0.11 (2022-04-22)
+
+## What's Changed
+* Fix double apply by @TeemuKoivisto in https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/pull/16
+
+**Full Changelog**: https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/compare/v0.0.10...v0.0.11
+
+## 0.0.10 (2022-04-20)
+
+## What's Changed
+* chore: migrate node-sass to dart-sass by @ocavue in https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/pull/14
+* fix: include extension to the import by @ocavue in https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/pull/13
+
+**Full Changelog**: https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/compare/v0.0.9...v0.0.10
+
 ## 0.0.9 (2022-04-15)
 
 https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/compare/v0.0.8...v0.0.9
