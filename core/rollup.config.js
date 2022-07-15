@@ -23,6 +23,7 @@ const plugins = [
       { find: '$context', replacement: path.resolve(__dirname, 'src/context') },
       { find: '$stores', replacement: path.resolve(__dirname, 'src/stores') },
       { find: '$tabs', replacement: path.resolve(__dirname, 'src/tabs') },
+      { find: '$test-utils', replacement: path.resolve(__dirname, 'src/test-utils') },
       { find: '$typings', replacement: path.resolve(__dirname, 'src/typings') }
     ]
   }),

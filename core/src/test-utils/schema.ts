@@ -1,8 +1,6 @@
-import { EditorView } from 'prosemirror-view'
-import { EditorState } from 'prosemirror-state'
 import { Schema } from 'prosemirror-model'
 
-const schema = new Schema({
+export const schema = new Schema({
   nodes: {
     doc: {
       content: 'block+'
@@ -53,15 +51,3 @@ const schema = new Schema({
     }
   }
 })
-
-export function createEditorInstance(element: HTMLElement) {
-  return new EditorView(
-    { mount: element },
-    {
-      state: EditorState.create({
-        schema
-        // plugins: exampleSetup({ schema })
-      })
-    }
-  )
-}

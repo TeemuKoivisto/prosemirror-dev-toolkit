@@ -1,0 +1,694 @@
+// Vitest Snapshot v1
+
+exports[`DevTools.svelte > should open by clicking the floating button 1`] = `
+<body>
+  <div
+    class="ProseMirror"
+    contenteditable="true"
+    id="pm-editor"
+    translate="no"
+  >
+    <p>
+      <br
+        class="ProseMirror-trailingBreak"
+      />
+    </p>
+  </div>
+  <div>
+    <section
+      class="dev-tools s-DevTools-3laa75"
+    >
+      <div
+        class="floating-dock-wrapper s-FloatingDock-thufpm"
+      >
+        <div
+          class="floating-dock s-FloatingDock-thufpm"
+          style="top: 50%; height: 50%;"
+        >
+          <div
+            class="resizing-div s-FloatingDock-thufpm"
+          />
+           
+          <div
+            class="container s-FloatingDock-thufpm"
+          >
+            <div
+              class="s-FloatingDock-thufpm"
+            >
+              <button
+                class="snap-save-btn s-FloatingDock-thufpm"
+              >
+                Save snapshot
+              </button>
+               
+              <button
+                class="snap-import-btn s-FloatingDock-thufpm"
+              >
+                Import snapshot
+              </button>
+               
+              <button
+                aria-label="Close dev-toolkit button"
+                class="close-btn s-FloatingDock-thufpm"
+              >
+                X
+              </button>
+            </div>
+             
+            <input
+              accept=".json"
+              class="s-FloatingDock-thufpm"
+              multiple=""
+              style="display: none;"
+              type="file"
+            />
+             
+            <ul
+              class="tabs-menu s-TabsMenu-1on5hou"
+            >
+              <li
+                class="s-TabsMenu-1on5hou"
+              >
+                <button
+                  class="s-TabsMenu-1on5hou"
+                >
+                  STATE
+                </button>
+              </li>
+               
+              <li
+                class="s-TabsMenu-1on5hou"
+              >
+                <button
+                  class="s-TabsMenu-1on5hou"
+                >
+                  HISTORY
+                </button>
+              </li>
+               
+              <li
+                class="s-TabsMenu-1on5hou"
+              >
+                <button
+                  class="s-TabsMenu-1on5hou"
+                >
+                  PLUGINS
+                </button>
+              </li>
+               
+              <li
+                class="s-TabsMenu-1on5hou"
+              >
+                <button
+                  class="s-TabsMenu-1on5hou"
+                >
+                  SCHEMA
+                </button>
+              </li>
+               
+              <li
+                class="s-TabsMenu-1on5hou"
+              >
+                <button
+                  class="s-TabsMenu-1on5hou"
+                >
+                  STRUCTURE
+                </button>
+              </li>
+               
+              <li
+                class="s-TabsMenu-1on5hou"
+              >
+                <button
+                  class="s-TabsMenu-1on5hou active"
+                >
+                  SNAPSHOTS
+                </button>
+              </li>
+            </ul>
+            <!--&lt;TabsMenu&gt;-->
+             
+            <section
+              class="split-view s-SplitView-1ar0nx3"
+            >
+               
+              <div
+                class="right-panel s-SnapshotsTab-1cy4q67"
+                slot="right"
+              >
+                <div
+                  class="no-snapshots s-SnapshotsTab-1cy4q67"
+                >
+                  Save snapshots by clicking "Save snapshot" button.
+                </div>
+              </div>
+            </section>
+            <!--&lt;SplitView&gt;-->
+            <!--&lt;SnapshotsTab&gt;-->
+          </div>
+        </div>
+      </div>
+      <!--&lt;FloatingDock&gt;-->
+    </section>
+    <!--&lt;DevTools&gt;-->
+  </div>
+</body>
+`;
+
+exports[`DevTools.svelte > should render 1`] = `
+<body>
+  <div
+    class="ProseMirror"
+    contenteditable="true"
+    id="pm-editor"
+    translate="no"
+  >
+    <p>
+      <br
+        class="ProseMirror-trailingBreak"
+      />
+    </p>
+  </div>
+  <div>
+    <section
+      class="dev-tools s-DevTools-3laa75"
+    >
+      <div
+        class="floating-dock-wrapper s-FloatingDock-thufpm"
+      >
+        <div
+          class="floating-dock s-FloatingDock-thufpm"
+          style="top: 50%; height: 50%;"
+        >
+          <div
+            class="resizing-div s-FloatingDock-thufpm"
+          />
+           
+          <div
+            class="container s-FloatingDock-thufpm"
+          >
+            <div
+              class="s-FloatingDock-thufpm"
+            >
+              <button
+                class="snap-save-btn s-FloatingDock-thufpm"
+              >
+                Save snapshot
+              </button>
+               
+              <button
+                class="snap-import-btn s-FloatingDock-thufpm"
+              >
+                Import snapshot
+              </button>
+               
+              <button
+                aria-label="Close dev-toolkit button"
+                class="close-btn s-FloatingDock-thufpm"
+              >
+                X
+              </button>
+            </div>
+             
+            <input
+              accept=".json"
+              class="s-FloatingDock-thufpm"
+              multiple=""
+              style="display: none;"
+              type="file"
+            />
+             
+            <ul
+              class="tabs-menu s-TabsMenu-1on5hou"
+            >
+              <li
+                class="s-TabsMenu-1on5hou"
+              >
+                <button
+                  class="s-TabsMenu-1on5hou active"
+                >
+                  STATE
+                </button>
+              </li>
+               
+              <li
+                class="s-TabsMenu-1on5hou"
+              >
+                <button
+                  class="s-TabsMenu-1on5hou"
+                >
+                  HISTORY
+                </button>
+              </li>
+               
+              <li
+                class="s-TabsMenu-1on5hou"
+              >
+                <button
+                  class="s-TabsMenu-1on5hou"
+                >
+                  PLUGINS
+                </button>
+              </li>
+               
+              <li
+                class="s-TabsMenu-1on5hou"
+              >
+                <button
+                  class="s-TabsMenu-1on5hou"
+                >
+                  SCHEMA
+                </button>
+              </li>
+               
+              <li
+                class="s-TabsMenu-1on5hou"
+              >
+                <button
+                  class="s-TabsMenu-1on5hou"
+                >
+                  STRUCTURE
+                </button>
+              </li>
+               
+              <li
+                class="s-TabsMenu-1on5hou"
+              >
+                <button
+                  class="s-TabsMenu-1on5hou"
+                >
+                  SNAPSHOTS
+                </button>
+              </li>
+            </ul>
+            <!--&lt;TabsMenu&gt;-->
+             
+            <section
+              class="split-view s-SplitView-1ar0nx3"
+            >
+              <div
+                class="left-panel s-StateTab-7b9rm4"
+                slot="left"
+              >
+                <div
+                  class="top-row s-StateTab-7b9rm4"
+                >
+                  <h2
+                    class="s-StateTab-7b9rm4"
+                  >
+                    Current doc
+                  </h2>
+                   
+                  <button
+                    class="s-Button-ss8iwa"
+                  >
+                    log
+                  </button>
+                  <!--&lt;Button&gt;-->
+                </div>
+                 
+                <ul
+                  class="tree-view svelte-tree-view s-TreeView-6v753y"
+                >
+                  <li
+                    class="row s-TreeViewNode-wbyn6n"
+                    data-tree-id="[0]"
+                  >
+                     
+                    <div
+                      class="node-key s-TreeViewNode-wbyn6n p-left"
+                    >
+                      type
+                      :
+                    </div>
+                     
+                    <div
+                      class="node-value s-TreeViewNode-wbyn6n"
+                      data-type="string"
+                    >
+                      "doc"
+                    </div>
+                     
+                    <div
+                      class="buttons s-TreeViewNode-wbyn6n"
+                    >
+                      <button
+                        class="log-copy-button s-TreeViewNode-wbyn6n"
+                      >
+                        log
+                      </button>
+                       
+                      <button
+                        class="log-copy-button s-TreeViewNode-wbyn6n"
+                      >
+                        copy
+                      </button>
+                    </div>
+                  </li>
+                   
+                  
+                  <!--&lt;TreeViewNode&gt;-->
+                  <li
+                    class="row s-TreeViewNode-wbyn6n collapsed"
+                    data-tree-id="[1]"
+                  >
+                    <button
+                      class="arrow-btn collapsed s-TreeViewNode-wbyn6n"
+                    >
+                      ▶
+                    </button>
+                     
+                    <div
+                      class="node-key s-TreeViewNode-wbyn6n has-children"
+                    >
+                      content
+                      :
+                    </div>
+                     
+                    <div
+                      class="node-value s-TreeViewNode-wbyn6n has-children"
+                      data-type="array"
+                    >
+                       [] 1 items
+                    </div>
+                     
+                    <div
+                      class="buttons s-TreeViewNode-wbyn6n"
+                    >
+                      <button
+                        class="log-copy-button s-TreeViewNode-wbyn6n"
+                      >
+                        log
+                      </button>
+                       
+                      <button
+                        class="log-copy-button s-TreeViewNode-wbyn6n"
+                      >
+                        copy
+                      </button>
+                    </div>
+                  </li>
+                   
+                  
+                  <!--&lt;TreeViewNode&gt;-->
+                </ul>
+                <!--&lt;TreeView&gt;-->
+              </div>
+               
+              <div
+                class="right-panel s-StateTab-7b9rm4"
+                slot="right"
+              >
+                <div
+                  class="top-row s-StateTab-7b9rm4"
+                >
+                  <h2
+                    class="s-StateTab-7b9rm4"
+                  >
+                    Selection
+                  </h2>
+                   
+                  <button
+                    class="selection-btn s-Button-ss8iwa"
+                  >
+                    <span
+                      class="caret-icon s-StateTab-7b9rm4"
+                    />
+                  </button>
+                  <!--&lt;Button&gt;-->
+                </div>
+                 
+                <ul
+                  class="tree-view svelte-tree-view s-TreeView-6v753y"
+                >
+                  <li
+                    class="row s-TreeViewNode-wbyn6n"
+                    data-tree-id="[0]"
+                  >
+                     
+                    <div
+                      class="node-key s-TreeViewNode-wbyn6n p-left"
+                    >
+                      jsonID
+                      :
+                    </div>
+                     
+                    <div
+                      class="node-value s-TreeViewNode-wbyn6n"
+                      data-type="string"
+                    >
+                      "text"
+                    </div>
+                     
+                    <div
+                      class="buttons s-TreeViewNode-wbyn6n"
+                    >
+                       
+                    </div>
+                  </li>
+                   
+                  
+                  <!--&lt;TreeViewNode&gt;-->
+                  <li
+                    class="row s-TreeViewNode-wbyn6n"
+                    data-tree-id="[1]"
+                  >
+                     
+                    <div
+                      class="node-key s-TreeViewNode-wbyn6n p-left"
+                    >
+                      empty
+                      :
+                    </div>
+                     
+                    <div
+                      class="node-value s-TreeViewNode-wbyn6n"
+                      data-type="boolean"
+                    >
+                      true
+                    </div>
+                     
+                    <div
+                      class="buttons s-TreeViewNode-wbyn6n"
+                    >
+                       
+                    </div>
+                  </li>
+                   
+                  
+                  <!--&lt;TreeViewNode&gt;-->
+                  <li
+                    class="row s-TreeViewNode-wbyn6n"
+                    data-tree-id="[2]"
+                  >
+                     
+                    <div
+                      class="node-key s-TreeViewNode-wbyn6n p-left"
+                    >
+                      anchor
+                      :
+                    </div>
+                     
+                    <div
+                      class="node-value s-TreeViewNode-wbyn6n"
+                      data-type="number"
+                    >
+                      1
+                    </div>
+                     
+                    <div
+                      class="buttons s-TreeViewNode-wbyn6n"
+                    >
+                       
+                    </div>
+                  </li>
+                   
+                  
+                  <!--&lt;TreeViewNode&gt;-->
+                  <li
+                    class="row s-TreeViewNode-wbyn6n"
+                    data-tree-id="[3]"
+                  >
+                     
+                    <div
+                      class="node-key s-TreeViewNode-wbyn6n p-left"
+                    >
+                      from
+                      :
+                    </div>
+                     
+                    <div
+                      class="node-value s-TreeViewNode-wbyn6n"
+                      data-type="number"
+                    >
+                      1
+                    </div>
+                     
+                    <div
+                      class="buttons s-TreeViewNode-wbyn6n"
+                    >
+                       
+                    </div>
+                  </li>
+                   
+                  
+                  <!--&lt;TreeViewNode&gt;-->
+                  <li
+                    class="row s-TreeViewNode-wbyn6n"
+                    data-tree-id="[4]"
+                  >
+                     
+                    <div
+                      class="node-key s-TreeViewNode-wbyn6n p-left"
+                    >
+                      head
+                      :
+                    </div>
+                     
+                    <div
+                      class="node-value s-TreeViewNode-wbyn6n"
+                      data-type="number"
+                    >
+                      1
+                    </div>
+                     
+                    <div
+                      class="buttons s-TreeViewNode-wbyn6n"
+                    >
+                       
+                    </div>
+                  </li>
+                   
+                  
+                  <!--&lt;TreeViewNode&gt;-->
+                  <li
+                    class="row s-TreeViewNode-wbyn6n"
+                    data-tree-id="[5]"
+                  >
+                     
+                    <div
+                      class="node-key s-TreeViewNode-wbyn6n p-left"
+                    >
+                      to
+                      :
+                    </div>
+                     
+                    <div
+                      class="node-value s-TreeViewNode-wbyn6n"
+                      data-type="number"
+                    >
+                      1
+                    </div>
+                     
+                    <div
+                      class="buttons s-TreeViewNode-wbyn6n"
+                    >
+                       
+                    </div>
+                  </li>
+                   
+                  
+                  <!--&lt;TreeViewNode&gt;-->
+                </ul>
+                <!--&lt;TreeView&gt;-->
+                 
+                <div
+                  class="s-StateTab-7b9rm4"
+                >
+                  <h2
+                    class="s-StateTab-7b9rm4"
+                  >
+                    Active marks
+                  </h2>
+                   
+                  <div
+                    class="no-marks s-StateTab-7b9rm4"
+                  >
+                    No active marks
+                  </div>
+                </div>
+                 
+                <div
+                  class="s-StateTab-7b9rm4"
+                >
+                  <h2
+                    class="s-StateTab-7b9rm4"
+                  >
+                    Document stats
+                  </h2>
+                   
+                  <ul
+                    class="tree-view svelte-tree-view s-TreeView-6v753y"
+                  >
+                    <li
+                      class="row s-TreeViewNode-wbyn6n"
+                      data-tree-id="[0]"
+                    >
+                       
+                      <div
+                        class="node-key s-TreeViewNode-wbyn6n p-left"
+                      >
+                        nodeSize
+                        :
+                      </div>
+                       
+                      <div
+                        class="node-value s-TreeViewNode-wbyn6n"
+                        data-type="number"
+                      >
+                        4
+                      </div>
+                       
+                      <div
+                        class="buttons s-TreeViewNode-wbyn6n"
+                      >
+                         
+                      </div>
+                    </li>
+                     
+                    
+                    <!--&lt;TreeViewNode&gt;-->
+                    <li
+                      class="row s-TreeViewNode-wbyn6n"
+                      data-tree-id="[1]"
+                    >
+                       
+                      <div
+                        class="node-key s-TreeViewNode-wbyn6n p-left"
+                      >
+                        childCount
+                        :
+                      </div>
+                       
+                      <div
+                        class="node-value s-TreeViewNode-wbyn6n"
+                        data-type="number"
+                      >
+                        1
+                      </div>
+                       
+                      <div
+                        class="buttons s-TreeViewNode-wbyn6n"
+                      >
+                         
+                      </div>
+                    </li>
+                     
+                    
+                    <!--&lt;TreeViewNode&gt;-->
+                  </ul>
+                  <!--&lt;TreeView&gt;-->
+                </div>
+              </div>
+            </section>
+            <!--&lt;SplitView&gt;-->
+            <!--&lt;StateTab&gt;-->
+          </div>
+        </div>
+      </div>
+      <!--&lt;FloatingDock&gt;-->
+    </section>
+    <!--&lt;DevTools&gt;-->
+  </div>
+</body>
+`;
