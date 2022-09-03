@@ -21,14 +21,13 @@ function joinStates(s1: TrackedNodes, s2: TrackedNodes) {
 }
 
 export const examplePlugin = () =>
-  new Plugin({
+  new Plugin<PluginState>({
     key: examplePluginKey,
     state: {
-      init(config, instance): PluginState {
+      init(_config, instance) {
         return {
           decorationSet: DecorationSet.empty,
-          // @ts-ignore
-          exampleMap: new Map([
+          exampleMap: new Map<any, any>([
             ['a', 1],
             ['b', { x: [1, 2] }]
           ]),
@@ -42,7 +41,7 @@ export const examplePlugin = () =>
           }
         }
       },
-      apply(tr, value, oldState, newState): PluginState {
+      apply(tr, value, oldState, _newState): PluginState {
         const state = findAddedOrRemovedNodes(tr, oldState.doc)
         if (tr.getMeta('appendedTransaction')) {
           return {

@@ -14,7 +14,7 @@ export interface TrackedNodes {
 }
 export interface PluginState {
   decorationSet: DecorationSet
-  exampleMap: Map<any, any>
+  exampleMap: Map<string, any>
   exampleSet: Set<HTMLElement>
   exampleClasses: DummyClass[]
   trackedTrs: TrackedNodes[]
