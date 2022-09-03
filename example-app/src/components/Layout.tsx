@@ -7,19 +7,19 @@ interface Props {
   children: React.ReactNode
 }
 
-export const NoContainerLayout: React.FC<Props> = ({ children }) =>
+export const NoContainerLayout: React.FC<Props> = ({ children }) => (
   <MainWrapper>
     <NavBar />
-    { children }
+    {children}
   </MainWrapper>
+)
 
-export const DefaultLayout: React.FC<Props> = ({ children }) =>
+export const DefaultLayout: React.FC<Props> = ({ children }) => (
   <MainWrapper>
     <NavBar />
-    <MainContainer>
-      { children }
-    </MainContainer>
+    <MainContainer>{children}</MainContainer>
   </MainWrapper>
+)
 
 const MainWrapper = styled.div`
   min-height: 100vh;

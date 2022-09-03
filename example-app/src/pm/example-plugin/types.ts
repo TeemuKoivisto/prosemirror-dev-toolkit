@@ -5,7 +5,7 @@ import { Node as PMNode, NodeType } from 'prosemirror-model'
 export type Operation = 'insert' | 'replace' | 'delete'
 
 export class DummyClass {
-  values: any[] = [{ 1: [1,2,3]}, {a: 'hello'}, 1]
+  values: any[] = [{ 1: [1, 2, 3] }, { a: 'hello' }, 1]
 }
 export interface TrackedNodes {
   tr: Transaction

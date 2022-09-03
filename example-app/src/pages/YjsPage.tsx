@@ -34,16 +34,19 @@ export function YjsPage() {
           'Mod-z': undo,
           'Mod-y': redo,
           'Mod-Shift-z': redo
-        }),
-      ]),
+        })
+      ])
     })
     const editorViewDOM = editorDOMRef.current
     if (editorViewDOM) {
-      editorViewRef.current = new EditorView({ mount: editorViewDOM }, {
-        state,
-      })
+      editorViewRef.current = new EditorView(
+        { mount: editorViewDOM },
+        {
+          state
+        }
+      )
       applyDevToolkit(editorViewRef.current, {
-        devToolsExpanded: true,
+        devToolsExpanded: true
       })
     }
     return () => {
@@ -54,14 +57,16 @@ export function YjsPage() {
   return (
     <Container>
       <header>
-        <h1><a href="https://teemukoivisto.github.io/prosemirror-dev-toolkit">prosemirror-dev-toolkit</a></h1>
+        <h1>
+          <a href="https://teemukoivisto.github.io/prosemirror-dev-toolkit">
+            prosemirror-dev-toolkit
+          </a>
+        </h1>
         <p>This editor uses Yjs collaboration which handles the updates to the editor state</p>
       </header>
-      <div className="pm-editor" ref={editorDOMRef}/>
+      <div className="pm-editor" ref={editorDOMRef} />
     </Container>
   )
 }
 
-const Container = styled.div`
-
-`
+const Container = styled.div``

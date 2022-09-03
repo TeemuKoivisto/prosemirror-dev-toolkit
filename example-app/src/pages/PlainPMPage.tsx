@@ -14,15 +14,18 @@ export function PlainPMPage() {
   useLayoutEffect(() => {
     const state = EditorState.create({
       schema,
-      plugins: exampleSetup({ schema }),
+      plugins: exampleSetup({ schema })
     })
     const editorViewDOM = editorDOMRef.current
     if (editorViewDOM) {
-      editorViewRef.current = new EditorView({ mount: editorViewDOM }, {
-        state,
-      })
+      editorViewRef.current = new EditorView(
+        { mount: editorViewDOM },
+        {
+          state
+        }
+      )
       applyDevToolkit(editorViewRef.current, {
-        devToolsExpanded: true,
+        devToolsExpanded: true
       })
     }
     return () => {
@@ -33,14 +36,19 @@ export function PlainPMPage() {
   return (
     <Container>
       <header>
-        <h1><a href="https://teemukoivisto.github.io/prosemirror-dev-toolkit">prosemirror-dev-toolkit</a></h1>
-        <p>This page mounts a ProseMirror editor without any extra props and it's used in Cypress tests</p>
+        <h1>
+          <a href="https://teemukoivisto.github.io/prosemirror-dev-toolkit">
+            prosemirror-dev-toolkit
+          </a>
+        </h1>
+        <p>
+          This page mounts a ProseMirror editor without any extra props and it's used in Cypress
+          tests
+        </p>
       </header>
-      <div className="pm-editor plain" ref={editorDOMRef}/>
+      <div className="pm-editor plain" ref={editorDOMRef} />
     </Container>
   )
 }
 
-const Container = styled.div`
-
-`
+const Container = styled.div``

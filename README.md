@@ -27,11 +27,9 @@ const view = new EditorView(document.querySelector('#editor') as HTMLElement, {
   })
 })
 applyDevTools(view)
-
 ```
 
 ### [Code sandbox](https://codesandbox.io/s/summer-cookies-v4ck6)
-
 
 # API
 
@@ -45,14 +43,14 @@ declare function applyDevTools(view: EditorView, opts?: DevToolsOpts): void
 declare function removeDevTools(): void
 declare global {
   interface Window {
-    applyDevTools: typeof applyDevTools;
-    editorView?: EditorView;
-    _node?: { node: PMNode, pos: number };
+    applyDevTools: typeof applyDevTools
+    editorView?: EditorView
+    _node?: { node: PMNode; pos: number }
     _doc?: {
-      [key: string]: any;
-    };
-    _trs?: Transaction[];
-    _plugin?: [Plugin | undefined, unknown];
+      [key: string]: any
+    }
+    _trs?: Transaction[]
+    _plugin?: [Plugin | undefined, unknown]
   }
 }
 export { applyDevTools, removeDevTools, ButtonPosition, DevToolsOpts }

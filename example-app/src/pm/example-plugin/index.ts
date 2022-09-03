@@ -12,11 +12,11 @@ function joinStates(s1: TrackedNodes, s2: TrackedNodes) {
   const changedNodesMap = new Map(s1.changedNodesMap.entries())
   s2.changedNodesMap.forEach((val, key) => changedNodesMap.set(key, val))
   const changedNodesTypesSet = new Set(s1.changedNodesTypesSet.values())
-  s2.changedNodesTypesSet.forEach((val) => changedNodesTypesSet.add(val))
+  s2.changedNodesTypesSet.forEach(val => changedNodesTypesSet.add(val))
   return {
     tr: s2.tr,
     changedNodesMap,
-    changedNodesTypesSet,
+    changedNodesTypesSet
   }
 }
 
@@ -28,15 +28,18 @@ export const examplePlugin = () =>
         return {
           decorationSet: DecorationSet.empty,
           // @ts-ignore
-          exampleMap: new Map([['a', 1], ['b', { 'x': [1,2] }]]),
+          exampleMap: new Map([
+            ['a', 1],
+            ['b', { x: [1, 2] }]
+          ]),
           exampleSet: new Set([document.createElement('div'), document.createElement('span')]),
           exampleClasses: [new DummyClass(), new DummyClass()],
           trackedTrs: [],
           joined: {
             tr: instance.tr,
             changedNodesMap: new Map(),
-            changedNodesTypesSet: new Set(),
-          },
+            changedNodesTypesSet: new Set()
+          }
         }
       },
       apply(tr, value, oldState, newState): PluginState {
@@ -45,19 +48,19 @@ export const examplePlugin = () =>
           return {
             ...value,
             trackedTrs: [...value.trackedTrs, state],
-            joined: joinStates(value.joined, state),
+            joined: joinStates(value.joined, state)
           }
         }
         return {
           ...value,
           trackedTrs: [state],
-          joined: state,
+          joined: state
         }
-      },
+      }
     },
     props: {
       decorations(state) {
         return examplePluginKey.getState(state)?.decorationSet
-      },
-    },
+      }
+    }
   })

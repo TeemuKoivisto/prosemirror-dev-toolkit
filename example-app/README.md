@@ -4,5 +4,5 @@ Cypress tests are executed against this app to test various features of the pros
 
 ## Commands
 
-* `yarn start` to start the example app
-* `yarn lint:fix` to run ESLint with --fix 
+- `yarn start` to start the example app
+- `yarn lint:fix` to run ESLint with --fix

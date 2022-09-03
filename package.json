@@ -5,9 +5,26 @@
     "example-app"
   ],
   "scripts": {
+    "format": "prettier --write \"**/*.+(js|jsx|json|html|css|less|scss|ts|tsx|svelte|yml|yaml|md|graphql|mdx)\" .",
+    "lint:fix": "eslint --ignore-path .gitignore --fix --ext .js,.cjs,.ts,.tsx,.svelte .",
+    "app": "yarn --cwd example-app start",
+    "kit": "yarn --cwd core watch",
     "start": "concurrently --kill-others 'cd ./core && yarn watch' 'cd example-app && yarn start'"
   },
   "devDependencies": {
-    "concurrently": "^7.1.0"
+    "@typescript-eslint/eslint-plugin": "^5.30.6",
+    "@typescript-eslint/parser": "^5.30.6",
+    "concurrently": "^7.2.2",
+    "eslint": "^8.19.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-typescript": "^3.2.6",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.6.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-svelte3": "^4.0.0",
+    "prettier": "^2.7.1",
+    "prettier-plugin-svelte": "^2.7.0"
   }
 }

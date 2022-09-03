@@ -11,11 +11,21 @@ export function NavBar(props: IProps) {
   return (
     <Container className={className}>
       <Nav>
-        <Link to="/" className={({ isActive }) => isActive ? 'current' : ''}>Front page</Link>
-        <Link to="/dev-tools" className={({ isActive }) => isActive ? 'current' : ''}>Dev tools</Link>
-        <Link to="/plain" className={({ isActive }) => isActive ? 'current' : ''}>Plain</Link>
-        <Link to="/yjs" className={({ isActive }) => isActive ? 'current' : ''}>Yjs</Link>
-        <Link to="/no-editor" className={({ isActive }) => isActive ? 'current' : ''}>No editor</Link>
+        <Link to="/" className={({ isActive }) => (isActive ? 'current' : '')}>
+          Front page
+        </Link>
+        <Link to="/dev-tools" className={({ isActive }) => (isActive ? 'current' : '')}>
+          Dev tools
+        </Link>
+        <Link to="/plain" className={({ isActive }) => (isActive ? 'current' : '')}>
+          Plain
+        </Link>
+        <Link to="/yjs" className={({ isActive }) => (isActive ? 'current' : '')}>
+          Yjs
+        </Link>
+        <Link to="/no-editor" className={({ isActive }) => (isActive ? 'current' : '')}>
+          No editor
+        </Link>
       </Nav>
     </Container>
   )
@@ -23,7 +33,7 @@ export function NavBar(props: IProps) {
 
 const Container = styled.div`
   background: var(--color-primary);
-  box-shadow: 0 0 2px 2px rgba(0,0,0,0.18);
+  box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.18);
   padding: 1rem;
 `
 const Nav = styled.nav`

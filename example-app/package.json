@@ -1,21 +1,11 @@
 {
-  "name": "example-app",
-  "version": "0.1.0",
   "homepage": "https://teemukoivisto.github.io/prosemirror-dev-toolkit/",
   "private": true,
   "scripts": {
     "start": "PORT=3300 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "lint": "eslint ./src/**/*",
-    "lint:fix": "eslint ./src/**/* --fix"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "eject": "react-scripts eject"
   },
   "browserslist": {
     "production": [

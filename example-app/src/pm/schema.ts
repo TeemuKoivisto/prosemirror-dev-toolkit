@@ -5,7 +5,7 @@ export const schema: ExampleSchema = new Schema<Nodes, Marks>({
   nodes: {
     // :: NodeSpec The top level document node.
     doc: {
-      content: 'block+',
+      content: 'block+'
     },
 
     // :: NodeSpec A plain paragraph textblock. Represented in the DOM
@@ -16,7 +16,7 @@ export const schema: ExampleSchema = new Schema<Nodes, Marks>({
       parseDOM: [{ tag: 'p' }],
       toDOM() {
         return ['p', 0]
-      },
+      }
     },
 
     // :: NodeSpec A blockquote (`<blockquote>`) wrapping one or more blocks.
@@ -27,7 +27,7 @@ export const schema: ExampleSchema = new Schema<Nodes, Marks>({
       parseDOM: [{ tag: 'blockquote' }],
       toDOM() {
         return ['blockquote', 0]
-      },
+      }
     },
 
     // :: NodeSpec A horizontal rule (`<hr>`).
@@ -36,7 +36,7 @@ export const schema: ExampleSchema = new Schema<Nodes, Marks>({
       parseDOM: [{ tag: 'hr' }],
       toDOM() {
         return ['hr']
-      },
+      }
     },
 
     // :: NodeSpec A heading textblock, with a `level` attribute that
@@ -53,11 +53,11 @@ export const schema: ExampleSchema = new Schema<Nodes, Marks>({
         { tag: 'h3', attrs: { level: 3 } },
         { tag: 'h4', attrs: { level: 4 } },
         { tag: 'h5', attrs: { level: 5 } },
-        { tag: 'h6', attrs: { level: 6 } },
+        { tag: 'h6', attrs: { level: 6 } }
       ],
       toDOM(node) {
         return ['h' + node.attrs.level, 0]
-      },
+      }
     },
 
     // :: NodeSpec A code listing. Disallows marks or non-text inline
@@ -72,12 +72,12 @@ export const schema: ExampleSchema = new Schema<Nodes, Marks>({
       parseDOM: [{ tag: 'pre', preserveWhitespace: 'full' }],
       toDOM() {
         return ['pre', ['code', 0]]
-      },
+      }
     },
 
     // :: NodeSpec The text node.
     text: {
-      group: 'inline',
+      group: 'inline'
     },
 
     // :: NodeSpec An inline image (`<img>`) node. Supports `src`,
@@ -88,7 +88,7 @@ export const schema: ExampleSchema = new Schema<Nodes, Marks>({
       attrs: {
         src: {},
         alt: { default: null },
-        title: { default: null },
+        title: { default: null }
       },
       group: 'inline',
       draggable: true,
@@ -100,15 +100,15 @@ export const schema: ExampleSchema = new Schema<Nodes, Marks>({
             return {
               src: dom.getAttribute('src'),
               title: dom.getAttribute('title'),
-              alt: dom.getAttribute('alt'),
+              alt: dom.getAttribute('alt')
             }
-          },
-        },
+          }
+        }
       ],
       toDOM(node) {
         const { src, alt, title } = node.attrs
         return ['img', { src, alt, title }]
-      },
+      }
     },
 
     // :: NodeSpec A hard line break, represented in the DOM as `<br>`.
@@ -119,8 +119,8 @@ export const schema: ExampleSchema = new Schema<Nodes, Marks>({
       parseDOM: [{ tag: 'br' }],
       toDOM() {
         return ['br']
-      },
-    },
+      }
+    }
   },
   marks: {
     // :: MarkSpec A link. Has `href` and `title` attributes. `title`
@@ -129,7 +129,7 @@ export const schema: ExampleSchema = new Schema<Nodes, Marks>({
     link: {
       attrs: {
         href: {},
-        title: { default: null },
+        title: { default: null }
       },
       inclusive: false,
       parseDOM: [
@@ -139,15 +139,15 @@ export const schema: ExampleSchema = new Schema<Nodes, Marks>({
             const dom = p as HTMLElement
             return {
               href: dom.getAttribute('href'),
-              title: dom.getAttribute('title'),
+              title: dom.getAttribute('title')
             }
-          },
-        },
+          }
+        }
       ],
       toDOM(node) {
         const { href, title } = node.attrs
         return ['a', { href, title }, 0]
-      },
+      }
     },
 
     // :: MarkSpec An emphasis mark. Rendered as an `<em>` element.
@@ -156,7 +156,7 @@ export const schema: ExampleSchema = new Schema<Nodes, Marks>({
       parseDOM: [{ tag: 'i' }, { tag: 'em' }, { style: 'font-style=italic' }],
       toDOM() {
         return ['em', 0]
-      },
+      }
     },
 
     // :: MarkSpec A strong mark. Rendered as `<strong>`, parse rules
@@ -169,22 +169,22 @@ export const schema: ExampleSchema = new Schema<Nodes, Marks>({
         // tags with a font-weight normal.
         {
           tag: 'b',
-          getAttrs: (p) => {
+          getAttrs: p => {
             const node = p as HTMLElement
             return node.style.fontWeight !== 'normal' && null
-          },
+          }
         },
         {
           style: 'font-weight',
-          getAttrs: (p) => {
+          getAttrs: p => {
             const value = p as string
             return /^(bold(er)?|[5-9]\d{2,})$/.test(value) && null
-          },
-        },
+          }
+        }
       ],
       toDOM() {
         return ['strong', 0]
-      },
+      }
     },
 
     // :: MarkSpec Code font mark. Represented as a `<code>` element.
@@ -192,7 +192,7 @@ export const schema: ExampleSchema = new Schema<Nodes, Marks>({
       parseDOM: [{ tag: 'code' }],
       toDOM() {
         return ['code', 0]
-      },
-    },
-  },
+      }
+    }
+  }
 })
