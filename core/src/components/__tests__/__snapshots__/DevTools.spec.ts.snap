@@ -19,37 +19,80 @@ exports[`DevTools.svelte > should open by clicking the floating button 1`] = `
       class="dev-tools s-DevTools-3laa75"
     >
       <div
-        class="floating-dock-wrapper s-FloatingDock-thufpm"
+        class="floating-dock-wrapper s-FloatingDock-807ufe"
       >
         <div
-          class="floating-dock s-FloatingDock-thufpm"
+          class="paste-modal s-PasteModal-1x21voz hidden"
+        >
+          <div
+            class="modal-bg s-PasteModal-1x21voz"
+          />
+           
+          <form
+            class="paste-content s-PasteModal-1x21voz"
+          >
+            <fieldset
+              class="s-PasteModal-1x21voz"
+            >
+              <div
+                class="submit-container s-PasteModal-1x21voz"
+              >
+                <button
+                  class="s-PasteModal-1x21voz"
+                >
+                  Submit
+                </button>
+              </div>
+               
+              <legend
+                class="s-PasteModal-1x21voz"
+              >
+                Doc
+              </legend>
+               
+              <textarea
+                class="s-PasteModal-1x21voz"
+              />
+            </fieldset>
+          </form>
+        </div>
+        <!--&lt;PasteModal&gt;-->
+         
+        <div
+          class="floating-dock s-FloatingDock-807ufe"
           style="top: 50%; height: 50%;"
         >
           <div
-            class="resizing-div s-FloatingDock-thufpm"
+            class="resizing-div s-FloatingDock-807ufe"
           />
            
           <div
-            class="container s-FloatingDock-thufpm"
+            class="container s-FloatingDock-807ufe"
           >
             <div
-              class="s-FloatingDock-thufpm"
+              class="s-FloatingDock-807ufe"
             >
               <button
-                class="snap-save-btn s-FloatingDock-thufpm"
+                class="btn snap-save-btn s-FloatingDock-807ufe"
               >
                 Save snapshot
               </button>
                
               <button
-                class="snap-import-btn s-FloatingDock-thufpm"
+                class="btn snap-import-btn s-FloatingDock-807ufe"
               >
                 Import snapshot
               </button>
                
               <button
+                class="btn snap-paste-btn s-FloatingDock-807ufe"
+              >
+                Paste snapshot
+              </button>
+               
+              <button
                 aria-label="Close dev-toolkit button"
-                class="close-btn s-FloatingDock-thufpm"
+                class="close-btn s-FloatingDock-807ufe"
               >
                 X
               </button>
@@ -57,7 +100,7 @@ exports[`DevTools.svelte > should open by clicking the floating button 1`] = `
              
             <input
               accept=".json"
-              class="s-FloatingDock-thufpm"
+              class="s-FloatingDock-807ufe"
               multiple=""
               style="display: none;"
               type="file"
@@ -174,37 +217,80 @@ exports[`DevTools.svelte > should render 1`] = `
       class="dev-tools s-DevTools-3laa75"
     >
       <div
-        class="floating-dock-wrapper s-FloatingDock-thufpm"
+        class="floating-dock-wrapper s-FloatingDock-807ufe"
       >
         <div
-          class="floating-dock s-FloatingDock-thufpm"
+          class="paste-modal s-PasteModal-1x21voz hidden"
+        >
+          <div
+            class="modal-bg s-PasteModal-1x21voz"
+          />
+           
+          <form
+            class="paste-content s-PasteModal-1x21voz"
+          >
+            <fieldset
+              class="s-PasteModal-1x21voz"
+            >
+              <div
+                class="submit-container s-PasteModal-1x21voz"
+              >
+                <button
+                  class="s-PasteModal-1x21voz"
+                >
+                  Submit
+                </button>
+              </div>
+               
+              <legend
+                class="s-PasteModal-1x21voz"
+              >
+                Doc
+              </legend>
+               
+              <textarea
+                class="s-PasteModal-1x21voz"
+              />
+            </fieldset>
+          </form>
+        </div>
+        <!--&lt;PasteModal&gt;-->
+         
+        <div
+          class="floating-dock s-FloatingDock-807ufe"
           style="top: 50%; height: 50%;"
         >
           <div
-            class="resizing-div s-FloatingDock-thufpm"
+            class="resizing-div s-FloatingDock-807ufe"
           />
            
           <div
-            class="container s-FloatingDock-thufpm"
+            class="container s-FloatingDock-807ufe"
           >
             <div
-              class="s-FloatingDock-thufpm"
+              class="s-FloatingDock-807ufe"
             >
               <button
-                class="snap-save-btn s-FloatingDock-thufpm"
+                class="btn snap-save-btn s-FloatingDock-807ufe"
               >
                 Save snapshot
               </button>
                
               <button
-                class="snap-import-btn s-FloatingDock-thufpm"
+                class="btn snap-import-btn s-FloatingDock-807ufe"
               >
                 Import snapshot
               </button>
                
               <button
+                class="btn snap-paste-btn s-FloatingDock-807ufe"
+              >
+                Paste snapshot
+              </button>
+               
+              <button
                 aria-label="Close dev-toolkit button"
-                class="close-btn s-FloatingDock-thufpm"
+                class="close-btn s-FloatingDock-807ufe"
               >
                 X
               </button>
@@ -212,7 +298,7 @@ exports[`DevTools.svelte > should render 1`] = `
              
             <input
               accept=".json"
-              class="s-FloatingDock-thufpm"
+              class="s-FloatingDock-807ufe"
               multiple=""
               style="display: none;"
               type="file"
