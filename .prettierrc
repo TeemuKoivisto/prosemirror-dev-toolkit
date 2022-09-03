@@ -1,0 +1,21 @@
+{
+  "overrides": [
+    {
+      "files": "*.css",
+      "options": {
+        "singleQuote": false
+      }
+    }
+  ],
+  "arrowParens": "avoid",
+  "plugins": ["prettier-plugin-svelte"],
+  "printWidth": 100,
+  "semi": false,
+  "singleQuote": true,
+  "svelteSortOrder": "options-scripts-markup-styles",
+  "svelteStrictMode": false,
+  "svelteBracketNewLine": true,
+  "svelteIndentScriptAndStyle": true,
+  "tabWidth": 2,
+  "trailingComma": "none"
+}

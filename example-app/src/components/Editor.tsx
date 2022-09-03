@@ -9,9 +9,8 @@ import { applyDevTools } from 'prosemirror-dev-tools'
 import { PMEditor } from 'pm/PMEditor'
 
 class EditorStore {
-
   view?: EditorView
-  currentEditorState?: {[key: string]: any}
+  currentEditorState?: { [key: string]: any }
   localStorageKey: string
 
   constructor(key: string) {
@@ -19,7 +18,7 @@ class EditorStore {
     if (typeof window !== 'undefined') {
       const existing = localStorage.getItem(this.localStorageKey)
       if (existing && existing !== null && existing.length > 0) {
-        let stored = JSON.parse(existing)
+        const stored = JSON.parse(existing)
         this.currentEditorState = stored
       }
     }
@@ -31,7 +30,7 @@ class EditorStore {
       const state = EditorState.fromJSON(
         {
           schema: this.view.state.schema,
-          plugins: this.view.state.plugins,
+          plugins: this.view.state.plugins
         },
         this.currentEditorState
       )
@@ -55,8 +54,14 @@ interface Props {
 
 export function Editor(props: Props) {
   const { useDevTools } = props
-  const editorStore = useMemo(() => new EditorStore(useDevTools ? 'dev-tools' : 'dev-toolkit'), [useDevTools])
-  const debouncedSync = useMemo(() => debounce(editorStore.syncCurrentEditorState, 250), [editorStore.syncCurrentEditorState])
+  const editorStore = useMemo(
+    () => new EditorStore(useDevTools ? 'dev-tools' : 'dev-toolkit'),
+    [useDevTools]
+  )
+  const debouncedSync = useMemo(
+    () => debounce(editorStore.syncCurrentEditorState, 250),
+    [editorStore.syncCurrentEditorState]
+  )
 
   function handleEdit() {
     debouncedSync()
@@ -68,15 +73,9 @@ export function Editor(props: Props) {
     } else {
       applyDevToolkit(view, {
         devToolsExpanded: true,
-        buttonPosition: 'bottom-left',
+        buttonPosition: 'bottom-left'
       })
     }
   }
-  return (
-    <PMEditor
-      className="main"
-      onEdit={handleEdit}
-      onEditorReady={handleEditorReady}
-    />
-  )
+  return <PMEditor className="main" onEdit={handleEdit} onEditorReady={handleEditorReady} />
 }

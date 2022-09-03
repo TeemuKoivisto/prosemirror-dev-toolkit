@@ -4,10 +4,7 @@ import { Step } from 'prosemirror-transform'
 
 import type { Operation, TrackedNodes } from './types'
 
-export const findAddedOrRemovedNodes = (
-  tr: Transaction,
-  oldDoc: PMNode
-): TrackedNodes => {
+export const findAddedOrRemovedNodes = (tr: Transaction, oldDoc: PMNode): TrackedNodes => {
   const nodesMap: Map<PMNode, { pos: number; operation: Operation }> = new Map()
   const typesSet: Set<NodeType> = new Set()
   const steps = (tr.steps || []) as (Step & {
@@ -15,7 +12,7 @@ export const findAddedOrRemovedNodes = (
     to: number
     slice: Slice
   })[]
-  steps.forEach((step) => {
+  steps.forEach(step => {
     const { to, from, slice } = step
     const sliceSize = slice.size || 0
     const isInsert = from === to
@@ -43,6 +40,6 @@ export const findAddedOrRemovedNodes = (
   return {
     tr,
     changedNodesMap: nodesMap,
-    changedNodesTypesSet: typesSet,
+    changedNodesTypesSet: typesSet
   }
 }

@@ -12,11 +12,46 @@ import { NoEditorPage } from './pages/NoEditorPage'
 export const Routes = () => (
   <BrowserRouter basename={process.env.PUBLIC_URL}>
     <RouterRoutes>
-      <Route path="/" element={<DefaultLayout><FrontPage /></DefaultLayout>}/>
-      <Route path="/dev-tools" element={<DefaultLayout><DevToolsPage /></DefaultLayout>}/>
-      <Route path="/plain" element={<DefaultLayout><PlainPMPage /></DefaultLayout>}/>
-      <Route path="/yjs" element={<DefaultLayout><YjsPage /></DefaultLayout>}/>
-      <Route path="/no-editor" element={<DefaultLayout><NoEditorPage /></DefaultLayout>}/>
+      <Route
+        path="/"
+        element={
+          <DefaultLayout>
+            <FrontPage />
+          </DefaultLayout>
+        }
+      />
+      <Route
+        path="/dev-tools"
+        element={
+          <DefaultLayout>
+            <DevToolsPage />
+          </DefaultLayout>
+        }
+      />
+      <Route
+        path="/plain"
+        element={
+          <DefaultLayout>
+            <PlainPMPage />
+          </DefaultLayout>
+        }
+      />
+      <Route
+        path="/yjs"
+        element={
+          <DefaultLayout>
+            <YjsPage />
+          </DefaultLayout>
+        }
+      />
+      <Route
+        path="/no-editor"
+        element={
+          <DefaultLayout>
+            <NoEditorPage />
+          </DefaultLayout>
+        }
+      />
       <Route path="*" element={<Navigate replace to="/" />} />
     </RouterRoutes>
   </BrowserRouter>

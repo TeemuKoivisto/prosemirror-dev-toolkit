@@ -1,33 +1,23 @@
 {
   "name": "example-app",
-  "version": "0.1.0",
-  "homepage": "https://teemukoivisto.github.io/prosemirror-dev-toolkit/",
   "private": true,
+  "version": "0.0.1",
+  "homepage": "https://teemukoivisto.github.io/prosemirror-dev-toolkit/",
   "scripts": {
     "start": "PORT=3300 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "lint": "eslint ./src/**/*",
-    "lint:fix": "eslint ./src/**/* --fix"
+    "eject": "react-scripts eject"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "devDependencies": {
+    "@types/lodash.debounce": "^4.0.7",
+    "@types/node": "^18.0.1",
+    "@types/react": "18.0.14",
+    "@types/react-dom": "18.0.5",
+    "@types/react-icons": "^3.0.0",
+    "@types/react-router": "^5.1.18",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/styled-components": "^5.1.25"
   },
   "dependencies": {
     "lodash.debounce": "^4.0.8",
@@ -51,14 +41,16 @@
     "y-protocols": "^1.0.5",
     "yjs": "^13.5.39"
   },
-  "devDependencies": {
-    "@types/lodash.debounce": "^4.0.7",
-    "@types/node": "^18.0.1",
-    "@types/react": "18.0.14",
-    "@types/react-dom": "18.0.5",
-    "@types/react-icons": "^3.0.0",
-    "@types/react-router": "^5.1.18",
-    "@types/react-router-dom": "^5.3.3",
-    "@types/styled-components": "^5.1.25"
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

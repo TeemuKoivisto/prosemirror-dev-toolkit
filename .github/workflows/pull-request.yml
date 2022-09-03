@@ -23,7 +23,7 @@ jobs:
 
       - name: Load cached dependencies
         uses: actions/cache@v3
-        id:  cache-yarn-cache
+        id: cache-yarn-cache
         with:
           path: |
             ${{ steps.yarn-cache-dir-path.outputs.dir }}

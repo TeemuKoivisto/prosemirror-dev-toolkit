@@ -27,21 +27,24 @@ export function PMEditor(props: EditorProps) {
     return () => {
       editorViewRef.current?.destroy()
     }
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [])
 
   function createEditorState() {
     return EditorState.create({
       schema,
-      plugins: exampleSetup({ schema }).concat(examplePlugin()),
+      plugins: exampleSetup({ schema }).concat(examplePlugin())
     })
   }
 
   function createEditorView(element: HTMLDivElement, state: EditorState) {
-    const view = new EditorView({ mount: element }, {
-      state,
-      dispatchTransaction,
-    })
+    const view = new EditorView(
+      { mount: element },
+      {
+        state,
+        dispatchTransaction
+      }
+    )
     return view
   }
 
@@ -56,7 +59,5 @@ export function PMEditor(props: EditorProps) {
     }
   }
 
-  return (
-    <div className={`${className} pm-editor`} ref={editorDOMRef}/>
-  )
+  return <div className={`${className} pm-editor`} ref={editorDOMRef} />
 }
