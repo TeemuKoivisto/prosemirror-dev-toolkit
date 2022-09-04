@@ -41,6 +41,9 @@
     document.removeEventListener('mousemove', dragMove)
     document.removeEventListener('mouseup', dragEnd)
   }
+  function handleCopyDoc() {
+    navigator.clipboard.writeText(JSON.stringify(view.state.doc.toJSON()))
+  }
   function handleSaveSnapshot() {
     const defaultName = new Date().toLocaleString('sv')
     const snapshotName = prompt('Enter snapshot name', defaultName)
@@ -97,11 +100,11 @@
     <div class="resizing-div" on:mousedown={handleResizeMouseDown} />
     <div class="container">
       <div>
-        <button class="btn snap-save-btn" on:click={handleSaveSnapshot}>Save snapshot</button>
-        <button class="btn snap-import-btn" on:click={handleImportSnapshot}>Import snapshot</button>
-        <button class="btn snap-paste-btn" on:click={handlePasteSnapshot}>Paste snapshot</button>
-        <button class="close-btn" aria-label="Close dev-toolkit button" on:click={onClose}>X</button
-        >
+        <button class="btn copy-btn" on:click={handleCopyDoc}>Copy</button>
+        <button class="btn save-btn" on:click={handleSaveSnapshot}>Save</button>
+        <button class="btn import-btn" on:click={handleImportSnapshot}>Import</button>
+        <button class="btn paste-btn" on:click={handlePasteSnapshot}>Paste</button>
+        <button class="btn close-btn" aria-label="Close dev-toolkit" on:click={onClose}>X</button>
       </div>
       <input
         style="display:none"
@@ -173,38 +176,29 @@
     height: 24px;
     line-height: 25px;
     padding: 0 6px;
+    position: absolute;
     &:hover {
       background: rgba($color-red-light, 0.8);
     }
   }
-  .snap-save-btn {
-    position: absolute;
-    right: 234px;
+  .copy-btn {
+    right: 173px;
     top: -28px;
   }
-  .snap-import-btn {
-    position: absolute;
-    right: 131px;
+  .save-btn {
+    right: 129px;
     top: -28px;
   }
-  .snap-paste-btn {
-    position: absolute;
+  .import-btn {
+    right: 79px;
+    top: -28px;
+  }
+  .paste-btn {
     right: 32px;
     top: -28px;
   }
   .close-btn {
-    background: rgba($color-red-light, 0.6);
-    border: 0;
-    border-radius: 3px;
-    color: $color-white;
-    cursor: pointer;
-    height: 24px;
-    position: absolute;
     right: 4px;
     top: -28px;
-    width: 24px;
-    &:hover {
-      background: rgba($color-red-light, 0.8);
-    }
   }
 </style>

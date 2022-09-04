@@ -60,7 +60,7 @@
     background: #000;
     height: 100%;
     left: 0;
-    opacity: 0.9;
+    opacity: 0.8;
     position: absolute;
     top: 0;
     width: 100%;
@@ -86,6 +86,7 @@
     color: white;
   }
   textarea {
+    background: #fefcfc;
     height: 100%;
     width: 100%;
   }

@@ -26,7 +26,7 @@
 <SplitView>
   <div slot="right" class="right-panel">
     {#if $snapshots.length === 0}
-      <div class="no-snapshots">Save snapshots by clicking "Save snapshot" button.</div>
+      <div class="no-snapshots">Save snapshots by clicking "Save" button.</div>
     {:else}
       <SnapshotsList
         snapshots={$snapshots}

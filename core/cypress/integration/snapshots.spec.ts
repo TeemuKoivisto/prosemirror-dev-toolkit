@@ -22,7 +22,7 @@ describe('# Snapshots tab', () => {
       cy.devTools().find('ul.tabs-menu li button').contains('SNAPSHOTS').click()
       cy.get('.floating-dock')
         .find('*')
-        .contains('Save snapshots by clicking "Save snapshot" button.')
+        .contains('Save snapshots by clicking "Save" button.')
         .should('exist')
 
       cy.pmInsParagraphBolded(TEST_TEXT)
@@ -37,7 +37,7 @@ describe('# Snapshots tab', () => {
       cy.window().then($win => {
         // This stubs the window prompt which would halt execution otherwise
         cy.stub($win, 'prompt').returns(TEST_SNAPSHOT)
-        cy.get('button').contains('Save snapshot').click()
+        cy.get('button').contains('Save').click()
       })
       // There should be now one snapshot
       cy.get('.right-panel li').should('have.length', 1)
@@ -95,7 +95,7 @@ describe('# Snapshots tab', () => {
       cy.get('.right-panel li').should('have.length', 1)
       cy.get('.floating-dock')
         .find('*')
-        .contains('Save snapshots by clicking "Save snapshot" button.')
+        .contains('Save snapshots by clicking "Save" button.')
         .should('not.exist')
 
       cy.get('button').contains('Delete').click()
@@ -103,7 +103,7 @@ describe('# Snapshots tab', () => {
       cy.get('.right-panel li').should('have.length', 0)
       cy.get('.floating-dock')
         .find('*')
-        .contains('Save snapshots by clicking "Save snapshot" button.')
+        .contains('Save snapshots by clicking "Save" button.')
         .should('exist')
     })
   })
@@ -116,7 +116,7 @@ describe('# Snapshots tab', () => {
     cy.devTools().find('ul.tabs-menu li button').contains('SNAPSHOTS').click()
     cy.get('.floating-dock')
       .find('*')
-      .contains('Save snapshots by clicking "Save snapshot" button.')
+      .contains('Save snapshots by clicking "Save" button.')
       .should('exist')
 
     cy.get('.floating-dock input[type="file"]').attachFile('snapshot-broken')
@@ -136,5 +136,94 @@ describe('# Snapshots tab', () => {
         'Failed to import snapshot: RangeError: There is no mark type highlight in this schema'
       )
     })
+  })
+
+  it('Should copy doc to clipboard with Copy button', () => {
+    cy.window().then(win => {
+      cy.stub(win.console, 'warn').as('consoleWarn')
+      cy.stub(win.console, 'error').as('consoleError')
+      win.navigator.clipboard.writeText('')
+    })
+
+    cy.devTools().find('ul.tabs-menu li button').contains('SNAPSHOTS').click()
+    cy.get('.floating-dock')
+      .find('*')
+      .contains('Save snapshots by clicking "Save" button.')
+      .should('exist')
+
+    // Clipboard should be empty
+    cy.window()
+      .then(win => win.navigator.clipboard.readText())
+      .then(text => {
+        expect(text).to.eq('')
+      })
+
+    cy.get('button').contains('Copy').click()
+
+    // Clipboard should contain the copied doc
+    cy.window()
+      .then(win => win.navigator.clipboard.readText())
+      .then(text => {
+        expect(text).to.eq('{"type":"doc","content":[{"type":"paragraph"}]}')
+      })
+
+    cy.get('@consoleWarn').should('be.callCount', 0)
+    cy.get('@consoleError').should('be.callCount', 0)
+  })
+
+  it('Should allow pasting snapshots with Paste snapshot button', () => {
+    cy.window().then(win => {
+      cy.stub(win.console, 'warn').as('consoleWarn')
+      cy.stub(win.console, 'error').as('consoleError')
+    })
+
+    cy.devTools().find('ul.tabs-menu li button').contains('SNAPSHOTS').click()
+    cy.get('.floating-dock')
+      .find('*')
+      .contains('Save snapshots by clicking "Save" button.')
+      .should('exist')
+
+    // No snapshots
+    cy.get('.right-panel li').should('have.length', 0)
+    // Open modal
+    cy.get('button').contains('Paste').click()
+
+    // Try adding a broken snapshot
+    cy.get('.paste-modal textarea').type('hello')
+    // Should not close the modal
+    cy.get('.paste-modal .submit-container button').click()
+    cy.get('.paste-modal').should('not.be.hidden')
+
+    // Add actual snapshot
+    cy.get('.paste-modal textarea')
+      .clear()
+      .type(JSON.stringify(snapshot1), { parseSpecialCharSequences: false })
+
+    // Should close the modal and add the snapshot
+    cy.get('.paste-modal .submit-container button').click()
+    cy.get('.paste-modal').should('be.hidden')
+    cy.get('.right-panel li').should('have.length', 1)
+
+    // Should open the modal again
+    cy.get('button').contains('Paste').click()
+    // Add the snapshot (should contain the old snapshot actually)
+    cy.get('.paste-modal textarea')
+      .clear()
+      .type(JSON.stringify(snapshot1), { parseSpecialCharSequences: false })
+    cy.get('.paste-modal').should('not.be.hidden')
+
+    // Close the modal by clicking outside the form
+    cy.get('.paste-modal .modal-bg').click({ force: true })
+    cy.get('.paste-modal').should('be.hidden')
+    cy.get('.right-panel li').should('have.length', 1)
+
+    // Open the modal and submit the old snapshot
+    cy.get('button').contains('Paste').click()
+    cy.get('.paste-modal .submit-container button').click()
+    cy.get('.paste-modal').should('be.hidden')
+    cy.get('.right-panel li').should('have.length', 2)
+
+    cy.get('@consoleWarn').should('be.callCount', 0)
+    cy.get('@consoleError').should('be.callCount', 0)
   })
 })
