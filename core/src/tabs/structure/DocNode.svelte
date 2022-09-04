@@ -5,10 +5,9 @@
 
   const { colors, handleNodeClick } = getContext('doc-view')
 
-  export let node: PMNode,
-    startPos: number,
-    isRoot = false
+  export let node: PMNode, startPos: number, depth: number
 
+  const isRoot = depth === 0
   $: fragment = node.content as Fragment
   $: color = colors[node.type.name]
   $: name =
@@ -49,9 +48,9 @@
     >
     <div class="number-box">{endPos}</div>
   </div>
-  <ul class:inline-children={inlineChildren}>
+  <ul class:inline-children={inlineChildren} class:show-borders={depth >= 1}>
     {#each fragment.content as child, i}
-      <svelte:self node={child} startPos={startPositions[i]} />
+      <svelte:self node={child} startPos={startPositions[i]} depth={depth + 1} />
     {/each}
   </ul>
 </li>
@@ -101,6 +100,10 @@
     list-style: none;
     margin: 0;
     padding: 0;
+    &.show-borders {
+      border-left: 1px solid $color-purple;
+      border-right: 1px solid $color-purple;
+    }
   }
   .inline-children {
     border-left: 1px solid $color-purple;

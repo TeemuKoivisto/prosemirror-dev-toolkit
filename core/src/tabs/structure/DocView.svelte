@@ -18,7 +18,7 @@
 </script>
 
 <ul>
-  <DocNode class={$$props.class} node={doc} startPos={0} depth={0} isRoot />
+  <DocNode class={$$props.class} node={doc} startPos={0} depth={0} />
 </ul>
 
 <style>
