@@ -1,9 +1,4 @@
 {
-  "env": {
-    "browserPermissions": {
-      "clipboard": "allow"
-    }
-  },
   "baseUrl": "http://localhost:3300/prosemirror-dev-toolkit",
   "viewportWidth": 1280,
   "viewportHeight": 720,
