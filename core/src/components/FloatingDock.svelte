@@ -4,6 +4,7 @@
 
   import { saveSnapshot, importSnapshot } from '$stores/snapshots'
 
+  import PasteModal from './PasteModal.svelte'
   import TabsMenu from '$tabs/TabsMenu.svelte'
   import StateTab from '$tabs/state/StateTab.svelte'
   import HistoryTab from '$tabs/history/HistoryTab.svelte'
@@ -18,7 +19,8 @@
   let openTab = 'state',
     dockTop = 50,
     dockHeight = 50,
-    fileinput: HTMLInputElement
+    fileinput: HTMLInputElement,
+    modalOpen = false
 
   onDestroy(() => {
     document.removeEventListener('mousemove', dragMove)
@@ -39,6 +41,9 @@
     document.removeEventListener('mousemove', dragMove)
     document.removeEventListener('mouseup', dragEnd)
   }
+  function handleCopyDoc() {
+    navigator.clipboard.writeText(JSON.stringify(view.state.doc.toJSON()))
+  }
   function handleSaveSnapshot() {
     const defaultName = new Date().toLocaleString('sv')
     const snapshotName = prompt('Enter snapshot name', defaultName)
@@ -48,6 +53,17 @@
   }
   function handleImportSnapshot() {
     fileinput.click()
+  }
+  function handlePasteSnapshot() {
+    modalOpen = !modalOpen
+  }
+  function handleCloseModal() {
+    modalOpen = false
+  }
+  function handlePasteSubmit(e: any) {
+    console.log('handled ', e.detail.doc)
+    saveSnapshot(new Date().toLocaleString('sv'), e.detail.doc)
+    modalOpen = false
   }
   function handleFileSelected(
     e: Event & {
@@ -79,14 +95,16 @@
 </script>
 
 <div class="floating-dock-wrapper">
+  <PasteModal isOpen={modalOpen} on:submit={handlePasteSubmit} on:close={handleCloseModal} />
   <div class="floating-dock" style={`top: ${dockTop}%; height: ${dockHeight}%;`}>
     <div class="resizing-div" on:mousedown={handleResizeMouseDown} />
     <div class="container">
       <div>
-        <button class="snap-save-btn" on:click={handleSaveSnapshot}>Save snapshot</button>
-        <button class="snap-import-btn" on:click={handleImportSnapshot}>Import snapshot</button>
-        <button class="close-btn" aria-label="Close dev-toolkit button" on:click={onClose}>X</button
-        >
+        <button class="btn copy-btn" on:click={handleCopyDoc}>Copy</button>
+        <button class="btn save-btn" on:click={handleSaveSnapshot}>Save</button>
+        <button class="btn import-btn" on:click={handleImportSnapshot}>Import</button>
+        <button class="btn paste-btn" on:click={handlePasteSnapshot}>Paste</button>
+        <button class="btn close-btn" aria-label="Close dev-toolkit" on:click={onClose}>X</button>
       </div>
       <input
         style="display:none"
@@ -148,7 +166,7 @@
   .container {
     height: 100%;
   }
-  .snap-save-btn {
+  .btn {
     background: rgba($color-red-light, 0.6);
     border: 0;
     border-radius: 3px;
@@ -159,42 +177,28 @@
     line-height: 25px;
     padding: 0 6px;
     position: absolute;
-    right: 134px;
-    top: -28px;
     &:hover {
       background: rgba($color-red-light, 0.8);
     }
   }
-  .snap-import-btn {
-    background: rgba($color-red-light, 0.6);
-    border: 0;
-    border-radius: 3px;
-    color: $color-white;
-    cursor: pointer;
-    font-size: 12px;
-    height: 24px;
-    line-height: 25px;
-    padding: 0 6px;
-    position: absolute;
+  .copy-btn {
+    right: 173px;
+    top: -28px;
+  }
+  .save-btn {
+    right: 129px;
+    top: -28px;
+  }
+  .import-btn {
+    right: 79px;
+    top: -28px;
+  }
+  .paste-btn {
     right: 32px;
     top: -28px;
-    &:hover {
-      background: rgba($color-red-light, 0.8);
-    }
   }
   .close-btn {
-    background: rgba($color-red-light, 0.6);
-    border: 0;
-    border-radius: 3px;
-    color: $color-white;
-    cursor: pointer;
-    height: 24px;
-    position: absolute;
     right: 4px;
     top: -28px;
-    width: 24px;
-    &:hover {
-      background: rgba($color-red-light, 0.8);
-    }
   }
 </style>

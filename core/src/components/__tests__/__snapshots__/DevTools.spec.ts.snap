@@ -19,37 +19,86 @@ exports[`DevTools.svelte > should open by clicking the floating button 1`] = `
       class="dev-tools s-DevTools-3laa75"
     >
       <div
-        class="floating-dock-wrapper s-FloatingDock-thufpm"
+        class="floating-dock-wrapper s-FloatingDock-aogqla"
       >
         <div
-          class="floating-dock s-FloatingDock-thufpm"
+          class="paste-modal s-PasteModal-1516w55 hidden"
+        >
+          <div
+            class="modal-bg s-PasteModal-1516w55"
+          />
+           
+          <form
+            class="paste-content s-PasteModal-1516w55"
+          >
+            <fieldset
+              class="s-PasteModal-1516w55"
+            >
+              <div
+                class="submit-container s-PasteModal-1516w55"
+              >
+                <button
+                  class="s-PasteModal-1516w55"
+                >
+                  Submit
+                </button>
+              </div>
+               
+              <legend
+                class="s-PasteModal-1516w55"
+              >
+                Doc
+              </legend>
+               
+              <textarea
+                class="s-PasteModal-1516w55"
+              />
+            </fieldset>
+          </form>
+        </div>
+        <!--&lt;PasteModal&gt;-->
+         
+        <div
+          class="floating-dock s-FloatingDock-aogqla"
           style="top: 50%; height: 50%;"
         >
           <div
-            class="resizing-div s-FloatingDock-thufpm"
+            class="resizing-div s-FloatingDock-aogqla"
           />
            
           <div
-            class="container s-FloatingDock-thufpm"
+            class="container s-FloatingDock-aogqla"
           >
             <div
-              class="s-FloatingDock-thufpm"
+              class="s-FloatingDock-aogqla"
             >
               <button
-                class="snap-save-btn s-FloatingDock-thufpm"
+                class="btn copy-btn s-FloatingDock-aogqla"
               >
-                Save snapshot
+                Copy
               </button>
                
               <button
-                class="snap-import-btn s-FloatingDock-thufpm"
+                class="btn save-btn s-FloatingDock-aogqla"
               >
-                Import snapshot
+                Save
               </button>
                
               <button
-                aria-label="Close dev-toolkit button"
-                class="close-btn s-FloatingDock-thufpm"
+                class="btn import-btn s-FloatingDock-aogqla"
+              >
+                Import
+              </button>
+               
+              <button
+                class="btn paste-btn s-FloatingDock-aogqla"
+              >
+                Paste
+              </button>
+               
+              <button
+                aria-label="Close dev-toolkit"
+                class="btn close-btn s-FloatingDock-aogqla"
               >
                 X
               </button>
@@ -57,7 +106,7 @@ exports[`DevTools.svelte > should open by clicking the floating button 1`] = `
              
             <input
               accept=".json"
-              class="s-FloatingDock-thufpm"
+              class="s-FloatingDock-aogqla"
               multiple=""
               style="display: none;"
               type="file"
@@ -139,7 +188,7 @@ exports[`DevTools.svelte > should open by clicking the floating button 1`] = `
                 <div
                   class="no-snapshots s-SnapshotsTab-1cy4q67"
                 >
-                  Save snapshots by clicking "Save snapshot" button.
+                  Save snapshots by clicking "Save" button.
                 </div>
               </div>
             </section>
@@ -174,37 +223,86 @@ exports[`DevTools.svelte > should render 1`] = `
       class="dev-tools s-DevTools-3laa75"
     >
       <div
-        class="floating-dock-wrapper s-FloatingDock-thufpm"
+        class="floating-dock-wrapper s-FloatingDock-aogqla"
       >
         <div
-          class="floating-dock s-FloatingDock-thufpm"
+          class="paste-modal s-PasteModal-1516w55 hidden"
+        >
+          <div
+            class="modal-bg s-PasteModal-1516w55"
+          />
+           
+          <form
+            class="paste-content s-PasteModal-1516w55"
+          >
+            <fieldset
+              class="s-PasteModal-1516w55"
+            >
+              <div
+                class="submit-container s-PasteModal-1516w55"
+              >
+                <button
+                  class="s-PasteModal-1516w55"
+                >
+                  Submit
+                </button>
+              </div>
+               
+              <legend
+                class="s-PasteModal-1516w55"
+              >
+                Doc
+              </legend>
+               
+              <textarea
+                class="s-PasteModal-1516w55"
+              />
+            </fieldset>
+          </form>
+        </div>
+        <!--&lt;PasteModal&gt;-->
+         
+        <div
+          class="floating-dock s-FloatingDock-aogqla"
           style="top: 50%; height: 50%;"
         >
           <div
-            class="resizing-div s-FloatingDock-thufpm"
+            class="resizing-div s-FloatingDock-aogqla"
           />
            
           <div
-            class="container s-FloatingDock-thufpm"
+            class="container s-FloatingDock-aogqla"
           >
             <div
-              class="s-FloatingDock-thufpm"
+              class="s-FloatingDock-aogqla"
             >
               <button
-                class="snap-save-btn s-FloatingDock-thufpm"
+                class="btn copy-btn s-FloatingDock-aogqla"
               >
-                Save snapshot
+                Copy
               </button>
                
               <button
-                class="snap-import-btn s-FloatingDock-thufpm"
+                class="btn save-btn s-FloatingDock-aogqla"
               >
-                Import snapshot
+                Save
               </button>
                
               <button
-                aria-label="Close dev-toolkit button"
-                class="close-btn s-FloatingDock-thufpm"
+                class="btn import-btn s-FloatingDock-aogqla"
+              >
+                Import
+              </button>
+               
+              <button
+                class="btn paste-btn s-FloatingDock-aogqla"
+              >
+                Paste
+              </button>
+               
+              <button
+                aria-label="Close dev-toolkit"
+                class="btn close-btn s-FloatingDock-aogqla"
               >
                 X
               </button>
@@ -212,7 +310,7 @@ exports[`DevTools.svelte > should render 1`] = `
              
             <input
               accept=".json"
-              class="s-FloatingDock-thufpm"
+              class="s-FloatingDock-aogqla"
               multiple=""
               style="display: none;"
               type="file"
