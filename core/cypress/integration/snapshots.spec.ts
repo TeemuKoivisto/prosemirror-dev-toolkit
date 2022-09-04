@@ -105,6 +105,13 @@ describe('# Snapshots tab', () => {
         .find('*')
         .contains('Save snapshots by clicking "Save" button.')
         .should('exist')
+
+      cy.window().then(window => {
+        const { editorView: view } = window
+        const tr = view.state.tr
+        tr.delete(0, view.state.doc.nodeSize - 2)
+        view.dispatch(tr)
+      })
     })
   })
 
