@@ -198,7 +198,9 @@
     top: -28px;
   }
   .close-btn {
+    font-size: var(--font-medium);
     right: 4px;
     top: -28px;
+    width: 24px;
   }
 </style>
