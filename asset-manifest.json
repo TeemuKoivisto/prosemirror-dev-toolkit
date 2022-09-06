@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/prosemirror-dev-toolkit/static/css/main.cdad8ae5.css",
-    "main.js": "/prosemirror-dev-toolkit/static/js/main.51c0497c.js",
+    "main.js": "/prosemirror-dev-toolkit/static/js/main.3e9c45dd.js",
     "static/js/390.87ad88ce.chunk.js": "/prosemirror-dev-toolkit/static/js/390.87ad88ce.chunk.js",
     "static/js/648.e18075c7.chunk.js": "/prosemirror-dev-toolkit/static/js/648.e18075c7.chunk.js",
     "index.html": "/prosemirror-dev-toolkit/index.html",
     "main.cdad8ae5.css.map": "/prosemirror-dev-toolkit/static/css/main.cdad8ae5.css.map",
-    "main.51c0497c.js.map": "/prosemirror-dev-toolkit/static/js/main.51c0497c.js.map",
+    "main.3e9c45dd.js.map": "/prosemirror-dev-toolkit/static/js/main.3e9c45dd.js.map",
     "390.87ad88ce.chunk.js.map": "/prosemirror-dev-toolkit/static/js/390.87ad88ce.chunk.js.map",
     "648.e18075c7.chunk.js.map": "/prosemirror-dev-toolkit/static/js/648.e18075c7.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.cdad8ae5.css",
-    "static/js/main.51c0497c.js"
+    "static/js/main.3e9c45dd.js"
   ]
 }
