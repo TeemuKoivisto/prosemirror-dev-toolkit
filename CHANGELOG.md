@@ -1,4 +1,13 @@
-## 1.0.1 (2022-07-15)
+# 1.0.2 (2022-09-06)
+
+## What's Changed
+* style: move eslint & prettify to root, run them on all files by @TeemuKoivisto in https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/pull/19
+* feat: add Copy, Paste button & Paste snapshot modal by @TeemuKoivisto in https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/pull/20
+* fix: close button css by @TeemuKoivisto in https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/pull/21
+
+**Full Changelog**: https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/compare/v1.0.1...v1.0.2
+
+# 1.0.1 (2022-07-15)
 
 ## What's Changed
 
@@ -6,7 +15,7 @@
 
 **Full Changelog**: https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/compare/v1.0.0...v1.0.1
 
-## 1.0.0 (2022-07-04)
+# 1.0.0 (2022-07-04)
 
 As it appears there aren't any fatal bugs remaining, publishing the first "complete" version seems appropriate. This also includes upgrading all dependencies which shouldn't make any breaking changes.
 
@@ -16,7 +25,7 @@ As it appears there aren't any fatal bugs remaining, publishing the first "compl
 
 **Full Changelog**: https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/compare/v0.0.11...v1.0.0
 
-## 0.0.11 (2022-04-22)
+# 0.0.11 (2022-04-22)
 
 ## What's Changed
 
@@ -24,7 +33,7 @@ As it appears there aren't any fatal bugs remaining, publishing the first "compl
 
 **Full Changelog**: https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/compare/v0.0.10...v0.0.11
 
-## 0.0.10 (2022-04-20)
+# 0.0.10 (2022-04-20)
 
 ## What's Changed
 
@@ -33,7 +42,7 @@ As it appears there aren't any fatal bugs remaining, publishing the first "compl
 
 **Full Changelog**: https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/compare/v0.0.9...v0.0.10
 
-## 0.0.9 (2022-04-15)
+# 0.0.9 (2022-04-15)
 
 https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/compare/v0.0.8...v0.0.9
 
@@ -41,7 +50,7 @@ https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/compare/v0.0.8...v0.0.9
 
 - Bundle jsondiffpatch and remove chalk by @ocavue in https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/pull/12
 
-## 0.0.8 (2022-02-06)
+# 0.0.8 (2022-02-06)
 
 https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/compare/v0.0.7...v0.0.8
 
@@ -49,7 +58,7 @@ https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/compare/v0.0.7...v0.0.8
 
 Fix html margin-bottom not working in FireFox to provide space for the dock. Changed to padding-bottom.
 
-## 0.0.7 (2022-02-06)
+# 0.0.7 (2022-02-06)
 
 https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/compare/v0.0.6...v0.0.7
 
@@ -60,7 +69,7 @@ https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/compare/v0.0.6...v0.0.7
 Update selected node properly over transactions. Scroll into node on double click.
 Remove height: 100% from HistoryList button.
 
-## 0.0.6 (2021-11-18)
+# 0.0.6 (2021-11-18)
 
 https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/compare/v0.0.5...v0.0.6
 
@@ -68,7 +77,7 @@ https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/compare/v0.0.5...v0.0.6
 
 Remove height: 100% from HistoryList button.
 
-## 0.0.5 (2021-11-18)
+# 0.0.5 (2021-11-18)
 
 https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/compare/v0.0.4...v0.0.5
 
@@ -76,7 +85,7 @@ https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/compare/v0.0.4...v0.0.5
 
 Add try-catch when accessing localStorage. Crashes in sandbox otherwise.
 
-## 0.0.4 (2021-11-18)
+# 0.0.4 (2021-11-18)
 
 https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/compare/v0.0.3...v0.0.4
 
@@ -84,7 +93,7 @@ https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/compare/v0.0.3...v0.0.4
 
 Import tree-view's behavior. Docs
 
-## 0.0.3 (2021-11-15)
+# 0.0.3 (2021-11-15)
 
 https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/compare/v0.0.2...v0.0.3
 
@@ -92,7 +101,7 @@ https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/compare/v0.0.2...v0.0.3
 
 Fix use .cjs for "main" import. Docs
 
-## 0.0.2 (2021-11-12)
+# 0.0.2 (2021-11-12)
 
 https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/compare/v0.0.1...v0.0.2
 
@@ -100,7 +109,7 @@ https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/compare/v0.0.1...v0.0.2
 
 Fix CI and NPM publish
 
-## 0.0.1 (2021-11-12)
+# 0.0.1 (2021-11-12)
 
 https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/commit/6c6b4b788790315b25d33cacd8b9c6bb81bb6515
 

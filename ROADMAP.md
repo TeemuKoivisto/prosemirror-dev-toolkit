@@ -4,8 +4,8 @@ This is a loose list of features I'd like to implement into `prosemirror-dev-too
 
 - ~~track appendedTransactions. Because it's a must.~~
 - show appendedTransactions in History tab & make it easier to access transactions
-- fix missing borders for nodes in DocView
-- add textarea to directly paste snapshots since importing files is cumbersome
+- ~~fix missing borders for nodes in DocView~~
+- ~~add textarea to directly paste snapshots since importing files is cumbersome~~
 - make panel adjustable in Structure tab between DocView and node info
 - figure out why importing snapshots sometimes dont work after first failing to import
 - special case for class-objects in svelte-tree-view
