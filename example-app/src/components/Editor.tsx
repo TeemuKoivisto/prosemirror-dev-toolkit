@@ -43,7 +43,8 @@ class EditorStore {
   }
 
   syncCurrentEditorState = () => {
-    const newState = this.view!.state.toJSON()
+    if (!this.view) return
+    const newState = this.view.state.toJSON()
     localStorage.setItem(this.localStorageKey, JSON.stringify(newState))
   }
 }
