@@ -21,7 +21,7 @@ runs:
         install: false # Don't install Cypress again
         cache-key: ${{ runner.os }}-node-${{ matrix.node-version }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
         command: pnpm --filter prosemirror-dev-toolkit cy run
-        start: pnpm --filter site dev
+        start: pnpm --filter site start
         wait-on: 'http://localhost:3300/prosemirror-dev-toolkit'
         project: ./packages/prosemirror-dev-toolkit
         browser: chrome
