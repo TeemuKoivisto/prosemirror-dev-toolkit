@@ -24,7 +24,7 @@ runs:
         start: pnpm --filter site start
         wait-on: 'http://localhost:3300/prosemirror-dev-toolkit'
         project: ./packages/prosemirror-dev-toolkit
-        browser: chrome
+        browser: electron
         quiet: true
       env:
         SKIP_PREFLIGHT_CHECK: true
