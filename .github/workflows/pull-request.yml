@@ -4,74 +4,25 @@ on: [pull_request, workflow_dispatch]
 
 jobs:
   test:
+    timeout-minutes: 15
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [16.x]
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+        with:
+          # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
+          fetch-depth: 0
 
       - name: Setup node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node_version }}
 
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Install dependencies with pnpm
+        uses: ./.github/actions/pnpm
 
-      - name: Load cached dependencies
-        uses: actions/cache@v3
-        id: cache-yarn-cache
-        with:
-          path: |
-            ${{ steps.yarn-cache-dir-path.outputs.dir }}
-            /home/runner/.cache/Cypress
-          key: ${{ runner.os }}-node${{ matrix.node-version }}-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.os }}-yarn-
-
-      - name: Install dependencies
-        run: yarn --frozen-lockfile
-
-      - name: Run type check and unit tests
-        run: |
-          cd core
-          yarn svelte-check
-          yarn test:unit
-
-      - name: Build library
-        run: |
-          cd core
-          yarn build
-
-      - name: Run Cypress tests
-        id: cypress
-        uses: cypress-io/github-action@v4
-        with:
-          cache-key: node-v${{ matrix.node }}-on-${{ runner.os }}-hash-${{ hashFiles('yarn.lock') }}
-          start: yarn --cwd ./example-app start
-          wait-on: 'http://localhost:3300/prosemirror-dev-toolkit'
-          project: ./core
-          browser: chrome
-          quiet: true
-        env:
-          SKIP_PREFLIGHT_CHECK: true
-
-      - name: Export screenshots (on failure only)
-        uses: actions/upload-artifact@v2.2.3
-        if: failure()
-        with:
-          name: cypress-screenshots
-          path: |
-            ./core/cypress/**/*.actual.png
-            ./core/cypress/**/*.diff.png
-          retention-days: 7
-
-      - name: Export screen recordings (on failure only)
-        uses: actions/upload-artifact@v2.2.3
-        if: failure()
-        with:
-          name: cypress-videos
-          path: ./core/cypress/videos
-          retention-days: 7
+      - name: Build & test
+        uses: ./.github/actions/build-test

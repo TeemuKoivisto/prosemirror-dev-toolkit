@@ -1,19 +1,20 @@
 {
   "private": true,
-  "workspaces": [
-    "core",
-    "example-app"
-  ],
+  "type": "module",
   "scripts": {
-    "start": "concurrently --kill-others 'yarn --cwd core watch' 'sleep 10 && yarn --cwd example-app start'",
-    "app": "yarn --cwd example-app start",
-    "kit": "yarn --cwd core watch",
+    "start": "concurrently --kill-others 'pnpm --filter prosemirror-dev-toolkit watch' 'sleep 10 && pnpm --filter site start'",
+    "app": "pnpm --filter site start",
+    "kit": "pnpm --filter prosemirror-dev-toolkit watch",
     "format": "prettier --write \"**/*.+(js|jsx|json|html|css|less|scss|ts|tsx|svelte|yml|yaml|md|graphql|mdx)\" .",
     "lint:fix": "eslint --ignore-path .gitignore --fix --ext .js,.cjs,.ts,.tsx,.svelte .",
     "cs": "changeset && git add .changeset",
     "ci:version": "changeset version",
     "ci:publish": "changeset publish && git push --follow-tags",
     "prepare": "husky install"
+  },
+  "engines": {
+    "node": ">=16",
+    "pnpm": "^7.0.0"
   },
   "devDependencies": {
     "@changesets/cli": "^2.24.4",

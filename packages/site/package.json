@@ -1,5 +1,5 @@
 {
-  "name": "example-app",
+  "name": "site",
   "private": true,
   "version": "0.0.1",
   "homepage": "https://teemukoivisto.github.io/prosemirror-dev-toolkit/",
@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "lodash.debounce": "^4.0.8",
-    "prosemirror-dev-toolkit": "*",
+    "prosemirror-dev-toolkit": "workspace:*",
     "prosemirror-dev-tools": "^3.1.0",
     "prosemirror-example-setup": "^1.2.1",
     "prosemirror-keymap": "^1.2.0",
