@@ -1,9 +1,10 @@
 # 1.0.2 (2022-09-06)
 
 ## What's Changed
-* style: move eslint & prettify to root, run them on all files by @TeemuKoivisto in https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/pull/19
-* feat: add Copy, Paste button & Paste snapshot modal by @TeemuKoivisto in https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/pull/20
-* fix: close button css by @TeemuKoivisto in https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/pull/21
+
+- style: move eslint & prettify to root, run them on all files by @TeemuKoivisto in https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/pull/19
+- feat: add Copy, Paste button & Paste snapshot modal by @TeemuKoivisto in https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/pull/20
+- fix: close button css by @TeemuKoivisto in https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/pull/21
 
 **Full Changelog**: https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/compare/v1.0.1...v1.0.2
 

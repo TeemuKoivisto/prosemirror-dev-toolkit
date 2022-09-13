@@ -59,6 +59,7 @@
     "cypress-plugin-snapshots": "^1.4.4",
     "jsondiffpatch": "^0.4.1",
     "postcss": "^8.4.14",
+    "prosemirror-example-setup": "^1.2.1",
     "prosemirror-state": "^1.4.1",
     "prosemirror-view": "^1.26.5",
     "rimraf": "^3.0.2",
@@ -75,7 +76,7 @@
     "tslib": "^2.4.0",
     "typescript": "^4.7.4",
     "vite": "^3.0.0",
-    "vitest": "^0.18.0"
+    "vitest": "^0.23.2"
   },
   "dependencies": {
     "html": "^1.0.0",
