@@ -1,0 +1,46 @@
+name: build-test
+description: Build & run unit and Cypress tests
+
+runs:
+  using: composite
+  steps:
+    - name: Build packages
+      run: pnpm -r build
+      shell: bash
+
+    - name: Run type check and unit tests
+      run: |
+        pnpm --filter prosemirror-dev-toolkit svelte-check
+        pnpm --filter prosemirror-dev-toolkit test:unit
+      shell: bash
+
+    - name: Run tests with Cypress
+      id: cypress
+      uses: cypress-io/github-action@v2
+      with:
+        install: false # Don't install Cypress again
+        cache-key: ${{ runner.os }}-node-${{ matrix.node-version }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+        command: pnpm --filter prosemirror-dev-toolkit test:e2e
+        start: pnpm --filter site start
+        wait-on: 'http://localhost:3300/prosemirror-dev-toolkit'
+        project: ./packages/prosemirror-dev-toolkit
+        browser: chrome
+        quiet: true
+      env:
+        SKIP_PREFLIGHT_CHECK: true
+
+    - name: Export screenshots (on failure only)
+      uses: actions/upload-artifact@v2.2.3
+      if: failure()
+      with:
+        name: cypress-screenshots
+        path: ./packages/prosemirror-dev-toolkit/cypress/screenshots
+        retention-days: 7
+
+    - name: Export screen recordings (on failure only)
+      uses: actions/upload-artifact@v2.2.3
+      if: failure()
+      with:
+        name: cypress-videos
+        path: ./packages/prosemirror-dev-toolkit/cypress/videos
+        retention-days: 7

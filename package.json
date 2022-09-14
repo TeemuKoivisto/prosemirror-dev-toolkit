@@ -1,30 +1,37 @@
 {
   "private": true,
-  "workspaces": [
-    "core",
-    "example-app"
-  ],
+  "type": "module",
   "scripts": {
+    "start": "concurrently --kill-others 'pnpm --filter prosemirror-dev-toolkit watch' 'sleep 10 && pnpm --filter site start'",
+    "app": "pnpm --filter site start",
+    "kit": "pnpm --filter prosemirror-dev-toolkit watch",
     "format": "prettier --write \"**/*.+(js|jsx|json|html|css|less|scss|ts|tsx|svelte|yml|yaml|md|graphql|mdx)\" .",
     "lint:fix": "eslint --ignore-path .gitignore --fix --ext .js,.cjs,.ts,.tsx,.svelte .",
-    "app": "yarn --cwd example-app start",
-    "kit": "yarn --cwd core watch",
-    "start": "concurrently --kill-others 'cd ./core && yarn watch' 'cd example-app && yarn start'"
+    "cs": "changeset && git add .changeset",
+    "ci:version": "changeset version",
+    "ci:publish": "changeset publish && git push --follow-tags",
+    "prepare": "husky install"
+  },
+  "engines": {
+    "node": ">=16",
+    "pnpm": "^7.0.0"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.30.6",
-    "@typescript-eslint/parser": "^5.30.6",
-    "concurrently": "^7.2.2",
-    "eslint": "^8.19.0",
+    "@changesets/cli": "^2.24.4",
+    "@typescript-eslint/eslint-plugin": "^5.36.2",
+    "@typescript-eslint/parser": "^5.36.2",
+    "concurrently": "^7.4.0",
+    "eslint": "^8.23.0",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-import-resolver-typescript": "^3.2.6",
+    "eslint-import-resolver-typescript": "^3.5.1",
     "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-jsx-a11y": "^6.6.0",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-promise": "^6.0.1",
     "eslint-plugin-svelte3": "^4.0.0",
+    "husky": "^8.0.1",
     "prettier": "^2.7.1",
     "prettier-plugin-svelte": "^2.7.0"
   }
-}
+ }

@@ -91,7 +91,7 @@ const defaultBundles = {
   external: [
     // TODO: It seems svelte-tree-view must be bundled together with the dev-toolkit otherwise the React app
     // is unable to load it.
-    ...Object.keys(pkg.dependencies || {}).filter(d => d !== 'svelte-tree-view'),
+    ...Object.keys(pkg.dependencies || {}).filter(d => !d.includes('svelte-tree-view')),
     ...Object.keys(pkg.peerDependencies || {}),
     // jsondiffpatch imports chalk, Node.js module, but which works in browser too yet
     // Rollup doesn't like it (and because it's an outdated version)

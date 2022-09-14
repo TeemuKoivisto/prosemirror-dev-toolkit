@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es6",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "types": ["svelte", "jest", "@testing-library/jest-dom"],
+    "types": ["svelte", "@testing-library/jest-dom", "cypress"],
     "allowJs": true,
     "declaration": true,
     "declarationDir": "./dist",
