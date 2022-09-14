@@ -114,11 +114,17 @@ Shows the stored snapshots (toJSON'd topNode eg "doc") in localStorage. The chan
 
 ## How to run locally
 
-1. `yarn`
-2. `yarn start`
+You need `pnpm` installed globally.
+
+1. `pnpm`
+2. `pnpm start`
 
 Should open a React app at http://localhost:3300/prosemirror-dev-toolkit/
 
 ## Tests
 
-To run the end-to-end tests you must launch the example app (`yarn start`) and then run `yarn test:e2e` in the `core` directory. I kinda skipped the unit tests since Jest was just too much trouble to work with although Cypress has its rough edges too. I hope I have covered at least most of the basic cases to avoid sudden regressions.
+To run the end-to-end tests you must launch the site (`pnpm site`) and then run `pnpm --filter prosemirror-dev-tolkit test:e2e`. NOTE: the snapshots might locally fail. They should work in CI however and hopefully they'll be fixed when I next time migrate Cypress and its libraries.
+
+## Contributing
+
+Contributions and issues are more than welcome! This project uses changesets https://github.com/changesets/changesets to generate changelogs but in short, when you commit from terminal the changeset prompt is opened in which you should write your functionality using conventional commits https://www.conventionalcommits.org/en/v1.0.0/ to create a changeset (which is for something that changes the library for the downstream users).
