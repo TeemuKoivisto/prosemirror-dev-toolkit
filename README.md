@@ -74,7 +74,7 @@ Shows the current toJSON'd state.doc as well as the selection, augmented by a fe
 
 ## History
 
-![History tab](https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/blob/d1620e6007d14068c58f704cd1a0d7e6b393f428/packages/prosemirror-dev-toolkit/cypress/integration/__image_snapshots__/%23%20History%20tab%20%20Should%20track%20transactions%20and%20show%20diffs%20%230.png?raw=true)
+![History tab](https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/blob/d1620e6007d14068c58f704cd1a0d7e6b393f428/core/cypress/integration/__image_snapshots__/%23%20History%20tab%20%20Should%20track%20transactions%20and%20show%20diffs%20%230.png?raw=true)
 
 History tab shows the last dispatched transaction with a diff of the changed content, diff of the changed selection, toDOM'd document slice between the selection start and end and the actual transaction at the bottom.
 
@@ -106,7 +106,7 @@ A bit more complicated tab it shows the document in a neat block view with a sid
 
 ## Snapshots
 
-![Snapshots tab](https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/blob/d1620e6007d14068c58f704cd1a0d7e6b393f428/packages/prosemirror-dev-toolkit/cypress/integration/__image_snapshots__/%23%20Snapshots%20tab%20%20Should%20show%20snapshots%20and%20allow%20interacting%20with%20them%20%230.png?raw=true)
+![Snapshots tab](https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/blob/d1620e6007d14068c58f704cd1a0d7e6b393f428/core/cypress/integration/__image_snapshots__/%23%20Snapshots%20tab%20%20Should%20show%20snapshots%20and%20allow%20interacting%20with%20them%20%230.png?raw=true)
 
 Shows the stored snapshots (toJSON'd topNode eg "doc") in localStorage. The changes I've made are switching to date strings instead of unix timestamps for default names. Then, you can double-click the snapshot to edit its name. 'Show' button replaces the current doc with the snapshot doc, allowing you to revert it with 'Hide'. 'Restore' does a one-way replacement of the doc with the snapshot. And well I say one-way but since I don't erase the actual PM history you can Ctrl-z your way out of it.
 
