@@ -3,7 +3,7 @@
   "type": "module",
   "scripts": {
     "start": "concurrently --kill-others 'pnpm --filter prosemirror-dev-toolkit watch' 'sleep 10 && pnpm --filter site start'",
-    "app": "pnpm --filter site start",
+    "site": "pnpm --filter site start",
     "kit": "pnpm --filter prosemirror-dev-toolkit watch",
     "format": "prettier --write \"**/*.+(js|jsx|json|html|css|less|scss|ts|tsx|svelte|yml|yaml|md|graphql|mdx)\" .",
     "lint:fix": "eslint --ignore-path .gitignore --fix --ext .js,.cjs,.ts,.tsx,.svelte .",

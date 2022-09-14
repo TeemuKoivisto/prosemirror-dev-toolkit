@@ -68,7 +68,7 @@ For quick live editor instance debugging I have added a script to inject the dev
 
 ## State
 
-![State tab](https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/blob/master/core/cypress/integration/__image_snapshots__/%23%20State%20tab%20%20Should%20allow%20expanding%20and%20collapsing%20and%20tree-view%20nodes%20%230.png?raw=true)
+![State tab](https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/blob/master/packages/prosemirror-dev-toolkit/cypress/integration/__image_snapshots__/%23%20State%20tab%20%20Should%20allow%20expanding%20and%20collapsing%20and%20tree-view%20nodes%20%230.png?raw=true)
 
 Shows the current toJSON'd state.doc as well as the selection, augmented by a few additional properties, active marks and a simple summary of the document. These tree views were implemented in the original with react-json-tree library which although ported to Svelte (svelte-json-tree) felt a little complex and difficult to customize. Instead, I wrote a simple recursive component and then rolled it out as a separate Svelte library: https://github.com/TeemuKoivisto/svelte-tree-view
 
@@ -86,7 +86,7 @@ You can hydrate the doc from a transaction by double-clicking it. I have thought
 
 ## Plugins
 
-![Plugins tab](https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/blob/master/core/cypress/integration/__image_snapshots__/%23%20Plugins%20tab%20%20Should%20show%20the%20default%20plugins%20and%20allow%20inspecting%20them%20%230.png?raw=true)
+![Plugins tab](https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/blob/master/packages/prosemirror-dev-toolkit/cypress/integration/__image_snapshots__/%23%20Plugins%20tab%20%20Should%20show%20the%20default%20plugins%20and%20allow%20inspecting%20them%20%230.png?raw=true)
 
 Shows the current plugins and their states. This is mostly the same as in the old tools but I added some convenience buttons to for example log the plugin to a `_plugin` object that you can manipulate from the console. Handy for inspecting the plugin editor props which are not visible from the plugin state.
 
@@ -94,13 +94,13 @@ As a side-note, I'm sure I have not covered all possible object types in `svelte
 
 ## Schema
 
-![Schema tab](https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/blob/master/core/cypress/integration/__image_snapshots__/%23%20Schema%20tab%20%20Should%20show%20the%20current%20schema%20nodes%20and%20marks%20%230.png?raw=true)
+![Schema tab](https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/blob/master/packages/prosemirror-dev-toolkit/cypress/integration/__image_snapshots__/%23%20Schema%20tab%20%20Should%20show%20the%20current%20schema%20nodes%20and%20marks%20%230.png?raw=true)
 
 Shows the current schema's nodes and marks. Same as in the old tools but I added circular node detection to make the recursion a little lighter. Not strictly needed as all the nodes are uncollapsed and can't be auto-expanded but hey, it's there.
 
 ## Structure
 
-![Structure tab](https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/blob/master/core/cypress/integration/__image_snapshots__/%23%20Structure%20tab%20%20Should%20show%20the%20DocView%20of%20the%20current%20and%20doc%20and%20Node%20info%20%230.png?raw=true)
+![Structure tab](https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/blob/master/packages/prosemirror-dev-toolkit/cypress/integration/__image_snapshots__/%23%20Structure%20tab%20%20Should%20show%20the%20DocView%20of%20the%20current%20and%20doc%20and%20Node%20info%20%230.png?raw=true)
 
 A bit more complicated tab it shows the document in a neat block view with a side panel to inspect the node contents. Auto-expands the content whenever it's within reasonable size (less than 50 children). You can double click nodes to scroll into them. Thought about allowing selecting and deleting nodes directly from the DocView.
 
@@ -114,11 +114,17 @@ Shows the stored snapshots (toJSON'd topNode eg "doc") in localStorage. The chan
 
 ## How to run locally
 
-1. `yarn`
-2. `yarn start`
+You need `pnpm` installed globally.
+
+1. `pnpm`
+2. `pnpm start`
 
 Should open a React app at http://localhost:3300/prosemirror-dev-toolkit/
 
 ## Tests
 
-To run the end-to-end tests you must launch the example app (`yarn start`) and then run `yarn test:e2e` in the `core` directory. I kinda skipped the unit tests since Jest was just too much trouble to work with although Cypress has its rough edges too. I hope I have covered at least most of the basic cases to avoid sudden regressions.
+To run the end-to-end tests you must launch the site (`pnpm site`) and then run `pnpm --filter prosemirror-dev-tolkit test:e2e`. NOTE: the snapshots might locally fail. They should work in CI however and hopefully they'll be fixed when I next time migrate Cypress and its libraries.
+
+## Contributing
+
+Contributions and issues are more than welcome! This project uses changesets https://github.com/changesets/changesets to generate changelogs but in short, when you commit from terminal the changeset prompt is opened in which you should write your functionality using conventional commits https://www.conventionalcommits.org/en/v1.0.0/ to create a changeset (which is for something that changes the library for the downstream users).
