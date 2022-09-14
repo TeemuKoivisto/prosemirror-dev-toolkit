@@ -32,11 +32,10 @@
     "build": "rimraf dist && rollup -c && rm dist/index.d.cts",
     "bundle": "UMD_BUNDLE=true rollup -c && rm dist/bundle.umd.min.d.ts",
     "watch": "rimraf dist && rollup -cw",
-    "preversion": "svelte-check && pnpm test && pnpm build",
-    "prepublishOnly": "cp ../README.md . && cp ../LICENSE .",
+    "prepublishOnly": "cp ../../README.md . && cp ../../LICENSE .",
     "postpublish": "rm README.md LICENSE",
     "svelte-check": "svelte-check",
-    "test": "pnpm test:unit && pnpm test:e2e",
+    "test": "pnpm svelte-check && pnpm test:unit && pnpm test:e2e",
     "test:unit": "vitest run",
     "test:e2e": "cypress run --browser chrome",
     "cy": "cypress"
