@@ -8,6 +8,5 @@ import './pm/editor.css'
 import './pm/prosemirror-example-setup.css'
 import './pm/menu.css'
 
-const container = document.getElementById('root')
-const root = createRoot(container as HTMLElement)
+const root = createRoot(document.getElementById('root') as HTMLElement)
 root.render(<Routes />)
