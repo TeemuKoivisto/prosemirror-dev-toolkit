@@ -99,11 +99,11 @@
     <div class="resizing-div" on:mousedown={handleResizeMouseDown} />
     <div class="container">
       <div>
-        <button class="btn copy-btn" on:click={handleCopyDoc}>Copy</button>
-        <button class="btn save-btn" on:click={handleSaveSnapshot}>Save</button>
-        <button class="btn import-btn" on:click={handleImportSnapshot}>Import</button>
-        <button class="btn paste-btn" on:click={handlePasteSnapshot}>Paste</button>
-        <button class="btn close-btn" aria-label="Close dev-toolkit" on:click={onClose}>X</button>
+        <button class="copy-btn" on:click={handleCopyDoc}>Copy</button>
+        <button class="save-btn" on:click={handleSaveSnapshot}>Save</button>
+        <button class="import-btn" on:click={handleImportSnapshot}>Import</button>
+        <button class="paste-btn" on:click={handlePasteSnapshot}>Paste</button>
+        <button class="close-btn" aria-label="Close dev-toolkit" on:click={onClose}>X</button>
       </div>
       <input
         style="display:none"
@@ -165,7 +165,7 @@
   .container {
     height: 100%;
   }
-  .btn {
+  button {
     background: rgba($color-red-light, 0.6);
     border: 0;
     border-radius: 3px;

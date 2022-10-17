@@ -19,7 +19,7 @@ exports[`DevTools.svelte > should open by clicking the floating button 1`] = `
       class="dev-tools s-DevTools-3laa75"
     >
       <div
-        class="floating-dock-wrapper s-FloatingDock-1i2szdk"
+        class="floating-dock-wrapper s-FloatingDock-14aalj4"
       >
         <div
           class="paste-modal s-PasteModal-1516w55 hidden"
@@ -59,46 +59,46 @@ exports[`DevTools.svelte > should open by clicking the floating button 1`] = `
         <!--&lt;PasteModal&gt;-->
          
         <div
-          class="floating-dock s-FloatingDock-1i2szdk"
+          class="floating-dock s-FloatingDock-14aalj4"
           style="top: 50%; height: 50%;"
         >
           <div
-            class="resizing-div s-FloatingDock-1i2szdk"
+            class="resizing-div s-FloatingDock-14aalj4"
           />
            
           <div
-            class="container s-FloatingDock-1i2szdk"
+            class="container s-FloatingDock-14aalj4"
           >
             <div
-              class="s-FloatingDock-1i2szdk"
+              class="s-FloatingDock-14aalj4"
             >
               <button
-                class="btn copy-btn s-FloatingDock-1i2szdk"
+                class="copy-btn s-FloatingDock-14aalj4"
               >
                 Copy
               </button>
                
               <button
-                class="btn save-btn s-FloatingDock-1i2szdk"
+                class="save-btn s-FloatingDock-14aalj4"
               >
                 Save
               </button>
                
               <button
-                class="btn import-btn s-FloatingDock-1i2szdk"
+                class="import-btn s-FloatingDock-14aalj4"
               >
                 Import
               </button>
                
               <button
-                class="btn paste-btn s-FloatingDock-1i2szdk"
+                class="paste-btn s-FloatingDock-14aalj4"
               >
                 Paste
               </button>
                
               <button
                 aria-label="Close dev-toolkit"
-                class="btn close-btn s-FloatingDock-1i2szdk"
+                class="close-btn s-FloatingDock-14aalj4"
               >
                 X
               </button>
@@ -106,7 +106,7 @@ exports[`DevTools.svelte > should open by clicking the floating button 1`] = `
              
             <input
               accept=".json"
-              class="s-FloatingDock-1i2szdk"
+              class="s-FloatingDock-14aalj4"
               multiple=""
               style="display: none;"
               type="file"
@@ -223,7 +223,7 @@ exports[`DevTools.svelte > should render 1`] = `
       class="dev-tools s-DevTools-3laa75"
     >
       <div
-        class="floating-dock-wrapper s-FloatingDock-1i2szdk"
+        class="floating-dock-wrapper s-FloatingDock-14aalj4"
       >
         <div
           class="paste-modal s-PasteModal-1516w55 hidden"
@@ -263,46 +263,46 @@ exports[`DevTools.svelte > should render 1`] = `
         <!--&lt;PasteModal&gt;-->
          
         <div
-          class="floating-dock s-FloatingDock-1i2szdk"
+          class="floating-dock s-FloatingDock-14aalj4"
           style="top: 50%; height: 50%;"
         >
           <div
-            class="resizing-div s-FloatingDock-1i2szdk"
+            class="resizing-div s-FloatingDock-14aalj4"
           />
            
           <div
-            class="container s-FloatingDock-1i2szdk"
+            class="container s-FloatingDock-14aalj4"
           >
             <div
-              class="s-FloatingDock-1i2szdk"
+              class="s-FloatingDock-14aalj4"
             >
               <button
-                class="btn copy-btn s-FloatingDock-1i2szdk"
+                class="copy-btn s-FloatingDock-14aalj4"
               >
                 Copy
               </button>
                
               <button
-                class="btn save-btn s-FloatingDock-1i2szdk"
+                class="save-btn s-FloatingDock-14aalj4"
               >
                 Save
               </button>
                
               <button
-                class="btn import-btn s-FloatingDock-1i2szdk"
+                class="import-btn s-FloatingDock-14aalj4"
               >
                 Import
               </button>
                
               <button
-                class="btn paste-btn s-FloatingDock-1i2szdk"
+                class="paste-btn s-FloatingDock-14aalj4"
               >
                 Paste
               </button>
                
               <button
                 aria-label="Close dev-toolkit"
-                class="btn close-btn s-FloatingDock-1i2szdk"
+                class="close-btn s-FloatingDock-14aalj4"
               >
                 X
               </button>
@@ -310,7 +310,7 @@ exports[`DevTools.svelte > should render 1`] = `
              
             <input
               accept=".json"
-              class="s-FloatingDock-1i2szdk"
+              class="s-FloatingDock-14aalj4"
               multiple=""
               style="display: none;"
               type="file"
