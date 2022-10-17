@@ -61,7 +61,6 @@
     modalOpen = false
   }
   function handlePasteSubmit(e: any) {
-    console.log('handled ', e.detail.doc)
     saveSnapshot(new Date().toLocaleString('sv'), e.detail.doc)
     modalOpen = false
   }
