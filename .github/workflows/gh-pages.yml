@@ -26,10 +26,12 @@ jobs:
         uses: ./.github/actions/pnpm
 
       - name: Build
-        run: pnpm -r build
+        run: pnpm --filter prosemirror-dev-toolkit build && pnpm --filter site build
+        env:
+          GH_PAGES: true
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.GH_ACTIONS_DEPLOY_KEY }}
-          publish_dir: ./packages/site/build
+          publish_dir: ./packages/site/dist
