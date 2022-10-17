@@ -9,8 +9,16 @@
   "module": "dist/index.js",
   "type": "module",
   "types": "dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
   "scripts": {
-    "build": "rimraf dist && rollup -c && rm dist/index.d.cts",
+    "build": "pnpm dist | pnpm bundle",
+    "dist": "rimraf dist && rollup -c && rm dist/index.d.cts",
     "bundle": "UMD_BUNDLE=true rollup -c && rm dist/bundle.umd.min.d.ts",
     "watch": "rimraf dist && rollup -cw",
     "prepublishOnly": "cp ../../README.md . && cp ../../LICENSE .",
