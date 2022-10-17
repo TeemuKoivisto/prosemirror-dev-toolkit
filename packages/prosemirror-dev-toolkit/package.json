@@ -45,6 +45,7 @@
     "cypress": "^9.7.0",
     "cypress-file-upload": "^5.0.8",
     "cypress-plugin-snapshots": "^1.4.4",
+    "jsdom": "^20.0.1",
     "jsondiffpatch": "^0.4.1",
     "postcss": "^8.4.14",
     "prosemirror-example-setup": "^1.2.1",
@@ -64,7 +65,7 @@
     "tslib": "^2.4.0",
     "typescript": "^4.7.4",
     "vite": "^3.1.8",
-    "vitest": "^0.23.2"
+    "vitest": "^0.24.3"
   },
   "dependencies": {
     "html": "^1.0.0",
