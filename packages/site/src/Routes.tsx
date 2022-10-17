@@ -10,7 +10,7 @@ import { YjsPage } from './pages/YjsPage'
 import { NoEditorPage } from './pages/NoEditorPage'
 
 export const Routes = () => (
-  <BrowserRouter basename={process.env.PUBLIC_URL}>
+  <BrowserRouter basename={import.meta.env.BASE_URL}>
     <RouterRoutes>
       <Route
         path="/"

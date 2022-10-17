@@ -119,7 +119,7 @@ You need `pnpm` installed globally.
 1. `pnpm`
 2. `pnpm start`
 
-Should open a React app at http://localhost:3300/prosemirror-dev-toolkit/
+Should open a React app at http://localhost:3300
 
 ## Tests
 
