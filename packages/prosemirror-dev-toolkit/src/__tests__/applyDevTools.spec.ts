@@ -4,7 +4,7 @@
 
 import { render, fireEvent } from '@testing-library/svelte'
 import { EditorView } from 'prosemirror-view'
-import { vi } from 'vitest'
+import { beforeAll, describe, expect, it, vi } from 'vitest'
 
 import { applyDevTools, removeDevTools } from '../applyDevTools'
 import { setupEditor } from '$test-utils/setupEditor'

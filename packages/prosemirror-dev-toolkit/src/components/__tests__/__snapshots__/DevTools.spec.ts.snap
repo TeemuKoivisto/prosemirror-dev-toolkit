@@ -415,6 +415,7 @@ exports[`DevTools.svelte > should render 1`] = `
                      
                     <div
                       class="node-key s-TreeViewNode-wbyn6n p-left"
+                      role="presentation"
                     >
                       type
                       :
@@ -423,6 +424,7 @@ exports[`DevTools.svelte > should render 1`] = `
                     <div
                       class="node-value s-TreeViewNode-wbyn6n"
                       data-type="string"
+                      role="presentation"
                     >
                       "doc"
                     </div>
@@ -458,6 +460,7 @@ exports[`DevTools.svelte > should render 1`] = `
                      
                     <div
                       class="node-key s-TreeViewNode-wbyn6n has-children"
+                      role="presentation"
                     >
                       content
                       :
@@ -466,6 +469,7 @@ exports[`DevTools.svelte > should render 1`] = `
                     <div
                       class="node-value s-TreeViewNode-wbyn6n has-children"
                       data-type="array"
+                      role="presentation"
                     >
                        [] 1 items
                     </div>
@@ -526,6 +530,7 @@ exports[`DevTools.svelte > should render 1`] = `
                      
                     <div
                       class="node-key s-TreeViewNode-wbyn6n p-left"
+                      role="presentation"
                     >
                       jsonID
                       :
@@ -534,6 +539,7 @@ exports[`DevTools.svelte > should render 1`] = `
                     <div
                       class="node-value s-TreeViewNode-wbyn6n"
                       data-type="string"
+                      role="presentation"
                     >
                       "text"
                     </div>
@@ -554,6 +560,7 @@ exports[`DevTools.svelte > should render 1`] = `
                      
                     <div
                       class="node-key s-TreeViewNode-wbyn6n p-left"
+                      role="presentation"
                     >
                       empty
                       :
@@ -562,6 +569,7 @@ exports[`DevTools.svelte > should render 1`] = `
                     <div
                       class="node-value s-TreeViewNode-wbyn6n"
                       data-type="boolean"
+                      role="presentation"
                     >
                       true
                     </div>
@@ -582,6 +590,7 @@ exports[`DevTools.svelte > should render 1`] = `
                      
                     <div
                       class="node-key s-TreeViewNode-wbyn6n p-left"
+                      role="presentation"
                     >
                       anchor
                       :
@@ -590,6 +599,7 @@ exports[`DevTools.svelte > should render 1`] = `
                     <div
                       class="node-value s-TreeViewNode-wbyn6n"
                       data-type="number"
+                      role="presentation"
                     >
                       1
                     </div>
@@ -610,6 +620,7 @@ exports[`DevTools.svelte > should render 1`] = `
                      
                     <div
                       class="node-key s-TreeViewNode-wbyn6n p-left"
+                      role="presentation"
                     >
                       from
                       :
@@ -618,6 +629,7 @@ exports[`DevTools.svelte > should render 1`] = `
                     <div
                       class="node-value s-TreeViewNode-wbyn6n"
                       data-type="number"
+                      role="presentation"
                     >
                       1
                     </div>
@@ -638,6 +650,7 @@ exports[`DevTools.svelte > should render 1`] = `
                      
                     <div
                       class="node-key s-TreeViewNode-wbyn6n p-left"
+                      role="presentation"
                     >
                       head
                       :
@@ -646,6 +659,7 @@ exports[`DevTools.svelte > should render 1`] = `
                     <div
                       class="node-value s-TreeViewNode-wbyn6n"
                       data-type="number"
+                      role="presentation"
                     >
                       1
                     </div>
@@ -666,6 +680,7 @@ exports[`DevTools.svelte > should render 1`] = `
                      
                     <div
                       class="node-key s-TreeViewNode-wbyn6n p-left"
+                      role="presentation"
                     >
                       to
                       :
@@ -674,6 +689,7 @@ exports[`DevTools.svelte > should render 1`] = `
                     <div
                       class="node-value s-TreeViewNode-wbyn6n"
                       data-type="number"
+                      role="presentation"
                     >
                       1
                     </div>
@@ -725,6 +741,7 @@ exports[`DevTools.svelte > should render 1`] = `
                        
                       <div
                         class="node-key s-TreeViewNode-wbyn6n p-left"
+                        role="presentation"
                       >
                         nodeSize
                         :
@@ -733,6 +750,7 @@ exports[`DevTools.svelte > should render 1`] = `
                       <div
                         class="node-value s-TreeViewNode-wbyn6n"
                         data-type="number"
+                        role="presentation"
                       >
                         4
                       </div>
@@ -753,6 +771,7 @@ exports[`DevTools.svelte > should render 1`] = `
                        
                       <div
                         class="node-key s-TreeViewNode-wbyn6n p-left"
+                        role="presentation"
                       >
                         childCount
                         :
@@ -761,6 +780,7 @@ exports[`DevTools.svelte > should render 1`] = `
                       <div
                         class="node-value s-TreeViewNode-wbyn6n"
                         data-type="number"
+                        role="presentation"
                       >
                         1
                       </div>

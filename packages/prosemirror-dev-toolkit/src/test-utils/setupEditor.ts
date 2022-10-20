@@ -1,11 +1,12 @@
-import { EditorView } from 'prosemirror-view'
+import { DirectEditorProps, EditorView } from 'prosemirror-view'
 import { EditorState } from 'prosemirror-state'
 import { exampleSetup } from 'prosemirror-example-setup'
 
 import { schema } from './schema'
 
 interface Opts {
-  exampleSetup: boolean
+  exampleSetup?: boolean
+  props?: Omit<DirectEditorProps, 'state'> 
 }
 
 const DEFAULT_OPTIONS = {
@@ -19,7 +20,8 @@ export function setupEditor(element: HTMLElement, opts: Opts = DEFAULT_OPTIONS) 
       state: EditorState.create({
         schema,
         plugins: opts.exampleSetup ? exampleSetup({ schema }) : []
-      })
+      }),
+      ...opts.props
     }
   )
 }
