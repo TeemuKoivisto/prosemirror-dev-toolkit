@@ -1,5 +1,11 @@
 # prosemirror-dev-toolkit
 
+## 1.0.5
+
+### Patch Changes
+
+- 96b1137: fix: edge case where view.props is undefined
+
 ## 1.0.4
 
 ### Patch Changes
