@@ -50,7 +50,11 @@ const handleDispatch =
 
 export function subscribeToDispatchTransaction(view: EditorView) {
   active = true
-  const oldDispatchFn = view.props.dispatchTransaction?.bind(view)
+  // People at times do all kinds of crazy things with EditorView eg extending it with a custom class.
+  // This can cause various bugs, for example it can override props setter. Because I don't get points from
+  // being right I'll just save them from their own silliness by checking also private _props
+  // @ts-ignore
+  const oldDispatchFn = (view.props || view._props).dispatchTransaction?.bind(view)
   view.setProps({
     dispatchTransaction: handleDispatch(view, oldDispatchFn)
   })
