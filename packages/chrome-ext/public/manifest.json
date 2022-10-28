@@ -1,0 +1,49 @@
+{
+  "manifest_version": 3,
+  "name": "prosemirror-dev-toolkit",
+  "version": "0.0.1",
+  "description": "Run prosemirror-dev-toolkit as Chrome extension",
+  "homepage_url": "https://teemukoivisto.github.io/prosemirror-dev-toolkit",
+  "icons": {
+    "16": "prosemirror-16.png",
+    "32": "prosemirror-32.png",
+    "48": "prosemirror-48.png",
+    "128": "prosemirror-128.png"
+  },
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": "prosemirror-128.png"
+  },
+  "content_scripts": [
+    {
+      "run_at": "document_idle",
+      "matches": ["<all_urls>"],
+      "js": ["index.js", "content.js"]
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "<all_urls>",
+    "storage",
+    "fontSettings",
+    "scripting",
+    "storage",
+    "unlimitedStorage",
+    "webNavigation",
+    "activeTab",
+    "declarativeNetRequest",
+    "browsingData",
+    "tabs"
+  ],
+  "host_permissions": ["http://*/*", "https://*/*"],
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Ctrl+U",
+        "mac": "Command+U"
+      }
+    }
+  }
+}

@@ -38,6 +38,25 @@ importers:
       prettier: 2.7.1
       prettier-plugin-svelte: 2.8.0_prettier@2.7.1
 
+  packages/chrome-ext:
+    specifiers:
+      '@types/node': ^18.11.2
+      chrome-types: ^0.1.141
+      prosemirror-dev-toolkit: workspace:*
+      rimraf: ^3.0.2
+      typescript: 4.8.4
+      vite: ^3.1.8
+      vite-tsconfig-paths: ^3.5.1
+    dependencies:
+      prosemirror-dev-toolkit: link:../prosemirror-dev-toolkit
+    devDependencies:
+      '@types/node': 18.11.2
+      chrome-types: 0.1.141
+      rimraf: 3.0.2
+      typescript: 4.8.4
+      vite: 3.1.8
+      vite-tsconfig-paths: 3.5.1_vite@3.1.8
+
   packages/prosemirror-dev-toolkit:
     specifiers:
       '@babel/core': ^7.19.3
@@ -3461,6 +3480,10 @@ packages:
       readdirp: 3.6.0
     optionalDependencies:
       fsevents: 2.3.2
+    dev: true
+
+  /chrome-types/0.1.141:
+    resolution: {integrity: sha512-8cEWO+6Rlq4DULkG0656cNIFaawXBzG9lw01/j82nYovDgvh6Yo4PUa3KS3kl4MhgRGfpRH4W/Dm2wOs6mjpew==}
     dev: true
 
   /ci-info/3.4.0:
