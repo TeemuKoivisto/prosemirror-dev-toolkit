@@ -1,16 +1,25 @@
 import { applyDevTools } from 'prosemirror-dev-toolkit'
+import type { EditorView } from 'prosemirror-view'
 
 let timeout: ReturnType<typeof setTimeout>,
   attempts = 0,
+  selector = '.ProseMirror',
   pmEl: HTMLElement | undefined
 
+declare global {
+  interface Element {
+    pmViewDesc?: {
+      updateChildren: (view: EditorView, pos: number) => void
+      selectNode: () => void
+      deselectNode: () => void
+    }
+  }
+}
+
 function getEditorView(el: HTMLElement): Promise<any> {
-  console.log(el.pmViewDesc)
-  // @ts-ignore
-  const oldFn = el.pmViewDesc.updateChildren
+  const oldFn = el.pmViewDesc?.updateChildren
   const childWithSelectNode = Array.from(el.children).find(
-    // @ts-ignore
-    child => child.pmViewDesc && child.pmViewDesc.selectNode !== undefined
+    child => child.pmViewDesc && child.pmViewDesc?.selectNode !== undefined
   )
 
   if (childWithSelectNode === undefined) {
@@ -18,16 +27,13 @@ function getEditorView(el: HTMLElement): Promise<any> {
       'Failed to find a ProseMirror child NodeViewDesc with selectNode function (which is strange)'
     )
   } else {
-    // @ts-ignore
-    childWithSelectNode.pmViewDesc.selectNode()
-    // @ts-ignore
-    childWithSelectNode.pmViewDesc.deselectNode()
+    childWithSelectNode.pmViewDesc?.selectNode()
+    childWithSelectNode.pmViewDesc?.deselectNode()
   }
   return new Promise((res, rej) => {
-    // @ts-ignore
-    el.pmViewDesc.updateChildren = (view, pos) => {
-      // @ts-ignore
-      el.pmViewDesc.updateChildren = oldFn
+    if (!el.pmViewDesc) return
+    el.pmViewDesc.updateChildren = (view: EditorView, pos: number) => {
+      if (el.pmViewDesc && oldFn) el.pmViewDesc.updateChildren = oldFn
       res(view)
       // @ts-ignore
       return Function.prototype.bind.apply(oldFn, view, pos)
@@ -35,34 +41,47 @@ function getEditorView(el: HTMLElement): Promise<any> {
   })
 }
 
-function queryDOM(): Promise<boolean> {
+function queryDOM(selector: string): Promise<HTMLElement | undefined> {
   return new Promise((resolve, reject) => {
     timeout = setTimeout(() => {
-      const el = document.querySelector('.ProseMirror')
-      if (el && el instanceof HTMLElement) {
-        pmEl = el
-        resolve(true)
+      const el = document.querySelector(selector)
+      if (el instanceof HTMLElement) {
+        resolve(el)
       } else {
         attempts += 1
-        resolve(false)
+        resolve(undefined)
       }
     }, 1000 * attempts)
   })
 }
 
 async function findProsemirror() {
-  const found = await queryDOM()
-  if (!found && attempts < 5) {
+  pmEl = await queryDOM(selector)
+  if (!pmEl && attempts < 5) {
     findProsemirror()
-  } else if (found && pmEl) {
+  } else if (pmEl) {
     console.log('FOUND PROSEMIRROR')
     const view = await getEditorView(pmEl)
     applyDevTools(view, { buttonPosition: 'bottom-right' })
+    const foundInstances = document.querySelectorAll(selector).length
+    window.postMessage({ type: 'injected', data: foundInstances }, '*')
   }
 }
 
-window.addEventListener('load', async event => {
+window.addEventListener('load', () => {
   findProsemirror()
+})
+
+window.addEventListener('message', ev => {
+  console.log('received inside inject', ev.data)
+  if ('type' in ev.data) {
+    switch (ev.data.type) {
+      case 'pop-up-open':
+        const foundInstances = document.querySelectorAll(selector).length
+        window.postMessage({ type: 'found-instances', data: foundInstances }, '*')
+        break
+    }
+  }
 })
 
 export {}

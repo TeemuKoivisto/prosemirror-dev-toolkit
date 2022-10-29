@@ -9,6 +9,7 @@
     "@sveltejs/vite-plugin-svelte": "^1.0.9",
     "@types/chrome": "^0.0.200",
     "@types/node": "^18.11.2",
+    "prosemirror-view": "^1.29.0",
     "rimraf": "^3.0.2",
     "sass": "^1.55.0",
     "svelte": "^3.52.0",

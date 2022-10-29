@@ -11,7 +11,7 @@
     "128": "prosemirror-128.png"
   },
   "action": {
-    "default_popup": "index.html",
+    "default_popup": "pop-up.html",
     "default_icon": "prosemirror-128.png"
   },
   "content_scripts": [
@@ -19,7 +19,7 @@
       "run_at": "document_end",
       "matches": ["<all_urls>"],
       "all_frames": true,
-      "js": ["index.js"]
+      "js": ["pop-up.js", "content.js"]
     }
   ],
   "web_accessible_resources": [
@@ -45,7 +45,9 @@
     "activeTab",
     "declarativeNetRequest",
     "browsingData",
+    "webRequest",
     "contextMenus",
+    "activeTab",
     "tabs"
   ],
   "host_permissions": ["file:///*", "http://*/*", "https://*/*"],

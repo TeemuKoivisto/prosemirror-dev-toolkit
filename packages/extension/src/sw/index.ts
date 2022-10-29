@@ -10,7 +10,7 @@ chrome.commands.onCommand.addListener(shortcut => {
 // Create the context menu when installed
 chrome.runtime.onInstalled.addListener(() => {
   createMenu()
-  openDevToolsWindow('devtools-left')
+  // openDevToolsWindow('devtools-left')
 })
 
 chrome.scripting.registerContentScripts([
