@@ -19,7 +19,7 @@
       "run_at": "document_end",
       "matches": ["<all_urls>"],
       "all_frames": true,
-      "js": ["pop-up.js", "content.js"]
+      "js": ["pop-up.js", "msg-relayer.js"]
     }
   ],
   "web_accessible_resources": [
