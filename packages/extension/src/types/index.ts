@@ -1,4 +1,1 @@
-export interface Message {
-  type: string
-  data: any
-}
+export * from './messages'
