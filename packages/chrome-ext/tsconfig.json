@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es2017",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "types": ["chrome-types"],
+    "types": ["svelte", "@types/chrome"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
