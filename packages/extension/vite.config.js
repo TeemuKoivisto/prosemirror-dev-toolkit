@@ -15,7 +15,6 @@ export default defineConfig({
       },
       input: {
         sw: path.resolve('./src/sw/index.ts'),
-        'msg-relayer': path.resolve('./src/msg-relayer.ts'),
         inject: path.resolve('./src/inject.ts'),
         'pop-up': path.resolve('./pop-up.html')
       }
