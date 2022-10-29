@@ -17,12 +17,11 @@ const isCSPDisabled = async () => {
 }
 
 const updateUI = async () => {
-  const isDisabled = await isCSPDisabled(),
-    iconColor = isDisabled ? '' : '_gray',
-    title = isDisabled ? 'is' : 'is not'
-
-  chrome.action.setIcon({ path: `icon/cola${iconColor}.png` })
-  chrome.action.setTitle({ title: `The extension ${title} working` })
+  // const isDisabled = await isCSPDisabled(),
+  //   iconColor = isDisabled ? '' : '_gray',
+  //   title = isDisabled ? 'is' : 'is not'
+  // chrome.action.setIcon({ path: `icon/cola${iconColor}.png` })
+  // chrome.action.setTitle({ title: `The extension ${title} working` })
 }
 
 const disableCSP = async (id: number) => {
@@ -68,19 +67,19 @@ async function toggleBadge(tab: chrome.tabs.Tab) {
     tabId: tab.id,
     text: nextState
   })
-  if (nextState === 'ON') {
-    // Insert the CSS file when the user turns the extension on
-    await chrome.scripting.insertCSS({
-      files: ['focus-mode.css'],
-      target: { tabId: tab.id || 0 }
-    })
-  } else if (nextState === 'OFF') {
-    // Remove the CSS file when the user turns the extension off
-    await chrome.scripting.removeCSS({
-      files: ['focus-mode.css'],
-      target: { tabId: tab.id || 0 }
-    })
-  }
+  // if (nextState === 'ON') {
+  //   // Insert the CSS file when the user turns the extension on
+  //   await chrome.scripting.insertCSS({
+  //     files: ['focus-mode.css'],
+  //     target: { tabId: tab.id || 0 }
+  //   })
+  // } else if (nextState === 'OFF') {
+  //   // Remove the CSS file when the user turns the extension off
+  //   await chrome.scripting.removeCSS({
+  //     files: ['focus-mode.css'],
+  //     target: { tabId: tab.id || 0 }
+  //   })
+  // }
 }
 
 chrome.runtime.onInstalled.addListener(() => {
@@ -90,26 +89,22 @@ chrome.runtime.onInstalled.addListener(() => {
 })
 
 chrome.runtime.onMessage.addListener((ev, sender, sendResponse) => {
-  const { el, tab = { id: undefined } } = ev
+  const { el, tab } = ev
   console.log(`A content script sent a message: ${tab}`)
-  // exec()
-  tab && toggleBadge(tab)
-  disableCSP(tab.id)
+  console.log(`A content script sent a message: ${ev.tabId}`)
+  toggleBadge(tab || { id: undefined })
+  // disableCSP(tab?.id || 1)
   return undefined
 })
 
-const init = () => {
-  // When the user clicks the plugin icon
-  chrome.action.onClicked.addListener(tab => {
-    disableCSP(tab.id || 0)
-  })
-
-  // When the user changes tab
-  chrome.tabs.onActivated.addListener(() => {
-    updateUI()
-  })
-}
-
-init()
+chrome.scripting.registerContentScripts([
+  {
+    id: 'inject',
+    matches: ['<all_urls>'],
+    js: ['inject.js'],
+    runAt: 'document_end',
+    world: 'MAIN'
+  }
+])
 
 export {}

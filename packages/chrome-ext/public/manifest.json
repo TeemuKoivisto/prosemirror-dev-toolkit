@@ -1,9 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "prosemirror-dev-toolkit",
+  "name": "ProseMirror DevTools",
   "version": "0.0.1",
   "description": "Run prosemirror-dev-toolkit as Chrome extension",
-  "homepage_url": "https://teemukoivisto.github.io/prosemirror-dev-toolkit",
+  "homepage_url": "https://github.com/TeemuKoivisto/prosemirror-dev-toolkit",
   "icons": {
     "16": "prosemirror-16.png",
     "32": "prosemirror-32.png",
@@ -16,16 +16,26 @@
   },
   "content_scripts": [
     {
-      "run_at": "document_idle",
+      "run_at": "document_end",
       "matches": ["<all_urls>"],
-      "js": ["index.js", "content.js"]
+      "all_frames": true,
+      "js": ["index.js"]
     }
   ],
+  "web_accessible_resources": [
+    {
+      "resources": ["inject.js"],
+      "matches": ["<all_urls>"],
+      "extension_ids": []
+    }
+  ],
+  "externally_connectable": {
+    "ids": ["*"]
+  },
   "background": {
     "service_worker": "background.js"
   },
   "permissions": [
-    "<all_urls>",
     "storage",
     "fontSettings",
     "scripting",
@@ -37,7 +47,10 @@
     "browsingData",
     "tabs"
   ],
-  "host_permissions": ["http://*/*", "https://*/*"],
+  "host_permissions": ["file:///*", "http://*/*", "https://*/*"],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; style-src * 'unsafe-inline'; img-src 'self' data:;"
+  },
   "commands": {
     "_execute_action": {
       "suggested_key": {

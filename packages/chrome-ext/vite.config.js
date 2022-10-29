@@ -14,7 +14,7 @@ export default defineConfig({
       },
       input: {
         background: path.resolve('./src/background.ts'),
-        content: path.resolve('./src/content.ts'),
+        inject: path.resolve('./src/inject.ts'),
         index: path.resolve('index.html')
       }
     }
