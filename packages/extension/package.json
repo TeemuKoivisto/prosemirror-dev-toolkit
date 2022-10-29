@@ -1,5 +1,5 @@
 {
-  "name": "@prosemirror-dev-toolkit/chrome-ext",
+  "name": "extension",
   "type": "module",
   "scripts": {
     "dev": "vite",
