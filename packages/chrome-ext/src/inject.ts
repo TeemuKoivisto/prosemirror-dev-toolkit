@@ -55,6 +55,7 @@ async function findProsemirror() {
   if (!found && attempts < 5) {
     findProsemirror()
   } else if (found && pmEl) {
+    console.log('FOUND PROSEMIRROR')
     const view = await getEditorView(pmEl)
     applyDevTools(view, { buttonPosition: 'bottom-right' })
   }

@@ -33,7 +33,7 @@
     "ids": ["*"]
   },
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "sw.js"
   },
   "permissions": [
     "storage",
@@ -45,6 +45,7 @@
     "activeTab",
     "declarativeNetRequest",
     "browsingData",
+    "contextMenus",
     "tabs"
   ],
   "host_permissions": ["file:///*", "http://*/*", "https://*/*"],
