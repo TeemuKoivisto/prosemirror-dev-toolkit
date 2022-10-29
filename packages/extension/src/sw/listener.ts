@@ -32,9 +32,10 @@ async function getCurrentTab() {
 }
 
 async function listener<K extends keyof InjectMessages & keyof PopUpMessages>(
-  msg: { type: K; data: InjectMessages[K] | PopUpMessages[K] },
+  msg: { source: string; type: K; data: InjectMessages[K] | PopUpMessages[K] },
   sender: chrome.runtime.MessageSender
 ) {
+  if (!('source' in msg) || msg.source !== 'pm-dev-tools') return
   const tab = sender.tab || (await getCurrentTab())
   console.log('tab', tab)
   const type = msg.type as keyof InjectMessages | keyof PopUpMessages
@@ -58,7 +59,7 @@ async function listener<K extends keyof InjectMessages & keyof PopUpMessages>(
 }
 
 function send<K extends keyof SWMessages>(type: K, data: SWMessages[K]) {
-  chrome.runtime.sendMessage({ type, data })
+  chrome.runtime.sendMessage({ source: 'pm-dev-tools', type, data })
 }
 
 chrome.runtime.onMessage.addListener((msg: any, sender, _sendResponse) => {
