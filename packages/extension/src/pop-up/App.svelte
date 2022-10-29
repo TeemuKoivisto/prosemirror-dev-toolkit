@@ -1,63 +1,48 @@
 <script lang="ts">
-  import { getContext, onDestroy, onMount, setContext } from 'svelte'
+  import { onMount } from 'svelte'
   import { writable } from 'svelte/store'
 
-  // import { createStateStore } from '../stores/state'
-  // import type { Stores } from '../stores'
-  // import type { Message } from '../types'
-  // import * as chrome from './chrome'
+  import type { PopUpMessages, SWMessages } from '../types/messages'
 
   interface Received {
     from: 'chrome' | 'window'
     data: any
   }
 
-  // const stateStore = createStateStore()
-
-  // setContext<Stores>('pop-up', {
-  //   stateStore
-  // })
-
   const received = writable<Received[]>([])
   let count = 0,
     foundInstances = 0
 
-  async function handleClick() {
-    chrome.runtime.sendMessage({ type: 'badge', data: {} })
-    // isActive.set(!$isActive)
+  function handleClick() {
+    send('badge', true)
   }
 
-  onMount(async () => {
-    chrome.runtime.sendMessage({ type: 'pop-up-open', data: 'open' })
-    // window.postMessage({ type: 'pop-up-open', data: 'open' }, '*')
+  onMount(() => {
+    send('open', true)
   })
 
-  chrome.runtime.onMessage.addListener((ev: any) => {
+  function send<K extends keyof PopUpMessages>(type: K, data: PopUpMessages[K]) {
+    chrome.runtime.sendMessage({ type, data })
+  }
+
+  function listen<K extends keyof SWMessages>(
+    ev: { type: K; data: SWMessages[K] },
+    _sender: chrome.runtime.MessageSender,
+    _sendResponse: (response?: any) => void
+  ) {
     if (ev && 'type' in ev && 'data' in ev) {
-      switch (ev.type) {
-        case 'sw-found':
-          foundInstances = ev.data
+      const type = ev.type as keyof SWMessages
+      switch (type) {
+        case 'current_instances':
+          foundInstances = ev.data as SWMessages['current_instances']
           break
       }
     }
     received.update(msgs => [...msgs, { from: 'chrome', data: ev }])
     count += 1
-  })
+  }
 
-  window.addEventListener('message', ev => {
-    if ('type' in ev.data) {
-      switch (ev.data.type) {
-        case 'pop-up-msgs':
-          received.set(ev.data.data)
-          break
-        case 'found-instances':
-          foundInstances = ev.data.data
-          break
-      }
-    }
-    received.update(msgs => [...msgs, { from: 'window', data: ev.data }])
-    count += 1
-  })
+  chrome.runtime.onMessage.addListener(listen)
 </script>
 
 <div>

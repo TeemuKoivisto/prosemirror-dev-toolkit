@@ -1,6 +1,8 @@
 import { applyDevTools } from 'prosemirror-dev-toolkit'
 import type { EditorView } from 'prosemirror-view'
 
+import type { InjectMessages } from './types/messages'
+
 let timeout: ReturnType<typeof setTimeout>,
   attempts = 0,
   selector = '.ProseMirror',
@@ -63,25 +65,16 @@ async function findProsemirror() {
     console.log('FOUND PROSEMIRROR')
     const view = await getEditorView(pmEl)
     applyDevTools(view, { buttonPosition: 'bottom-right' })
-    const foundInstances = document.querySelectorAll(selector).length
-    window.postMessage({ type: 'injected', data: foundInstances }, '*')
+    send('found_instances', document.querySelectorAll(selector).length)
   }
+}
+
+function send<K extends keyof InjectMessages>(type: K, data: InjectMessages[K]) {
+  window.postMessage({ type, data })
 }
 
 window.addEventListener('load', () => {
   findProsemirror()
-})
-
-window.addEventListener('message', ev => {
-  console.log('received inside inject', ev.data)
-  if ('type' in ev.data) {
-    switch (ev.data.type) {
-      case 'pop-up-open':
-        const foundInstances = document.querySelectorAll(selector).length
-        window.postMessage({ type: 'found-instances', data: foundInstances }, '*')
-        break
-    }
-  }
 })
 
 export {}

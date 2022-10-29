@@ -1,8 +1,7 @@
-import type { Message } from '../types'
+// import type { Message } from '../types'
+import type { Message, InjectMessages, PopUpMessages, SWMessages } from '../types/messages'
 
-let messages = 0,
-  foundInstances = 0,
-  mountedInstances = new Map<string, number>()
+const mountedInstances = new Map<string, number>()
 
 async function toggleBadge(tabId: number) {
   const prevState = await chrome.action.getBadgeText({ tabId })
@@ -12,19 +11,6 @@ async function toggleBadge(tabId: number) {
     tabId: tabId,
     text: nextState
   })
-  // if (nextState === 'ON') {
-  //   // Insert the CSS file when the user turns the extension on
-  //   await chrome.scripting.insertCSS({
-  //     files: ['focus-mode.css'],
-  //     target: { tabId: tab.id || 0 }
-  //   })
-  // } else if (nextState === 'OFF') {
-  //   // Remove the CSS file when the user turns the extension off
-  //   await chrome.scripting.removeCSS({
-  //     files: ['focus-mode.css'],
-  //     target: { tabId: tab.id || 0 }
-  //   })
-  // }
 }
 
 chrome.runtime.onInstalled.addListener(() => {
@@ -45,25 +31,25 @@ async function getCurrentTab() {
   return tab
 }
 
-async function listener(msg: Message, sender: chrome.runtime.MessageSender) {
+async function listener<K extends keyof InjectMessages & keyof PopUpMessages>(
+  msg: { type: K; data: InjectMessages[K] | PopUpMessages[K] },
+  sender: chrome.runtime.MessageSender
+) {
   const tab = sender.tab || (await getCurrentTab())
   console.log('tab', tab)
-  switch (msg.type) {
-    case 'injected':
-      foundInstances = msg.data
+  const type = msg.type as keyof InjectMessages | keyof PopUpMessages
+  switch (type) {
+    case 'found_instances':
       mountedInstances.set(tab.url || '', msg.data)
-      // chrome.runtime.sendMessage({ type: 'sw-found', foundInstances })
       break
     case 'reload':
       // chrome.tabs.reload(msg.tabId, { bypassCache: true })
       break
     case 'badge':
       toggleBadge(sender.tab?.id as number)
-      chrome.runtime.sendMessage({ type: 'sw-msgs', data: messages })
       break
-    case 'pop-up-open':
-      const instances = mountedInstances.get(tab.url || '') || 0
-      chrome.runtime.sendMessage({ type: 'sw-found', data: instances })
+    case 'open':
+      send('current_instances', mountedInstances.get(tab.url || '') || 0)
       break
     default:
       // chrome.tabs.sendMessage(msg.tabId, msg)
@@ -71,10 +57,13 @@ async function listener(msg: Message, sender: chrome.runtime.MessageSender) {
   }
 }
 
-chrome.runtime.onMessage.addListener((msg: Message, sender, sendResponse) => {
-  console.log(`A content script sent a message: ${JSON.stringify(msg)}`)
+function send<K extends keyof SWMessages>(type: K, data: SWMessages[K]) {
+  chrome.runtime.sendMessage({ type, data })
+}
+
+chrome.runtime.onMessage.addListener((msg: any, sender, _sendResponse) => {
+  console.log(`Received: ${JSON.stringify(msg)}`)
   console.log('sender: ', sender)
-  messages += 1
   listener(msg, sender)
   return undefined
 })
