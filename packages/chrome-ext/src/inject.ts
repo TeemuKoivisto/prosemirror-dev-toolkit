@@ -55,17 +55,12 @@ async function findProsemirror() {
   if (!found && attempts < 5) {
     findProsemirror()
   } else if (found && pmEl) {
-    console.log('found ProseMirror!!!!', pmEl)
-    console.log(pmEl.pmViewDesc)
-    // @ts-ignore
-    window.pmEl = pmEl
     const view = await getEditorView(pmEl)
     applyDevTools(view, { buttonPosition: 'bottom-right' })
   }
 }
 
-window.addEventListener('load', event => {
-  console.log('hello onload')
+window.addEventListener('load', async event => {
   findProsemirror()
 })
 
