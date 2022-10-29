@@ -2,6 +2,7 @@ export interface Message<
   K extends keyof PopUpMessages & keyof InjectMessages & keyof SWMessages,
   T = (PopUpMessages[K] & InjectMessages[K]) | SWMessages[K]
 > {
+  source: 'pm-dev-tools'
   type: K
   data: T
 }

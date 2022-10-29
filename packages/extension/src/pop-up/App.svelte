@@ -22,23 +22,22 @@
   })
 
   function send<K extends keyof PopUpMessages>(type: K, data: PopUpMessages[K]) {
-    chrome.runtime.sendMessage({ type, data })
+    chrome.runtime.sendMessage({ source: 'pm-dev-tools', type, data })
   }
 
   function listen<K extends keyof SWMessages>(
-    ev: { type: K; data: SWMessages[K] },
+    msg: { source: 'pm-dev-tools'; type: K; data: SWMessages[K] },
     _sender: chrome.runtime.MessageSender,
     _sendResponse: (response?: any) => void
   ) {
-    if (ev && 'type' in ev && 'data' in ev) {
-      const type = ev.type as keyof SWMessages
-      switch (type) {
-        case 'current_instances':
-          foundInstances = ev.data as SWMessages['current_instances']
-          break
-      }
+    if (!('source' in msg) || msg.source !== 'pm-dev-tools') return
+    const type = msg.type as keyof SWMessages
+    switch (type) {
+      case 'current_instances':
+        foundInstances = msg.data as SWMessages['current_instances']
+        break
     }
-    received.update(msgs => [...msgs, { from: 'chrome', data: ev }])
+    received.update(msgs => [...msgs, { from: 'chrome', data: msg }])
     count += 1
   }
 

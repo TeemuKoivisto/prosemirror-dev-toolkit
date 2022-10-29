@@ -70,7 +70,7 @@ async function findProsemirror() {
 }
 
 function send<K extends keyof InjectMessages>(type: K, data: InjectMessages[K]) {
-  window.postMessage({ type, data })
+  window.postMessage({ source: 'pm-dev-tools', type, data })
 }
 
 window.addEventListener('load', () => {
