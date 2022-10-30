@@ -36,16 +36,19 @@ disabled.subscribe(async val => {
   chrome.action.setBadgeText({
     text: val ? 'OFF' : 'ON'
   })
-  if (!val) {
-    ports.update(
-      p => new Map(Array.from(p.entries()).map(([key, inst]) => [key, { ...inst, instances: [] }]))
-    )
-  }
 })
 
 export const storeActions = {
   toggleDisabled() {
-    disabled.update(val => !val)
+    const newVal = !get(disabled)
+    disabled.update(val => newVal)
+    if (!newVal) {
+      ports.update(
+        p =>
+          new Map(Array.from(p.entries()).map(([key, inst]) => [key, { ...inst, instances: [] }]))
+      )
+    }
+    return newVal
   },
   getInstances(tabId: number) {
     return get(ports).get(tabId)?.instances || []
@@ -81,10 +84,6 @@ export const storeActions = {
         pagePort: type === 'page' ? port : undefined,
         popUpPort: type === 'pop-up' ? port : undefined
       })
-    })
-    this.sendToPort(tabId, 'inject-data', {
-      selector: '.ProseMirror',
-      disabled: get(disabled)
     })
   },
   sendToPort<K extends keyof SWMessageMap>(tabId: number, type: K, data: SWMessageMap[K]['data']) {
