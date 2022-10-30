@@ -1,9 +1,5 @@
-import { InjectMessages, SWMessages } from './types'
-
 // Resend messages from inject.ts to sw.ts
-function handleInjectMsgs<K extends keyof InjectMessages>(
-  event: MessageEvent<{ source: 'pm-dev-tools'; type: K; data: InjectMessages[K] }>
-) {
+function handleInjectMsgs(event: MessageEvent<any>) {
   if (
     typeof event.data !== 'object' ||
     !('source' in event.data) ||
@@ -16,7 +12,7 @@ function handleInjectMsgs<K extends keyof InjectMessages>(
 }
 
 // Resend messages from sw.ts to inject.ts
-function handleSWMsgs(msg: SWMessages) {
+function handleSWMsgs(msg: any) {
   if (typeof msg !== 'object' || !('source' in msg) || msg.source !== 'pm-dev-tools') return
   window.postMessage(msg, '*')
 }

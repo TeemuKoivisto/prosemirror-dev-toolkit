@@ -2,7 +2,7 @@
   import { onMount } from 'svelte'
   import { writable } from 'svelte/store'
 
-  import type { FoundInstance, PopUpMessages, SWMessages } from '../types'
+  import type { FoundInstance, PopUpMessages, SWMessageMap } from '../types'
 
   interface Received {
     from: 'chrome' | 'window'
@@ -24,16 +24,18 @@
     chrome.runtime.sendMessage({ source: 'pm-dev-tools', origin: 'pop-up', type, data })
   }
 
-  function listen(
-    msg: SWMessages,
+  function listen<K extends keyof SWMessageMap>(
+    raw: SWMessageMap[K],
     _sender: chrome.runtime.MessageSender,
     _sendResponse: (response?: any) => void
   ) {
-    if (typeof msg !== 'object' || !('source' in msg) || msg.source !== 'pm-dev-tools') return
-    switch (msg.type) {
+    if (typeof raw !== 'object' || !('source' in raw) || raw.source !== 'pm-dev-tools') {
+      return
+    }
+    switch (raw.type) {
       case 'pop-up-data':
-        disabled = msg.data.disabled
-        editors = msg.data.instances
+        disabled = raw.data.disabled
+        editors = raw.data.instances
         break
     }
     received.update(msgs => [...msgs, { from: 'chrome', data: msg }])
