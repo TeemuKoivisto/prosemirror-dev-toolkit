@@ -1,17 +1,12 @@
 import { Message, FoundInstance } from './messages'
 
-export enum SWMessageType {
-  popUpData = 'pop-up-data',
-  injectData = 'inject-data'
-}
-
 interface SWMessage {
   source: 'pm-dev-tools'
   origin: 'sw'
 }
 
 interface PopUpData extends SWMessage {
-  type: SWMessageType.popUpData
+  type: 'pop-up-data'
   data: {
     disabled: boolean
     instances: FoundInstance[]
@@ -27,6 +22,6 @@ interface InjectData extends SWMessage {
 }
 
 export interface SWMessageMap {
-  [SWMessageType.popUpData]: PopUpData
-  [SWMessageType.injectData]: InjectData
+  'pop-up-data': PopUpData
+  'inject-data': InjectData
 }

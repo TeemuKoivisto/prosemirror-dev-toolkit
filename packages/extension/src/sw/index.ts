@@ -1,7 +1,6 @@
 import openDevToolsWindow, { DevToolsPosition } from './openWindow'
 import { createMenu, removeMenu } from './contextMenus'
-import { listener } from './listener'
-import { portListener } from './port'
+import { listenToConnections } from './ports'
 
 // Listen for keyboard shortcuts
 chrome.commands.onCommand.addListener(shortcut => {
@@ -36,7 +35,6 @@ chrome.scripting.registerContentScripts([
   }
 ])
 
-chrome.runtime.onMessage.addListener(listener)
-chrome.runtime.onConnect.addListener(portListener)
+chrome.runtime.onConnect.addListener(listenToConnections)
 
 export {}

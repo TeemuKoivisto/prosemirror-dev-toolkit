@@ -81,7 +81,7 @@ async function findProsemirror() {
       size: el.innerHTML.length,
       classes: Array.from(el.classList)
     }))
-    send('found_instances', editors)
+    send('inject-found-instances', editors)
   }
 }
 
@@ -104,7 +104,6 @@ function handleMessages<K extends keyof SWMessageMap>(event: MessageEvent<SWMess
       console.log('RECEIVED INJECT DATA', msg.data)
       disabled = msg.data.disabled
       selector = msg.data.selector
-      send('found_instances', [])
       if (!disabled) {
         findProsemirror()
       } else {

@@ -1,11 +1,11 @@
 import { get, writable } from 'svelte/store'
 
-import { SWMessageType } from '../types'
 import type { FoundInstance, SWMessageMap } from '../types'
 
 interface Connected {
   instances: FoundInstance[]
-  port: chrome.runtime.Port
+  pagePort: chrome.runtime.Port | undefined
+  popUpPort: chrome.runtime.Port | undefined
 }
 
 export const disabled = writable(false)
@@ -36,6 +36,11 @@ disabled.subscribe(async val => {
   chrome.action.setBadgeText({
     text: val ? 'OFF' : 'ON'
   })
+  if (!val) {
+    ports.update(
+      p => new Map(Array.from(p.entries()).map(([key, inst]) => [key, { ...inst, instances: [] }]))
+    )
+  }
 })
 
 export const storeActions = {
@@ -56,23 +61,42 @@ export const storeActions = {
       }
       return p
     })
+    this.sendToPort(tabId, 'pop-up-data', {
+      disabled: get(disabled),
+      instances
+    })
   },
-  addPort(tabId: number, port: chrome.runtime.Port) {
-    ports.update(p =>
-      p.set(tabId, {
+  addPort(type: 'page' | 'pop-up', tabId: number, port: chrome.runtime.Port) {
+    ports.update(p => {
+      const old = p.get(tabId)
+      if (old) {
+        return p.set(tabId, {
+          ...old,
+          pagePort: type === 'page' ? port : old.pagePort,
+          popUpPort: type === 'pop-up' ? port : old.popUpPort
+        })
+      }
+      return p.set(tabId, {
         instances: [],
-        port
+        pagePort: type === 'page' ? port : undefined,
+        popUpPort: type === 'pop-up' ? port : undefined
       })
-    )
-    this.sendToPort(tabId, SWMessageType.injectData, {
+    })
+    this.sendToPort(tabId, 'inject-data', {
       selector: '.ProseMirror',
       disabled: get(disabled)
     })
   },
   sendToPort<K extends keyof SWMessageMap>(tabId: number, type: K, data: SWMessageMap[K]['data']) {
-    const port = get(ports).get(tabId)?.port
-    if (port) {
-      port.postMessage({
+    const inst = get(ports).get(tabId)
+    if (inst) {
+      inst.pagePort?.postMessage({
+        source: 'pm-dev-tools',
+        origin: 'sw',
+        type,
+        data
+      } as SWMessageMap[K])
+      inst.popUpPort?.postMessage({
         source: 'pm-dev-tools',
         origin: 'sw',
         type,
