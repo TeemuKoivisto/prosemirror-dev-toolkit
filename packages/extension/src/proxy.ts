@@ -8,8 +8,9 @@ function handleInjectMsgs<K extends keyof InjectMessages>(
     typeof event.data !== 'object' ||
     !('source' in event.data) ||
     event.data.source !== 'pm-dev-tools'
-  )
+  ) {
     return
+  }
   chrome.runtime.sendMessage(event.data)
   port.postMessage(event.data)
 }
