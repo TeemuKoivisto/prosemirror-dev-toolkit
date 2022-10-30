@@ -15,10 +15,6 @@
     disabled = false,
     editors: FoundInstance[] = []
 
-  function handleClick() {
-    send('badge', true)
-  }
-
   onMount(() => {
     send('mount-pop-up', true)
     chrome.runtime.onMessage.addListener(listen)
@@ -80,7 +76,6 @@
       <li>{JSON.stringify(msg)}</li>
     {/each}
   </ul>
-  <button on:click={handleClick}>msg</button>
 </main>
 
 <style lang="scss">

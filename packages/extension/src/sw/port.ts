@@ -1,44 +1,11 @@
-import { get } from 'svelte/store'
-
-import { disabled, storeActions } from './store'
-import type {
-  Message,
-  FoundInstance,
-  InjectMessages,
-  PopUpMessages,
-  SWMessages,
-  SWMessageMap
-} from '../types'
-import { ports as portsStore, mountedInstances } from './store'
-
-export function send<K extends SWMessages['type']>(
-  port: chrome.runtime.Port,
-  type: K,
-  data: SWMessages['data']
-) {
-  port.postMessage({
-    source: 'pm-dev-tools',
-    origin: 'sw',
-    type,
-    data
-  })
-}
+import { storeActions } from './store'
+import type { InjectMessages } from '../types'
 
 export function portListener(port: chrome.runtime.Port) {
   console.log('install on port', port)
-  if (port.sender?.tab?.id === undefined) return
-  const tabId = port.sender.tab.id
-  const ports = get(portsStore)
-  if (!ports[tabId]) {
-    portsStore.update(p => ({
-      ...p,
-      [tabId]: {
-        devtools: null,
-        'pm-devtools-sw': port
-      }
-    }))
-  }
-  send(port, 'inject-data', { selector: '.ProseMirror', disabled: get(disabled) })
+  const tabId = port.sender?.tab?.id
+  if (tabId === undefined) return
+  storeActions.addPort(tabId, port)
   port.onMessage.addListener((msg, port) => listenPort(tabId, msg, port))
 }
 
@@ -53,7 +20,7 @@ function listenPort(
   console.log('received msg from port!', msg)
   switch (msg.type) {
     case 'found_instances':
-      mountedInstances.update(m => m.set(tabId, msg.data))
+      storeActions.updateInstances(tabId, msg.data)
       break
   }
 }
