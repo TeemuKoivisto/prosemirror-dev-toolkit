@@ -14,8 +14,8 @@ export default defineConfig({
         entryFileNames: '[name].js'
       },
       input: {
-        sw: path.resolve('./src/sw/index.ts'),
         inject: path.resolve('./src/inject.ts'),
+        proxy: path.resolve('./src/proxy.ts'),
         'pop-up': path.resolve('./pop-up.html')
       }
     }

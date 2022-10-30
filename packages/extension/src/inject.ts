@@ -1,12 +1,12 @@
 import { applyDevTools } from 'prosemirror-dev-toolkit'
 import type { EditorView } from 'prosemirror-view'
 
-import type { InjectMessages } from './types/messages'
+import type { SWMessages, InjectMessages, SWMessageMap } from './types/messages'
 
 let timeout: ReturnType<typeof setTimeout>,
   attempts = 0,
-  selector = '.ProseMirror',
-  pmEl: HTMLElement | undefined
+  disabled = false,
+  selector = '.ProseMirror'
 
 declare global {
   interface Element {
@@ -23,17 +23,19 @@ function getEditorView(el: HTMLElement): Promise<any> {
   const childWithSelectNode = Array.from(el.children).find(
     child => child.pmViewDesc && child.pmViewDesc?.selectNode !== undefined
   )
+  let found = false
 
-  if (childWithSelectNode === undefined) {
-    console.error(
-      'Failed to find a ProseMirror child NodeViewDesc with selectNode function (which is strange)'
-    )
-  } else {
+  if (childWithSelectNode !== undefined) {
+    found = true
     childWithSelectNode.pmViewDesc?.selectNode()
     childWithSelectNode.pmViewDesc?.deselectNode()
   }
   return new Promise((res, rej) => {
-    if (!el.pmViewDesc) return
+    if (!found || !el.pmViewDesc) {
+      return rej(
+        'Failed to find a ProseMirror child NodeViewDesc with selectNode function (which is strange)'
+      )
+    }
     el.pmViewDesc.updateChildren = (view: EditorView, pos: number) => {
       if (el.pmViewDesc && oldFn) el.pmViewDesc.updateChildren = oldFn
       res(view)
@@ -58,23 +60,61 @@ function queryDOM(selector: string): Promise<HTMLElement | undefined> {
 }
 
 async function findProsemirror() {
-  pmEl = await queryDOM(selector)
+  if (disabled) {
+    console.log('DISABLED')
+    return
+  }
+  console.log('FINDING')
+  const pmEl = await queryDOM(selector)
   if (!pmEl && attempts < 5) {
     findProsemirror()
   } else if (pmEl) {
-    console.log('FOUND PROSEMIRROR')
-    const view = await getEditorView(pmEl)
-    applyDevTools(view, { buttonPosition: 'bottom-right' })
-    send('found_instances', document.querySelectorAll(selector).length)
+    try {
+      const view = await getEditorView(pmEl)
+      applyDevTools(view, { buttonPosition: 'bottom-right' })
+    } catch (err) {
+      console.error(err)
+    }
+    const editors = Array.from(document.querySelectorAll(selector)).map(el => ({
+      size: el.innerHTML.length,
+      classes: Array.from(el.classList)
+    }))
+    send('found_instances', editors)
   }
 }
 
 function send<K extends keyof InjectMessages>(type: K, data: InjectMessages[K]) {
-  window.postMessage({ source: 'pm-dev-tools', type, data })
+  window.postMessage({ source: 'pm-dev-tools', origin: 'inject', type, data })
 }
 
-window.addEventListener('load', () => {
-  findProsemirror()
-})
+const init = false
+
+function handleMessages(event: MessageEvent<SWMessages>) {
+  if (
+    typeof event.data !== 'object' ||
+    !('source' in event.data) ||
+    event.data.source !== 'pm-dev-tools'
+  )
+    return
+  console.log('hello message', event)
+  const msg = event.data
+  switch (msg.type) {
+    case 'init-inject':
+      disabled = msg.data.disabled
+      selector = msg.data.selector
+      console.log('RECEIVED INIT')
+      if (!disabled) {
+        findProsemirror()
+      }
+      break
+  }
+}
+
+window.postMessage(
+  { source: 'pm-dev-tools', type: 'init-inject2', data: true, origin: 'inject' },
+  '*'
+)
+window.addEventListener('message', handleMessages)
+// window.addEventListener('message', handleMessages, false)
 
 export {}

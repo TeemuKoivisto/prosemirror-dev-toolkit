@@ -3,6 +3,7 @@
   "name": "ProseMirror DevTools",
   "version": "0.0.1",
   "description": "Run prosemirror-dev-toolkit as Chrome extension",
+  "minimum_chrome_version": "102",
   "homepage_url": "https://github.com/TeemuKoivisto/prosemirror-dev-toolkit",
   "icons": {
     "16": "prosemirror-16.png",
@@ -19,7 +20,7 @@
       "run_at": "document_end",
       "matches": ["<all_urls>"],
       "all_frames": true,
-      "js": ["pop-up.js"]
+      "js": ["pop-up.js", "proxy.js"]
     }
   ],
   "web_accessible_resources": [
@@ -35,21 +36,7 @@
   "background": {
     "service_worker": "sw.js"
   },
-  "permissions": [
-    "storage",
-    "fontSettings",
-    "scripting",
-    "storage",
-    "unlimitedStorage",
-    "webNavigation",
-    "activeTab",
-    "declarativeNetRequest",
-    "browsingData",
-    "webRequest",
-    "contextMenus",
-    "activeTab",
-    "tabs"
-  ],
+  "permissions": ["storage", "scripting", "webNavigation", "contextMenus", "activeTab", "tabs"],
   "host_permissions": ["file:///*", "http://*/*", "https://*/*"],
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self'; style-src * 'unsafe-inline'; img-src 'self' data:;"
