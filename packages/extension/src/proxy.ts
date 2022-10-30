@@ -1,4 +1,4 @@
-import { InjectMessages, SWMessages } from './types/messages'
+import { InjectMessages, SWMessages } from './types'
 
 // Resend messages from inject.ts to sw.ts
 function handleInjectMsgs<K extends keyof InjectMessages>(
@@ -28,17 +28,17 @@ const port = chrome.runtime.connect({
 port.onMessage.addListener(handleSWMsgs)
 // port.onDisconnect.addListener(handleDisconnect);
 
-window.addEventListener('load', () => {
-  chrome.runtime.sendMessage({
-    source: 'pm-dev-tools',
-    type: 'init-proxy',
-    data: true,
-    origin: 'proxy'
-  })
-  window.postMessage(
-    { source: 'pm-dev-tools', type: 'init-proxy', data: true, origin: 'proxy' },
-    '*'
-  )
-})
+// window.addEventListener('load', () => {
+//   chrome.runtime.sendMessage({
+//     source: 'pm-dev-tools',
+//     type: 'init-proxy',
+//     data: true,
+//     origin: 'proxy'
+//   })
+//   window.postMessage(
+//     { source: 'pm-dev-tools', type: 'init-proxy', data: true, origin: 'proxy' },
+//     '*'
+//   )
+// })
 
 export {}

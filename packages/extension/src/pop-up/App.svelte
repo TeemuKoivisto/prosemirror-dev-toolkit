@@ -2,7 +2,7 @@
   import { onMount } from 'svelte'
   import { writable } from 'svelte/store'
 
-  import type { FoundInstance, PopUpMessages, SWMessages } from '../types/messages'
+  import type { FoundInstance, PopUpMessages, SWMessages } from '../types'
 
   interface Received {
     from: 'chrome' | 'window'
@@ -35,7 +35,7 @@
   ) {
     if (typeof msg !== 'object' || !('source' in msg) || msg.source !== 'pm-dev-tools') return
     switch (msg.type) {
-      case 'init-pop-up':
+      case 'pop-up-data':
         disabled = msg.data.disabled
         editors = msg.data.instances
         break

@@ -1,7 +1,7 @@
 import { applyDevTools } from 'prosemirror-dev-toolkit'
 import type { EditorView } from 'prosemirror-view'
 
-import type { SWMessages, InjectMessages, SWMessageMap } from './types/messages'
+import type { SWMessages, InjectMessages, SWMessageMap } from './types'
 
 let timeout: ReturnType<typeof setTimeout>,
   attempts = 0,
@@ -87,19 +87,18 @@ function send<K extends keyof InjectMessages>(type: K, data: InjectMessages[K]) 
   window.postMessage({ source: 'pm-dev-tools', origin: 'inject', type, data })
 }
 
-const init = false
-
 function handleMessages(event: MessageEvent<SWMessages>) {
   if (
     typeof event.data !== 'object' ||
     !('source' in event.data) ||
     event.data.source !== 'pm-dev-tools'
-  )
+  ) {
     return
+  }
   console.log('hello message', event)
   const msg = event.data
   switch (msg.type) {
-    case 'init-inject':
+    case 'inject-data':
       disabled = msg.data.disabled
       selector = msg.data.selector
       console.log('RECEIVED INIT')
@@ -110,11 +109,6 @@ function handleMessages(event: MessageEvent<SWMessages>) {
   }
 }
 
-window.postMessage(
-  { source: 'pm-dev-tools', type: 'init-inject2', data: true, origin: 'inject' },
-  '*'
-)
-window.addEventListener('message', handleMessages)
-// window.addEventListener('message', handleMessages, false)
+window.addEventListener('message', handleMessages, false)
 
 export {}

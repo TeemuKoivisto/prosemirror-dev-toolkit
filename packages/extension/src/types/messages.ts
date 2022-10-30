@@ -1,3 +1,12 @@
+type Origin = 'pop-up' | 'sw' | 'inject'
+
+export interface Message<K, O extends Origin, T> {
+  source: 'pm-dev-tools'
+  origin: O
+  type: K
+  data: T
+}
+
 export interface SWMessage<K extends keyof SWMessageMap, T = SWMessageMap[K]> {
   source: 'pm-dev-tools'
   type: K
@@ -26,28 +35,6 @@ export type FoundInstance = {
 export type InjectMessages = {
   found_instances: FoundInstance[]
 }
-
-export interface Message<K = string, T = any> {
-  source: 'pm-dev-tools'
-  type: K
-  data: T
-}
-
-export type SWMessages = InitPopUp | InitInject
-type InitPopUp = Message<
-  'init-pop-up',
-  {
-    disabled: boolean
-    instances: FoundInstance[]
-  }
->
-type InitInject = Message<
-  'init-inject',
-  {
-    selector: string
-    disabled: boolean
-  }
->
 
 export type SWMessageMap = {
   'init-pop-up': {
