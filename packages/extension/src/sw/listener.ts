@@ -1,7 +1,10 @@
-// import type { Message } from '../types'
-import type { Message, InjectMessages, PopUpMessages, SWMessages } from '../types/messages'
+import { get } from 'svelte/store'
 
-const mountedInstances = new Map<string, number>()
+import type { Message, FoundInstance, InjectMessages, PopUpMessages, SWMessageMap } from '../types'
+import { disabled, storeActions } from './store'
+import { send } from './send'
+
+const mountedInstances = new Map<string, FoundInstance[]>()
 
 async function toggleBadge(tabId: number) {
   const prevState = await chrome.action.getBadgeText({ tabId })
@@ -17,13 +20,9 @@ chrome.runtime.onInstalled.addListener(() => {
   chrome.action.setBadgeText({
     text: 'OFF'
   })
-  // const port = chrome.runtime.connect({ name: 'pm-tab' })
-
-  // port.onMessage.addListener(ev => {
-  //   console.log('port received message: ', ev)
-  // })
 })
 
+// https://developer.chrome.com/docs/extensions/reference/tabs/#get-the-current-tab
 async function getCurrentTab() {
   const queryOptions = { active: true, lastFocusedWindow: true }
   // `tab` will either be a `tabs.Tab` instance or `undefined`.
@@ -31,10 +30,13 @@ async function getCurrentTab() {
   return tab
 }
 
-async function listener<K extends keyof InjectMessages & keyof PopUpMessages>(
+export async function listener<K extends keyof InjectMessages & keyof PopUpMessages>(
   msg: { source: string; type: K; data: InjectMessages[K] | PopUpMessages[K] },
-  sender: chrome.runtime.MessageSender
+  sender: chrome.runtime.MessageSender,
+  _sendResponse: (response?: any) => void
 ) {
+  console.log(`Received: ${JSON.stringify(msg)}`)
+  console.log('sender: ', sender)
   if (!('source' in msg) || msg.source !== 'pm-dev-tools') return
   const tab = sender.tab || (await getCurrentTab())
   console.log('tab', tab)
@@ -48,25 +50,31 @@ async function listener<K extends keyof InjectMessages & keyof PopUpMessages>(
       break
     case 'badge':
       toggleBadge(sender.tab?.id as number)
+      storeActions.toggleDisabled()
       break
-    case 'open':
-      send('current_instances', mountedInstances.get(tab.url || '') || 0)
+    case 'toggle-disable':
+      storeActions.toggleDisabled()
+      send('init-pop-up', {
+        disabled: get(disabled),
+        instances: mountedInstances.get(tab.url || '') || []
+      })
+      send('init-inject', {
+        selector: '.ProseMirror',
+        disabled: get(disabled)
+      })
+      break
+    case 'mount-pop-up':
+      send('init-pop-up', {
+        disabled: get(disabled),
+        instances: mountedInstances.get(tab.url || '') || []
+      })
+      send('init-inject', {
+        selector: '.ProseMirror',
+        disabled: false
+      })
       break
     default:
       // chrome.tabs.sendMessage(msg.tabId, msg)
       break
   }
 }
-
-function send<K extends keyof SWMessages>(type: K, data: SWMessages[K]) {
-  chrome.runtime.sendMessage({ source: 'pm-dev-tools', type, data })
-}
-
-chrome.runtime.onMessage.addListener((msg: any, sender, _sendResponse) => {
-  console.log(`Received: ${JSON.stringify(msg)}`)
-  console.log('sender: ', sender)
-  listener(msg, sender)
-  return undefined
-})
-
-export {}
