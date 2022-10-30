@@ -15,6 +15,10 @@ export async function listenToConnections(port: chrome.runtime.Port) {
     }
     storeActions.addPort('pop-up', tabId, port)
     port.onMessage.addListener((msg, port) => listenPopUpPort(tabId, msg, port))
+    storeActions.sendToPort(tabId, 'pop-up-data', {
+      disabled: get(disabled),
+      instances: get(ports).get(tabId)?.instances || []
+    })
   } else if (port.name === 'pm-devtools-page') {
     const tabId = port.sender?.tab?.id
     if (!tabId) {
@@ -23,6 +27,10 @@ export async function listenToConnections(port: chrome.runtime.Port) {
     }
     storeActions.addPort('page', tabId, port)
     port.onMessage.addListener((msg, port) => listenPort(tabId, msg, port))
+    storeActions.sendToPort(tabId, 'inject-data', {
+      selector: '.ProseMirror',
+      disabled: get(disabled)
+    })
   }
 }
 
@@ -37,13 +45,13 @@ async function listenPopUpPort(
   console.log('received msg from POP-UP port!', JSON.stringify(msg))
   switch (msg.type) {
     case 'toggle-disable':
-      storeActions.toggleDisabled()
+      const newDisabled = storeActions.toggleDisabled()
       storeActions.sendToPort(tabId, 'pop-up-data', {
-        disabled: get(disabled),
-        instances: get(ports).get(tabId)?.instances || []
+        disabled: newDisabled,
+        instances: !newDisabled ? get(ports).get(tabId)?.instances || [] : []
       })
       storeActions.sendToPort(tabId, 'inject-data', {
-        disabled: get(disabled),
+        disabled: newDisabled,
         selector: '.ProseMirror'
       })
       break
