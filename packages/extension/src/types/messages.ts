@@ -33,5 +33,5 @@ export type FoundInstance = {
   classes: string[]
 }
 export type InjectMessages = {
-  found_instances: FoundInstance[]
+  'inject-found-instances': FoundInstance[]
 }

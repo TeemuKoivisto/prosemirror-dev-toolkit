@@ -10,36 +10,38 @@
   }
 
   const received = writable<Received[]>([])
-  let count = 0,
-    foundInstances = 0,
-    disabled = false,
-    editors: FoundInstance[] = []
+  let disabled = false,
+    connected = false,
+    foundInstances: FoundInstance[] = [],
+    port: chrome.runtime.Port | undefined = undefined
 
   onMount(() => {
+    port = chrome.runtime.connect({
+      name: 'pm-devtools-pop-up'
+    })
+    if (port) {
+      connected = true
+    }
+    port.onDisconnect.addListener(() => (connected = false))
+    port.onMessage.addListener(listenPort)
     send('mount-pop-up', true)
-    chrome.runtime.onMessage.addListener(listen)
   })
 
   function send<K extends keyof PopUpMessages>(type: K, data: PopUpMessages[K]) {
-    chrome.runtime.sendMessage({ source: 'pm-dev-tools', origin: 'pop-up', type, data })
+    port!.postMessage({ source: 'pm-dev-tools', origin: 'pop-up', type, data })
   }
 
-  function listen<K extends keyof SWMessageMap>(
-    raw: SWMessageMap[K],
-    _sender: chrome.runtime.MessageSender,
-    _sendResponse: (response?: any) => void
-  ) {
-    if (typeof raw !== 'object' || !('source' in raw) || raw.source !== 'pm-dev-tools') {
+  function listenPort<K extends keyof SWMessageMap>(msg: SWMessageMap[K]) {
+    if (typeof msg !== 'object' || !('source' in msg) || msg.source !== 'pm-dev-tools') {
       return
     }
-    switch (raw.type) {
+    switch (msg.type) {
       case 'pop-up-data':
-        disabled = raw.data.disabled
-        editors = raw.data.instances
+        disabled = msg.data.disabled
+        foundInstances = msg.data.instances
         break
     }
     received.update(msgs => [...msgs, { from: 'chrome', data: msg }])
-    count += 1
   }
 
   function handleClickDisable() {
@@ -49,12 +51,13 @@
 
 <main>
   <h1>
-    {#if foundInstances > 0}
+    {#if foundInstances.length > 0}
       ProseMirror detected
     {:else}
       No ProseMirror found
     {/if}
   </h1>
+  <p>Connected: {connected}</p>
   <div class="field">
     <label for="pm-el-selector">Selector</label>
     <input id="pm-el-selector" value=".ProseMirror" />
@@ -65,9 +68,8 @@
     <button on:click={handleClickDisable}>{disabled ? 'Enable' : 'Disable'}</button>
     <button>Disable for page</button>
   </div>
-  <p>Count: {count}</p>
   <ul>
-    {#each editors as inst}
+    {#each foundInstances as inst}
       <li>
         <button class="editor-btn" class:selected={true}>Size: {inst.size} {inst.classes}</button>
       </li>
