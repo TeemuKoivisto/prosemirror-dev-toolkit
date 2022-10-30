@@ -1,10 +1,7 @@
-import { get } from 'svelte/store'
-
 import openDevToolsWindow, { DevToolsPosition } from './openWindow'
 import { createMenu, removeMenu } from './contextMenus'
 import { listener } from './listener'
-import { disabled, storeActions } from './store'
-import { send } from './send'
+import { portListener } from './port'
 
 // Listen for keyboard shortcuts
 chrome.commands.onCommand.addListener(shortcut => {
@@ -39,39 +36,7 @@ chrome.scripting.registerContentScripts([
   }
 ])
 
-const ports: Record<number, any> = {}
-
 chrome.runtime.onMessage.addListener(listener)
-chrome.runtime.onConnect.addListener(function (port) {
-  console.log('install on port', port)
-  if (!port.sender?.tab?.id) return
-  const tab = port.sender.tab.id
-  const name = 'pm-devtools-sw'
-
-  if (!ports[tab]) {
-    ports[tab] = {
-      devtools: null,
-      'content-script': null
-    }
-  }
-  ports[tab][name] = port
-  port.onMessage.addListener(listenPort)
-})
-
-function listenPort(msg: any, port: chrome.runtime.Port) {
-  console.log('received msg from port!', msg)
-  switch (msg.type) {
-    case 'init-inject2':
-      port.postMessage({
-        source: 'pm-dev-tools',
-        origin: 'sw',
-        type: 'init-inject',
-        data: {
-          selector: '.ProseMirror',
-          disabled: false
-        }
-      })
-  }
-}
+chrome.runtime.onConnect.addListener(portListener)
 
 export {}

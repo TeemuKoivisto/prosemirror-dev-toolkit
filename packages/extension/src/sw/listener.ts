@@ -1,10 +1,15 @@
 import { get } from 'svelte/store'
 
-import type { Message, FoundInstance, InjectMessages, PopUpMessages, SWMessageMap } from '../types'
-import { disabled, storeActions } from './store'
+import type {
+  Message,
+  FoundInstance,
+  InjectMessages,
+  PopUpMessages,
+  SWMessages,
+  SWMessageMap
+} from '../types'
+import { disabled, mountedInstances, storeActions } from './store'
 import { send } from './send'
-
-const mountedInstances = new Map<string, FoundInstance[]>()
 
 async function toggleBadge(tabId: number) {
   const prevState = await chrome.action.getBadgeText({ tabId })
@@ -42,9 +47,6 @@ export async function listener<K extends keyof InjectMessages & keyof PopUpMessa
   console.log('tab', tab)
   const type = msg.type as keyof InjectMessages | keyof PopUpMessages
   switch (type) {
-    case 'found_instances':
-      mountedInstances.set(tab.url || '', msg.data)
-      break
     case 'reload':
       // chrome.tabs.reload(msg.tabId, { bypassCache: true })
       break
@@ -54,23 +56,15 @@ export async function listener<K extends keyof InjectMessages & keyof PopUpMessa
       break
     case 'toggle-disable':
       storeActions.toggleDisabled()
-      send('init-pop-up', {
+      send('pop-up-data', {
         disabled: get(disabled),
-        instances: mountedInstances.get(tab.url || '') || []
-      })
-      send('init-inject', {
-        selector: '.ProseMirror',
-        disabled: get(disabled)
+        instances: get(mountedInstances).get(tab.id || 0) || []
       })
       break
     case 'mount-pop-up':
-      send('init-pop-up', {
+      send('pop-up-data', {
         disabled: get(disabled),
-        instances: mountedInstances.get(tab.url || '') || []
-      })
-      send('init-inject', {
-        selector: '.ProseMirror',
-        disabled: false
+        instances: get(mountedInstances).get(tab.id || 0) || []
       })
       break
     default:
