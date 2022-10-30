@@ -1,15 +1,9 @@
 import { get } from 'svelte/store'
 
-import type {
-  Message,
-  FoundInstance,
-  InjectMessages,
-  PopUpMessages,
-  SWMessages,
-  SWMessageMap
-} from '../types'
+import { SWMessageType } from '../types'
 import { disabled, ports, storeActions } from './store'
 import { send } from './send'
+import type { Message, FoundInstance, InjectMessages, PopUpMessages, SWMessageMap } from '../types'
 
 // https://developer.chrome.com/docs/extensions/reference/tabs/#get-the-current-tab
 async function getCurrentTab() {
@@ -38,17 +32,17 @@ export async function listener<K extends keyof InjectMessages & keyof PopUpMessa
       break
     case 'toggle-disable':
       storeActions.toggleDisabled()
-      send('pop-up-data', {
+      send(SWMessageType.popUpData, {
         disabled: get(disabled),
         instances: get(ports).get(tabId)?.instances || []
       })
-      storeActions.sendToPort(tabId, 'inject-data', {
+      storeActions.sendToPort(tabId, SWMessageType.injectData, {
         disabled: get(disabled),
-        instances: get(ports).get(tabId)?.instances || []
+        selector: '.ProseMirror'
       })
       break
     case 'mount-pop-up':
-      send('pop-up-data', {
+      send(SWMessageType.popUpData, {
         disabled: get(disabled),
         instances: get(ports).get(tabId)?.instances || []
       })

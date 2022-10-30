@@ -1,6 +1,7 @@
 import { get, writable } from 'svelte/store'
 
-import type { FoundInstance, SWMessages } from '../types'
+import { SWMessageType } from '../types'
+import type { FoundInstance, SWMessageMap } from '../types'
 
 interface Connected {
   instances: FoundInstance[]
@@ -63,9 +64,12 @@ export const storeActions = {
         port
       })
     )
-    this.sendToPort(tabId, 'inject-data', { selector: '.ProseMirror', disabled: get(disabled) })
+    this.sendToPort(tabId, SWMessageType.injectData, {
+      selector: '.ProseMirror',
+      disabled: get(disabled)
+    })
   },
-  sendToPort<K extends SWMessages['type']>(tabId: number, type: K, data: SWMessages['data']) {
+  sendToPort<K extends keyof SWMessageMap>(tabId: number, type: K, data: SWMessageMap[K]['data']) {
     const port = get(ports).get(tabId)?.port
     if (port) {
       port.postMessage({
@@ -73,7 +77,7 @@ export const storeActions = {
         origin: 'sw',
         type,
         data
-      })
+      } as SWMessageMap[K])
     }
   }
 }

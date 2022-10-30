@@ -1,20 +1,32 @@
 import { Message, FoundInstance } from './messages'
 
-export type SWMessages = PopUpData | InjectData
+export enum SWMessageType {
+  popUpData = 'pop-up-data',
+  injectData = 'inject-data'
+}
 
-type PopUpData = Message<
-  'pop-up-data',
-  'sw',
-  {
+interface SWMessage {
+  source: 'pm-dev-tools'
+  origin: 'sw'
+}
+
+interface PopUpData extends SWMessage {
+  type: SWMessageType.popUpData
+  data: {
     disabled: boolean
     instances: FoundInstance[]
   }
->
-type InjectData = Message<
-  'inject-data',
-  'sw',
-  {
-    selector: string
+}
+
+interface InjectData extends SWMessage {
+  type: 'inject-data'
+  data: {
     disabled: boolean
+    selector: string
   }
->
+}
+
+export interface SWMessageMap {
+  [SWMessageType.popUpData]: PopUpData
+  [SWMessageType.injectData]: InjectData
+}

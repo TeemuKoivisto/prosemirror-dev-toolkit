@@ -1,7 +1,9 @@
-import { applyDevTools } from 'prosemirror-dev-toolkit'
+import { applyDevTools, removeDevTools } from 'prosemirror-dev-toolkit'
 import type { EditorView } from 'prosemirror-view'
 
-import type { SWMessages, InjectMessages, SWMessageMap } from './types'
+import type { InjectMessages, SWMessageMap } from './types'
+
+const MAX_ATTEMPTS = 10
 
 let timeout: ReturnType<typeof setTimeout>,
   attempts = 0,
@@ -66,7 +68,7 @@ async function findProsemirror() {
   }
   console.log('FINDING')
   const pmEl = await queryDOM(selector)
-  if (!pmEl && attempts < 5) {
+  if (!pmEl && attempts < MAX_ATTEMPTS) {
     findProsemirror()
   } else if (pmEl) {
     try {
@@ -87,7 +89,7 @@ function send<K extends keyof InjectMessages>(type: K, data: InjectMessages[K]) 
   window.postMessage({ source: 'pm-dev-tools', origin: 'inject', type, data })
 }
 
-function handleMessages(event: MessageEvent<SWMessages>) {
+function handleMessages<K extends keyof SWMessageMap>(event: MessageEvent<SWMessageMap[K]>) {
   if (
     typeof event.data !== 'object' ||
     !('source' in event.data) ||
@@ -95,15 +97,18 @@ function handleMessages(event: MessageEvent<SWMessages>) {
   ) {
     return
   }
-  console.log('hello message', event)
+  console.log('RECEIVED IN INJECT', event)
   const msg = event.data
   switch (msg.type) {
     case 'inject-data':
+      console.log('RECEIVED INJECT DATA', msg.data)
       disabled = msg.data.disabled
       selector = msg.data.selector
-      console.log('RECEIVED INIT')
+      send('found_instances', [])
       if (!disabled) {
         findProsemirror()
+      } else {
+        removeDevTools()
       }
       break
   }
