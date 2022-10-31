@@ -40,6 +40,8 @@ importers:
 
   packages/extension:
     specifiers:
+      '@iconify-icons/mdi': ^1.2.32
+      '@iconify/svelte': ^3.0.0
       '@sveltejs/vite-plugin-svelte': ^1.0.9
       '@types/chrome': ^0.0.200
       '@types/node': ^18.11.2
@@ -54,8 +56,10 @@ importers:
       vite: ^3.1.8
       vite-tsconfig-paths: ^3.5.1
     dependencies:
+      '@iconify/svelte': 3.0.0_svelte@3.52.0
       prosemirror-dev-toolkit: link:../prosemirror-dev-toolkit
     devDependencies:
+      '@iconify-icons/mdi': 1.2.32
       '@sveltejs/vite-plugin-svelte': 1.0.9_svelte@3.52.0+vite@3.1.8
       '@types/chrome': 0.0.200
       '@types/node': 18.11.2
@@ -1873,6 +1877,24 @@ packages:
   /@humanwhocodes/object-schema/1.2.1:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: true
+
+  /@iconify-icons/mdi/1.2.32:
+    resolution: {integrity: sha512-LLXgR3qQVJdoXbv48d3iMWeQvMZOuSNRVdM/8tQeuepoGdmZXxgbPuLSPoe1s+DTP2N4aKRgsFKmz+Y9GyNAYg==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: true
+
+  /@iconify/svelte/3.0.0_svelte@3.52.0:
+    resolution: {integrity: sha512-kmpIDyEqGBqV3uLTxEXVOPcsUg06GpwlLTTK1a8omaiBOBZCKnj+m4EETFjoy5cKsdCd5bWBYysna/uUuSTfoQ==}
+    peerDependencies:
+      svelte: '>=3'
+    dependencies:
+      '@iconify/types': 2.0.0
+      svelte: 3.52.0
+    dev: false
+
+  /@iconify/types/2.0.0:
+    resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
 
   /@jest/expect-utils/29.0.3:
     resolution: {integrity: sha512-i1xUkau7K/63MpdwiRqaxgZOjxYs4f0WMTGJnYwUKubsNRZSeQbLorS7+I4uXVF9KQ5r61BUPAUMZ7Lf66l64Q==}
@@ -8626,7 +8648,6 @@ packages:
   /svelte/3.52.0:
     resolution: {integrity: sha512-FxcnEUOAVfr10vDU5dVgJN19IvqeHQCS1zfe8vayTfis9A2t5Fhx+JDe5uv/C3j//bB1umpLJ6quhgs9xyUbCQ==}
     engines: {node: '>= 8'}
-    dev: true
 
   /svgo/2.8.0:
     resolution: {integrity: sha512-+N/Q9kV1+F+UeWYoSiULYo4xYSDQlTgb+ayMobAXPwMnLvop7oxKMo9OzIrX5x3eS4L4f2UHhc9axXwY8DpChg==}

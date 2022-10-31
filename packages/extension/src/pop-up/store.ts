@@ -4,6 +4,8 @@ import type { FoundInstance, PopUpMessages, SWMessageMap } from '../types'
 
 export const received = writable<SWMessageMap[keyof SWMessageMap][]>([])
 export const disabled = writable(false)
+export const showOptions = writable(false)
+export const showDebug = writable(false)
 export const foundInstances = writable<FoundInstance[]>([])
 export const port = writable<chrome.runtime.Port | undefined>()
 export const connected = derived(port, p => !!p)
