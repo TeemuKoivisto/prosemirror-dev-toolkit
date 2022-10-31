@@ -101,7 +101,6 @@ function handleMessages<K extends keyof SWMessageMap>(event: MessageEvent<SWMess
   const msg = event.data
   switch (msg.type) {
     case 'inject-data':
-      console.log('RECEIVED INJECT DATA', msg.data)
       disabled = msg.data.disabled
       selector = msg.data.selector
       if (!disabled) {
