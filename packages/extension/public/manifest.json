@@ -36,10 +36,10 @@
   "background": {
     "service_worker": "sw.js"
   },
-  "permissions": ["storage", "scripting", "webNavigation", "contextMenus", "activeTab", "tabs"],
-  "host_permissions": ["file:///*", "http://*/*", "https://*/*"],
+  "permissions": ["storage", "scripting", "contextMenus", "activeTab", "tabs"],
+  "host_permissions": ["<all_urls>"],
   "content_security_policy": {
-    "extension_pages": "script-src 'self'; object-src 'self'; style-src * 'unsafe-inline'; img-src 'self' data:;"
+    "extension_pages": "script-src 'self'; object-src 'self'"
   },
   "commands": {
     "_execute_action": {
