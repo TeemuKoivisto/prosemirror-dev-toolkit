@@ -23,10 +23,10 @@ interface Spies {
 let spies: Spies
 
 class CustomEditorView extends EditorView {
-    // @ts-ignore
-  props: DirectEditorProps;
+  // @ts-ignore
+  props: DirectEditorProps
   constructor(place: HTMLElement, props: DirectEditorProps) {
-    super(place, props);
+    super(place, props)
   }
 }
 
@@ -36,7 +36,7 @@ describe('various-bug.spec', () => {
       log: vi.spyOn(console, 'log'),
       info: vi.spyOn(console, 'info'),
       warn: vi.spyOn(console, 'warn'),
-      error: vi.spyOn(console, 'error'),
+      error: vi.spyOn(console, 'error')
     }
   })
 
@@ -44,18 +44,15 @@ describe('various-bug.spec', () => {
     const el = document.createElement('div')
     document.body.appendChild(el)
     el.id = 'pm-editor'
-    view = new CustomEditorView(
-      el,
-      {
-        state: EditorState.create({
-          schema,
-          plugins: exampleSetup({ schema })
-        }),
-        dispatchTransaction(tr: Transaction) {
-          view.updateState(view.state.apply(tr))
-        }
+    view = new CustomEditorView(el, {
+      state: EditorState.create({
+        schema,
+        plugins: exampleSetup({ schema })
+      }),
+      dispatchTransaction(tr: Transaction) {
+        view.updateState(view.state.apply(tr))
       }
-    )
+    })
 
     vi.stubGlobal('prompt', (str: string) => undefined)
 

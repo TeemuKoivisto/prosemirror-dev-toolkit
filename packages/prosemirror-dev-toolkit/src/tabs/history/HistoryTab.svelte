@@ -1,5 +1,11 @@
 <script lang="ts">
-  import { stateHistory, shownHistoryGroups, latestEntry } from '$stores/stateHistory'
+  import {
+    shownHistory,
+    setMetaFilter,
+    shownHistoryGroups,
+    shownLatestEntry,
+    toggleGroupExpanded
+  } from '$stores/stateHistory'
   import type { HistoryEntry, HistoryGroup } from '$typings/history'
   import { mapDocDeltaChildren, mapSelectionDeltaChildren } from './mapDeltas'
   import TreeView from 'svelte-tree-view'
@@ -12,7 +18,9 @@
   import { getContext } from '$context'
 
   let selectedEntry: HistoryEntry | undefined = undefined,
-    showTr = false
+    showTr = false,
+    showOptions = true,
+    debouncedMetaChange: ReturnType<typeof setTimeout>
 
   const { replaceEditorContent } = getContext('editor-view')
 
@@ -23,17 +31,28 @@
     omitKeys: ['schema'],
     shouldExpandNode: () => expandTrTreeView
   }
-  $: listItems = $shownHistoryGroups.map((g: HistoryGroup) => ({
-    isGroup: g.isGroup,
-    topEntry: $stateHistory.get(g.topEntryId),
-    entries: g.entryIds.map(id => $stateHistory.get(id)),
-    expanded: g.expanded
-  }))
+  // $: listItems = $shownHistoryGroups.map((g: HistoryGroup) => ({
+  //   id: g.id,
+  //   isGroup: g.isGroup,
+  //   topEntry: $shownHistory.get(g.topEntryId),
+  //   entries: g.entryIds.map(id => $shownHistory.get(id)),
+  //   expanded: g.expanded
+  // }))
 
-  latestEntry.subscribe(v => {
+  shownLatestEntry.subscribe(v => {
     if (v) selectedEntry = v
   })
 
+  function handleToggleOptions() {
+    showOptions = !showOptions
+  }
+  function handleMetaFilterChange(ev: Event & { currentTarget: EventTarget & HTMLInputElement }) {
+    const { value } = ev.currentTarget
+    clearTimeout(debouncedMetaChange)
+    debouncedMetaChange = setTimeout(() => {
+      setMetaFilter(value)
+    }, 100)
+  }
   function toggleShowTr() {
     showTr = !showTr
   }
@@ -55,17 +74,15 @@
     e: CustomEvent<{ id: string | undefined; groupIdx: number; wasTopNode: boolean }>
   ) {
     const { id = '', groupIdx, wasTopNode } = e.detail
-    selectedEntry = $stateHistory.get(id)
+    selectedEntry = $shownHistory.get(id)
     if (!selectedEntry) return
-    const group = listItems[groupIdx]
+    const group = $shownHistoryGroups[groupIdx]
     if (group.isGroup && group.entries.length > 1 && wasTopNode) {
-      shownHistoryGroups.update(val =>
-        val.map((g, idx) => (idx !== groupIdx ? g : { ...g, expanded: !g.expanded }))
-      )
+      toggleGroupExpanded(group.id)
     }
   }
   function handleEntryDblClick(e: CustomEvent<{ id?: string }>) {
-    selectedEntry = $stateHistory.get(e.detail.id || '')
+    selectedEntry = $shownHistory.get(e.detail.id || '')
     selectedEntry && replaceEditorContent(selectedEntry.state)
   }
   function handleToggleExpandTrTreeView() {
@@ -79,8 +96,22 @@
 
 <SplitView>
   <div slot="left" class="left-panel">
+    <div class="options">
+      ▶
+      <div class:hidden={!showOptions}>
+        <div class="latest-container">
+          <label for="toolkit-track-latest-input">Track latest</label>
+          <input id="toolkit-track-latest-input" type="checkbox" />
+        </div>
+        <div class="filter-container">
+          <label for="toolkit-meta-filter-input">Filter by meta</label>
+          <input id="toolkit-meta-filter-input" on:input={handleMetaFilterChange} />
+        </div>
+      </div>
+      <button class="option-btn" on:click={handleToggleOptions}> ⚙️ </button>
+    </div>
     <HistoryList
-      {listItems}
+      listItems={$shownHistoryGroups}
       selectedId={selectedEntry?.id || ''}
       on:click-item={handleEntrySelect}
       on:dblclick-item={handleEntryDblClick}
@@ -177,6 +208,32 @@
     padding: 0;
     min-width: 190px;
     width: 190px;
+  }
+  .options {
+    position: relative;
+    margin: 0.75em;
+  }
+  .option-btn {
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    right: -2px;
+    top: -2px;
+  }
+  .latest-container {
+    display: flex;
+    flex-direction: row;
+  }
+  .filter-container {
+    input {
+      background: transparent;
+      color: white;
+      margin-top: 4px;
+      width: 100%;
+    }
   }
   .title-container {
     align-items: center;

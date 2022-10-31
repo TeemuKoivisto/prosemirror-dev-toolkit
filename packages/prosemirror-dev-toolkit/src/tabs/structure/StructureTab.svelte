@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Node as PMNode, Schema } from 'prosemirror-model'
   import { getContext } from '$context'
-  import { latestEntry } from '$stores/stateHistory'
+  import { shownLatestEntry } from '$stores/stateHistory'
 
   import TreeView from 'svelte-tree-view'
   import SplitView from '../SplitView.svelte'
@@ -15,7 +15,7 @@
   let schema: Schema = view.state.schema
   let timer: ReturnType<typeof setTimeout>
 
-  latestEntry.subscribe(e => {
+  shownLatestEntry.subscribe(e => {
     if (!e) return
     e.trs.forEach(tr => {
       selected.pos = tr.mapping.map(selected.pos)

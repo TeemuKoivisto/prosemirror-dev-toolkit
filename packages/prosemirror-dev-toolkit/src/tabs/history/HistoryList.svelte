@@ -1,13 +1,8 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte'
-  import type { HistoryEntry } from '$typings/history'
+  import type { HistoryListItem } from '$typings/history'
 
-  export let listItems: {
-      isGroup: boolean
-      topEntry: HistoryEntry | undefined
-      entries: (HistoryEntry | undefined)[]
-      expanded: boolean
-    }[] = [],
+  export let listItems: HistoryListItem[] = [],
     selectedId: string
 
   const dispatchClick = createEventDispatcher<{

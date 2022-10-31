@@ -1,6 +1,6 @@
 <script lang="ts">
   import { getContext } from '$context'
-  import { latestEntry } from '$stores/stateHistory'
+  import { shownLatestEntry } from '$stores/stateHistory'
   import { getActiveMarks } from './getActiveMarks'
   import { createSelection, createFullSelection } from './selection'
 
@@ -18,7 +18,7 @@
   let childCount = view.state.doc.childCount
   let expandedSelection = false
 
-  latestEntry.subscribe(e => {
+  shownLatestEntry.subscribe(e => {
     if (!e) return
     const { state } = e
     currentState = state

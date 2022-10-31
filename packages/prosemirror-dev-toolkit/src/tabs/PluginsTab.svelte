@@ -1,7 +1,7 @@
 <script lang="ts">
   import { getContext } from '$context'
   import type { EditorState } from 'prosemirror-state'
-  import { latestEntry } from '$stores/stateHistory'
+  import { shownLatestEntry } from '$stores/stateHistory'
 
   import SplitView from './SplitView.svelte'
   import TreeView from 'svelte-tree-view'
@@ -30,7 +30,7 @@
     empty: !(p.getState && p.getState(editorState))
   }))
 
-  latestEntry.subscribe(e => {
+  shownLatestEntry.subscribe(e => {
     if (!e) return
     editorState = e.state
     plugins = editorState.plugins as Plugin[]
