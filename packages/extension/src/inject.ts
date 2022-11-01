@@ -63,10 +63,10 @@ function queryDOM(selector: string): Promise<HTMLElement | undefined> {
 
 async function findProsemirror() {
   if (disabled) {
-    console.log('DISABLED')
+    // console.log('DISABLED')
     return
   }
-  console.log('FINDING')
+  // console.log('FINDING')
   const pmEl = await queryDOM(selector)
   if (!pmEl && attempts < MAX_ATTEMPTS) {
     findProsemirror()
@@ -97,7 +97,7 @@ function handleMessages<K extends keyof SWMessageMap>(event: MessageEvent<SWMess
   ) {
     return
   }
-  console.log('RECEIVED IN INJECT', event)
+  // console.log('RECEIVED IN INJECT', event)
   const msg = event.data
   switch (msg.type) {
     case 'inject-data':

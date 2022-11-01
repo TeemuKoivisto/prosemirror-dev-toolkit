@@ -1,6 +1,6 @@
-import { get, writable } from 'svelte/store'
+import { get, derived, writable } from 'svelte/store'
 
-import type { FoundInstance, SWMessageMap } from '../types'
+import type { GlobalState, FoundInstance, PopUpState, SWMessageMap } from '../types'
 
 interface Connected {
   instances: FoundInstance[]
@@ -8,15 +8,27 @@ interface Connected {
   popUpPort: chrome.runtime.Port | undefined
 }
 
-export const disabled = writable(false)
-export const mounted = writable(false)
+const DEFAULT_GLOBAL_STATE: GlobalState = {
+  disabled: false,
+  showOptions: false,
+  showDebug: false,
+  devToolsOpts: {
+    devToolsExpanded: false,
+    buttonPosition: 'bottom-right'
+  }
+}
+
+export const globalState = writable<GlobalState>(DEFAULT_GLOBAL_STATE)
+export const disabled = derived(globalState, s => s.disabled)
 export const ports = writable(new Map<number, Connected>())
 
 hydrate()
 
 async function hydrate() {
-  const dis = await chrome.storage.sync.get('disabled')
-  disabled.set(!!dis)
+  const state = await chrome.storage.sync.get('globalState')
+  if (state && typeof state === 'object') {
+    globalState.set(state as any)
+  }
 }
 
 async function toggleBadge(tabId: number) {
@@ -41,7 +53,7 @@ disabled.subscribe(async val => {
 export const storeActions = {
   toggleDisabled() {
     const newVal = !get(disabled)
-    disabled.update(val => newVal)
+    globalState.update(s => ({ ...s, disabled: newVal }))
     if (!newVal) {
       ports.update(
         p =>
@@ -49,6 +61,22 @@ export const storeActions = {
       )
     }
     return newVal
+  },
+  getPopUpData(tabId: number) {
+    return {
+      ...get(globalState),
+      instances: get(ports).get(tabId)?.instances || []
+    }
+  },
+  updateState(data: Partial<GlobalState>) {
+    globalState.update(s => ({
+      ...s,
+      ...data,
+      devToolsOpts: {
+        ...s.devToolsOpts,
+        ...data.devToolsOpts
+      }
+    }))
   },
   getInstances(tabId: number) {
     return get(ports).get(tabId)?.instances || []
@@ -65,7 +93,7 @@ export const storeActions = {
       return p
     })
     this.sendToPort(tabId, 'pop-up-data', {
-      disabled: get(disabled),
+      ...this.getPopUpData(tabId),
       instances
     })
   },

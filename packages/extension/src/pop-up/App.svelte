@@ -12,20 +12,22 @@
 
   import { disabled, foundInstances, showOptions, showDebug, received, send } from './store'
 
-  const svgUrl = new URL('./pm-black.svg', import.meta.url).href
-
   onMount(() => {
-    send('mount-pop-up', true)
+    send('mount-pop-up', undefined)
   })
 
   function handleClickDebug() {
-    showDebug.update(val => !val)
+    send('update-state', {
+      showDebug: !$showDebug
+    })
   }
   function handleClickDisable() {
-    send('toggle-disable', true)
+    send('toggle-disable', undefined)
   }
   function handleClickOptions() {
-    showOptions.update(val => !val)
+    send('update-state', {
+      showOptions: !$showOptions
+    })
   }
 </script>
 
@@ -36,7 +38,9 @@
         <Icon icon={$foundInstances.length > 0 ? check : close} width={24} />
       </div>
       <h1>
-        {#if $foundInstances.length > 0}
+        {#if $disabled}
+          DevTools disabled
+        {:else if $foundInstances.length > 0}
           ProseMirror detected
         {:else}
           No ProseMirror found
@@ -67,6 +71,12 @@
         <button>Data</button>
         <!-- <button on:click={handleClickDisable}>{$disabled ? 'Enable' : 'Disable'}</button> -->
         <button>Disable for page</button>
+        <select>
+          <option>Bottom right</option>
+          <option>Bottom left</option>
+          <option>Top right</option>
+          <option>Top left</option>
+        </select>
       </div>
     </fieldset>
   </div>

@@ -21,13 +21,6 @@ export interface Message<K, O extends Origin, T> {
 //   data: T
 // }
 
-export type PopUpMessages = {
-  'mount-pop-up': true
-  'toggle-disable': true
-  badge: true
-  reload: true
-}
-
 export type FoundInstance = {
   size: number
   classes: string[]

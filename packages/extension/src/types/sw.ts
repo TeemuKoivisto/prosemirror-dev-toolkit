@@ -1,4 +1,13 @@
+import type { DevToolsOpts } from 'prosemirror-dev-toolkit'
 import { Message, FoundInstance } from './messages'
+import { PopUpState } from './pop-up'
+
+export interface GlobalState {
+  disabled: boolean
+  showOptions: boolean
+  showDebug: boolean
+  devToolsOpts: DevToolsOpts
+}
 
 interface SWMessage {
   source: 'pm-dev-tools'
@@ -7,10 +16,7 @@ interface SWMessage {
 
 interface PopUpData extends SWMessage {
   type: 'pop-up-data'
-  data: {
-    disabled: boolean
-    instances: FoundInstance[]
-  }
+  data: PopUpState
 }
 
 interface InjectData extends SWMessage {

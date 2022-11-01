@@ -1,7 +1,7 @@
 import { get } from 'svelte/store'
 
 import { disabled, ports, storeActions } from './store'
-import type { InjectMessages } from '../types'
+import type { InjectMessages, PopUpMessageMap } from '../types'
 import { getCurrentTab } from './getCurrentTab'
 
 export async function listenToConnections(port: chrome.runtime.Port) {
@@ -15,10 +15,7 @@ export async function listenToConnections(port: chrome.runtime.Port) {
     }
     storeActions.addPort('pop-up', tabId, port)
     port.onMessage.addListener((msg, port) => listenPopUpPort(tabId, msg, port))
-    storeActions.sendToPort(tabId, 'pop-up-data', {
-      disabled: get(disabled),
-      instances: get(ports).get(tabId)?.instances || []
-    })
+    storeActions.sendToPort(tabId, 'pop-up-data', storeActions.getPopUpData(tabId))
   } else if (port.name === 'pm-devtools-page') {
     const tabId = port.sender?.tab?.id
     if (!tabId) {
@@ -34,19 +31,20 @@ export async function listenToConnections(port: chrome.runtime.Port) {
   }
 }
 
-async function listenPopUpPort(
+async function listenPopUpPort<K extends keyof PopUpMessageMap>(
   tabId: number,
-  msg: {
-    type: any
-    data: any
-  },
+  msg: PopUpMessageMap[K],
   port: chrome.runtime.Port
 ) {
+  if (msg.origin !== 'pop-up') {
+    return
+  }
   console.log('received msg from POP-UP port!', JSON.stringify(msg))
   switch (msg.type) {
     case 'toggle-disable':
       const newDisabled = storeActions.toggleDisabled()
       storeActions.sendToPort(tabId, 'pop-up-data', {
+        ...storeActions.getPopUpData(tabId),
         disabled: newDisabled,
         instances: !newDisabled ? get(ports).get(tabId)?.instances || [] : []
       })
@@ -55,23 +53,22 @@ async function listenPopUpPort(
         selector: '.ProseMirror'
       })
       break
+    case 'update-state':
+      if (msg.data) {
+        storeActions.updateState(msg.data)
+        storeActions.sendToPort(tabId, 'pop-up-data', storeActions.getPopUpData(tabId))
+      }
+      break
     case 'mount-pop-up':
-      storeActions.sendToPort(tabId, 'pop-up-data', {
-        disabled: get(disabled),
-        instances: get(ports).get(tabId)?.instances || []
-      })
+      storeActions.sendToPort(tabId, 'pop-up-data', storeActions.getPopUpData(tabId))
       break
   }
 }
 
-function listenPort(
-  tabId: number,
-  msg: {
-    type: any
-    data: any
-  },
-  port: chrome.runtime.Port
-) {
+function listenPort(tabId: number, msg: any, port: chrome.runtime.Port) {
+  if (msg.origin !== 'inject') {
+    return
+  }
   console.log('received msg from PAGE port!', JSON.stringify(msg))
   switch (msg.type) {
     case 'inject-found-instances':

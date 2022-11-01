@@ -7,7 +7,7 @@ function handleInjectMsgs(event: MessageEvent<any>) {
   ) {
     return
   }
-  console.log('inject msg!', event.data)
+  // console.log('inject msg!', event.data)
   pagePort.postMessage(event.data)
 }
 
@@ -16,7 +16,7 @@ function handleSWMsgs(msg: any) {
   if (typeof msg !== 'object' || !('source' in msg) || msg.source !== 'pm-dev-tools') {
     return
   }
-  console.log('sw msg!', msg)
+  // console.log('sw msg!', msg)
   window.postMessage(msg, '*')
   popUpPort.postMessage(msg)
 }
@@ -26,7 +26,7 @@ function handlePopUpMsgs(msg: any) {
   if (typeof msg !== 'object' || !('source' in msg) || msg.source !== 'pm-dev-tools') {
     return
   }
-  console.log('pop-up msg!', msg)
+  // console.log('pop-up msg!', msg)
   pagePort.postMessage(msg)
 }
 
