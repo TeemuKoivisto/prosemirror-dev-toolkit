@@ -6,14 +6,14 @@
   "minimum_chrome_version": "102",
   "homepage_url": "https://github.com/TeemuKoivisto/prosemirror-dev-toolkit",
   "icons": {
-    "16": "prosemirror-16.png",
-    "32": "prosemirror-32.png",
-    "48": "prosemirror-48.png",
-    "128": "prosemirror-128.png"
+    "16": "devtools-16.png",
+    "32": "devtools-32.png",
+    "48": "devtools-48.png",
+    "128": "devtools-128.png"
   },
   "action": {
     "default_popup": "pop-up.html",
-    "default_icon": "prosemirror-128.png"
+    "default_icon": "devtools-128.png"
   },
   "content_scripts": [
     {

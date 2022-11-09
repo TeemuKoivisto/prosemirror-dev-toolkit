@@ -1,6 +1,6 @@
 import { get, derived, writable } from 'svelte/store'
 
-import type { GlobalState, FoundInstance, PopUpState, SWMessageMap } from '../types'
+import type { GlobalState, FoundInstance, SWMessageMap } from '../types'
 
 interface Connected {
   instances: FoundInstance[]
@@ -8,6 +8,7 @@ interface Connected {
   popUpPort: chrome.runtime.Port | undefined
 }
 
+const STORAGE_KEY = 'pm-dev-tools-global-state'
 const DEFAULT_GLOBAL_STATE: GlobalState = {
   disabled: false,
   showOptions: false,
@@ -25,28 +26,23 @@ export const ports = writable(new Map<number, Connected>())
 hydrate()
 
 async function hydrate() {
-  const state = await chrome.storage.sync.get('globalState')
-  if (state && typeof state === 'object') {
-    globalState.set(state as any)
+  const state = await chrome.storage.sync.get(STORAGE_KEY)
+  if (state && typeof state[STORAGE_KEY] === 'object') {
+    globalState.set(state[STORAGE_KEY] as any)
   }
 }
 
-async function toggleBadge(tabId: number) {
-  const prevState = await chrome.action.getBadgeText({ tabId })
-  const nextState = prevState === 'ON' ? 'OFF' : 'ON'
-  // Set the action badge to the next state
-  await chrome.action.setBadgeText({
-    tabId: tabId,
-    text: nextState
-  })
-}
-
-disabled.subscribe(async val => {
-  chrome.storage.sync.set({ disabled: val }, () => {
-    console.log('Is disabled: ' + val)
-  })
-  chrome.action.setBadgeText({
-    text: val ? 'OFF' : 'ON'
+globalState.subscribe(async val => {
+  chrome.storage.sync.set({ STORAGE_KEY: val })
+  // TODO use tabId for disabling?
+  const iconType = val.disabled ? '-disabled' : ''
+  chrome.action.setIcon({
+    path: {
+      '16': chrome.runtime.getURL(`devtools${iconType}-16.png`),
+      '32': chrome.runtime.getURL(`devtools${iconType}-32.png`),
+      '48': chrome.runtime.getURL(`devtools${iconType}-48.png`),
+      '128': chrome.runtime.getURL(`devtools${iconType}-128.png`),
+    },
   })
 })
 

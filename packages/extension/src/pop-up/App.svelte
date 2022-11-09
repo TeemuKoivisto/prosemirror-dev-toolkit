@@ -67,9 +67,8 @@
         <input id="pm-el-selector" value=".ProseMirror" />
       </div>
       <div class="options-buttons">
-        <button>Reload</button>
+        <button>Reapply</button>
         <button>Data</button>
-        <!-- <button on:click={handleClickDisable}>{$disabled ? 'Enable' : 'Disable'}</button> -->
         <button>Disable for page</button>
         <select>
           <option>Bottom right</option>
