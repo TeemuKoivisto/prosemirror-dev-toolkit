@@ -9,6 +9,7 @@
   import toggleOff from '@iconify-icons/mdi/toggle-switch-off-outline.js'
   import toggle2 from '@iconify-icons/mdi/toggle-switch.js'
   import magnify from '@iconify-icons/mdi/magnify-scan.js'
+  import research from '@iconify-icons/mdi/find-replace.js'
 
   import { disabled, foundInstances, showOptions, showDebug, received, send } from './store'
 
@@ -16,6 +17,9 @@
     send('mount-pop-up', undefined)
   })
 
+  function handleClickReapply() {
+    send('reapply-devtools', undefined)
+  }
   function handleClickDebug() {
     send('update-state', {
       showDebug: !$showDebug
@@ -34,8 +38,12 @@
 <main>
   <header>
     <div class="title-container">
-      <div class="found-icon">
-        <Icon icon={$foundInstances.length > 0 ? check : close} width={24} />
+      <div class="found-icon" style:opacity={$disabled ? 0 : 1}>
+        <Icon
+          icon={$foundInstances.length > 0 ? check : close}
+          width={24}
+          color={$foundInstances.length > 0 ? '#00f400' : ''}
+        />
       </div>
       <h1>
         {#if $disabled}
@@ -46,6 +54,9 @@
           No ProseMirror found
         {/if}
       </h1>
+      <button class="icon-btn ml-2" on:click={handleClickReapply}>
+        <Icon icon={research} width={24} />
+      </button>
     </div>
     <div class="header-buttons">
       <button class="icon-btn" on:click={handleClickDebug}>
@@ -79,13 +90,16 @@
       </div>
     </fieldset>
   </div>
-  <ul class:hidden={$foundInstances.length === 0}>
+  <ol class:hidden={$foundInstances.length === 0}>
     {#each $foundInstances as inst}
       <li>
-        <button class="editor-btn" class:selected={true}>Size: {inst.size} {inst.classes}</button>
+        <button class="editor-btn" class:selected={true}>
+          {inst.element}...
+        </button>
+        <span>html: {inst.size} </span>
       </li>
     {/each}
-  </ul>
+  </ol>
   <ul class:hidden={!$showDebug}>
     {#each $received as msg}
       <li>{JSON.stringify(msg)}</li>
@@ -109,7 +123,7 @@
     background-color: #363755;
     color: #85d9ef;
     padding: 1rem;
-    min-width: 30rem;
+    width: 36rem;
   }
   header {
     display: flex;
@@ -138,23 +152,15 @@
     margin: 0;
     padding: 0;
   }
+  .ml-2 {
+    margin-left: 1rem;
+  }
   .header-buttons {
     & > * + * {
       margin-left: 0.5rem;
     }
   }
-  .editor-btn {
-    background: transparent;
-    border: 0;
-    border-radius: 2px;
-    color: #faf8f5;
-    cursor: pointer;
-    margin: 0;
-    padding: 10px;
-    &.selected {
-      border: 1px solid #85d9ef;
-    }
-  }
+
   .options {
     margin-top: 0.5rem;
 
@@ -189,21 +195,36 @@
   ul {
     list-style: none;
     margin: 1rem 0 0 0;
-    padding: 0;
+    padding: 0 0 0 2rem;
+  }
+  ol {
+    margin: 1rem 0 0 0;
+    padding: 0 0 0 2rem;
   }
   li {
-    align-items: center;
-    border: 1px solid rgb(96, 76, 104);
-    display: flex;
     margin: 0;
-    padding-left: 2rem;
-    &:hover {
-      background: rgba(255, 162, 177, 0.4);
-    }
+    padding: 0;
   }
   li + li {
     border-top: 0;
     margin-top: 4px;
     padding-top: 4px;
+  }
+  .editor-btn {
+    background: transparent;
+    border: 0;
+    border-radius: 4px;
+    color: #faf8f5;
+    cursor: pointer;
+    margin: 0.25rem 0.5rem;
+    padding: 0.5rem 0.5rem;
+    &.selected {
+      outline: rgb(176, 176, 176) dotted 2px;
+      outline-offset: 0px;
+      //   border: 1px solid #85d9ef;
+    }
+    &:hover {
+      background: rgba(255, 162, 177, 0.4);
+    }
   }
 </style>

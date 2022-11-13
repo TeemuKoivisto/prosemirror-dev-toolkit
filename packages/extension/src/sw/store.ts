@@ -41,8 +41,8 @@ globalState.subscribe(async val => {
       '16': chrome.runtime.getURL(`devtools${iconType}-16.png`),
       '32': chrome.runtime.getURL(`devtools${iconType}-32.png`),
       '48': chrome.runtime.getURL(`devtools${iconType}-48.png`),
-      '128': chrome.runtime.getURL(`devtools${iconType}-128.png`),
-    },
+      '128': chrome.runtime.getURL(`devtools${iconType}-128.png`)
+    }
   })
 })
 
@@ -126,5 +126,18 @@ export const storeActions = {
         data
       } as SWMessageMap[K])
     }
+  },
+  disconnectPort(type: 'page' | 'pop-up', tabId: number, port: chrome.runtime.Port) {
+    ports.update(p => {
+      const old = p.get(tabId)
+      if (old) {
+        return p.set(tabId, {
+          ...old,
+          pagePort: type === 'page' ? undefined : old.pagePort,
+          popUpPort: type === 'pop-up' ? undefined : old.popUpPort
+        })
+      }
+      return p
+    })
   }
 }

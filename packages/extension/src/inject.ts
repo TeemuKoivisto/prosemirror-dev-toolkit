@@ -1,14 +1,15 @@
 import { applyDevTools, removeDevTools } from 'prosemirror-dev-toolkit'
 import type { EditorView } from 'prosemirror-view'
 
-import type { InjectMessages, SWMessageMap } from './types'
+import type { InjectMessageMap, InjectState, SWMessageMap } from './types'
 
 const MAX_ATTEMPTS = 10
 
-let timeout: ReturnType<typeof setTimeout>,
-  attempts = 0,
-  disabled = false,
-  selector = '.ProseMirror'
+let injectData: InjectState = {
+  disabled: false,
+  selector: '.ProseMirror',
+  devToolsOpts: {}
+}
 
 declare global {
   interface Element {
@@ -47,45 +48,39 @@ function getEditorView(el: HTMLElement): Promise<any> {
   })
 }
 
-function queryDOM(selector: string): Promise<HTMLElement | undefined> {
+async function findProsemirror(attempts: number) {
   return new Promise((resolve, reject) => {
-    timeout = setTimeout(() => {
-      const el = document.querySelector(selector)
-      if (el instanceof HTMLElement) {
-        resolve(el)
-      } else {
-        attempts += 1
-        resolve(undefined)
+    setTimeout(async () => {
+      const { disabled, selector } = injectData
+      if (disabled) {
+        // console.log('DISABLED')
+        return resolve(undefined)
       }
+      // console.log('FINDING')
+      const pmEl = document.querySelector(selector)
+      if (!pmEl && attempts < MAX_ATTEMPTS) {
+        return findProsemirror(attempts + 1)
+      } else if (pmEl instanceof HTMLElement) {
+        try {
+          const view = await getEditorView(pmEl)
+          applyDevTools(view, { buttonPosition: 'bottom-right' })
+        } catch (err) {
+          console.error(err)
+        }
+        const instances = Array.from(document.querySelectorAll(selector)).map(el => ({
+          size: el.innerHTML.length,
+          element: el.outerHTML.slice(0, 70)
+        }))
+        send('inject-found-instances', {
+          instances
+        })
+      }
+      resolve(pmEl)
     }, 1000 * attempts)
   })
 }
 
-async function findProsemirror() {
-  if (disabled) {
-    // console.log('DISABLED')
-    return
-  }
-  // console.log('FINDING')
-  const pmEl = await queryDOM(selector)
-  if (!pmEl && attempts < MAX_ATTEMPTS) {
-    findProsemirror()
-  } else if (pmEl) {
-    try {
-      const view = await getEditorView(pmEl)
-      applyDevTools(view, { buttonPosition: 'bottom-right' })
-    } catch (err) {
-      console.error(err)
-    }
-    const editors = Array.from(document.querySelectorAll(selector)).map(el => ({
-      size: el.innerHTML.length,
-      classes: Array.from(el.classList)
-    }))
-    send('inject-found-instances', editors)
-  }
-}
-
-function send<K extends keyof InjectMessages>(type: K, data: InjectMessages[K]) {
+function send<K extends keyof InjectMessageMap>(type: K, data: InjectMessageMap[K]['data']) {
   window.postMessage({ source: 'pm-dev-tools', origin: 'inject', type, data })
 }
 
@@ -101,13 +96,16 @@ function handleMessages<K extends keyof SWMessageMap>(event: MessageEvent<SWMess
   const msg = event.data
   switch (msg.type) {
     case 'inject-data':
-      disabled = msg.data.disabled
-      selector = msg.data.selector
-      if (!disabled) {
-        findProsemirror()
+      injectData = msg.data
+      if (!injectData.disabled) {
+        findProsemirror(0)
       } else {
         removeDevTools()
       }
+      break
+    case 'rerun-inject':
+      removeDevTools()
+      findProsemirror(0)
       break
   }
 }

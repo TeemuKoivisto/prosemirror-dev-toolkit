@@ -1,7 +1,7 @@
 import { get } from 'svelte/store'
 
 import { disabled, ports, storeActions } from './store'
-import type { InjectMessages, PopUpMessageMap } from '../types'
+import type { InjectMessageMap, PopUpMessageMap } from '../types'
 import { getCurrentTab } from './getCurrentTab'
 
 export async function listenToConnections(port: chrome.runtime.Port) {
@@ -14,7 +14,8 @@ export async function listenToConnections(port: chrome.runtime.Port) {
       return
     }
     storeActions.addPort('pop-up', tabId, port)
-    port.onMessage.addListener((msg, port) => listenPopUpPort(tabId, msg, port))
+    port.onMessage.addListener((msg, port) => listenPopUp(tabId, msg, port))
+    port.onDisconnect.addListener(() => storeActions.disconnectPort('pop-up', tabId, port))
     storeActions.sendToPort(tabId, 'pop-up-data', storeActions.getPopUpData(tabId))
   } else if (port.name === 'pm-devtools-page') {
     const tabId = port.sender?.tab?.id
@@ -23,15 +24,17 @@ export async function listenToConnections(port: chrome.runtime.Port) {
       return
     }
     storeActions.addPort('page', tabId, port)
-    port.onMessage.addListener((msg, port) => listenPort(tabId, msg, port))
+    port.onMessage.addListener((msg, port) => listenInject(tabId, msg, port))
+    port.onDisconnect.addListener(() => storeActions.disconnectPort('page', tabId, port))
     storeActions.sendToPort(tabId, 'inject-data', {
       selector: '.ProseMirror',
-      disabled: get(disabled)
+      disabled: get(disabled),
+      devToolsOpts: {}
     })
   }
 }
 
-async function listenPopUpPort<K extends keyof PopUpMessageMap>(
+async function listenPopUp<K extends keyof PopUpMessageMap>(
   tabId: number,
   msg: PopUpMessageMap[K],
   port: chrome.runtime.Port
@@ -50,8 +53,12 @@ async function listenPopUpPort<K extends keyof PopUpMessageMap>(
       })
       storeActions.sendToPort(tabId, 'inject-data', {
         disabled: newDisabled,
-        selector: '.ProseMirror'
+        selector: '.ProseMirror',
+        devToolsOpts: {}
       })
+      break
+    case 'reapply-devtools':
+      storeActions.sendToPort(tabId, 'rerun-inject', undefined)
       break
     case 'update-state':
       if (msg.data) {
@@ -65,14 +72,18 @@ async function listenPopUpPort<K extends keyof PopUpMessageMap>(
   }
 }
 
-function listenPort(tabId: number, msg: any, port: chrome.runtime.Port) {
+async function listenInject<K extends keyof InjectMessageMap>(
+  tabId: number,
+  msg: InjectMessageMap[K],
+  port: chrome.runtime.Port
+) {
   if (msg.origin !== 'inject') {
     return
   }
-  console.log('received msg from PAGE port!', JSON.stringify(msg))
+  console.log('received msg from INJECT port!', JSON.stringify(msg))
   switch (msg.type) {
     case 'inject-found-instances':
-      storeActions.updateInstances(tabId, msg.data)
+      storeActions.updateInstances(tabId, msg.data.instances)
       break
   }
 }

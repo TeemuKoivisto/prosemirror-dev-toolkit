@@ -1,5 +1,5 @@
 import type { DevToolsOpts } from 'prosemirror-dev-toolkit'
-import { Message, FoundInstance } from './messages'
+import { FoundInstance } from './inject'
 import { GlobalState } from './sw'
 
 export interface PopUpState {
@@ -26,6 +26,10 @@ export interface PopUpMessageMap {
   }
   'toggle-disable': PopUpMessage & {
     type: 'toggle-disable'
+    data: undefined
+  }
+  'reapply-devtools': PopUpMessage & {
+    type: 'reapply-devtools'
     data: undefined
   }
   reload: PopUpMessage & {
