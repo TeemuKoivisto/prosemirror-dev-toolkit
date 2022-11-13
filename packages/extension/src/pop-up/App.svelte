@@ -1,17 +1,21 @@
 <script lang="ts">
   import { onMount } from 'svelte'
   import Icon from '@iconify/svelte/dist/OfflineIcon.svelte'
-  import check from '@iconify-icons/mdi/check-bold.js'
-  import close from '@iconify-icons/mdi/close.js'
   import cog from '@iconify-icons/mdi/cog.js'
   import cogOff from '@iconify-icons/mdi/cog-off.js'
-  import toggle from '@iconify-icons/mdi/toggle-switch-outline.js'
   import toggleOff from '@iconify-icons/mdi/toggle-switch-off-outline.js'
   import toggle2 from '@iconify-icons/mdi/toggle-switch.js'
-  import magnify from '@iconify-icons/mdi/magnify-scan.js'
   import research from '@iconify-icons/mdi/find-replace.js'
 
-  import { disabled, foundInstances, showOptions, showDebug, received, send } from './store'
+  import { received, send, state } from './store'
+  import type { ButtonPosition } from 'prosemirror-dev-toolkit'
+
+  $: disabled = $state.disabled
+  $: showOptions = $state.showOptions
+  $: showDebug = $state.showDebug
+  $: foundInstances = $state.instances
+  $: found = !disabled && foundInstances.length > 0
+  $: selector = $state.selector
 
   onMount(() => {
     send('mount-pop-up', undefined)
@@ -22,7 +26,7 @@
   }
   function handleClickDebug() {
     send('update-state', {
-      showDebug: !$showDebug
+      showDebug: !showDebug
     })
   }
   function handleClickDisable() {
@@ -30,7 +34,27 @@
   }
   function handleClickOptions() {
     send('update-state', {
-      showOptions: !$showOptions
+      showOptions: !showOptions
+    })
+  }
+  function handleSelectorChange(
+    e: Event & {
+      currentTarget: EventTarget & HTMLInputElement
+    }
+  ) {
+    send('update-state', {
+      selector: e.currentTarget.value
+    })
+  }
+  function handleToolsPosChange(
+    e: Event & {
+      currentTarget: EventTarget & HTMLSelectElement
+    }
+  ) {
+    send('update-state', {
+      devToolsOpts: {
+        buttonPosition: e.currentTarget.value as ButtonPosition
+      }
     })
   }
 </script>
@@ -38,69 +62,64 @@
 <main>
   <header>
     <div class="title-container">
-      <div class="found-icon" style:opacity={$disabled ? 0 : 1}>
-        <Icon
-          icon={$foundInstances.length > 0 ? check : close}
-          width={24}
-          color={$foundInstances.length > 0 ? '#00f400' : ''}
-        />
-      </div>
+      {#if found}
+        <img class="pm-icon" src="pm.png" alt="ProseMirror logo" height="30" />
+      {/if}
       <h1>
-        {#if $disabled}
+        {#if disabled}
           DevTools disabled
-        {:else if $foundInstances.length > 0}
+        {:else if found}
           ProseMirror detected
         {:else}
           No ProseMirror found
         {/if}
       </h1>
-      <button class="icon-btn ml-2" on:click={handleClickReapply}>
-        <Icon icon={research} width={24} />
-      </button>
     </div>
     <div class="header-buttons">
-      <button class="icon-btn" on:click={handleClickDebug}>
-        <Icon icon={$showDebug ? magnify : magnify} width={24} />
+      <button class="icon-btn" on:click={handleClickReapply}>
+        <Icon icon={research} width={24} />
       </button>
       <button class="icon-btn" on:click={handleClickDisable}>
-        <Icon icon={$disabled ? toggle2 : toggleOff} width={24} />
+        <Icon icon={disabled ? toggle2 : toggleOff} width={24} />
       </button>
       <button class="icon-btn" on:click={handleClickOptions}>
-        <Icon icon={$showOptions ? cogOff : cog} width={24} />
+        <Icon icon={showOptions ? cogOff : cog} width={24} />
       </button>
     </div>
   </header>
-  <div class="options" class:hidden={!$showOptions}>
+  <div class="options" class:hidden={!showOptions}>
     <fieldset>
       <legend>Options</legend>
       <div class="field">
         <label for="pm-el-selector">Selector</label>
-        <input id="pm-el-selector" value=".ProseMirror" />
+        <input id="pm-el-selector" value={selector} on:change={handleSelectorChange} />
       </div>
       <div class="options-buttons">
-        <button>Reapply</button>
         <button>Data</button>
         <button>Disable for page</button>
-        <select>
-          <option>Bottom right</option>
-          <option>Bottom left</option>
-          <option>Top right</option>
-          <option>Top left</option>
+        <button on:click={handleClickDebug}>Debug</button>
+        <select on:change={handleToolsPosChange}>
+          <option value="bottom-right">Bottom right</option>
+          <option value="bottom-left">Bottom left</option>
+          <option value="top-right">Top right</option>
+          <option value="top-left">Top left</option>
         </select>
       </div>
     </fieldset>
   </div>
-  <ol class:hidden={$foundInstances.length === 0}>
-    {#each $foundInstances as inst}
+  <ol class:hidden={!found}>
+    {#each foundInstances as inst}
       <li>
-        <button class="editor-btn" class:selected={true}>
-          {inst.element}...
-        </button>
-        <span>html: {inst.size} </span>
+        <div class="inst-row">
+          <button class="editor-btn" class:selected={true}>
+            {inst.element}
+          </button>
+          {inst.size}
+        </div>
       </li>
     {/each}
   </ol>
-  <ul class:hidden={!$showDebug}>
+  <ul class:hidden={!showDebug}>
     {#each $received as msg}
       <li>{JSON.stringify(msg)}</li>
     {/each}
@@ -130,16 +149,20 @@
     justify-content: space-between;
   }
   .title-container {
+    align-items: center;
     display: flex;
   }
-  .found-icon {
+  .pm-icon {
+    margin-right: 0.5rem;
   }
   h1 {
+    align-items: center;
     color: white;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px;
+    display: flex;
+    // font-family: Arial, Helvetica, sans-serif;
     font-weight: 400;
-    margin: 0 0 0 0.75rem;
+    font-size: 20px;
+    margin: 0 0 0 0.5rem;
   }
   .selected {
     background: lightblue;
@@ -152,20 +175,24 @@
     margin: 0;
     padding: 0;
   }
-  .ml-2 {
-    margin-left: 1rem;
-  }
   .header-buttons {
+    display: flex;
     & > * + * {
-      margin-left: 0.5rem;
+      margin-left: 0.75rem;
     }
   }
-
   .options {
-    margin-top: 0.5rem;
+    margin-top: 0.75rem;
 
     fieldset {
       padding: 0.5rem 1rem 1rem 1rem;
+    }
+    label {
+      font-size: 0.75rem;
+      margin: 0 0 4px 0;
+    }
+    input {
+      padding: 2px 4px;
     }
   }
   .field {
@@ -178,18 +205,35 @@
 
     button {
       background: transparent;
-      border: 0;
-      border-radius: 3px;
+      border: 1px dashed #b0b0b0;
+      border-radius: 2px;
       color: #d3d3d9;
       cursor: pointer;
       display: flex;
       font-size: 11px;
+      margin-right: 0.5rem;
       padding: 6px 18px;
       text-transform: uppercase;
       &:hover {
         background: rgba(255, 162, 177, 0.4);
         color: #fff;
       }
+    }
+
+    select {
+      appearance: none;
+      padding: 0 0.5rem;
+    }
+
+    select::after {
+      position: absolute;
+      content: '^';
+      top: 14px;
+      right: 10px;
+      width: 0;
+      height: 0;
+      border: 6px solid transparent;
+      border-color: #fff transparent transparent transparent;
     }
   }
   ul {
@@ -210,18 +254,23 @@
     margin-top: 4px;
     padding-top: 4px;
   }
+  .inst-row {
+    align-items: center;
+    display: flex;
+  }
   .editor-btn {
     background: transparent;
     border: 0;
-    border-radius: 4px;
+    border-radius: 2px;
     color: #faf8f5;
     cursor: pointer;
     margin: 0.25rem 0.5rem;
     padding: 0.5rem 0.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     &.selected {
-      outline: rgb(176, 176, 176) dotted 2px;
-      outline-offset: 0px;
-      //   border: 1px solid #85d9ef;
+      border: 1px dashed #b0b0b0;
     }
     &:hover {
       background: rgba(255, 162, 177, 0.4);

@@ -13,6 +13,7 @@ const DEFAULT_GLOBAL_STATE: GlobalState = {
   disabled: false,
   showOptions: false,
   showDebug: false,
+  selector: '.ProseMirror',
   devToolsOpts: {
     devToolsExpanded: false,
     buttonPosition: 'bottom-right'
@@ -126,6 +127,14 @@ export const storeActions = {
         data
       } as SWMessageMap[K])
     }
+  },
+  broadcastStateUpdate(tabId: number) {
+    const state = get(globalState)
+    this.sendToPort(tabId, 'pop-up-data', {
+      ...state,
+      instances: this.getInstances(tabId)
+    })
+    this.sendToPort(tabId, 'inject-data', state)
   },
   disconnectPort(type: 'page' | 'pop-up', tabId: number, port: chrome.runtime.Port) {
     ports.update(p => {

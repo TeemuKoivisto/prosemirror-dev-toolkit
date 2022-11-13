@@ -8,7 +8,10 @@ const MAX_ATTEMPTS = 10
 let injectData: InjectState = {
   disabled: false,
   selector: '.ProseMirror',
-  devToolsOpts: {}
+  devToolsOpts: {
+    devToolsExpanded: false,
+    buttonPosition: 'bottom-right'
+  }
 }
 
 declare global {
@@ -48,7 +51,7 @@ function getEditorView(el: HTMLElement): Promise<any> {
   })
 }
 
-async function findProsemirror(attempts: number) {
+function findProsemirror(attempts: number) {
   return new Promise((resolve, reject) => {
     setTimeout(async () => {
       const { disabled, selector } = injectData
@@ -63,13 +66,13 @@ async function findProsemirror(attempts: number) {
       } else if (pmEl instanceof HTMLElement) {
         try {
           const view = await getEditorView(pmEl)
-          applyDevTools(view, { buttonPosition: 'bottom-right' })
+          applyDevTools(view, injectData.devToolsOpts)
         } catch (err) {
           console.error(err)
         }
         const instances = Array.from(document.querySelectorAll(selector)).map(el => ({
           size: el.innerHTML.length,
-          element: el.outerHTML.slice(0, 70)
+          element: el.innerHTML.slice(0, 100)
         }))
         send('inject-found-instances', {
           instances

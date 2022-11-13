@@ -1,17 +1,14 @@
 import type { DevToolsOpts } from 'prosemirror-dev-toolkit'
 import { InjectState } from './inject'
+import type { SWMessage } from './messages'
 import { PopUpState } from './pop-up'
 
 export interface GlobalState {
   disabled: boolean
   showOptions: boolean
   showDebug: boolean
+  selector: string
   devToolsOpts: DevToolsOpts
-}
-
-interface SWMessage {
-  source: 'pm-dev-tools'
-  origin: 'sw'
 }
 
 export interface SWMessageMap {

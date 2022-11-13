@@ -1,6 +1,6 @@
 import { get } from 'svelte/store'
 
-import { disabled, ports, storeActions } from './store'
+import { disabled, globalState, ports, storeActions } from './store'
 import type { InjectMessageMap, PopUpMessageMap } from '../types'
 import { getCurrentTab } from './getCurrentTab'
 
@@ -46,15 +46,15 @@ async function listenPopUp<K extends keyof PopUpMessageMap>(
   switch (msg.type) {
     case 'toggle-disable':
       const newDisabled = storeActions.toggleDisabled()
+      const state = get(globalState)
       storeActions.sendToPort(tabId, 'pop-up-data', {
-        ...storeActions.getPopUpData(tabId),
+        ...state,
         disabled: newDisabled,
-        instances: !newDisabled ? get(ports).get(tabId)?.instances || [] : []
+        instances: !newDisabled ? storeActions.getInstances(tabId) : []
       })
       storeActions.sendToPort(tabId, 'inject-data', {
-        disabled: newDisabled,
-        selector: '.ProseMirror',
-        devToolsOpts: {}
+        ...state,
+        disabled: newDisabled
       })
       break
     case 'reapply-devtools':
@@ -63,7 +63,7 @@ async function listenPopUp<K extends keyof PopUpMessageMap>(
     case 'update-state':
       if (msg.data) {
         storeActions.updateState(msg.data)
-        storeActions.sendToPort(tabId, 'pop-up-data', storeActions.getPopUpData(tabId))
+        storeActions.broadcastStateUpdate(tabId)
       }
       break
     case 'mount-pop-up':

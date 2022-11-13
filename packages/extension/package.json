@@ -3,6 +3,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "preview": "vite preview",
     "build": "vite build && vite build --config vite.config.sw.ts",
     "build:sw": "vite build --config vite.config.sw.ts"
   },

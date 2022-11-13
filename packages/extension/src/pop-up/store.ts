@@ -7,6 +7,7 @@ export const state = writable<PopUpState>({
   disabled: false,
   showOptions: false,
   showDebug: false,
+  selector: '.ProseMirror',
   devToolsOpts: {
     devToolsExpanded: false,
     buttonPosition: 'bottom-right'
@@ -14,22 +15,47 @@ export const state = writable<PopUpState>({
   instances: []
 })
 export const received = writable<SWMessageMap[keyof SWMessageMap][]>([])
-export const disabled = derived(state, s => s.disabled)
-export const showOptions = derived(state, s => s.showOptions)
-export const showDebug = derived(state, s => s.showDebug)
-export const foundInstances = derived(state, s => s.instances)
 export const port = writable<chrome.runtime.Port | undefined>()
 export const connected = derived(port, p => !!p)
 
+const EXAMPLE = {
+  source: 'pm-dev-tools' as const,
+  origin: 'sw' as const,
+  type: 'pop-up-data' as const,
+  data: {
+    disabled: false,
+    showOptions: true,
+    showDebug: true,
+    devToolsOpts: { devToolsExpanded: false, buttonPosition: 'bottom-right' as const },
+    instances: [
+      {
+        size: 110,
+        element:
+          '<p class="">Like this one!</p><p>Try it out by typing in here or see more <a href="examples">examples</a>.</p>'
+      },
+      {
+        size: 240,
+        element:
+          '<p class="">Like this one!</p><p>Try it out by typing in here or see more <a href="examples">examples</a>.</p>'
+      }
+    ]
+  }
+}
+
 export function init() {
-  const created = chrome.runtime.connect({
-    name: 'pm-devtools-pop-up'
-  })
-  created.onMessage.addListener(listenPort)
-  created.onDisconnect.addListener(() => {
-    port.set(undefined)
-  })
-  port.set(created)
+  if (chrome.runtime) {
+    const created = chrome.runtime.connect({
+      name: 'pm-devtools-pop-up'
+    })
+    created.onMessage.addListener(listenPort)
+    created.onDisconnect.addListener(() => {
+      port.set(undefined)
+    })
+    port.set(created)
+  } else {
+    // @ts-ignore
+    listenPort(EXAMPLE)
+  }
 }
 
 export function send<K extends keyof PopUpMessageMap>(type: K, data: PopUpMessageMap[K]['data']) {

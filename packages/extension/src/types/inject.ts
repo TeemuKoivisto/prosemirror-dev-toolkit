@@ -1,20 +1,11 @@
-import type { DevToolsOpts } from 'prosemirror-dev-toolkit'
+import type { InjectMessage } from './messages'
 import { GlobalState } from './sw'
 
 export interface FoundInstance {
   size: number
   element: string
 }
-export interface InjectState {
-  disabled: boolean
-  selector: string
-  devToolsOpts: DevToolsOpts
-}
-
-interface InjectMessage {
-  source: 'pm-dev-tools'
-  origin: 'inject'
-}
+export type InjectState = Omit<GlobalState, 'showOptions' | 'showDebug'>
 
 export interface InjectMessageMap {
   'inject-status': InjectMessage & {

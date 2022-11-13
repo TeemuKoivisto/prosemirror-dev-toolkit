@@ -17,7 +17,7 @@ export default defineConfig({
       input: {
         inject: path.resolve('./src/inject.ts'),
         proxy: path.resolve('./src/proxy.ts'),
-        'pop-up': path.resolve('./pop-up.html')
+        'pop-up': path.resolve('./index.html')
       },
       plugins: [
         {

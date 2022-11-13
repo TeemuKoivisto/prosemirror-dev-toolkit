@@ -1,18 +1,10 @@
 import type { DevToolsOpts } from 'prosemirror-dev-toolkit'
 import { FoundInstance } from './inject'
+import type { PopUpMessage } from './messages'
 import { GlobalState } from './sw'
 
-export interface PopUpState {
-  disabled: boolean
-  showOptions: boolean
-  showDebug: boolean
-  devToolsOpts: DevToolsOpts
+export type PopUpState = GlobalState & {
   instances: FoundInstance[]
-}
-
-interface PopUpMessage {
-  source: 'pm-dev-tools'
-  origin: 'pop-up'
 }
 
 export interface PopUpMessageMap {
