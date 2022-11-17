@@ -84,7 +84,7 @@ async function listenInject<K extends keyof InjectMessageMap>(
       // storeActions.sendToPort(tabId, 'pop-up-state', storeActions.getPopUpData(tabId))
       break
     case 'inject-status':
-      storeActions.updateState({ injectStatus: msg.data })
+      storeActions.updateState({ inject: { status: msg.data } })
       storeActions.sendToPort(tabId, 'pop-up-state', storeActions.getPopUpData(tabId))
       break
   }

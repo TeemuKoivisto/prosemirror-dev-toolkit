@@ -7,6 +7,10 @@ export type PopUpState = GlobalState & {
   instances: FoundInstance[]
 }
 
+export type DeepPartial<T> = {
+  [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P]
+}
+
 export interface PopUpMessageMap {
   'mount-pop-up': PopUpMessage & {
     type: 'mount-pop-up'
@@ -14,7 +18,7 @@ export interface PopUpMessageMap {
   }
   'update-state': PopUpMessage & {
     type: 'update-state'
-    data: Partial<GlobalState>
+    data: DeepPartial<GlobalState>
   }
   'toggle-disable': PopUpMessage & {
     type: 'toggle-disable'

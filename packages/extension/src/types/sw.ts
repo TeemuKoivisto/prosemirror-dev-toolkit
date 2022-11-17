@@ -7,9 +7,12 @@ export interface GlobalState {
   disabled: boolean
   showOptions: boolean
   showDebug: boolean
-  selector: string
-  injectStatus: InjectStatus
   devToolsOpts: DevToolsOpts
+  inject: {
+    instance: number
+    selector: string
+    status: InjectStatus
+  }
 }
 
 export interface SWMessageMap {

@@ -1,6 +1,6 @@
 import { get, derived, writable } from 'svelte/store'
 
-import type { GlobalState, FoundInstance, SWMessageMap } from '../types'
+import type { DeepPartial, GlobalState, FoundInstance, SWMessageMap } from '../types'
 
 interface Connected {
   instances: FoundInstance[]
@@ -13,11 +13,14 @@ const DEFAULT_GLOBAL_STATE: GlobalState = {
   disabled: false,
   showOptions: false,
   showDebug: false,
-  selector: '.ProseMirror',
-  injectStatus: 'no-instances',
   devToolsOpts: {
     devToolsExpanded: false,
     buttonPosition: 'bottom-right'
+  },
+  inject: {
+    instance: 0,
+    selector: '.ProseMirror',
+    status: 'no-instances'
   }
 }
 
@@ -66,13 +69,17 @@ export const storeActions = {
       instances: get(ports).get(tabId)?.instances || []
     }
   },
-  updateState(data: Partial<GlobalState>) {
+  updateState(data: DeepPartial<GlobalState>) {
     globalState.update(s => ({
       ...s,
       ...data,
       devToolsOpts: {
         ...s.devToolsOpts,
         ...data.devToolsOpts
+      },
+      inject: {
+        ...s.inject,
+        ...data.inject
       }
     }))
   },
@@ -90,10 +97,17 @@ export const storeActions = {
       }
       return p
     })
-    globalState.update(s => ({ ...s, injectStatus: 'found-instances' }))
+    const s = get(globalState)
+    const updated = {
+      ...s,
+      inject: {
+        ...s.inject,
+        status: 'found-instances' as const
+      }
+    }
+    globalState.set(updated)
     this.sendToPort(tabId, 'pop-up-state', {
-      ...this.getPopUpData(tabId),
-      injectStatus: 'found-instances',
+      ...updated,
       instances
     })
   },

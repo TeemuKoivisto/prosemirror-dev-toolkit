@@ -7,13 +7,16 @@ export const state = writable<PopUpState>({
   disabled: false,
   showOptions: false,
   showDebug: false,
-  selector: '.ProseMirror',
-  injectStatus: 'no-instances',
+  instances: [],
   devToolsOpts: {
     devToolsExpanded: false,
     buttonPosition: 'bottom-right'
   },
-  instances: []
+  inject: {
+    instance: 0,
+    selector: '.ProseMirror',
+    status: 'no-instances'
+  }
 })
 export const received = writable<SWMessageMap[keyof SWMessageMap][]>([])
 export const port = writable<chrome.runtime.Port | undefined>()
@@ -27,8 +30,12 @@ const EXAMPLE = {
     disabled: false,
     showOptions: true,
     showDebug: true,
-    selector: '.ProseMirror',
     devToolsOpts: { devToolsExpanded: false, buttonPosition: 'bottom-right' as const },
+    inject: {
+      instance: 0,
+      selector: '.ProseMirror',
+      status: 'no-instances'
+    },
     instances: [
       {
         size: 110,

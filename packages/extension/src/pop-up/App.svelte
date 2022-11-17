@@ -15,8 +15,8 @@
   $: showDebug = $state.showDebug
   $: foundInstances = $state.instances
   $: found = !disabled && foundInstances.length > 0
-  $: injectStatus = $state.injectStatus
-  $: selector = $state.selector
+  $: injectStatus = $state.inject.status
+  $: selector = $state.inject.selector
 
   onMount(() => {
     send('mount-pop-up', undefined)
@@ -44,7 +44,9 @@
     }
   ) {
     send('update-state', {
-      selector: e.currentTarget.value
+      inject: {
+        selector: e.currentTarget.value
+      }
     })
   }
   function handleToolsPosChange(
