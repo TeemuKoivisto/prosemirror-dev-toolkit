@@ -14,6 +14,7 @@ const DEFAULT_GLOBAL_STATE: GlobalState = {
   showOptions: false,
   showDebug: false,
   selector: '.ProseMirror',
+  injectStatus: 'no-instances',
   devToolsOpts: {
     devToolsExpanded: false,
     buttonPosition: 'bottom-right'
@@ -89,8 +90,10 @@ export const storeActions = {
       }
       return p
     })
-    this.sendToPort(tabId, 'pop-up-data', {
+    globalState.update(s => ({ ...s, injectStatus: 'found-instances' }))
+    this.sendToPort(tabId, 'pop-up-state', {
       ...this.getPopUpData(tabId),
+      injectStatus: 'found-instances',
       instances
     })
   },
@@ -130,11 +133,11 @@ export const storeActions = {
   },
   broadcastStateUpdate(tabId: number) {
     const state = get(globalState)
-    this.sendToPort(tabId, 'pop-up-data', {
+    this.sendToPort(tabId, 'pop-up-state', {
       ...state,
       instances: this.getInstances(tabId)
     })
-    this.sendToPort(tabId, 'inject-data', state)
+    this.sendToPort(tabId, 'inject-state', state)
   },
   disconnectPort(type: 'page' | 'pop-up', tabId: number, port: chrome.runtime.Port) {
     ports.update(p => {

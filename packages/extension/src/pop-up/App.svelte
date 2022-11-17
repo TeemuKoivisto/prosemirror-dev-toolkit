@@ -15,6 +15,7 @@
   $: showDebug = $state.showDebug
   $: foundInstances = $state.instances
   $: found = !disabled && foundInstances.length > 0
+  $: injectStatus = $state.injectStatus
   $: selector = $state.selector
 
   onMount(() => {
@@ -74,6 +75,7 @@
           No ProseMirror found
         {/if}
       </h1>
+      <span class="inject-status">{injectStatus}</span>
     </div>
     <div class="header-buttons">
       <button class="icon-btn" on:click={handleClickReapply}>
@@ -142,7 +144,7 @@
     background-color: #363755;
     color: #85d9ef;
     padding: 1rem;
-    width: 36rem;
+    width: 30rem;
   }
   header {
     display: flex;
@@ -163,6 +165,9 @@
     font-weight: 400;
     font-size: 20px;
     margin: 0 0 0 0.5rem;
+  }
+  .inject-status {
+    margin-left: 1rem;
   }
   .selected {
     background: lightblue;
@@ -239,11 +244,11 @@
   ul {
     list-style: none;
     margin: 1rem 0 0 0;
-    padding: 0 0 0 2rem;
+    padding: 0 0 0 1rem;
   }
   ol {
     margin: 1rem 0 0 0;
-    padding: 0 0 0 2rem;
+    padding: 0 0 0 1rem;
   }
   li {
     margin: 0;

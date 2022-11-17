@@ -8,6 +8,7 @@ export const state = writable<PopUpState>({
   showOptions: false,
   showDebug: false,
   selector: '.ProseMirror',
+  injectStatus: 'no-instances',
   devToolsOpts: {
     devToolsExpanded: false,
     buttonPosition: 'bottom-right'
@@ -21,11 +22,12 @@ export const connected = derived(port, p => !!p)
 const EXAMPLE = {
   source: 'pm-dev-tools' as const,
   origin: 'sw' as const,
-  type: 'pop-up-data' as const,
+  type: 'pop-up-state' as const,
   data: {
     disabled: false,
     showOptions: true,
     showDebug: true,
+    selector: '.ProseMirror',
     devToolsOpts: { devToolsExpanded: false, buttonPosition: 'bottom-right' as const },
     instances: [
       {
@@ -67,7 +69,7 @@ export function listenPort<K extends keyof SWMessageMap>(msg: SWMessageMap[K]) {
     return
   }
   switch (msg.type) {
-    case 'pop-up-data':
+    case 'pop-up-state':
       state.set(msg.data)
       break
   }

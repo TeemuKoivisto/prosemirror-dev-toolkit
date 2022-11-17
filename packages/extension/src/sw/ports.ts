@@ -16,7 +16,7 @@ export async function listenToConnections(port: chrome.runtime.Port) {
     storeActions.addPort('pop-up', tabId, port)
     port.onMessage.addListener((msg, port) => listenPopUp(tabId, msg, port))
     port.onDisconnect.addListener(() => storeActions.disconnectPort('pop-up', tabId, port))
-    storeActions.sendToPort(tabId, 'pop-up-data', storeActions.getPopUpData(tabId))
+    storeActions.sendToPort(tabId, 'pop-up-state', storeActions.getPopUpData(tabId))
   } else if (port.name === 'pm-devtools-page') {
     const tabId = port.sender?.tab?.id
     if (!tabId) {
@@ -26,11 +26,7 @@ export async function listenToConnections(port: chrome.runtime.Port) {
     storeActions.addPort('page', tabId, port)
     port.onMessage.addListener((msg, port) => listenInject(tabId, msg, port))
     port.onDisconnect.addListener(() => storeActions.disconnectPort('page', tabId, port))
-    storeActions.sendToPort(tabId, 'inject-data', {
-      selector: '.ProseMirror',
-      disabled: get(disabled),
-      devToolsOpts: {}
-    })
+    storeActions.sendToPort(tabId, 'inject-state', get(globalState))
   }
 }
 
@@ -47,12 +43,13 @@ async function listenPopUp<K extends keyof PopUpMessageMap>(
     case 'toggle-disable':
       const newDisabled = storeActions.toggleDisabled()
       const state = get(globalState)
-      storeActions.sendToPort(tabId, 'pop-up-data', {
+      // TODO check if storeActions.getPopUpData(tabId) works
+      storeActions.sendToPort(tabId, 'pop-up-state', {
         ...state,
         disabled: newDisabled,
         instances: !newDisabled ? storeActions.getInstances(tabId) : []
       })
-      storeActions.sendToPort(tabId, 'inject-data', {
+      storeActions.sendToPort(tabId, 'inject-state', {
         ...state,
         disabled: newDisabled
       })
@@ -67,7 +64,7 @@ async function listenPopUp<K extends keyof PopUpMessageMap>(
       }
       break
     case 'mount-pop-up':
-      storeActions.sendToPort(tabId, 'pop-up-data', storeActions.getPopUpData(tabId))
+      storeActions.sendToPort(tabId, 'pop-up-state', storeActions.getPopUpData(tabId))
       break
   }
 }
@@ -84,8 +81,11 @@ async function listenInject<K extends keyof InjectMessageMap>(
   switch (msg.type) {
     case 'inject-found-instances':
       storeActions.updateInstances(tabId, msg.data.instances)
+      // storeActions.sendToPort(tabId, 'pop-up-state', storeActions.getPopUpData(tabId))
+      break
+    case 'inject-status':
+      storeActions.updateState({ injectStatus: msg.data })
+      storeActions.sendToPort(tabId, 'pop-up-state', storeActions.getPopUpData(tabId))
       break
   }
 }
-
-export {}

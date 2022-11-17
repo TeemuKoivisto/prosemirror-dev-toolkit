@@ -6,11 +6,12 @@ export interface FoundInstance {
   element: string
 }
 export type InjectState = Omit<GlobalState, 'showOptions' | 'showDebug'>
+export type InjectStatus = 'finding' | 'found-instances' | 'no-instances' | 'error'
 
 export interface InjectMessageMap {
   'inject-status': InjectMessage & {
     type: 'inject-status'
-    data: 'started' | 'found-instances' | 'no-instances' | 'error'
+    data: InjectStatus
   }
   'inject-found-instances': InjectMessage & {
     type: 'inject-found-instances'
