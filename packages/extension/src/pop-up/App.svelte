@@ -19,6 +19,24 @@
   $: injectStatus = $state.inject.status
   $: selector = $state.inject.selector
 
+  let dots = ''
+  let setStatusInterval: ReturnType<typeof setTimeout> | undefined
+
+  $: {
+    if (injectStatus !== 'finding') {
+      dots = ''
+      clearInterval(setStatusInterval)
+    } else if (!setStatusInterval) {
+      setStatusInterval = setInterval(() => {
+        if (dots.length === 3) {
+          dots = ''
+        } else {
+          dots = `${dots}.`
+        }
+      }, 333)
+    }
+  }
+
   onMount(() => {
     send('mount-pop-up', undefined)
   })
@@ -83,14 +101,16 @@
           No ProseMirror found
         {/if}
       </h1>
-      <span class="inject-status">{injectStatus}</span>
+      {#if injectStatus === 'finding'}
+        <span class="inject-status">{injectStatus}{dots}</span>
+      {/if}
     </div>
     <div class="header-buttons">
       <button class="icon-btn" on:click={handleClickReapply}>
         <Icon icon={research} width={24} />
       </button>
       <button class="icon-btn" on:click={handleClickDisable}>
-        <Icon icon={disabled ? toggle2 : toggleOff} width={24} />
+        <Icon icon={disabled ? toggleOff : toggle2} width={24} />
       </button>
       <button class="icon-btn" on:click={handleClickOptions}>
         <Icon icon={showOptions ? cogOff : cog} width={24} />
@@ -184,11 +204,14 @@
   }
   .icon-btn {
     background: transparent;
-    border: 0;
+    border: 1px solid transparent;
     color: white;
     cursor: pointer;
     margin: 0;
-    padding: 0;
+    padding: 3px 4px 0 4px;
+    &:hover {
+      border: 1px dashed #b0b0b0;
+    }
   }
   .header-buttons {
     display: flex;
@@ -220,7 +243,7 @@
 
     button {
       background: transparent;
-      border: 1px dashed #b0b0b0;
+      border: 0;
       border-radius: 2px;
       color: #d3d3d9;
       cursor: pointer;
@@ -237,18 +260,12 @@
 
     select {
       appearance: none;
-      padding: 0 0.5rem;
-    }
-
-    select::after {
-      position: absolute;
-      content: '^';
-      top: 14px;
-      right: 10px;
-      width: 0;
-      height: 0;
-      border: 6px solid transparent;
-      border-color: #fff transparent transparent transparent;
+      background: white;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16px' height='16px' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M6.1018 8C5.02785 8 4.45387 9.2649 5.16108 10.0731L10.6829 16.3838C11.3801 17.1806 12.6197 17.1806 13.3169 16.3838L18.8388 10.0731C19.5459 9.2649 18.972 8 17.898 8H6.1018Z' fill='%23212121'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.5rem center;
+      border-radius: 2px;
+      padding: 0 2rem 0 0.75rem;
     }
   }
   ul {

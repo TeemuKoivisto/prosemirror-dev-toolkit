@@ -61,7 +61,6 @@ async function hydrate() {
   }
 }
 
-
 globalState.subscribe(val => {
   chrome.storage.sync.set({ STORAGE_KEY: val })
 })
