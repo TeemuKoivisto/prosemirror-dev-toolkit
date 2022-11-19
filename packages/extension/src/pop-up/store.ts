@@ -11,9 +11,6 @@ export const state = writable<PopUpState>({
     devToolsExpanded: false,
     buttonPosition: 'bottom-right'
   },
-  defaultInject: {
-    selector: '.ProseMirror'
-  },
   inject: {
     instance: 0,
     selector: '.ProseMirror',
@@ -34,9 +31,6 @@ const EXAMPLE = {
     showOptions: true,
     showDebug: true,
     devToolsOpts: { devToolsExpanded: false, buttonPosition: 'bottom-right' as const },
-    defaultInject: {
-      selector: '.ProseMirror'
-    },
     inject: {
       instance: 1,
       selector: '.ProseMirror',

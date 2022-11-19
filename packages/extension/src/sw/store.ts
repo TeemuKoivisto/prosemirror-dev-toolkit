@@ -36,9 +36,6 @@ const DEFAULT_GLOBAL_STATE: GlobalState = {
   devToolsOpts: {
     devToolsExpanded: false,
     buttonPosition: 'bottom-right'
-  },
-  defaultInject: {
-    selector: '.ProseMirror'
   }
 }
 
@@ -71,15 +68,25 @@ globalState.subscribe(async val => {
 
 export const storeActions = {
   toggleDisabled() {
-    const newVal = !get(disabled)
-    globalState.update(s => ({ ...s, disabled: newVal }))
-    if (!newVal) {
-      pages.update(
-        p =>
-          new Map(Array.from(p.entries()).map(([key, inst]) => [key, { ...inst, instances: [] }]))
+    const newDisabled = !get(disabled)
+    const newGlobal: GlobalState = { ...get(globalState), disabled: newDisabled }
+    let newPages = get(pages)
+    if (newDisabled) {
+      newPages = new Map(
+        Array.from(newPages.entries()).map(([key, page]) => [
+          key,
+          {
+            ...page,
+            inject: {
+              ...page.inject,
+              status: 'no-instances' as const,
+              instances: []
+            }
+          }
+        ])
       )
     }
-    return newVal
+    return { newGlobal, newPages }
   },
   getPageData(tabId: number) {
     return {
@@ -106,6 +113,10 @@ export const storeActions = {
       }
     }
   },
+  setState(newGlobal: GlobalState | undefined, newPages: Map<number, PageData> | undefined) {
+    if (newGlobal) globalState.set(newGlobal)
+    if (newPages) pages.set(newPages)
+  },
   updateGlobalState(data: DeepPartial<GlobalState>) {
     globalState.update(s => ({
       ...s,
@@ -113,10 +124,6 @@ export const storeActions = {
       devToolsOpts: {
         ...s.devToolsOpts,
         ...data.devToolsOpts
-      },
-      defaultInject: {
-        ...s.defaultInject,
-        ...data.defaultInject
       }
     }))
   },

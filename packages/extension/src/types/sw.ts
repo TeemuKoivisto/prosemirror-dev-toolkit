@@ -8,9 +8,6 @@ export interface GlobalState {
   showOptions: boolean
   showDebug: boolean
   devToolsOpts: DevToolsOpts
-  defaultInject: {
-    selector: string
-  }
 }
 export interface PageData {
   inject: InjectData

@@ -5,7 +5,7 @@ export interface FoundInstance {
   size: number
   element: string
 }
-export type InjectState = Omit<GlobalState, 'showOptions' | 'showDebug' | 'defaultInject'> & {
+export type InjectState = Omit<GlobalState, 'showOptions' | 'showDebug'> & {
   inject: InjectData
 }
 export type InjectStatus = 'finding' | 'found-instances' | 'no-instances' | 'error'

@@ -1,7 +1,7 @@
 import { get } from 'svelte/store'
 
 import { storeActions } from './store'
-import type { InjectMessageMap, PopUpMessageMap } from '../types'
+import type { InjectData, InjectMessageMap, InjectState, PopUpMessageMap } from '../types'
 import { getCurrentTab } from './getCurrentTab'
 
 export async function listenToConnections(port: chrome.runtime.Port) {
@@ -41,21 +41,19 @@ async function listenPopUp<K extends keyof PopUpMessageMap>(
   console.log('received msg from POP-UP port!', JSON.stringify(msg))
   switch (msg.type) {
     case 'toggle-disable':
-      const newDisabled = storeActions.toggleDisabled()
-      const popUpData = storeActions.getPopUpData(tabId)
-      const injectData = storeActions.getInjectData(tabId)
-      // TODO check if storeActions.getPopUpData(tabId) works
+      const { newGlobal, newPages } = storeActions.toggleDisabled()
+      storeActions.setState(newGlobal, newPages)
+      const inject = {
+        ...newPages.get(tabId)?.inject
+      } as InjectData
       storeActions.sendToPort(tabId, 'pop-up-state', {
-        ...popUpData,
-        disabled: newDisabled
+        ...newGlobal,
+        inject
       })
       storeActions.sendToPort(tabId, 'inject-state', {
-        ...injectData,
-        disabled: newDisabled,
-        inject: {
-          ...injectData.inject,
-          instances: newDisabled ? [] : injectData.inject.instances
-        }
+        disabled: newGlobal.disabled,
+        devToolsOpts: newGlobal.devToolsOpts,
+        inject: inject
       })
       break
     case 'reapply-devtools':
