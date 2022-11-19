@@ -13,6 +13,8 @@
   $: disabled = $state.disabled
   $: showOptions = $state.showOptions
   $: showDebug = $state.showDebug
+  $: devToolsExpanded = $state.devToolsOpts.devToolsExpanded
+  $: buttonPosition = $state.devToolsOpts.buttonPosition
   $: foundInstances = $state.inject.instances
   $: found = !disabled && foundInstances.length > 0
   $: selected = $state.inject.instance
@@ -43,6 +45,13 @@
 
   function handleClickReapply() {
     send('reapply-devtools', undefined)
+  }
+  function handleClickExpanded() {
+    send('update-global-data', {
+      devToolsOpts: {
+        devToolsExpanded: !devToolsExpanded
+      }
+    })
   }
   function handleClickDebug() {
     send('update-global-data', {
@@ -125,13 +134,14 @@
         <input id="pm-el-selector" value={selector} on:change={handleSelectorChange} />
       </div>
       <div class="options-buttons">
-        <button on:click={handleClickDebug}>Debug</button>
-        <select on:change={handleToolsPosChange}>
+        <button on:click={handleClickExpanded}>{devToolsExpanded ? 'Expanded' : 'Button'}</button>
+        <select value={buttonPosition} on:change={handleToolsPosChange}>
           <option value="bottom-right">Bottom right</option>
           <option value="bottom-left">Bottom left</option>
           <option value="top-right">Top right</option>
           <option value="top-left">Top left</option>
         </select>
+        <button on:click={handleClickDebug}>Debug</button>
       </div>
     </fieldset>
   </div>
@@ -265,6 +275,7 @@
       background-repeat: no-repeat;
       background-position: right 0.5rem center;
       border-radius: 2px;
+      margin-right: 0.5rem;
       padding: 0 2rem 0 0.75rem;
     }
   }

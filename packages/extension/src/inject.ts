@@ -108,11 +108,12 @@ async function findInstances() {
   if (!views) {
     updateStatus('error')
   } else if (views.length > 0) {
-    const applied = false
+    let applied = false
     const instances = views.map((v, idx) => {
       if (idx === state.inject.instance || (!applied && idx === views.length - 1)) {
         try {
           applyDevTools(v, state.devToolsOpts)
+          applied = true
         } catch (err) {
           console.error(err)
         }
@@ -126,6 +127,16 @@ async function findInstances() {
   } else {
     updateStatus('no-instances')
   }
+}
+
+function shouldRerun(oldState: InjectState, newState: InjectState) {
+  return (
+    oldState.disabled !== newState.disabled ||
+    oldState.devToolsOpts.devToolsExpanded !== newState.devToolsOpts.devToolsExpanded ||
+    oldState.devToolsOpts.buttonPosition !== newState.devToolsOpts.buttonPosition ||
+    oldState.inject.instance !== newState.inject.instance ||
+    oldState.inject.selector !== newState.inject.selector
+  )
 }
 
 function send<K extends keyof InjectMessageMap>(type: K, data: InjectMessageMap[K]['data']) {
@@ -147,13 +158,14 @@ async function handleMessages<K extends keyof SWMessageMap>(event: MessageEvent<
   const msg = event.data
   switch (msg.type) {
     case 'inject-state':
-      if (!mounted || (state.disabled && !msg.data.disabled)) {
+      if (!mounted || (!msg.data.disabled && shouldRerun(state, msg.data))) {
         findInstances()
-      } else if (!state.disabled && msg.data.disabled) {
+        mounted = true
+      } else if (mounted && msg.data.disabled) {
         removeDevTools()
+        mounted = false
       }
       state = msg.data
-      mounted = true
       break
     case 'rerun-inject':
       removeDevTools()
