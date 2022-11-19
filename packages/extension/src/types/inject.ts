@@ -1,11 +1,13 @@
 import type { InjectMessage } from './messages'
-import { GlobalState } from './sw'
+import { GlobalState, InjectData } from './sw'
 
 export interface FoundInstance {
   size: number
   element: string
 }
-export type InjectState = Omit<GlobalState, 'showOptions' | 'showDebug'>
+export type InjectState = Omit<GlobalState, 'showOptions' | 'showDebug' | 'defaultInject'> & {
+  inject: InjectData
+}
 export type InjectStatus = 'finding' | 'found-instances' | 'no-instances' | 'error'
 
 export interface InjectMessageMap {
@@ -19,8 +21,8 @@ export interface InjectMessageMap {
       instances: FoundInstance[]
     }
   }
-  'update-state': InjectMessage & {
-    type: 'update-state'
+  'update-global-data': InjectMessage & {
+    type: 'update-global-data'
     data: Partial<GlobalState>
   }
   'toggle-disable': InjectMessage & {

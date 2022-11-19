@@ -13,8 +13,9 @@
   $: disabled = $state.disabled
   $: showOptions = $state.showOptions
   $: showDebug = $state.showDebug
-  $: foundInstances = $state.instances
+  $: foundInstances = $state.inject.instances
   $: found = !disabled && foundInstances.length > 0
+  $: selected = $state.inject.instance
   $: injectStatus = $state.inject.status
   $: selector = $state.inject.selector
 
@@ -26,7 +27,7 @@
     send('reapply-devtools', undefined)
   }
   function handleClickDebug() {
-    send('update-state', {
+    send('update-global-data', {
       showDebug: !showDebug
     })
   }
@@ -34,7 +35,7 @@
     send('toggle-disable', undefined)
   }
   function handleClickOptions() {
-    send('update-state', {
+    send('update-global-data', {
       showOptions: !showOptions
     })
   }
@@ -43,10 +44,8 @@
       currentTarget: EventTarget & HTMLInputElement
     }
   ) {
-    send('update-state', {
-      inject: {
-        selector: e.currentTarget.value
-      }
+    send('update-page-data', {
+      selector: e.currentTarget.value
     })
   }
   function handleToolsPosChange(
@@ -54,11 +53,18 @@
       currentTarget: EventTarget & HTMLSelectElement
     }
   ) {
-    send('update-state', {
+    send('update-global-data', {
       devToolsOpts: {
         buttonPosition: e.currentTarget.value as ButtonPosition
       }
     })
+  }
+  function handleSelectInstance(idx: number) {
+    if (idx !== selected) {
+      send('update-page-data', {
+        instance: idx
+      })
+    }
   }
 </script>
 
@@ -112,10 +118,14 @@
     </fieldset>
   </div>
   <ol class:hidden={!found}>
-    {#each foundInstances as inst}
+    {#each foundInstances as inst, idx}
       <li>
         <div class="inst-row">
-          <button class="editor-btn" class:selected={true}>
+          <button
+            class="editor-btn"
+            class:selected={idx === selected}
+            on:click={() => handleSelectInstance(idx)}
+          >
             {inst.element}
           </button>
           {inst.size}

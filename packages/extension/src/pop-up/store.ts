@@ -7,15 +7,18 @@ export const state = writable<PopUpState>({
   disabled: false,
   showOptions: false,
   showDebug: false,
-  instances: [],
   devToolsOpts: {
     devToolsExpanded: false,
     buttonPosition: 'bottom-right'
   },
+  defaultInject: {
+    selector: '.ProseMirror'
+  },
   inject: {
     instance: 0,
     selector: '.ProseMirror',
-    status: 'no-instances'
+    status: 'no-instances',
+    instances: []
   }
 })
 export const received = writable<SWMessageMap[keyof SWMessageMap][]>([])
@@ -31,24 +34,27 @@ const EXAMPLE = {
     showOptions: true,
     showDebug: true,
     devToolsOpts: { devToolsExpanded: false, buttonPosition: 'bottom-right' as const },
-    inject: {
-      instance: 0,
-      selector: '.ProseMirror',
-      status: 'no-instances'
+    defaultInject: {
+      selector: '.ProseMirror'
     },
-    instances: [
-      {
-        size: 110,
-        element:
-          '<p class="">Like this one!</p><p>Try it out by typing in here or see more <a href="examples">examples</a>.</p>'
-      },
-      {
-        size: 240,
-        element:
-          '<p class="">Like this one!</p><p>Try it out by typing in here or see more <a href="examples">examples</a>.</p>'
-      }
-    ]
-  }
+    inject: {
+      instance: 1,
+      selector: '.ProseMirror',
+      status: 'no-instances' as const,
+      instances: [
+        {
+          size: 110,
+          element:
+            '<p class="">Like this one!</p><p>Try it out by typing in here or see more <a href="examples">examples</a>.</p>'
+        },
+        {
+          size: 240,
+          element:
+            '<p class="">Like this one!</p><p>Try it out by typing in here or see more <a href="examples">examples</a>.</p>'
+        }
+      ]
+    }
+  } as PopUpState
 }
 
 export function init() {

@@ -1,6 +1,6 @@
 import { get } from 'svelte/store'
 
-import { disabled, globalState, ports, storeActions } from './store'
+import { storeActions } from './store'
 import type { InjectMessageMap, PopUpMessageMap } from '../types'
 import { getCurrentTab } from './getCurrentTab'
 
@@ -26,7 +26,7 @@ export async function listenToConnections(port: chrome.runtime.Port) {
     storeActions.addPort('page', tabId, port)
     port.onMessage.addListener((msg, port) => listenInject(tabId, msg, port))
     port.onDisconnect.addListener(() => storeActions.disconnectPort('page', tabId, port))
-    storeActions.sendToPort(tabId, 'inject-state', get(globalState))
+    storeActions.sendToPort(tabId, 'inject-state', storeActions.getInjectData(tabId))
   }
 }
 
@@ -42,24 +42,34 @@ async function listenPopUp<K extends keyof PopUpMessageMap>(
   switch (msg.type) {
     case 'toggle-disable':
       const newDisabled = storeActions.toggleDisabled()
-      const state = get(globalState)
+      const popUpData = storeActions.getPopUpData(tabId)
+      const injectData = storeActions.getInjectData(tabId)
       // TODO check if storeActions.getPopUpData(tabId) works
       storeActions.sendToPort(tabId, 'pop-up-state', {
-        ...state,
-        disabled: newDisabled,
-        instances: !newDisabled ? storeActions.getInstances(tabId) : []
+        ...popUpData,
+        disabled: newDisabled
       })
       storeActions.sendToPort(tabId, 'inject-state', {
-        ...state,
-        disabled: newDisabled
+        ...injectData,
+        disabled: newDisabled,
+        inject: {
+          ...injectData.inject,
+          instances: newDisabled ? [] : injectData.inject.instances
+        }
       })
       break
     case 'reapply-devtools':
       storeActions.sendToPort(tabId, 'rerun-inject', undefined)
       break
-    case 'update-state':
+    case 'update-global-data':
       if (msg.data) {
-        storeActions.updateState(msg.data)
+        storeActions.updateGlobalState(msg.data)
+        storeActions.broadcastStateUpdate(tabId)
+      }
+      break
+    case 'update-page-data':
+      if (msg.data) {
+        storeActions.updatePageInjectData(tabId, msg.data)
         storeActions.broadcastStateUpdate(tabId)
       }
       break
@@ -84,7 +94,7 @@ async function listenInject<K extends keyof InjectMessageMap>(
       // storeActions.sendToPort(tabId, 'pop-up-state', storeActions.getPopUpData(tabId))
       break
     case 'inject-status':
-      storeActions.updateState({ inject: { status: msg.data } })
+      storeActions.updatePageInjectData(tabId, { status: msg.data })
       storeActions.sendToPort(tabId, 'pop-up-state', storeActions.getPopUpData(tabId))
       break
   }

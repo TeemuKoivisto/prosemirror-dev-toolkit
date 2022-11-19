@@ -1,14 +1,34 @@
 import { get, derived, writable } from 'svelte/store'
 
-import type { DeepPartial, GlobalState, FoundInstance, SWMessageMap } from '../types'
+import type {
+  DeepPartial,
+  GlobalState,
+  FoundInstance,
+  SWMessageMap,
+  InjectStatus,
+  PopUpState,
+  InjectState,
+  InjectData
+} from '../types'
 
-interface Connected {
-  instances: FoundInstance[]
-  pagePort: chrome.runtime.Port | undefined
-  popUpPort: chrome.runtime.Port | undefined
+interface PageData {
+  inject: {
+    instance: number
+    selector: string
+    status: InjectStatus
+    instances: FoundInstance[]
+  }
+  pagePort?: chrome.runtime.Port
+  popUpPort?: chrome.runtime.Port
 }
 
 const STORAGE_KEY = 'pm-dev-tools-global-state'
+const DEFAULT_INJECT_DATA = {
+  instance: 0,
+  selector: '.ProseMirror',
+  status: 'no-instances' as const,
+  instances: []
+}
 const DEFAULT_GLOBAL_STATE: GlobalState = {
   disabled: false,
   showOptions: false,
@@ -17,16 +37,14 @@ const DEFAULT_GLOBAL_STATE: GlobalState = {
     devToolsExpanded: false,
     buttonPosition: 'bottom-right'
   },
-  inject: {
-    instance: 0,
-    selector: '.ProseMirror',
-    status: 'no-instances'
+  defaultInject: {
+    selector: '.ProseMirror'
   }
 }
 
 export const globalState = writable<GlobalState>(DEFAULT_GLOBAL_STATE)
 export const disabled = derived(globalState, s => s.disabled)
-export const ports = writable(new Map<number, Connected>())
+export const pages = writable(new Map<number, PageData>())
 
 hydrate()
 
@@ -56,20 +74,39 @@ export const storeActions = {
     const newVal = !get(disabled)
     globalState.update(s => ({ ...s, disabled: newVal }))
     if (!newVal) {
-      ports.update(
+      pages.update(
         p =>
           new Map(Array.from(p.entries()).map(([key, inst]) => [key, { ...inst, instances: [] }]))
       )
     }
     return newVal
   },
-  getPopUpData(tabId: number) {
+  getPageData(tabId: number) {
     return {
-      ...get(globalState),
-      instances: get(ports).get(tabId)?.instances || []
+      ...get(pages).get(tabId)
     }
   },
-  updateState(data: DeepPartial<GlobalState>) {
+  getPopUpData(tabId: number): PopUpState {
+    return {
+      ...get(globalState),
+      inject: {
+        ...DEFAULT_INJECT_DATA,
+        ...this.getPageData(tabId).inject
+      }
+    }
+  },
+  getInjectData(tabId: number): InjectState {
+    const state = get(globalState)
+    return {
+      disabled: state.disabled,
+      devToolsOpts: state.devToolsOpts,
+      inject: {
+        ...DEFAULT_INJECT_DATA,
+        ...this.getPageData(tabId).inject
+      }
+    }
+  },
+  updateGlobalState(data: DeepPartial<GlobalState>) {
     globalState.update(s => ({
       ...s,
       ...data,
@@ -77,42 +114,38 @@ export const storeActions = {
         ...s.devToolsOpts,
         ...data.devToolsOpts
       },
-      inject: {
-        ...s.inject,
-        ...data.inject
+      defaultInject: {
+        ...s.defaultInject,
+        ...data.defaultInject
       }
     }))
   },
-  getInstances(tabId: number) {
-    return get(ports).get(tabId)?.instances || []
+  updatePageInjectData(tabId: number, data: Partial<InjectData>) {
+    const old = this.getPageData(tabId)
+    pages.update(p =>
+      p.set(tabId, { ...old, inject: { ...DEFAULT_INJECT_DATA, ...old.inject, ...data } })
+    )
   },
   updateInstances(tabId: number, instances: FoundInstance[]) {
-    ports.update(p => {
-      const prev = p.get(tabId)
-      if (prev) {
-        return p.set(tabId, {
-          ...prev,
-          instances
-        })
-      }
-      return p
-    })
-    const s = get(globalState)
-    const updated = {
-      ...s,
+    const old = this.getPageData(tabId)
+    const updated: PageData = {
+      ...old,
       inject: {
-        ...s.inject,
+        ...DEFAULT_INJECT_DATA,
+        ...old.inject,
+        instances,
         status: 'found-instances' as const
       }
     }
-    globalState.set(updated)
+    pages.update(p => p.set(tabId, updated))
+    const state = get(globalState)
     this.sendToPort(tabId, 'pop-up-state', {
-      ...updated,
-      instances
+      ...state,
+      inject: updated.inject
     })
   },
   addPort(type: 'page' | 'pop-up', tabId: number, port: chrome.runtime.Port) {
-    ports.update(p => {
+    pages.update(p => {
       const old = p.get(tabId)
       if (old) {
         return p.set(tabId, {
@@ -122,14 +155,14 @@ export const storeActions = {
         })
       }
       return p.set(tabId, {
-        instances: [],
+        inject: { ...DEFAULT_INJECT_DATA },
         pagePort: type === 'page' ? port : undefined,
         popUpPort: type === 'pop-up' ? port : undefined
       })
     })
   },
   sendToPort<K extends keyof SWMessageMap>(tabId: number, type: K, data: SWMessageMap[K]['data']) {
-    const inst = get(ports).get(tabId)
+    const inst = get(pages).get(tabId)
     if (inst) {
       inst.pagePort?.postMessage({
         source: 'pm-dev-tools',
@@ -147,14 +180,23 @@ export const storeActions = {
   },
   broadcastStateUpdate(tabId: number) {
     const state = get(globalState)
-    this.sendToPort(tabId, 'pop-up-state', {
+    const popUpData = {
       ...state,
-      instances: this.getInstances(tabId)
-    })
-    this.sendToPort(tabId, 'inject-state', state)
+      inject: {
+        ...DEFAULT_INJECT_DATA,
+        ...this.getPageData(tabId)?.inject
+      }
+    }
+    const injectData = {
+      disabled: popUpData.disabled,
+      devToolsOpts: popUpData.devToolsOpts,
+      inject: popUpData.inject
+    }
+    this.sendToPort(tabId, 'pop-up-state', popUpData)
+    this.sendToPort(tabId, 'inject-state', injectData)
   },
   disconnectPort(type: 'page' | 'pop-up', tabId: number, port: chrome.runtime.Port) {
-    ports.update(p => {
+    pages.update(p => {
       const old = p.get(tabId)
       if (old) {
         return p.set(tabId, {

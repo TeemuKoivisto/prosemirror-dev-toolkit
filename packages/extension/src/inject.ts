@@ -14,7 +14,8 @@ let state: InjectState = {
   inject: {
     instance: 0,
     selector: '.ProseMirror',
-    status: 'finding'
+    status: 'finding',
+    instances: []
   }
 }
 
@@ -39,11 +40,10 @@ function getEditorView(el: HTMLElement): Promise<EditorView> {
       childWithSelectNode.pmViewDesc?.selectNode()
       childWithSelectNode.pmViewDesc?.deselectNode()
     }
-  }, 0)
+  }, 1)
 
   return new Promise((res, rej) => {
     if (childWithSelectNode === undefined || !el.pmViewDesc) {
-      console.log('throw error')
       return rej(
         'Failed to find a ProseMirror child NodeViewDesc with selectNode function (which is strange)'
       )
@@ -56,7 +56,7 @@ function getEditorView(el: HTMLElement): Promise<EditorView> {
     }
     setTimeout(() => {
       rej('Unable to trigger childWithSelectNode.pmViewDesc.selectNode')
-    }, 0)
+    }, 1000)
   })
 }
 
@@ -80,7 +80,9 @@ async function findEditorViews(attempts: number): Promise<EditorView[] | undefin
     }
     const views = await Promise.all(
       Array.from(document.querySelectorAll(selector)).map(el =>
-        getEditorView(el as HTMLElement).catch(err => undefined)
+        getEditorView(el as HTMLElement).catch(err => {
+          return undefined
+        })
       )
     )
     const filtered = views.filter(v => v !== undefined) as EditorView[]
@@ -105,8 +107,9 @@ async function findInstances() {
   if (!views) {
     updateStatus('error')
   } else if (views.length > 0) {
+    const applied = false
     const instances = views.map((v, idx) => {
-      if (idx === state.inject.instance) {
+      if (idx === state.inject.instance || (!applied && idx === views.length - 1)) {
         try {
           applyDevTools(v, state.devToolsOpts)
         } catch (err) {

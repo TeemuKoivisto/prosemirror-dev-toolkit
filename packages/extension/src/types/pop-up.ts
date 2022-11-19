@@ -1,10 +1,9 @@
 import type { DevToolsOpts } from 'prosemirror-dev-toolkit'
-import { FoundInstance } from './inject'
 import type { PopUpMessage } from './messages'
-import { GlobalState } from './sw'
+import { GlobalState, InjectData } from './sw'
 
 export type PopUpState = GlobalState & {
-  instances: FoundInstance[]
+  inject: InjectData
 }
 
 export type DeepPartial<T> = {
@@ -16,9 +15,13 @@ export interface PopUpMessageMap {
     type: 'mount-pop-up'
     data: undefined
   }
-  'update-state': PopUpMessage & {
-    type: 'update-state'
+  'update-global-data': PopUpMessage & {
+    type: 'update-global-data'
     data: DeepPartial<GlobalState>
+  }
+  'update-page-data': PopUpMessage & {
+    type: 'update-page-data'
+    data: Partial<InjectData>
   }
   'toggle-disable': PopUpMessage & {
     type: 'toggle-disable'

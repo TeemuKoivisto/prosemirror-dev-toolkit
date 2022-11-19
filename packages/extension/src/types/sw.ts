@@ -1,5 +1,5 @@
 import type { DevToolsOpts } from 'prosemirror-dev-toolkit'
-import { InjectState, InjectStatus } from './inject'
+import { FoundInstance, InjectState, InjectStatus } from './inject'
 import type { SWMessage } from './messages'
 import { PopUpState } from './pop-up'
 
@@ -8,11 +8,20 @@ export interface GlobalState {
   showOptions: boolean
   showDebug: boolean
   devToolsOpts: DevToolsOpts
-  inject: {
-    instance: number
+  defaultInject: {
     selector: string
-    status: InjectStatus
   }
+}
+export interface PageData {
+  inject: InjectData
+  pagePort?: chrome.runtime.Port
+  popUpPort?: chrome.runtime.Port
+}
+export interface InjectData {
+  instance: number
+  selector: string
+  status: InjectStatus
+  instances: FoundInstance[]
 }
 
 export interface SWMessageMap {
