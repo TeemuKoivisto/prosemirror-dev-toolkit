@@ -28,6 +28,7 @@
     if (injectStatus !== 'finding') {
       dots = ''
       clearInterval(setStatusInterval)
+      setStatusInterval = undefined
     } else if (!setStatusInterval) {
       setStatusInterval = setInterval(() => {
         if (dots.length === 3) {
@@ -47,7 +48,9 @@
   })
 
   function handleClickReapply() {
-    send('reapply-devtools', undefined)
+    if (!disabled) {
+      send('reapply-devtools', undefined)
+    }
   }
   function handleClickExpanded() {
     send('update-global-data', {

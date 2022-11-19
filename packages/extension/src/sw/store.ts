@@ -92,24 +92,25 @@ chrome.tabs.onActivated.addListener(activeInfo => {
 export const storeActions = {
   toggleDisabled() {
     const newDisabled = !get(disabled)
-    const newGlobal: GlobalState = { ...get(globalState), disabled: newDisabled }
-    let newPages = get(pages)
+    globalState.update(s => ({ ...s, disabled: newDisabled }))
     if (newDisabled) {
-      newPages = new Map(
-        Array.from(newPages.entries()).map(([key, page]) => [
-          key,
-          {
-            ...page,
-            inject: {
-              ...page.inject,
-              status: 'finished' as const,
-              instances: []
-            }
-          }
-        ])
+      pages.update(
+        all =>
+          new Map(
+            Array.from(all.entries()).map(([key, page]) => [
+              key,
+              {
+                ...page,
+                inject: {
+                  ...page.inject,
+                  status: 'finished' as const,
+                  instances: []
+                }
+              }
+            ])
+          )
       )
     }
-    return { newGlobal, newPages }
   },
   getPageData(tabId: number) {
     return {
@@ -156,24 +157,6 @@ export const storeActions = {
       p.set(tabId, { ...old, inject: { ...DEFAULT_INJECT_DATA, ...old.inject, ...data } })
     )
   },
-  updateInstances(tabId: number, instances: FoundInstance[]) {
-    const old = this.getPageData(tabId)
-    const updated: PageData = {
-      ...old,
-      inject: {
-        ...DEFAULT_INJECT_DATA,
-        ...old.inject,
-        instances,
-        status: 'finished' as const
-      }
-    }
-    pages.update(p => p.set(tabId, updated))
-    const state = get(globalState)
-    this.sendToPort(tabId, 'pop-up-state', {
-      ...state,
-      inject: updated.inject
-    })
-  },
   addPort(type: 'page' | 'pop-up', tabId: number, port: chrome.runtime.Port) {
     pages.update(p => {
       const old = p.get(tabId)
@@ -207,6 +190,16 @@ export const storeActions = {
         data
       } as SWMessageMap[K])
     }
+  },
+  broadcastPopUpData(tabId: number) {
+    setTimeout(() => {
+      this.sendToPort(tabId, 'pop-up-state', this.getPopUpData(tabId))
+    })
+  },
+  broadcastInjectData(tabId: number) {
+    setTimeout(() => {
+      this.sendToPort(tabId, 'inject-state', this.getInjectData(tabId))
+    })
   },
   broadcastStateUpdate(tabId: number) {
     // In a timeout since when updating stores, the updated values are not returned immediately

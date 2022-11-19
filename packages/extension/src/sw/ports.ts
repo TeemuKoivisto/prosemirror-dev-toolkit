@@ -1,5 +1,5 @@
 import { storeActions } from './store'
-import type { InjectData, InjectMessageMap, PopUpMessageMap } from '../types'
+import type { InjectMessageMap, PopUpMessageMap } from '../types'
 import { getCurrentTab } from './getCurrentTab'
 
 export async function listenToConnections(port: chrome.runtime.Port) {
@@ -35,20 +35,8 @@ async function listenPopUp<K extends keyof PopUpMessageMap>(
   // console.log('received msg from POP-UP port!', JSON.stringify(msg))
   switch (msg.type) {
     case 'toggle-disable':
-      const { newGlobal, newPages } = storeActions.toggleDisabled()
-      storeActions.setState(newGlobal, newPages)
-      const inject = {
-        ...newPages.get(tabId)?.inject
-      } as InjectData
-      storeActions.sendToPort(tabId, 'pop-up-state', {
-        ...newGlobal,
-        inject
-      })
-      storeActions.sendToPort(tabId, 'inject-state', {
-        disabled: newGlobal.disabled,
-        devToolsOpts: newGlobal.devToolsOpts,
-        inject: inject
-      })
+      storeActions.toggleDisabled()
+      storeActions.broadcastStateUpdate(tabId)
       break
     case 'reapply-devtools':
       storeActions.sendToPort(tabId, 'rerun-inject', undefined)
@@ -81,18 +69,15 @@ async function listenInject<K extends keyof InjectMessageMap>(
   // console.log('received msg from INJECT port!', JSON.stringify(msg))
   switch (msg.type) {
     case 'inject-found-instances':
-      storeActions.updateInstances(tabId, msg.data.instances)
-      // storeActions.updatePageInjectData(tabId, { instances: msg.data.instances })
-      // storeActions.sendToPort(tabId, 'pop-up-state', storeActions.getPopUpData(tabId))
-      setTimeout(() => {
-        storeActions.sendToPort(tabId, 'pop-up-state', storeActions.getPopUpData(tabId))
+      storeActions.updatePageInjectData(tabId, {
+        instances: msg.data.instances,
+        status: 'finished'
       })
+      storeActions.broadcastPopUpData(tabId)
       break
     case 'inject-status':
       storeActions.updatePageInjectData(tabId, { status: msg.data })
-      setTimeout(() => {
-        storeActions.sendToPort(tabId, 'pop-up-state', storeActions.getPopUpData(tabId))
-      })
+      storeActions.broadcastPopUpData(tabId)
       break
   }
 }
