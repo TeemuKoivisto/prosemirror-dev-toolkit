@@ -124,8 +124,6 @@ async function findInstances() {
       }
     })
     send('inject-found-instances', { instances })
-  } else {
-    updateStatus('no-instances')
   }
 }
 

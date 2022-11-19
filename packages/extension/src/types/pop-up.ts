@@ -1,4 +1,3 @@
-import type { DevToolsOpts } from 'prosemirror-dev-toolkit'
 import type { PopUpMessage } from './messages'
 import { GlobalState, InjectData } from './sw'
 

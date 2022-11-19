@@ -8,7 +8,7 @@ export interface FoundInstance {
 export type InjectState = Omit<GlobalState, 'showOptions' | 'showDebug'> & {
   inject: InjectData
 }
-export type InjectStatus = 'finding' | 'found-instances' | 'no-instances' | 'error'
+export type InjectStatus = 'finding' | 'finished' | 'error'
 
 export interface InjectMessageMap {
   'inject-status': InjectMessage & {

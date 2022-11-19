@@ -1,44 +1,38 @@
-import { get } from 'svelte/store'
-
 import { storeActions } from './store'
-import type { InjectData, InjectMessageMap, InjectState, PopUpMessageMap } from '../types'
+import type { InjectData, InjectMessageMap, PopUpMessageMap } from '../types'
 import { getCurrentTab } from './getCurrentTab'
 
 export async function listenToConnections(port: chrome.runtime.Port) {
-  console.log('install on port', port)
-  if (port.name === 'pm-devtools-pop-up') {
-    const tab = await getCurrentTab()
-    const tabId = tab.id
-    if (!tabId) {
-      console.error('No tab id found for pop-up port!', port)
-      return
-    }
-    storeActions.addPort('pop-up', tabId, port)
-    port.onMessage.addListener((msg, port) => listenPopUp(tabId, msg, port))
-    port.onDisconnect.addListener(() => storeActions.disconnectPort('pop-up', tabId, port))
+  const tabId = port.sender?.tab?.id || (await getCurrentTab())?.id
+  if (!tabId) {
+    console.error('No tab id found for port!', port)
+    return
+  }
+  const { name } = port
+  const shortName = name === 'pm-devtools-pop-up' ? 'pop-up' : 'page'
+  const listener =
+    name === 'pm-devtools-pop-up'
+      ? (msg: any, _port: chrome.runtime.Port) => listenPopUp(tabId, msg)
+      : (msg: any, _port: chrome.runtime.Port) => listenInject(tabId, msg)
+  storeActions.addPort(shortName, tabId, port)
+  port.onDisconnect.addListener(() => storeActions.disconnectPort(shortName, tabId, port))
+  port.onMessage.addListener(listener)
+  if (name === 'pm-devtools-pop-up') {
     storeActions.sendToPort(tabId, 'pop-up-state', storeActions.getPopUpData(tabId))
   } else if (port.name === 'pm-devtools-page') {
-    const tabId = port.sender?.tab?.id
-    if (!tabId) {
-      console.error('No tab id found for page port!', port)
-      return
-    }
-    storeActions.addPort('page', tabId, port)
-    port.onMessage.addListener((msg, port) => listenInject(tabId, msg, port))
-    port.onDisconnect.addListener(() => storeActions.disconnectPort('page', tabId, port))
     storeActions.sendToPort(tabId, 'inject-state', storeActions.getInjectData(tabId))
   }
+  // storeActions.broadcastStateUpdate(tabId)
 }
 
 async function listenPopUp<K extends keyof PopUpMessageMap>(
   tabId: number,
-  msg: PopUpMessageMap[K],
-  port: chrome.runtime.Port
+  msg: PopUpMessageMap[K]
 ) {
   if (msg.origin !== 'pop-up') {
     return
   }
-  console.log('received msg from POP-UP port!', JSON.stringify(msg))
+  // console.log('received msg from POP-UP port!', JSON.stringify(msg))
   switch (msg.type) {
     case 'toggle-disable':
       const { newGlobal, newPages } = storeActions.toggleDisabled()
@@ -79,21 +73,26 @@ async function listenPopUp<K extends keyof PopUpMessageMap>(
 
 async function listenInject<K extends keyof InjectMessageMap>(
   tabId: number,
-  msg: InjectMessageMap[K],
-  port: chrome.runtime.Port
+  msg: InjectMessageMap[K]
 ) {
   if (msg.origin !== 'inject') {
     return
   }
-  console.log('received msg from INJECT port!', JSON.stringify(msg))
+  // console.log('received msg from INJECT port!', JSON.stringify(msg))
   switch (msg.type) {
     case 'inject-found-instances':
       storeActions.updateInstances(tabId, msg.data.instances)
+      // storeActions.updatePageInjectData(tabId, { instances: msg.data.instances })
       // storeActions.sendToPort(tabId, 'pop-up-state', storeActions.getPopUpData(tabId))
+      setTimeout(() => {
+        storeActions.sendToPort(tabId, 'pop-up-state', storeActions.getPopUpData(tabId))
+      })
       break
     case 'inject-status':
       storeActions.updatePageInjectData(tabId, { status: msg.data })
-      storeActions.sendToPort(tabId, 'pop-up-state', storeActions.getPopUpData(tabId))
+      setTimeout(() => {
+        storeActions.sendToPort(tabId, 'pop-up-state', storeActions.getPopUpData(tabId))
+      })
       break
   }
 }

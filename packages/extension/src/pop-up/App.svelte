@@ -41,6 +41,9 @@
 
   onMount(() => {
     send('mount-pop-up', undefined)
+    return () => {
+      clearInterval(setStatusInterval)
+    }
   })
 
   function handleClickReapply() {

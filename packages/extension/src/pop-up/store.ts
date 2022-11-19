@@ -1,4 +1,4 @@
-import { get, derived, writable } from 'svelte/store'
+import { get, writable } from 'svelte/store'
 
 import type { SWMessageMap } from '../types'
 import type { PopUpMessageMap, PopUpState } from '../types/pop-up'
@@ -14,13 +14,12 @@ export const state = writable<PopUpState>({
   inject: {
     instance: 0,
     selector: '.ProseMirror',
-    status: 'no-instances',
+    status: 'finished',
     instances: []
   }
 })
 export const received = writable<SWMessageMap[keyof SWMessageMap][]>([])
 export const port = writable<chrome.runtime.Port | undefined>()
-export const connected = derived(port, p => !!p)
 
 const EXAMPLE = {
   source: 'pm-dev-tools' as const,
@@ -34,7 +33,7 @@ const EXAMPLE = {
     inject: {
       instance: 1,
       selector: '.ProseMirror',
-      status: 'no-instances' as const,
+      status: 'finished' as const,
       instances: [
         {
           size: 110,

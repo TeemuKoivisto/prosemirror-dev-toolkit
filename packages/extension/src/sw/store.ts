@@ -27,7 +27,7 @@ const GLOBAL_STATE_KEY = 'pm-dev-tools-global-state'
 const DEFAULT_INJECT_DATA = {
   instance: 0,
   selector: '.ProseMirror',
-  status: 'no-instances' as const,
+  status: 'finished' as const,
   instances: []
 }
 const DEFAULT_GLOBAL_STATE: GlobalState = {
@@ -65,7 +65,7 @@ globalState.subscribe(val => {
   chrome.storage.sync.set({ STORAGE_KEY: val })
 })
 currentPage.subscribe(val => {
-  const iconType = val.inject.status !== 'found-instances' ? '-disabled' : ''
+  const iconType = val.inject.instances.length === 0 ? '-disabled' : ''
   chrome.action.setIcon({
     path: {
       '16': chrome.runtime.getURL(`devtools${iconType}-16.png`),
@@ -79,7 +79,7 @@ chrome.runtime.onInstalled.addListener(() => {
   setTimeout(async () => {
     const tab = await getCurrentTab()
     console.log('timeout installed', tab)
-    currentTabId.set(tab.id || 0)
+    currentTabId.set(tab?.id || 0)
   }, 1000)
 })
 chrome.storage.onChanged.addListener(changes => {
@@ -102,7 +102,7 @@ export const storeActions = {
             ...page,
             inject: {
               ...page.inject,
-              status: 'no-instances' as const,
+              status: 'finished' as const,
               instances: []
             }
           }
@@ -164,7 +164,7 @@ export const storeActions = {
         ...DEFAULT_INJECT_DATA,
         ...old.inject,
         instances,
-        status: 'found-instances' as const
+        status: 'finished' as const
       }
     }
     pages.update(p => p.set(tabId, updated))
@@ -209,21 +209,25 @@ export const storeActions = {
     }
   },
   broadcastStateUpdate(tabId: number) {
-    const state = get(globalState)
-    const popUpData = {
-      ...state,
-      inject: {
-        ...DEFAULT_INJECT_DATA,
-        ...this.getPageData(tabId)?.inject
+    // In a timeout since when updating stores, the updated values are not returned immediately
+    // A bit hackish but I suppose it's all right since the events are already asynchronous
+    setTimeout(() => {
+      const state = get(globalState)
+      const popUpData = {
+        ...state,
+        inject: {
+          ...DEFAULT_INJECT_DATA,
+          ...this.getPageData(tabId)?.inject
+        }
       }
-    }
-    const injectData = {
-      disabled: popUpData.disabled,
-      devToolsOpts: popUpData.devToolsOpts,
-      inject: popUpData.inject
-    }
-    this.sendToPort(tabId, 'pop-up-state', popUpData)
-    this.sendToPort(tabId, 'inject-state', injectData)
+      const injectData = {
+        disabled: popUpData.disabled,
+        devToolsOpts: popUpData.devToolsOpts,
+        inject: popUpData.inject
+      }
+      this.sendToPort(tabId, 'pop-up-state', popUpData)
+      this.sendToPort(tabId, 'inject-state', injectData)
+    })
   },
   disconnectPort(type: 'page' | 'pop-up', tabId: number, port: chrome.runtime.Port) {
     pages.update(p => {
