@@ -5,6 +5,7 @@ import type { InjectMessageMap, InjectState, InjectStatus, SWMessageMap } from '
 
 const MAX_ATTEMPTS = 10
 
+let mounted = false
 let state: InjectState = {
   disabled: false,
   devToolsOpts: {
@@ -139,16 +140,20 @@ async function handleMessages<K extends keyof SWMessageMap>(event: MessageEvent<
   ) {
     return
   }
-  // console.log('RECEIVED IN INJECT', event)
+  if (event.data.origin !== 'sw') {
+    return
+  }
+  // console.log('RECEIVED IN INJECT', event.data)
   const msg = event.data
   switch (msg.type) {
     case 'inject-state':
-      state = msg.data
-      if (!state.disabled) {
+      if (!mounted || (state.disabled && !msg.data.disabled)) {
         findInstances()
-      } else {
+      } else if (!state.disabled && msg.data.disabled) {
         removeDevTools()
       }
+      state = msg.data
+      mounted = true
       break
     case 'rerun-inject':
       removeDevTools()

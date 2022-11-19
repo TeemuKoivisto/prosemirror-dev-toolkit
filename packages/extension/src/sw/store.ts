@@ -1,5 +1,6 @@
 import { get, derived, writable } from 'svelte/store'
 
+import { getCurrentTab } from './getCurrentTab'
 import type {
   DeepPartial,
   GlobalState,
@@ -22,7 +23,7 @@ interface PageData {
   popUpPort?: chrome.runtime.Port
 }
 
-const STORAGE_KEY = 'pm-dev-tools-global-state'
+const GLOBAL_STATE_KEY = 'pm-dev-tools-global-state'
 const DEFAULT_INJECT_DATA = {
   instance: 0,
   selector: '.ProseMirror',
@@ -42,20 +43,30 @@ const DEFAULT_GLOBAL_STATE: GlobalState = {
 export const globalState = writable<GlobalState>(DEFAULT_GLOBAL_STATE)
 export const disabled = derived(globalState, s => s.disabled)
 export const pages = writable(new Map<number, PageData>())
+export const currentTabId = writable<number>(0)
+export const currentPage = derived([pages, currentTabId], ([p, c]) => ({
+  ...p.get(c),
+  inject: {
+    ...DEFAULT_INJECT_DATA,
+    ...p.get(c)?.inject
+  }
+}))
 
 hydrate()
 
 async function hydrate() {
-  const state = await chrome.storage.sync.get(STORAGE_KEY)
-  if (state && typeof state[STORAGE_KEY] === 'object') {
-    globalState.set(state[STORAGE_KEY] as any)
+  const state = await chrome.storage.sync.get(GLOBAL_STATE_KEY)
+  if (state && typeof state[GLOBAL_STATE_KEY] === 'object') {
+    globalState.set(state[GLOBAL_STATE_KEY] as any)
   }
 }
 
-globalState.subscribe(async val => {
+
+globalState.subscribe(val => {
   chrome.storage.sync.set({ STORAGE_KEY: val })
-  // TODO use tabId for disabling?
-  const iconType = val.disabled ? '-disabled' : ''
+})
+currentPage.subscribe(val => {
+  const iconType = val.inject.status !== 'found-instances' ? '-disabled' : ''
   chrome.action.setIcon({
     path: {
       '16': chrome.runtime.getURL(`devtools${iconType}-16.png`),
@@ -64,6 +75,19 @@ globalState.subscribe(async val => {
       '128': chrome.runtime.getURL(`devtools${iconType}-128.png`)
     }
   })
+})
+chrome.runtime.onInstalled.addListener(() => {
+  setTimeout(async () => {
+    const tab = await getCurrentTab()
+    console.log('timeout installed', tab)
+    currentTabId.set(tab.id || 0)
+  }, 1000)
+})
+chrome.storage.onChanged.addListener(changes => {
+  console.log('on changed')
+})
+chrome.tabs.onActivated.addListener(activeInfo => {
+  currentTabId.set(activeInfo.tabId)
 })
 
 export const storeActions = {

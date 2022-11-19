@@ -62,7 +62,6 @@ export function init() {
     })
     port.set(created)
   } else {
-    // @ts-ignore
     listenPort(EXAMPLE)
   }
 }

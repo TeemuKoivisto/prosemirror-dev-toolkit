@@ -105,8 +105,6 @@
         <input id="pm-el-selector" value={selector} on:change={handleSelectorChange} />
       </div>
       <div class="options-buttons">
-        <button>Data</button>
-        <button>Disable for page</button>
         <button on:click={handleClickDebug}>Debug</button>
         <select on:change={handleToolsPosChange}>
           <option value="bottom-right">Bottom right</option>
