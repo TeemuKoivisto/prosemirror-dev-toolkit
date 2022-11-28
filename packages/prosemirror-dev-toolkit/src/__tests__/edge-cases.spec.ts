@@ -23,10 +23,10 @@ interface Spies {
 let spies: Spies
 
 class CustomEditorView extends EditorView {
-    // @ts-ignore
-  props: DirectEditorProps;
+  // @ts-ignore
+  props: DirectEditorProps
   constructor(place: HTMLElement, props: DirectEditorProps) {
-    super(place, props);
+    super(place, props)
   }
 }
 
@@ -36,7 +36,7 @@ describe('various-bug.spec', () => {
       log: vi.spyOn(console, 'log'),
       info: vi.spyOn(console, 'info'),
       warn: vi.spyOn(console, 'warn'),
-      error: vi.spyOn(console, 'error'),
+      error: vi.spyOn(console, 'error')
     }
   })
 
@@ -44,23 +44,38 @@ describe('various-bug.spec', () => {
     const el = document.createElement('div')
     document.body.appendChild(el)
     el.id = 'pm-editor'
-    view = new CustomEditorView(
-      el,
-      {
-        state: EditorState.create({
-          schema,
-          plugins: exampleSetup({ schema })
-        }),
-        dispatchTransaction(tr: Transaction) {
-          view.updateState(view.state.apply(tr))
-        }
+    view = new CustomEditorView(el, {
+      state: EditorState.create({
+        schema,
+        plugins: exampleSetup({ schema })
+      }),
+      dispatchTransaction(tr: Transaction) {
+        view.updateState(view.state.apply(tr))
       }
-    )
+    })
 
     vi.stubGlobal('prompt', (str: string) => undefined)
 
     applyDevTools(view)
     view.dispatch(view.state.tr.insert(1, view.state.schema.text('hello')))
+    expect(spies.log).toHaveBeenCalledTimes(0)
+    expect(spies.info).toHaveBeenCalledTimes(0)
+    expect(spies.warn).toHaveBeenCalledTimes(0)
+    expect(spies.error).toHaveBeenCalledTimes(0)
+  })
+
+  it('should not run applyDevTools on already destroyed EditorView', () => {
+    const el = document.createElement('div')
+    document.body.appendChild(el)
+    el.id = 'pm-editor'
+    view = setupEditor(el)
+
+    applyDevTools(view)
+    view.dispatch(view.state.tr.insert(1, view.state.schema.text('hello')))
+
+    view.destroy()
+    applyDevTools(view)
+
     expect(spies.log).toHaveBeenCalledTimes(0)
     expect(spies.info).toHaveBeenCalledTimes(0)
     expect(spies.warn).toHaveBeenCalledTimes(0)

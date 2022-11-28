@@ -42,6 +42,9 @@ export function applyDevTools(view: EditorView, opts: DevToolsOpts = {}) {
 
   removeDevTools()
 
+  // Sometimes when applyDevTools is run with hot module reload, it's accidentally executed on already destroyed EditorViews
+  if (view.isDestroyed) return
+
   const comp = new DevTools({
     target: place,
     props: {
