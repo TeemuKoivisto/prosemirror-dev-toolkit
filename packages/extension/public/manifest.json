@@ -36,17 +36,9 @@
   "background": {
     "service_worker": "sw.js"
   },
-  "permissions": ["storage", "scripting", "contextMenus", "activeTab", "tabs"],
+  "permissions": ["storage", "scripting", "activeTab", "tabs"],
   "host_permissions": ["<all_urls>"],
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self'"
-  },
-  "commands": {
-    "_execute_action": {
-      "suggested_key": {
-        "default": "Ctrl+U",
-        "mac": "Command+U"
-      }
-    }
   }
 }
