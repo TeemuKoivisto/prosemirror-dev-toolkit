@@ -6,7 +6,7 @@ import { schema } from './schema'
 
 interface Opts {
   exampleSetup?: boolean
-  props?: Omit<DirectEditorProps, 'state'> 
+  props?: Omit<DirectEditorProps, 'state'>
 }
 
 const DEFAULT_OPTIONS = {

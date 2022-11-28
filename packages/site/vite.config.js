@@ -10,9 +10,9 @@ export default defineConfig({
   plugins: [reactRefresh(), tsconfigPaths()],
   server: {
     port: parseInt(process.env.PORT || 3300),
-    strictPort: true,
+    strictPort: true
   },
   define: {
-    'process.env': process.env,
-  },
+    'process.env': process.env
+  }
 })
