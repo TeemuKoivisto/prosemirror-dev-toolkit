@@ -129,11 +129,11 @@ async function findInstances() {
 
 function shouldRerun(oldState: InjectState, newState: InjectState) {
   return (
-    oldState.disabled !== newState.disabled ||
-    oldState.devToolsOpts.devToolsExpanded !== newState.devToolsOpts.devToolsExpanded ||
-    oldState.devToolsOpts.buttonPosition !== newState.devToolsOpts.buttonPosition ||
-    oldState.inject.instance !== newState.inject.instance ||
-    oldState.inject.selector !== newState.inject.selector
+    !newState.disabled &&
+    (oldState.devToolsOpts.devToolsExpanded !== newState.devToolsOpts.devToolsExpanded ||
+      oldState.devToolsOpts.buttonPosition !== newState.devToolsOpts.buttonPosition ||
+      oldState.inject.instance !== newState.inject.instance ||
+      oldState.inject.selector !== newState.inject.selector)
   )
 }
 
@@ -156,7 +156,7 @@ async function handleMessages<K extends keyof SWMessageMap>(event: MessageEvent<
   const msg = event.data
   switch (msg.type) {
     case 'inject-state':
-      if (!mounted || (!msg.data.disabled && shouldRerun(state, msg.data))) {
+      if ((!mounted && !msg.data.disabled) || shouldRerun(state, msg.data)) {
         findInstances()
         mounted = true
       } else if (mounted && msg.data.disabled) {

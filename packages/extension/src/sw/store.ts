@@ -78,13 +78,16 @@ currentPage.subscribe(val => {
 chrome.runtime.onInstalled.addListener(() => {
   setTimeout(async () => {
     const tab = await getCurrentTab()
-    console.log('timeout installed', tab)
+    // console.log('INSTALLED', tab)
     currentTabId.set(tab?.id || 0)
   }, 1000)
 })
 chrome.storage.onChanged.addListener(changes => {
-  console.log('on changed')
+  console.log('config changed????????????', changes)
 })
+// chrome.management.onEnabled.addListener(
+//   callback: function,
+// )
 chrome.tabs.onActivated.addListener(activeInfo => {
   currentTabId.set(activeInfo.tabId)
 })
@@ -122,7 +125,8 @@ export const storeActions = {
       ...get(globalState),
       inject: {
         ...DEFAULT_INJECT_DATA,
-        ...this.getPageData(tabId).inject
+        ...get(currentPage)?.inject
+        // ...this.getPageData(tabId).inject
       }
     }
   },
@@ -133,7 +137,8 @@ export const storeActions = {
       devToolsOpts: state.devToolsOpts,
       inject: {
         ...DEFAULT_INJECT_DATA,
-        ...this.getPageData(tabId).inject
+        ...get(currentPage)?.inject
+        // ...this.getPageData(tabId).inject
       }
     }
   },
