@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "ProseMirror DevTools",
+  "name": "ProseMirror Developer Tools",
   "version": "0.0.1",
   "description": "Run prosemirror-dev-toolkit as Chrome extension",
   "minimum_chrome_version": "102",
