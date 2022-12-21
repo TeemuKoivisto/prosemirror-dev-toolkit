@@ -1,3 +1,4 @@
+import openDevToolsWindow from './openWindow'
 import { storeActions } from './store'
 import type { InjectMessageMap, PopUpMessageMap } from '../types'
 import { getCurrentTab } from './getCurrentTab'
@@ -55,6 +56,9 @@ async function listenPopUp<K extends keyof PopUpMessageMap>(
       break
     case 'mount-pop-up':
       storeActions.sendToPort(tabId, 'pop-up-state', storeActions.getPopUpData(tabId))
+      break
+    case 'open-in-window':
+      openDevToolsWindow('devtools-panel')
       break
   }
 }

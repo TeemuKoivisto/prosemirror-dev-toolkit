@@ -59,6 +59,9 @@
       }
     })
   }
+  function handleClickWindow() {
+    send('open-in-window', undefined)
+  }
   function handleClickDebug() {
     send('update-global-data', {
       showDebug: !showDebug
@@ -147,6 +150,7 @@
           <option value="top-right">Top right</option>
           <option value="top-left">Top left</option>
         </select>
+        <!-- <button on:click={handleClickWindow}>Window</button> -->
         <button on:click={handleClickDebug}>Debug</button>
       </div>
     </fieldset>

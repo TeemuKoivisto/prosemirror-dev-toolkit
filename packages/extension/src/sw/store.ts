@@ -78,16 +78,9 @@ currentPage.subscribe(val => {
 chrome.runtime.onInstalled.addListener(() => {
   setTimeout(async () => {
     const tab = await getCurrentTab()
-    // console.log('INSTALLED', tab)
     currentTabId.set(tab?.id || 0)
   }, 1000)
 })
-chrome.storage.onChanged.addListener(changes => {
-  console.log('config changed????????????', changes)
-})
-// chrome.management.onEnabled.addListener(
-//   callback: function,
-// )
 chrome.tabs.onActivated.addListener(activeInfo => {
   currentTabId.set(activeInfo.tabId)
 })

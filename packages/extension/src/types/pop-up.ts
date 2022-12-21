@@ -30,8 +30,8 @@ export interface PopUpMessageMap {
     type: 'reapply-devtools'
     data: undefined
   }
-  reload: PopUpMessage & {
-    type: 'reload'
+  'open-in-window': PopUpMessage & {
+    type: 'open-in-window'
     data: undefined
   }
 }
