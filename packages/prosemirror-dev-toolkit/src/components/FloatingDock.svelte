@@ -60,7 +60,7 @@
   function handleCloseModal() {
     modalOpen = false
   }
-  function handlePasteSubmit(e: any) {
+  function handlePasteSubmit(e: CustomEvent<{ doc: Record<string, any> }>) {
     saveSnapshot(new Date().toLocaleString('sv'), e.detail.doc)
     modalOpen = false
   }
@@ -69,8 +69,7 @@
       currentTarget: EventTarget & HTMLInputElement
     }
   ) {
-    const target = <HTMLInputElement>e.target
-    Array.from(target.files || []).forEach(file => {
+    Array.from(e.currentTarget.files || []).forEach(file => {
       const reader = new FileReader()
       reader.readAsText(file)
       reader.onload = e => {

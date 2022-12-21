@@ -1,0 +1,30 @@
+{
+  "name": "extension",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "preview": "vite preview",
+    "build": "vite build && vite build --config vite.config.sw.ts",
+    "build:sw": "vite build --config vite.config.sw.ts"
+  },
+  "devDependencies": {
+    "@iconify-icons/mdi": "^1.2.32",
+    "@sveltejs/vite-plugin-svelte": "^1.0.9",
+    "@types/chrome": "^0.0.200",
+    "@types/node": "^18.11.2",
+    "prosemirror-view": "^1.29.0",
+    "rimraf": "^3.0.2",
+    "sass": "^1.55.0",
+    "svelte": "^3.52.0",
+    "svelte-check": "^2.9.2",
+    "svelte-preprocess": "^4.10.7",
+    "typescript": "4.8.4",
+    "vite": "^3.1.8",
+    "vite-tsconfig-paths": "^3.5.1"
+  },
+  "dependencies": {
+    "@iconify/svelte": "^3.0.0",
+    "prosemirror-dev-toolkit": "workspace:*"
+  }
+}
