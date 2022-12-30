@@ -10,8 +10,8 @@ import { terser } from 'rollup-plugin-terser'
 
 import path from 'path'
 
-import pkg from './package.json'
-import svelteConfig from './svelte.config'
+import pkg from './package.json' assert { type: 'json' }
+import svelteConfig from './svelte.config.js'
 
 const isProduction = !process.env.ROLLUP_WATCH
 const createBundle = process.env.UMD_BUNDLE
@@ -19,12 +19,12 @@ const createBundle = process.env.UMD_BUNDLE
 const plugins = [
   alias({
     entries: [
-      { find: '$components', replacement: path.resolve(__dirname, 'src/components') },
-      { find: '$context', replacement: path.resolve(__dirname, 'src/context') },
-      { find: '$stores', replacement: path.resolve(__dirname, 'src/stores') },
-      { find: '$tabs', replacement: path.resolve(__dirname, 'src/tabs') },
-      { find: '$test-utils', replacement: path.resolve(__dirname, 'src/test-utils') },
-      { find: '$typings', replacement: path.resolve(__dirname, 'src/typings') }
+      { find: '$components', replacement: path.resolve('src/components') },
+      { find: '$context', replacement: path.resolve('src/context') },
+      { find: '$stores', replacement: path.resolve('src/stores') },
+      { find: '$tabs', replacement: path.resolve('src/tabs') },
+      { find: '$test-utils', replacement: path.resolve('src/test-utils') },
+      { find: '$typings', replacement: path.resolve('src/typings') }
     ]
   }),
   svelte({
