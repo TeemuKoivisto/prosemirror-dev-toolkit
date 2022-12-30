@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import debounce from 'lodash.debounce'
 
 import { EditorView } from 'prosemirror-view'
@@ -53,6 +53,8 @@ interface Props {
   useDevTools?: boolean
 }
 
+let removeCb: undefined | (() => void)
+
 export function Editor(props: Props) {
   const { useDevTools } = props
   const editorStore = useMemo(
@@ -63,6 +65,11 @@ export function Editor(props: Props) {
     () => debounce(editorStore.syncCurrentEditorState, 250),
     [editorStore.syncCurrentEditorState]
   )
+  useEffect(() => {
+    return () => {
+      if (removeCb) removeCb()
+    }
+  }, [])
 
   function handleEdit() {
     debouncedSync()
@@ -70,7 +77,7 @@ export function Editor(props: Props) {
   function handleEditorReady(view: EditorView) {
     editorStore.setEditorView(view)
     if (useDevTools) {
-      applyDevTools(view)
+      removeCb = applyDevTools(view)
     } else {
       applyDevToolkit(view, {
         devToolsExpanded: true,
