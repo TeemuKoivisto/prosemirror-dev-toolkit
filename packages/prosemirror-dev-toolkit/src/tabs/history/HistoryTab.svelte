@@ -24,6 +24,7 @@
     shouldExpandNode: () => expandTrTreeView
   }
   $: listItems = $shownHistoryGroups.map((g: HistoryGroup) => ({
+    id: g.id,
     isGroup: g.isGroup,
     topEntry: $stateHistory.get(g.topEntryId),
     entries: g.entryIds.map(id => $stateHistory.get(id)),

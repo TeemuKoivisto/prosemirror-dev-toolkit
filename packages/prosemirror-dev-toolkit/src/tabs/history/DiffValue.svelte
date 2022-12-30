@@ -78,9 +78,8 @@
     display: inline-block;
     background: $color-red;
     border-radius: 1px;
-    color: $color-gray-light;
+    color: $color-black;
     padding: 1px 2px;
-    text-decoration: line-through;
     text-indent: 0;
     min-height: 1ex;
   }

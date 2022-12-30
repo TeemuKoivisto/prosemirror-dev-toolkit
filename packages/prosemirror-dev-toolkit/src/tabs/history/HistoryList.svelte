@@ -3,6 +3,7 @@
   import type { HistoryEntry } from '$typings/history'
 
   export let listItems: {
+      id: number
       isGroup: boolean
       topEntry: HistoryEntry | undefined
       entries: (HistoryEntry | undefined)[]
@@ -17,7 +18,7 @@
 </script>
 
 <ul>
-  {#each listItems as group, groupIdx}
+  {#each listItems as group, groupIdx (group.id)}
     <li class:selected={!group.expanded && selectedId === group?.topEntry?.id}>
       <button
         class:is-group={group.isGroup}
@@ -37,7 +38,7 @@
       </button>
     </li>
     {#if group.isGroup && group.expanded}
-      {#each group.entries as subEntry}
+      {#each group.entries as subEntry (subEntry?.id)}
         <li class:selected={selectedId === subEntry?.id}>
           <button
             class="p-left"
@@ -62,7 +63,7 @@
     width: 100%;
   }
   li {
-    transition: background 0.1s;
+    transition: background 0.7s ease;
     &:hover {
       background: rgba($color-red-light, 0.4);
       color: $color-white;
