@@ -12,6 +12,7 @@ export interface HistoryEntry {
 }
 
 export interface HistoryGroup {
+  id: number
   isGroup: boolean
   topEntryId: string
   entryIds: string[]

@@ -8,6 +8,7 @@ import type { HistoryEntry, HistoryGroup } from '$typings/history'
 export const stateHistory = writable<Map<string, HistoryEntry>>(new Map())
 export const shownHistoryGroups = writable<HistoryGroup[]>([])
 export const latestEntry = writable<HistoryEntry | undefined>(undefined)
+export const nextId = writable(0)
 
 export function appendNewHistoryEntry(
   trs: readonly Transaction[],
@@ -30,6 +31,7 @@ export function appendNewHistoryEntry(
   const isGroup = !newEntry.contentDiff
   if (prevGroup?.isGroup && isGroup) {
     const newGroup = {
+      id: prevGroup.id,
       isGroup,
       entryIds: [newEntry.id, ...prevGroup.entryIds],
       topEntryId: newEntry.id,
@@ -37,13 +39,16 @@ export function appendNewHistoryEntry(
     }
     shownHistoryGroups.update(val => [newGroup, ...val.slice(1)])
   } else {
+    const id = get(nextId) + 1
     const newGroup = {
+      id,
       isGroup,
       entryIds: [newEntry.id],
       topEntryId: newEntry.id,
       expanded: false
     }
     shownHistoryGroups.update(val => [newGroup, ...val])
+    nextId.set(id)
   }
 }
 
