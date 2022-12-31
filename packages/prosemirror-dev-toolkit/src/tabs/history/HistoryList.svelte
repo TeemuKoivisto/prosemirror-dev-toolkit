@@ -31,6 +31,9 @@
           {#if group.isGroup}
             [{group.entries.length}]
           {/if}
+          {#if group.topEntry && group.topEntry.trs.length > 1}
+            +{group.topEntry.trs.length - 1}
+          {/if}
         </span>
         {#if group.isGroup && group.entries.length > 1}
           <span class="caret-icon" class:expanded={group.expanded} />
