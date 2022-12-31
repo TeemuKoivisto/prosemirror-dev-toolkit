@@ -138,7 +138,7 @@
         {/if}
         <div class="entry-row">
           <div class="title-container">
-            <h2>Transaction</h2>
+            <h2>Transactions</h2>
             <div class="transaction-buttons">
               {#if showTr}
                 <Button on:click={handleToggleExpandTrTreeView}>
@@ -152,13 +152,15 @@
             </div>
           </div>
           {#if showTr}
-            <TreeView
-              class="tree-view"
-              data={selectedEntry.trs[0]}
-              showLogButton
-              showCopyButton
-              recursionOpts={transactionRecursionOpts}
-            />
+            {#each selectedEntry.trs as tr}
+              <TreeView
+                class="tree-view"
+                data={tr}
+                showLogButton
+                showCopyButton
+                recursionOpts={transactionRecursionOpts}
+              />
+            {/each}
           {/if}
         </div>
       </div>
