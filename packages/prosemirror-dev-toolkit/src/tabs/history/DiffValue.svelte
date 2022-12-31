@@ -80,6 +80,7 @@
     border-radius: 1px;
     color: $color-black;
     padding: 1px 2px;
+    text-decoration: line-through;
     text-indent: 0;
     min-height: 1ex;
   }
