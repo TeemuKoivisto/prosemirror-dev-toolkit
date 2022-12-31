@@ -7,6 +7,7 @@ function handleInjectMsgs(event: MessageEvent<any>) {
   ) {
     return
   }
+  console.log('hello msg', event)
   pagePort?.postMessage(event.data)
 }
 

@@ -8,49 +8,51 @@ export type DevToolsPosition =
 const windows: { [K in DevToolsPosition]?: number } = {}
 let lastPosition: DevToolsPosition | null = null
 
-export default function openDevToolsWindow(position: DevToolsPosition) {
-  console.log('openDevToolsWindow')
-  function popWindow(
-    action: string,
-    url: string,
-    customOptions: chrome.windows.CreateData & chrome.windows.UpdateInfo
-  ) {
-    function focusIfExist(callback: () => void) {
-      if (!windows[position]) {
-        callback()
-        lastPosition = position
-      } else {
-        let params = { focused: true }
-        if (lastPosition !== position && position !== 'devtools-panel') {
-          params = { ...params, ...customOptions }
-        }
-        chrome.windows.update(windows[position]!, params, () => {
-          lastPosition = null
-          if (chrome.runtime.lastError) callback()
-        })
+function popWindow(
+  action: string,
+  url: string,
+  customOptions: chrome.windows.CreateData & chrome.windows.UpdateInfo,
+  position: DevToolsPosition
+) {
+  function focusIfExist(callback: () => void) {
+    if (!windows[position]) {
+      callback()
+      lastPosition = position
+    } else {
+      let params = { focused: true }
+      if (lastPosition !== position && position !== 'devtools-panel') {
+        params = { ...params, ...customOptions }
       }
+      chrome.windows.update(windows[position]!, params, () => {
+        lastPosition = null
+        if (chrome.runtime.lastError) callback()
+      })
     }
-
-    focusIfExist(() => {
-      const options: chrome.windows.CreateData = {
-        type: 'popup',
-        ...customOptions
-      }
-      if (action === 'open') {
-        options.url = chrome.runtime.getURL(url + '#' + position.substr(position.indexOf('-') + 1))
-        chrome.windows.create(options, win => {
-          windows[position] = win!.id
-          if (navigator.userAgent.indexOf('Firefox') !== -1) {
-            chrome.windows.update(win!.id!, {
-              focused: true,
-              ...customOptions
-            })
-          }
-        })
-      }
-    })
   }
 
+  focusIfExist(() => {
+    const options: chrome.windows.CreateData = {
+      type: 'popup',
+      ...customOptions
+    }
+    if (action === 'open') {
+      options.url = chrome.runtime.getURL(url + '#' + position.substr(position.indexOf('-') + 1))
+      console.log(`options url ${options.url}`, options)
+      chrome.windows.create(options, win => {
+        windows[position] = win!.id
+        if (navigator.userAgent.indexOf('Firefox') !== -1) {
+          chrome.windows.update(win!.id!, {
+            focused: true,
+            ...customOptions
+          })
+        }
+      })
+    }
+  })
+}
+
+export default function openDevToolsWindow(position: DevToolsPosition) {
+  console.log('openDevToolsWindow')
   let params: chrome.windows.CreateData & chrome.windows.UpdateInfo = {
     left: 0,
     top: 0,
@@ -79,5 +81,5 @@ export default function openDevToolsWindow(position: DevToolsPosition) {
       url = 'remote.html'
       break
   }
-  popWindow('open', url, params)
+  popWindow('open', url, params, position)
 }

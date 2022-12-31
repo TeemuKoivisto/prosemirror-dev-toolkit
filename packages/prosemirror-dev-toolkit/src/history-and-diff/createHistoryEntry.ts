@@ -3,7 +3,7 @@ import { DOMSerializer } from 'prosemirror-model'
 import { prettyPrint } from 'html'
 
 import { diff } from './diff'
-import { addPropertiesToTransaction } from './transaction'
+import { addPropertiesToTransaction, parseTransctionIntoJSON } from './transaction'
 import type { HistoryEntry } from '$typings/history'
 
 function buildSelection(selection: Selection) {
@@ -64,13 +64,13 @@ export function createHistoryEntry(
 
   // As described in stateHistory.ts the first entry is a special exception
   const prevState = oldEntry ? oldEntry.state : stateBeforeDispatch
-  const contentDiff = diff(prevState.doc.toJSON(), state.doc.toJSON())
+  const contentDiff = diff(prevState.doc, state.doc.toJSON())
   const selectionDiff = diff(buildSelection(prevState.selection), buildSelection(state.selection))
 
   return {
     id: Math.random().toString() + Math.random().toString(),
-    state,
-    trs: trs.map(tr => addPropertiesToTransaction(tr)),
+    state: state.toJSON(),
+    trs: trs.map(tr => parseTransctionIntoJSON(addPropertiesToTransaction(tr))),
     timestamp: trs[0].time,
     timeStr: formatTimestamp(trs[0].time),
     contentDiff,

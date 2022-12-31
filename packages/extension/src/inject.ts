@@ -10,7 +10,8 @@ let state: InjectState = {
   disabled: false,
   devToolsOpts: {
     devToolsExpanded: false,
-    buttonPosition: 'bottom-right'
+    buttonPosition: 'bottom-right',
+    remoteSource: true
   },
   inject: {
     instance: 0,

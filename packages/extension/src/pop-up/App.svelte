@@ -23,6 +23,7 @@
 
   let dots = ''
   let setStatusInterval: ReturnType<typeof setTimeout> | undefined
+  let insideWindow = location.hash === '#panel'
 
   $: {
     if (injectStatus !== 'finding') {
@@ -150,10 +151,13 @@
           <option value="top-right">Top right</option>
           <option value="top-left">Top left</option>
         </select>
-        <!-- <button on:click={handleClickWindow}>Window</button> -->
+        <button on:click={handleClickWindow}>Window</button>
         <button on:click={handleClickDebug}>Debug</button>
       </div>
     </fieldset>
+  </div>
+  <div>
+    {location.href}
   </div>
   <ol class:hidden={!found}>
     {#each foundInstances as inst, idx}

@@ -12,7 +12,7 @@
   const { view } = getContext('editor-view')
   let doc = view.state.doc.toJSON()
   let selection = createSelection(view.state.selection)
-  let currentState = view.state
+  let currentState = view.state.toJSON()
   let activeMarks: string[] = []
   let nodeSize = view.state.doc.nodeSize
   let childCount = view.state.doc.childCount

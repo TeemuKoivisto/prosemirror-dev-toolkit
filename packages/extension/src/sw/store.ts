@@ -36,7 +36,8 @@ const DEFAULT_GLOBAL_STATE: GlobalState = {
   showDebug: false,
   devToolsOpts: {
     devToolsExpanded: false,
-    buttonPosition: 'bottom-right'
+    buttonPosition: 'bottom-right',
+    remoteSource: true
   }
 }
 

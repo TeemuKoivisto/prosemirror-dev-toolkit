@@ -1,10 +1,11 @@
+import { snapshots } from '$stores/snapshots'
 import type { EditorView } from 'prosemirror-view'
 import DevTools from './components/DevTools.svelte'
 import {
   subscribeToDispatchTransaction,
   unsubscribeDispatchTransaction
 } from './history-and-diff/subscribeToTransactions'
-import { resetHistory } from './stores/stateHistory'
+import { resetHistory, stateHistory, shownHistoryGroups } from './stores/stateHistory'
 
 import { DevToolsOpts } from './types'
 
@@ -64,8 +65,31 @@ export function applyDevTools(view: EditorView, opts: DevToolsOpts = {}) {
   }
 
   subscribeToDispatchTransaction(view)
-
+  let removeSubcriptions: undefined | (() => void)
+  if (opts.remoteSource) {
+    const cb1 = snapshots.subscribe(val => {
+      console.log('post message')
+      window.postMessage({ source: 'pm-dev-tools', origin: 'dev-tools', type: 'snapshots', data: val })
+    })
+    const cb2 = stateHistory.subscribe(val => {
+      const json = Array.from(val.entries()).map(([id, e]) => [id, {
+        ...e,
+        // state: e.state.toJSON(),
+      }])
+      window.postMessage({ source: 'pm-dev-tools', origin: 'dev-tools', type: 'history', data: json })
+    })
+    const cb3 = shownHistoryGroups.subscribe(val => {
+      window.postMessage({ source: 'pm-dev-tools', origin: 'dev-tools', type: 'history-groups', data: val })
+    })
+    removeSubcriptions = () => {
+      cb1()
+      cb2()
+      cb3()
+    }
+  }
+  
   removeCallback = () => {
+    removeSubcriptions && removeSubcriptions()
     resetHistory()
     unsubscribeDispatchTransaction()
     // TODO add test to check no "Component already destroyed" warnings appear
