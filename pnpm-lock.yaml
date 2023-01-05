@@ -109,7 +109,7 @@ importers:
       svelte: ^3.55.0
       svelte-check: ^3.0.1
       svelte-preprocess: ^5.0.0
-      svelte-tree-view: ^1.3.2
+      svelte-tree-view: ^1.3.3
       tslib: ^2.4.1
       typescript: ^4.9.4
       vite: ^4.0.3
@@ -117,7 +117,7 @@ importers:
     dependencies:
       html: 1.0.0
       prosemirror-model: 1.18.3
-      svelte-tree-view: 1.3.2
+      svelte-tree-view: 1.3.3_svelte@3.55.0
     devDependencies:
       '@babel/core': 7.20.7
       '@babel/plugin-syntax-dynamic-import': 7.8.3_@babel+core@7.20.7
@@ -8600,9 +8600,12 @@ packages:
       typescript: 4.9.4
     dev: true
 
-  /svelte-tree-view/1.3.2:
-    resolution: {integrity: sha512-lx60DBp5ngnF4sb5zrd+KF4W5sqKEI1Uf2Nv01j2skwCjLyjD1PqkctvQeP9Ybaa9XVyUT1k6yvIHz6ZDKH4kA==}
-    requiresBuild: true
+  /svelte-tree-view/1.3.3_svelte@3.55.0:
+    resolution: {integrity: sha512-MkpOC/+FK1cMRDUy9H4O82s+B20oKBYcq9B1ql+xQ46tueRnqHUC5tRmFpOG1slHy+ZijSEmA0zwtwO1h174Cg==}
+    peerDependencies:
+      svelte: '>=3'
+    dependencies:
+      svelte: 3.55.0
     dev: false
 
   /svelte/3.55.0:
