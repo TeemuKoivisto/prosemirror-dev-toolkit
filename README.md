@@ -4,7 +4,9 @@ This is a rewrite of [prosemirror-dev-tools](https://github.com/d4rkr00t/prosemi
 
 Unlike React, Svelte compiles directly to JS without having to bundle a runtime which should make the library smaller to use in projects that don't use React. I also pruned some of the extra dependencies by using out-of-the-box Svelte features and have experimented making the library injectable as a [stand-alone script](https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/blob/master/inject.js).
 
-**6.1.2023**: 🚀 There's now a Chrome extension available! 🚀 https://chrome.google.com/webstore/detail/prosemirror-developer-too/gkgbmhfgcpfnogoeclbaiencdjkefonj This is a big improvement as you no longer have to bundle `prosemirror-dev-toolkit` with your dependencies (and filter it out for production build). Also, it allows you to inspect _any_ live editor. It is basically the `inject.js` script packaged into its own extension.
+## [Also as a Chrome extension 🚀](https://chrome.google.com/webstore/detail/prosemirror-developer-too/gkgbmhfgcpfnogoeclbaiencdjkefonj)
+
+This is a big improvement as you no longer have to bundle `prosemirror-dev-toolkit` with your dependencies (and filter it out for production build). Also, it allows you to inspect _any_ live editor. It is basically the `inject.js` script packaged into its own extension.
 
 ## [Demo](https://teemukoivisto.github.io/prosemirror-dev-toolkit/)
 
