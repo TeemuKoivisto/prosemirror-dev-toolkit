@@ -43,8 +43,8 @@ jobs:
 
       - name: Update Chrome extension version
         run: |
-          export VERSION=$(cat packages/extension/package.json | grep version | awk -F'[ "]' 'NR==1{print $7}') &&
-          sed -i 's/"version": "*.*.*"/"version": "'$VERSION'"/' packages/extension/public/manifest.json
+          export VERSION=$(cat ./packages/extension/package.json | grep version | awk -F'[ "]' 'NR==1{print $7}') &&
+          sed -i 's/"version": "*.*.*"/"version": "'$VERSION'"/' ./packages/extension/public/manifest.json
 
       - name: Create and publish versions
         uses: changesets/action@v1
