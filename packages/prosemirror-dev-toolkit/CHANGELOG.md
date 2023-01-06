@@ -1,5 +1,13 @@
 # prosemirror-dev-toolkit
 
+## 1.0.7
+
+### Patch Changes
+
+- 60b4483: feat: show appended trs in history tab
+- 42e2871: feat: animate history entries, make deleted diff text more readable
+- 989590d: fix: update svelte-tree-view to fix silly install script #40
+
 ## 1.0.6
 
 ### Patch Changes
