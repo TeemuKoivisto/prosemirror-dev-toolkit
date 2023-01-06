@@ -3,7 +3,7 @@
 This is a loose list of features I'd like to implement into `prosemirror-dev-toolkit`.
 
 - ~~track appendedTransactions. Because it's a must.~~
-- show appendedTransactions in History tab & make it easier to access transactions
+- ~~show appendedTransactions in History tab & make it easier to access transactions~~
 - ~~fix missing borders for nodes in DocView~~
 - ~~add textarea to directly paste snapshots since importing files is cumbersome~~
 - make panel adjustable in Structure tab between DocView and node info
@@ -12,7 +12,7 @@ This is a loose list of features I'd like to implement into `prosemirror-dev-too
 - ~~improve the injection script (basically enhance the hack to gain access to view)~~
 - enhance structure tab on large docs. It could be faster
 - add tab to execute commands. Basically a (primitive) prosemirror REPL
-- make Chrome extension
+- ~~make Chrome extension~~
 - ~~migrate to pnpm? need to workout the deployment flow with releases though first~~
 - use css reset? just so styles are not affected by global stylesheets
 - checkbox to filter empty/selection transactions

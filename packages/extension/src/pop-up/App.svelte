@@ -179,9 +179,6 @@
 </main>
 
 <style lang="scss">
-  :global(html) {
-    font-size: 16px;
-  }
   :global(body) {
     margin: 0;
     padding: 0;

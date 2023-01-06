@@ -4,6 +4,8 @@ This is a rewrite of [prosemirror-dev-tools](https://github.com/d4rkr00t/prosemi
 
 Unlike React, Svelte compiles directly to JS without having to bundle a runtime which should make the library smaller to use in projects that don't use React. I also pruned some of the extra dependencies by using out-of-the-box Svelte features and have experimented making the library injectable as a [stand-alone script](https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/blob/master/inject.js).
 
+**6.1.2023**: 🚀 There's now a Chrome extension available! 🚀 https://chrome.google.com/webstore/detail/prosemirror-developer-too/gkgbmhfgcpfnogoeclbaiencdjkefonj This is a big improvement as you no longer have to bundle `prosemirror-dev-toolkit` with your dependencies (and filter it out for production build). Also, it allows you to inspect _any_ live editor. It is basically the `inject.js` script packaged into its own extension.
+
 ## [Demo](https://teemukoivisto.github.io/prosemirror-dev-toolkit/)
 
 ```sh
@@ -76,7 +78,7 @@ Shows the current toJSON'd state.doc as well as the selection, augmented by a fe
 
 ![History tab](https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/blob/d1620e6007d14068c58f704cd1a0d7e6b393f428/core/cypress/integration/__image_snapshots__/%23%20History%20tab%20%20Should%20track%20transactions%20and%20show%20diffs%20%230.png?raw=true)
 
-History tab shows the last dispatched transaction with a diff of the changed content, diff of the changed selection, toDOM'd document slice between the selection start and end and the actual transaction at the bottom.
+History tab shows the last dispatched transaction with a diff of the changed content, diff of the changed selection, toDOM'd document slice between the selection start and end and the actual transactions at the bottom. Rather than just showing the originating transaction, I am also displaying all the appended transactions as well.
 
 Copying the old diffing logic was perhaps the most annoying feature to implement as it required me to wrap my head around the jsondiffpatch's delta format and figure out how to rewrite it in Svelte. Somewhat interesting topic, certainly, but quite tedious. I changed the original colors to a perhaps more distinct palette and added the transaction to the history entry as well. I've found it quite useful.
 
