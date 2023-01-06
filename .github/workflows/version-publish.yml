@@ -61,4 +61,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: chrome
-          path: packages/extension/dist
+          path: ./packages/extension/dist
