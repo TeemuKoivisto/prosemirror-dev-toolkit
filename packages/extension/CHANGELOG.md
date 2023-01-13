@@ -1,5 +1,11 @@
 # extension
 
+## 1.0.2
+
+### Patch Changes
+
+- 81ac8d5: fix: try setting manifest.json version in ci
+
 ## 1.0.1
 
 ### Patch Changes
