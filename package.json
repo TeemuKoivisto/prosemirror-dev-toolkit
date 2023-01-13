@@ -9,7 +9,7 @@
     "site": "pnpm --filter site dev",
     "kit": "pnpm --filter prosemirror-dev-toolkit watch",
     "cs": "changeset && git add .changeset",
-    "ci:version": "git add ./packages/extension/public/manifest.json && changeset version",
+    "ci:version": "changeset version",
     "ci:publish": "changeset publish && git push --follow-tags",
     "prepare": "husky install"
   },
