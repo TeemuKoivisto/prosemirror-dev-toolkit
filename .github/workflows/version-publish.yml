@@ -45,6 +45,7 @@ jobs:
         run: |
           export VERSION=$(cat ./packages/extension/package.json | grep version | awk -F'[ "]' 'NR==1{print $7}') &&
           sed -i 's/"version": "*.*.*"/"version": "'$VERSION'"/' ./packages/extension/public/manifest.json
+          sed -i 's/"version": "*.*.*"/"version": "'$VERSION'"/' ./packages/extension/dist/manifest.json
 
       - name: Create and publish versions
         uses: changesets/action@v1
