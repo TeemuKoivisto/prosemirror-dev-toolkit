@@ -1,4 +1,5 @@
 import type { EditorView } from 'prosemirror-view'
+import DevTools from './components/DevTools.svelte'
 import {
   subscribeToDispatchTransaction,
   unsubscribeDispatchTransaction
@@ -36,13 +37,26 @@ export function applyDevTools(view: EditorView, opts: DevToolsOpts = {}) {
   // Sometimes when applyDevTools is run with hot module reload, it's accidentally executed on already destroyed EditorViews
   if (view.isDestroyed) return
 
-  const newTools = document.createElement('prosemirror-dev-toolkit')
-  newTools.dispatchEvent(
-    new CustomEvent('init-dev-toolkit', {
-      detail: { view, opts }
+  let comp: DevTools | undefined
+  const { disableWebComponent, ...filteredOpts } = opts
+  if (disableWebComponent) {
+    // Mainly for testing purposes since shadow DOM quite annoyingly hides all of its contents in the test snapshots
+    comp = new DevTools({
+      target: place,
+      props: {
+        view,
+        ...filteredOpts
+      }
     })
-  )
-  place.appendChild(newTools)
+  } else {
+    const newTools = document.createElement('prosemirror-dev-toolkit')
+    newTools.dispatchEvent(
+      new CustomEvent('init-dev-toolkit', {
+        detail: { view, opts: filteredOpts }
+      })
+    )
+    place.appendChild(newTools)
+  }
 
   // Also add view to the window for testing and other debugging
   if (typeof window !== 'undefined') window.editorView = view
@@ -60,7 +74,7 @@ export function applyDevTools(view: EditorView, opts: DevToolsOpts = {}) {
   removeCallback = () => {
     resetHistory()
     unsubscribeDispatchTransaction()
-    // TODO add test to check no "Component already destroyed" warnings appear
+    comp?.$destroy()
     const el = place.firstChild
     el && place.removeChild(el)
   }

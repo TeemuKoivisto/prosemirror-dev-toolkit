@@ -56,7 +56,7 @@ describe('various-bug.spec', () => {
 
     vi.stubGlobal('prompt', (str: string) => undefined)
 
-    applyDevTools(view)
+    applyDevTools(view, { disableWebComponent: true })
     view.dispatch(view.state.tr.insert(1, view.state.schema.text('hello')))
     expect(spies.log).toHaveBeenCalledTimes(0)
     expect(spies.info).toHaveBeenCalledTimes(0)
@@ -70,11 +70,11 @@ describe('various-bug.spec', () => {
     el.id = 'pm-editor'
     view = setupEditor(el)
 
-    applyDevTools(view)
+    applyDevTools(view, { disableWebComponent: true })
     view.dispatch(view.state.tr.insert(1, view.state.schema.text('hello')))
 
     view.destroy()
-    applyDevTools(view)
+    applyDevTools(view, { disableWebComponent: true })
 
     expect(spies.log).toHaveBeenCalledTimes(0)
     expect(spies.info).toHaveBeenCalledTimes(0)

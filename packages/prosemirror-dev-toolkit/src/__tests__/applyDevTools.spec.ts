@@ -23,9 +23,14 @@ describe('applyDevTools', () => {
   })
 
   it('should mount and unmount dev-toolkit', () => {
-    applyDevTools(view)
+    applyDevTools(view, { disableWebComponent: true })
     expect(document.body).toMatchSnapshot()
     removeDevTools()
+    expect(document.body).toMatchSnapshot()
+  })
+
+  it('should mount dev-toolkit as a web component', () => {
+    applyDevTools(view)
     expect(document.body).toMatchSnapshot()
   })
 
@@ -35,7 +40,7 @@ describe('applyDevTools', () => {
     const warnSpy = vi.spyOn(console, 'warn')
     const errorSpy = vi.spyOn(console, 'error')
 
-    applyDevTools(view)
+    applyDevTools(view, { disableWebComponent: true })
     view.dispatch(view.state.tr.insert(1, view.state.schema.text('hello')))
     view.updateState(
       view.state.reconfigure({
