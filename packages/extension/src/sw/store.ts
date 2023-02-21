@@ -55,14 +55,14 @@ export const currentPage = derived([pages, currentTabId], ([p, c]) => ({
 hydrate()
 
 async function hydrate() {
-  const state = await chrome.storage.sync.get(GLOBAL_STATE_KEY)
-  if (state && typeof state[GLOBAL_STATE_KEY] === 'object') {
-    globalState.set(state[GLOBAL_STATE_KEY] as any)
+  const state = ((await chrome.storage.sync.get()) || {})[GLOBAL_STATE_KEY]
+  if (state && typeof state === 'object' && Object.keys(state).length > 0) {
+    globalState.set(state)
   }
 }
 
 globalState.subscribe(val => {
-  chrome.storage.sync.set({ STORAGE_KEY: val })
+  chrome.storage.sync.set({ [GLOBAL_STATE_KEY]: val })
 })
 currentPage.subscribe(val => {
   const iconType = val.inject.instances.length === 0 ? '-disabled' : ''
