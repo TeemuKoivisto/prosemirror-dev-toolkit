@@ -17,5 +17,7 @@ This is a loose list of features I'd like to implement into `prosemirror-dev-too
 - use css reset? just so styles are not affected by global stylesheets
 - checkbox to filter empty/selection transactions
 - OR just meta-key based filter of transactions
+- switch Rollup to Vite (and maybe use PostCSS)
+- either upgrade Cypress or switch to say Playwright
 
 No time schedules set. Just for reference for my and yours sake.

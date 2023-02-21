@@ -28,6 +28,8 @@ const plugins = [
     ]
   }),
   svelte({
+    // This is required so that Svelte properly generates its own stylesheets inside the shadow DOM
+    emitCss: false,
     compilerOptions: {
       // enable run-time checks when not in production
       dev: !isProduction

@@ -54,11 +54,11 @@
     display: flex;
     justify-content: space-between;
   }
-  .left-panel {
+  .left-panel[slot='left'] {
     overflow: scroll;
     padding: 1em;
   }
-  .right-panel {
+  .right-panel[slot='right'] {
     border-left: 1px solid rgba($color-red-light, 0.2);
     overflow: scroll;
     padding: 1em;

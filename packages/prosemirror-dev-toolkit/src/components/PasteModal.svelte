@@ -54,7 +54,6 @@
     height: 100%;
     justify-content: center;
     padding: 64px;
-    width: 100%;
   }
   .modal-bg {
     background: #000;
@@ -87,7 +86,7 @@
   }
   textarea {
     background: #fefcfc;
-    height: 100%;
+    height: calc(100vh - 128px);
     width: 100%;
   }
 </style>

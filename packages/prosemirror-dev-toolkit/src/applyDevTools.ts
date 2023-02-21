@@ -1,29 +1,20 @@
 import type { EditorView } from 'prosemirror-view'
-import DevTools from './components/DevTools.svelte'
 import {
   subscribeToDispatchTransaction,
   unsubscribeDispatchTransaction
 } from './history-and-diff/subscribeToTransactions'
 import { resetHistory } from './stores/stateHistory'
 
+import { createOrFindPlace } from './createOrFindPlace'
+import { ProseMirrorDevToolkit } from './ProseMirrorDevToolkit'
+
 import { DevToolsOpts } from './types'
 
-const DEVTOOLS_CSS_CLASS = '__prosemirror-dev-toolkit__'
+// Register the fancy web component wrapper
+customElements.define('prosemirror-dev-toolkit', ProseMirrorDevToolkit)
 
 // Make the dev tools available globally for testing and other use
 if (typeof window !== 'undefined') window.applyDevTools = applyDevTools
-
-function createOrFindPlace() {
-  let place: HTMLElement | null = document.querySelector(`.${DEVTOOLS_CSS_CLASS}`)
-
-  if (!place) {
-    place = document.createElement('div')
-    place.className = DEVTOOLS_CSS_CLASS
-    document.body.appendChild(place)
-  }
-
-  return place
-}
 
 let removeCallback: (() => void) | undefined
 
@@ -45,13 +36,14 @@ export function applyDevTools(view: EditorView, opts: DevToolsOpts = {}) {
   // Sometimes when applyDevTools is run with hot module reload, it's accidentally executed on already destroyed EditorViews
   if (view.isDestroyed) return
 
-  const comp = new DevTools({
-    target: place,
-    props: {
-      view,
-      ...opts
-    }
-  })
+  const newTools = document.createElement('prosemirror-dev-toolkit')
+  newTools.dispatchEvent(
+    new CustomEvent('init-dev-toolkit', {
+      detail: { view, opts }
+    })
+  )
+  place.appendChild(newTools)
+
   // Also add view to the window for testing and other debugging
   if (typeof window !== 'undefined') window.editorView = view
 
@@ -69,7 +61,8 @@ export function applyDevTools(view: EditorView, opts: DevToolsOpts = {}) {
     resetHistory()
     unsubscribeDispatchTransaction()
     // TODO add test to check no "Component already destroyed" warnings appear
-    comp.$destroy()
+    const el = place.firstChild
+    el && place.removeChild(el)
   }
 }
 

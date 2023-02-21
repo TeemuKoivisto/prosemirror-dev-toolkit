@@ -42,7 +42,7 @@
 </SplitView>
 
 <style lang="scss">
-  .right-panel {
+  .right-panel[slot='right'] {
     padding: 0;
   }
   .no-snapshots {
