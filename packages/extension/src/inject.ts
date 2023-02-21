@@ -69,6 +69,22 @@ function sleep(ms: number) {
   })
 }
 
+async function tryQueryIframe(iframe: HTMLIFrameElement, selector: string) {
+  try {
+    const doc = iframe.contentDocument
+    if (!doc) return []
+    let tries = 0
+    while (doc?.readyState === 'loading' || tries < 5) {
+      await sleep(500)
+      tries += 1
+    }
+    return Array.from(doc.querySelectorAll(selector) || [])
+  } catch (err) {
+    // Probably "Blocked a frame with origin from accessing a cross-origin frame." error
+    return []
+  }
+}
+
 async function findEditorViews(attempts: number): Promise<EditorView[] | undefined> {
   await sleep(1000 * attempts)
   try {
@@ -86,7 +102,21 @@ async function findEditorViews(attempts: number): Promise<EditorView[] | undefin
         })
       )
     )
-    const filtered = views.filter(v => v !== undefined) as EditorView[]
+    const iframes = (
+      await Promise.all(
+        Array.from(document.querySelectorAll('iframe')).map(iframe =>
+          tryQueryIframe(iframe, selector)
+        )
+      )
+    ).flat()
+    const iframeViews = await Promise.all(
+      iframes.map(el =>
+        getEditorView(el as HTMLElement).catch(err => {
+          return undefined
+        })
+      )
+    )
+    const filtered = views.concat(iframeViews).filter(v => v !== undefined) as EditorView[]
     if (filtered.length === 0 && attempts < MAX_ATTEMPTS) {
       return findEditorViews(attempts + 1)
     }

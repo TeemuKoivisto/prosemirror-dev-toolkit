@@ -7,6 +7,7 @@ import { FrontPage } from './pages/FrontPage'
 import { DevToolsPage } from './pages/DevToolsPage'
 import { PlainPMPage } from './pages/PlainPMPage'
 import { YjsPage } from './pages/YjsPage'
+import { IFramePage } from 'pages/IFramePage'
 import { NoEditorPage } from './pages/NoEditorPage'
 
 export const Routes = () => (
@@ -41,6 +42,14 @@ export const Routes = () => (
         element={
           <DefaultLayout>
             <YjsPage />
+          </DefaultLayout>
+        }
+      />
+      <Route
+        path="/iframe"
+        element={
+          <DefaultLayout>
+            <IFramePage />
           </DefaultLayout>
         }
       />

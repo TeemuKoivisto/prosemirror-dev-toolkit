@@ -1,37 +1,19 @@
-import React, { useLayoutEffect, useRef } from 'react'
+import React, { useMemo, useRef } from 'react'
 import styled from 'styled-components'
-import { EditorView } from 'prosemirror-view'
-import { EditorState } from 'prosemirror-state'
-import { exampleSetup } from 'prosemirror-example-setup'
 import { applyDevTools as applyDevToolkit } from 'prosemirror-dev-toolkit'
 
-import { schema } from 'pm/schema'
+import { useEditor } from 'pm/useEditor'
 
 export function PlainPMPage() {
-  const editorDOMRef = useRef(null)
-  const editorViewRef = useRef<EditorView | null>(null)
-
-  useLayoutEffect(() => {
-    const state = EditorState.create({
-      schema,
-      plugins: exampleSetup({ schema })
-    })
-    const editorViewDOM = editorDOMRef.current
-    if (editorViewDOM) {
-      editorViewRef.current = new EditorView(
-        { mount: editorViewDOM },
-        {
-          state
-        }
-      )
+  const editorDOMRef = useRef<HTMLDivElement | null>(null)
+  const editorViewRef = useEditor(editorDOMRef)
+  useMemo(() => {
+    if (editorViewRef.current) {
       applyDevToolkit(editorViewRef.current, {
         devToolsExpanded: true
       })
     }
-    return () => {
-      editorViewRef.current?.destroy()
-    }
-  }, [])
+  }, [editorViewRef])
 
   return (
     <Container>
