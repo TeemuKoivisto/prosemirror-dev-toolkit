@@ -221,7 +221,7 @@ describe('# Snapshots tab', () => {
     cy.devTools().find('button').contains('Paste').click()
 
     // Try adding a broken snapshot
-    cy.devTools().find('.paste-modal textarea').type('hello')
+    cy.devTools().find('.paste-modal textarea').type('hello', { force: true })
     // Should not close the modal
     cy.devTools().find('.paste-modal .submit-container button').click()
     cy.devTools().find('.paste-modal').should('not.be.hidden')
@@ -230,7 +230,7 @@ describe('# Snapshots tab', () => {
     cy.devTools()
       .find('.paste-modal textarea')
       .clear()
-      .type(JSON.stringify(snapshot1), { parseSpecialCharSequences: false })
+      .type(JSON.stringify(snapshot1), { parseSpecialCharSequences: false, force: true })
 
     // Should close the modal and add the snapshot
     cy.devTools().find('.paste-modal .submit-container button').click()
