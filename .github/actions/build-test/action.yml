@@ -22,7 +22,7 @@ runs:
         cache-key: ${{ runner.os }}-node-${{ matrix.node-version }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
         command: pnpm --filter prosemirror-dev-toolkit test:e2e
         start: pnpm --filter site dev
-        wait-on: 'http://localhost:3300'
+        wait-on: 'npx wait-on --timeout 60000 http://localhost:3300' # https://github.com/cypress-io/github-action/issues/634
         project: ./packages/prosemirror-dev-toolkit
         browser: chrome
         quiet: false
