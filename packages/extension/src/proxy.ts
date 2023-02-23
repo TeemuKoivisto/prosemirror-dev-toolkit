@@ -1,4 +1,8 @@
-// Resend messages from inject to sw
+/**
+ * Resends messages from inject to sw
+ * @param event 
+ * @returns 
+ */
 function handleInjectMsgs(event: MessageEvent<any>) {
   if (
     typeof event.data !== 'object' ||
@@ -10,7 +14,11 @@ function handleInjectMsgs(event: MessageEvent<any>) {
   pagePort?.postMessage(event.data)
 }
 
-// Resend messages from sw to inject and pop-up
+/**
+ * Resends messages from sw to inject and pop-up
+ * @param msg 
+ * @returns 
+ */
 function handleSWMsgs(msg: any) {
   if (typeof msg !== 'object' || !('source' in msg) || msg.source !== 'pm-dev-tools') {
     return
@@ -19,7 +27,11 @@ function handleSWMsgs(msg: any) {
   popUpPort?.postMessage(msg)
 }
 
-// Resend messages from pop-up to sw
+/**
+ * Resends messages from pop-up to sw
+ * @param msg 
+ * @returns 
+ */
 function handlePopUpMsgs(msg: any) {
   if (typeof msg !== 'object' || !('source' in msg) || msg.source !== 'pm-dev-tools') {
     return
