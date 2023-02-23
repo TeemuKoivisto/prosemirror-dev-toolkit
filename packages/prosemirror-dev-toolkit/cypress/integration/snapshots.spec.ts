@@ -49,8 +49,8 @@ describe('# Snapshots tab', () => {
         .find('.right-panel li')
         .find('input')
         .clear()
-        .type(TEST_SNAPSHOT_CHANGED)
-        .type('{enter}')
+        .type(TEST_SNAPSHOT_CHANGED, { force: true }) // https://github.com/cypress-io/cypress/issues/5830#issuecomment-570638375
+        .type('{enter}', { force: true })
       // The name should have changed
       cy.devTools().find('.right-panel li').contains(TEST_SNAPSHOT).should('not.exist')
       cy.devTools().find('.right-panel li').contains(TEST_SNAPSHOT_CHANGED).should('exist')
@@ -92,8 +92,8 @@ describe('# Snapshots tab', () => {
       cy.devTools().find('ul.tabs-menu li button').contains('SNAPSHOTS').click()
       cy.devTools().find('.right-panel li').should('have.length', 2)
       cy.devTools().find('.right-panel li').eq(0).contains('Show').click()
-      cy.devTools().find('.ProseMirror').find('*').should('have.length', 4)
-      cy.devTools().find('.ProseMirror strong').includesStringCount(TEST_TEXT).should('equal', 1)
+      cy.get('.ProseMirror').find('*').should('have.length', 4)
+      cy.get('.ProseMirror strong').includesStringCount(TEST_TEXT).should('equal', 1)
 
       cy.devTools().find('button').contains('Delete').click()
       cy.devTools().find('.right-panel li').should('have.length', 2)
