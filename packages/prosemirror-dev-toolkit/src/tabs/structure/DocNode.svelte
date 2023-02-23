@@ -40,12 +40,14 @@
 <li class={`${$$props.class || ''} doc-node`} class:root={isRoot}>
   <div class="doc-node-body" style={`background: ${color}`}>
     <div class="number-box">{startPos}</div>
-    <button
-      class:selected={false}
-      aria-label="Show node info button"
-      on:click={handleNameClick}
-      on:dblclick={handleNameDblClick}>{name}</button
-    >
+    <div class="node-name">
+      <button
+        class:selected={false}
+        aria-label="Show node info button"
+        on:click={handleNameClick}
+        on:dblclick={handleNameDblClick}>{name}</button
+      >
+    </div>
     <div class="number-box">{endPos}</div>
   </div>
   <ul class:inline-children={inlineChildren} class:show-borders={depth >= 1}>
@@ -78,14 +80,17 @@
     padding: 3px 6px;
     background: rgba($color-white, 0.3);
   }
+  .node-name {
+    width: 100%;
+  }
   button {
+    align-items: center;
     background: transparent;
     border: 0;
     color: $color-black;
     cursor: pointer;
     display: flex;
     height: 100%;
-    padding: 3px 9px;
     white-space: pre;
     width: 100%;
     &:hover {
