@@ -116,6 +116,6 @@ describe('# Structure tab', () => {
       expect(JSON.stringify(doc)).to.be.eq(JSON.stringify(snapshot1))
       expect(JSON.stringify(_node.node.toJSON())).to.be.eq(JSON.stringify(snapshot1))
     })
-    cy.devTools().find('@consoleError').should('be.callCount', 0)
+    cy.get('@consoleError').should('be.callCount', 0)
   })
 })
