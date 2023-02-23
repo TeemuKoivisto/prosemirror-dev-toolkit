@@ -22,36 +22,36 @@ exports[`DevTools.svelte > should open by clicking the floating button 1`] = `
         class="floating-dock-wrapper s-FloatingDock-1qe2796"
       >
         <div
-          class="paste-modal s-PasteModal-cpp1ez hidden"
+          class="paste-modal s-PasteModal-1o9ua2q hidden"
         >
           <div
-            class="modal-bg s-PasteModal-cpp1ez"
+            class="modal-bg s-PasteModal-1o9ua2q"
           />
            
           <form
-            class="paste-content s-PasteModal-cpp1ez"
+            class="paste-content s-PasteModal-1o9ua2q"
           >
             <fieldset
-              class="s-PasteModal-cpp1ez"
+              class="s-PasteModal-1o9ua2q"
             >
               <div
-                class="submit-container s-PasteModal-cpp1ez"
+                class="submit-container s-PasteModal-1o9ua2q"
               >
                 <button
-                  class="s-PasteModal-cpp1ez"
+                  class="s-PasteModal-1o9ua2q"
                 >
                   Submit
                 </button>
               </div>
                
               <legend
-                class="s-PasteModal-cpp1ez"
+                class="s-PasteModal-1o9ua2q"
               >
                 Doc
               </legend>
                
               <textarea
-                class="s-PasteModal-cpp1ez"
+                class="s-PasteModal-1o9ua2q"
               />
             </fieldset>
           </form>
@@ -226,36 +226,36 @@ exports[`DevTools.svelte > should render 1`] = `
         class="floating-dock-wrapper s-FloatingDock-1qe2796"
       >
         <div
-          class="paste-modal s-PasteModal-cpp1ez hidden"
+          class="paste-modal s-PasteModal-1o9ua2q hidden"
         >
           <div
-            class="modal-bg s-PasteModal-cpp1ez"
+            class="modal-bg s-PasteModal-1o9ua2q"
           />
            
           <form
-            class="paste-content s-PasteModal-cpp1ez"
+            class="paste-content s-PasteModal-1o9ua2q"
           >
             <fieldset
-              class="s-PasteModal-cpp1ez"
+              class="s-PasteModal-1o9ua2q"
             >
               <div
-                class="submit-container s-PasteModal-cpp1ez"
+                class="submit-container s-PasteModal-1o9ua2q"
               >
                 <button
-                  class="s-PasteModal-cpp1ez"
+                  class="s-PasteModal-1o9ua2q"
                 >
                   Submit
                 </button>
               </div>
                
               <legend
-                class="s-PasteModal-cpp1ez"
+                class="s-PasteModal-1o9ua2q"
               >
                 Doc
               </legend>
                
               <textarea
-                class="s-PasteModal-cpp1ez"
+                class="s-PasteModal-1o9ua2q"
               />
             </fieldset>
           </form>
