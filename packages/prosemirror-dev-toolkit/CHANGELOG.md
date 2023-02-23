@@ -1,5 +1,11 @@
 # prosemirror-dev-toolkit
 
+## 1.1.0
+
+### Minor Changes
+
+- 55a651c: feat: use web component to encapsulate styles
+
 ## 1.0.7
 
 ### Patch Changes
