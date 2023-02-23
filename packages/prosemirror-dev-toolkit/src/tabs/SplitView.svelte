@@ -4,7 +4,7 @@
 </section>
 
 <style lang="scss">
-  section {
+  .split-view {
     border-top: 1px solid rgba($color-red-light, 0.2);
     color: $color-white;
     display: flex;

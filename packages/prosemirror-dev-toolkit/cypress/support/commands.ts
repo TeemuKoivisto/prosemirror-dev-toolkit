@@ -13,7 +13,7 @@ Cypress.Commands.add('interrupt', () => {
 })
 
 Cypress.Commands.add('devTools', () => {
-  return cy.get('.__prosemirror-dev-toolkit__')
+  return cy.get('prosemirror-dev-toolkit').shadow()
 })
 
 // Reset devTools with applyDevTools and dispatch a complete deletion of the document.

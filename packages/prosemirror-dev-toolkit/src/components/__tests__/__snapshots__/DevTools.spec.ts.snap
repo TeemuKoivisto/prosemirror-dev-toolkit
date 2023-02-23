@@ -22,36 +22,36 @@ exports[`DevTools.svelte > should open by clicking the floating button 1`] = `
         class="floating-dock-wrapper s-FloatingDock-1qe2796"
       >
         <div
-          class="paste-modal s-PasteModal-1516w55 hidden"
+          class="paste-modal s-PasteModal-1o9ua2q hidden"
         >
           <div
-            class="modal-bg s-PasteModal-1516w55"
+            class="modal-bg s-PasteModal-1o9ua2q"
           />
            
           <form
-            class="paste-content s-PasteModal-1516w55"
+            class="paste-content s-PasteModal-1o9ua2q"
           >
             <fieldset
-              class="s-PasteModal-1516w55"
+              class="s-PasteModal-1o9ua2q"
             >
               <div
-                class="submit-container s-PasteModal-1516w55"
+                class="submit-container s-PasteModal-1o9ua2q"
               >
                 <button
-                  class="s-PasteModal-1516w55"
+                  class="s-PasteModal-1o9ua2q"
                 >
                   Submit
                 </button>
               </div>
                
               <legend
-                class="s-PasteModal-1516w55"
+                class="s-PasteModal-1o9ua2q"
               >
                 Doc
               </legend>
                
               <textarea
-                class="s-PasteModal-1516w55"
+                class="s-PasteModal-1o9ua2q"
               />
             </fieldset>
           </form>
@@ -178,15 +178,15 @@ exports[`DevTools.svelte > should open by clicking the floating button 1`] = `
             <!--&lt;TabsMenu&gt;-->
              
             <section
-              class="split-view s-SplitView-1ar0nx3"
+              class="split-view s-SplitView-a1ijfy"
             >
                
               <div
-                class="right-panel s-SnapshotsTab-1cy4q67"
+                class="right-panel s-SnapshotsTab-hefbwe"
                 slot="right"
               >
                 <div
-                  class="no-snapshots s-SnapshotsTab-1cy4q67"
+                  class="no-snapshots s-SnapshotsTab-hefbwe"
                 >
                   Save snapshots by clicking "Save" button.
                 </div>
@@ -226,36 +226,36 @@ exports[`DevTools.svelte > should render 1`] = `
         class="floating-dock-wrapper s-FloatingDock-1qe2796"
       >
         <div
-          class="paste-modal s-PasteModal-1516w55 hidden"
+          class="paste-modal s-PasteModal-1o9ua2q hidden"
         >
           <div
-            class="modal-bg s-PasteModal-1516w55"
+            class="modal-bg s-PasteModal-1o9ua2q"
           />
            
           <form
-            class="paste-content s-PasteModal-1516w55"
+            class="paste-content s-PasteModal-1o9ua2q"
           >
             <fieldset
-              class="s-PasteModal-1516w55"
+              class="s-PasteModal-1o9ua2q"
             >
               <div
-                class="submit-container s-PasteModal-1516w55"
+                class="submit-container s-PasteModal-1o9ua2q"
               >
                 <button
-                  class="s-PasteModal-1516w55"
+                  class="s-PasteModal-1o9ua2q"
                 >
                   Submit
                 </button>
               </div>
                
               <legend
-                class="s-PasteModal-1516w55"
+                class="s-PasteModal-1o9ua2q"
               >
                 Doc
               </legend>
                
               <textarea
-                class="s-PasteModal-1516w55"
+                class="s-PasteModal-1o9ua2q"
               />
             </fieldset>
           </form>
@@ -382,17 +382,17 @@ exports[`DevTools.svelte > should render 1`] = `
             <!--&lt;TabsMenu&gt;-->
              
             <section
-              class="split-view s-SplitView-1ar0nx3"
+              class="split-view s-SplitView-a1ijfy"
             >
               <div
-                class="left-panel s-StateTab-7b9rm4"
+                class="left-panel s-StateTab-11ggucv"
                 slot="left"
               >
                 <div
-                  class="top-row s-StateTab-7b9rm4"
+                  class="top-row s-StateTab-11ggucv"
                 >
                   <h2
-                    class="s-StateTab-7b9rm4"
+                    class="s-StateTab-11ggucv"
                   >
                     Current doc
                   </h2>
@@ -498,14 +498,14 @@ exports[`DevTools.svelte > should render 1`] = `
               </div>
                
               <div
-                class="right-panel s-StateTab-7b9rm4"
+                class="right-panel s-StateTab-11ggucv"
                 slot="right"
               >
                 <div
-                  class="top-row s-StateTab-7b9rm4"
+                  class="top-row s-StateTab-11ggucv"
                 >
                   <h2
-                    class="s-StateTab-7b9rm4"
+                    class="s-StateTab-11ggucv"
                   >
                     Selection
                   </h2>
@@ -514,7 +514,7 @@ exports[`DevTools.svelte > should render 1`] = `
                     class="selection-btn s-Button-ss8iwa"
                   >
                     <span
-                      class="caret-icon s-StateTab-7b9rm4"
+                      class="caret-icon s-StateTab-11ggucv"
                     />
                   </button>
                   <!--&lt;Button&gt;-->
@@ -707,26 +707,26 @@ exports[`DevTools.svelte > should render 1`] = `
                 <!--&lt;TreeView&gt;-->
                  
                 <div
-                  class="s-StateTab-7b9rm4"
+                  class="s-StateTab-11ggucv"
                 >
                   <h2
-                    class="s-StateTab-7b9rm4"
+                    class="s-StateTab-11ggucv"
                   >
                     Active marks
                   </h2>
                    
                   <div
-                    class="no-marks s-StateTab-7b9rm4"
+                    class="no-marks s-StateTab-11ggucv"
                   >
                     No active marks
                   </div>
                 </div>
                  
                 <div
-                  class="s-StateTab-7b9rm4"
+                  class="s-StateTab-11ggucv"
                 >
                   <h2
-                    class="s-StateTab-7b9rm4"
+                    class="s-StateTab-11ggucv"
                   >
                     Document stats
                   </h2>

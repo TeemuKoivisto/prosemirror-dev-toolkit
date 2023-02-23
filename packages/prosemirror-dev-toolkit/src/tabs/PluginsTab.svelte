@@ -83,14 +83,14 @@
     justify-content: space-between;
     margin-bottom: 0.5em;
   }
-  .left-panel {
+  .left-panel[slot='left'] {
     flex-grow: 0;
     overflow: scroll;
     padding: 0;
     min-width: 190px;
     width: 190px;
   }
-  .right-panel {
+  .right-panel[slot='right'] {
     border-left: 1px solid rgba($color-red-light, 0.2);
   }
   .empty-state {

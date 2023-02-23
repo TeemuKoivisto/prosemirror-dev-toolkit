@@ -171,6 +171,28 @@ exports[`applyDevTools > should mount and unmount dev-toolkit 2`] = `
 </body>
 `;
 
+exports[`applyDevTools > should mount dev-toolkit as a web component 1`] = `
+<body>
+  <div
+    class="ProseMirror"
+    contenteditable="true"
+    id="pm-editor"
+    translate="no"
+  >
+    <p>
+      <br
+        class="ProseMirror-trailingBreak"
+      />
+    </p>
+  </div>
+  <div
+    class="__prosemirror-dev-toolkit__"
+  >
+    <prosemirror-dev-toolkit />
+  </div>
+</body>
+`;
+
 exports[`applyDevTools > should not crash when transactions are prevented by filterTransaction 1`] = `
 <body>
   <div

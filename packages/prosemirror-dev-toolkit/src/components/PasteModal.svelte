@@ -54,7 +54,6 @@
     height: 100%;
     justify-content: center;
     padding: 64px;
-    width: 100%;
   }
   .modal-bg {
     background: #000;
@@ -79,7 +78,7 @@
     cursor: pointer;
     padding: 4px 8px;
     position: absolute;
-    right: 0;
+    right: -6px;
     top: -32px;
   }
   legend {
@@ -87,7 +86,7 @@
   }
   textarea {
     background: #fefcfc;
-    height: 100%;
+    height: calc(100vh - 128px);
     width: 100%;
   }
 </style>
