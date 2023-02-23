@@ -1,6 +1,7 @@
-export function clickOutside(node: HTMLElement, cb: () => void) {
-  const onClick = (event: MouseEvent) =>
-    node && !node.contains(event.target as HTMLElement) && !event.defaultPrevented && cb()
+export function clickOutside(el: HTMLElement, onClickOutside: () => void) {
+  const onClick = (event: MouseEvent) => {
+    el && !event.composedPath().includes(el) && !event.defaultPrevented && onClickOutside()
+  }
 
   document.addEventListener('click', onClick, true)
 

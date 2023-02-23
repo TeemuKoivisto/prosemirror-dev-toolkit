@@ -218,7 +218,7 @@ describe('# Snapshots tab', () => {
     // No snapshots
     cy.devTools().find('.right-panel li').should('have.length', 0)
     // Open modal
-    cy.devTools().find('button').contains('Paste').click()
+    cy.devTools().contains('Paste').click()
 
     // Try adding a broken snapshot
     cy.devTools().find('.paste-modal textarea').type('hello', { force: true })
@@ -243,7 +243,7 @@ describe('# Snapshots tab', () => {
     cy.devTools()
       .find('.paste-modal textarea')
       .clear()
-      .type(JSON.stringify(snapshot1), { parseSpecialCharSequences: false })
+      .type(JSON.stringify(snapshot1), { parseSpecialCharSequences: false, force: true })
     cy.devTools().find('.paste-modal').should('not.be.hidden')
 
     // Close the modal by clicking outside the form

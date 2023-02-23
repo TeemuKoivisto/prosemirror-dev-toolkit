@@ -78,7 +78,7 @@
     cursor: pointer;
     padding: 4px 8px;
     position: absolute;
-    right: 0;
+    right: -6px;
     top: -32px;
   }
   legend {
