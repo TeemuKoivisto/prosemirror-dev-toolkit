@@ -1,5 +1,11 @@
 # prosemirror-dev-toolkit
 
+## 1.1.1
+
+### Patch Changes
+
+- 0f629e4: fix: wonky centering of DocNode button text
+
 ## 1.1.0
 
 ### Minor Changes

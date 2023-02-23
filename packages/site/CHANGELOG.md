@@ -1,5 +1,12 @@
 # site
 
+## 0.0.8
+
+### Patch Changes
+
+- Updated dependencies [0f629e4]
+  - prosemirror-dev-toolkit@1.1.1
+
 ## 0.0.7
 
 ### Patch Changes
