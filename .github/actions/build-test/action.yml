@@ -18,7 +18,7 @@ runs:
       id: cypress
       uses: cypress-io/github-action@v2
       with:
-        install: false # Don't install Cypress again
+        install: true # Don't install Cypress again
         cache-key: ${{ runner.os }}-node-${{ matrix.node-version }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
         command: pnpm --filter prosemirror-dev-toolkit test:e2e
         start: pnpm --filter site dev
