@@ -1,5 +1,14 @@
 # extension
 
+## 1.0.3
+
+### Patch Changes
+
+- e9a2c33: feat: search iframes as well for ProseMirror instances
+- b885989: fix: actually persist extension state to storage
+- Updated dependencies [55a651c]
+  - prosemirror-dev-toolkit@1.1.0
+
 ## 1.0.2
 
 ### Patch Changes
