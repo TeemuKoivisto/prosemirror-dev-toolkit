@@ -11,19 +11,31 @@ describe('# Structure tab', () => {
 
   it('Should show the DocView of the current and doc and Node info', () => {
     cy.devTools().find('ul.tabs-menu li button').contains('STRUCTURE').click()
-    cy.get('.floating-dock h2').includesStringCount('Current doc').should('equal', 1)
-    cy.get('.floating-dock h2').includesStringCount('Node info').should('equal', 1)
+    cy.devTools().find('.floating-dock h2').includesStringCount('Current doc').should('equal', 1)
+    cy.devTools().find('.floating-dock h2').includesStringCount('Node info').should('equal', 1)
 
     // 6 tree-view nodes should be visible in the 'Node info' panel
-    cy.get('.svelte-tree-view').eq(0).find('li').should('have.length', 6)
-    cy.get('li').contains('type:').parent().find('div.node-value').should('have.text', '"doc"')
+    cy.devTools().find('.svelte-tree-view').eq(0).find('li').should('have.length', 6)
+    cy.devTools()
+      .find('li')
+      .contains('type:')
+      .parent()
+      .find('div.node-value')
+      .should('have.text', '"doc"')
     // There should be 2 nodes in the left panel's DocView
-    cy.get('.left-panel').find('.doc-node').should('have.length', 2)
+    cy.devTools().find('.left-panel').find('.doc-node').should('have.length', 2)
     // The doc node should show 4 as its size
-    cy.get('button').contains('doc').parent().find('.number-box').eq(1).should('have.text', '4')
-    cy.get('button').contains('paragraph').click()
+    cy.devTools()
+      .find('button')
+      .contains('doc')
+      .parent()
+      .find('.number-box')
+      .eq(1)
+      .should('have.text', '4')
+    cy.devTools().find('button').contains('paragraph').click()
     // Clicking paragraph node should have changed the right panel's Node info
-    cy.get('li')
+    cy.devTools()
+      .find('li')
       .contains('type:')
       .parent()
       .find('div.node-value')
@@ -41,15 +53,23 @@ describe('# Structure tab', () => {
       view.dispatch(tr)
     })
 
-    cy.get('.left-panel').find('.doc-node').should('have.length', 4)
-    cy.get('button').contains('doc').parent().find('.number-box').eq(1).should('have.text', '15')
-    cy.get('button').contains('text - [bold]').should('have.length', 1)
+    cy.devTools().find('.left-panel').find('.doc-node').should('have.length', 4)
+    cy.devTools()
+      .find('button')
+      .contains('doc')
+      .parent()
+      .find('.number-box')
+      .eq(1)
+      .should('have.text', '15')
+    cy.devTools().find('button').contains('text - [bold]').should('have.length', 1)
 
-    cy.get('.floating-dock').toMatchImageSnapshot({
-      imageConfig: {
-        threshold: 0.1
-      }
-    })
+    cy.devTools()
+      .find('.floating-dock')
+      .toMatchImageSnapshot({
+        imageConfig: {
+          threshold: 0.1
+        }
+      })
   })
 
   it('Should show the DocView of the current and doc and Node info', () => {
@@ -64,11 +84,10 @@ describe('# Structure tab', () => {
     cy.devTools().find('ul.tabs-menu li button').contains('STRUCTURE').click()
 
     // Click the LOG button in the node info
-    cy.get('.right-panel button').contains('Log', { matchCase: false }).click()
-    cy.get('@consoleInfo').should(
-      'be.calledWith',
-      '%c [prosemirror-dev-toolkit]: Property added to window._node'
-    )
+    cy.devTools().find('.right-panel button').contains('Log', { matchCase: false }).click()
+    cy.devTools()
+      .find('@consoleInfo')
+      .should('be.calledWith', '%c [prosemirror-dev-toolkit]: Property added to window._node')
     cy.window().then(window => {
       const { _node } = window
       const spy = window.console.log as Cypress.Agent<Sinon.SinonSpy>
@@ -82,12 +101,11 @@ describe('# Structure tab', () => {
     // doesn't update fast enough which would be weird.
     cy.pmInsParagraphBolded(TEST_TEXT).wait(100)
 
-    cy.get('.left-panel button').contains('doc', { matchCase: false }).click()
-    cy.get('.right-panel button').contains('Log', { matchCase: false }).click()
-    cy.get('@consoleInfo').should(
-      'be.calledWith',
-      '%c [prosemirror-dev-toolkit]: Property added to window._node'
-    )
+    cy.devTools().find('.left-panel button').contains('doc', { matchCase: false }).click()
+    cy.devTools().find('.right-panel button').contains('Log', { matchCase: false }).click()
+    cy.devTools()
+      .find('@consoleInfo')
+      .should('be.calledWith', '%c [prosemirror-dev-toolkit]: Property added to window._node')
     cy.window().then(window => {
       const { _node } = window
       const spy = window.console.log as Cypress.Agent<Sinon.SinonSpy>
@@ -96,6 +114,6 @@ describe('# Structure tab', () => {
       expect(JSON.stringify(doc)).to.be.eq(JSON.stringify(snapshot1))
       expect(JSON.stringify(_node.node.toJSON())).to.be.eq(JSON.stringify(snapshot1))
     })
-    cy.get('@consoleError').should('be.callCount', 0)
+    cy.devTools().find('@consoleError').should('be.callCount', 0)
   })
 })

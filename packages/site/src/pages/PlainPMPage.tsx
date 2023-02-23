@@ -6,14 +6,11 @@ import { useEditor } from 'pm/useEditor'
 
 export function PlainPMPage() {
   const editorDOMRef = useRef<HTMLDivElement | null>(null)
-  const editorViewRef = useEditor(editorDOMRef)
-  useMemo(() => {
-    if (editorViewRef.current) {
-      applyDevToolkit(editorViewRef.current, {
-        devToolsExpanded: true
-      })
-    }
-  }, [editorViewRef])
+  useEditor(editorDOMRef, view => {
+    applyDevToolkit(view, {
+      devToolsExpanded: true
+    })
+  })
 
   return (
     <Container>

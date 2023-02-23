@@ -5,7 +5,10 @@ import { exampleSetup } from 'prosemirror-example-setup'
 
 import { schema } from 'pm/schema'
 
-export function useEditor(editorDOMRef: React.MutableRefObject<HTMLElement | null>) {
+export function useEditor(
+  editorDOMRef: React.MutableRefObject<HTMLElement | null>,
+  cb?: (view: EditorView) => void
+) {
   const editorViewRef = useRef<EditorView | null>(null)
 
   useLayoutEffect(() => {
@@ -21,11 +24,10 @@ export function useEditor(editorDOMRef: React.MutableRefObject<HTMLElement | nul
           state
         }
       )
+      cb && cb(editorViewRef.current)
     }
     return () => {
       editorViewRef.current?.destroy()
     }
   }, [])
-
-  return editorViewRef
 }
