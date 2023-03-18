@@ -1,5 +1,11 @@
 # prosemirror-dev-toolkit
 
+## 1.1.2
+
+### Patch Changes
+
+- 9e01617: feat: add pmCmd to window to make life easier
+
 ## 1.1.1
 
 ### Patch Changes
