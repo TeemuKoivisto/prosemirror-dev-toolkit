@@ -9,7 +9,8 @@ import { resetHistory } from './stores/stateHistory'
 import { createOrFindPlace } from './createOrFindPlace'
 import { ProseMirrorDevToolkit } from './ProseMirrorDevToolkit'
 
-import { DevToolsOpts } from './types'
+import type { Command } from './typings/pm'
+import type { DevToolsOpts } from './types'
 
 // Register the fancy web component wrapper
 customElements.define('prosemirror-dev-toolkit', ProseMirrorDevToolkit)
@@ -58,8 +59,15 @@ export function applyDevTools(view: EditorView, opts: DevToolsOpts = {}) {
     place.appendChild(newTools)
   }
 
-  // Also add view to the window for testing and other debugging
-  if (typeof window !== 'undefined') window.editorView = view
+  if (typeof window !== 'undefined') {
+    // Add editorView to the window for testing and debugging purposes
+    window.editorView = view
+    // Also a helper method to execute commands
+    window.pmCmd = (cmd: Command) => {
+      const state = view.state
+      return cmd(state, view.dispatch, view)
+    }
+  }
 
   // Bind the component's life-cycle to the editorView to automatically unmount the devTools
   const oldDestroyFn = view.destroy.bind(view)

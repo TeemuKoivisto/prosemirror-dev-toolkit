@@ -6,7 +6,7 @@ Unlike React, Svelte compiles directly to JS without having to bundle a runtime 
 
 ## [Also as a Chrome extension 🚀](https://chrome.google.com/webstore/detail/prosemirror-developer-too/gkgbmhfgcpfnogoeclbaiencdjkefonj)
 
-This is a big improvement as you no longer have to bundle `prosemirror-dev-toolkit` with your dependencies (and filter it out for production build). Also, it allows you to inspect _any_ live editor. It is basically the `inject.js` script packaged into its own extension.
+This is a big improvement as you no longer have to bundle `prosemirror-dev-toolkit` with your dependencies (and filter it out for production build). Also, it allows you to inspect _any_ live editor. It's basically the `inject.js` script packaged into its own extension.
 
 ## [Demo](https://teemukoivisto.github.io/prosemirror-dev-toolkit/)
 
@@ -46,10 +46,12 @@ interface DevToolsOpts {
 }
 declare function applyDevTools(view: EditorView, opts?: DevToolsOpts): void
 declare function removeDevTools(): void
+
 declare global {
   interface Window {
     applyDevTools: typeof applyDevTools
     editorView?: EditorView
+    pmCmd?: (cmd: Command) => void
     _node?: { node: PMNode; pos: number }
     _doc?: {
       [key: string]: any
