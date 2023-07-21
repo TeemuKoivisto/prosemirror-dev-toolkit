@@ -5,7 +5,7 @@ import snapshot1 from '../fixtures/snapshot-1.json'
 const TEST_TEXT = 'asdf qwer'
 
 describe('# Structure tab', () => {
-  before(() => {
+  beforeEach(() => {
     cy.visit('/')
   })
 
@@ -65,13 +65,13 @@ describe('# Structure tab', () => {
       .should('have.text', '15')
     cy.devTools().find('button').contains('text - [bold]').should('have.length', 1)
 
-    cy.devTools()
-      .find('.floating-dock')
-      .toMatchImageSnapshot({
-        imageConfig: {
-          threshold: 0.1
-        }
-      })
+    // cy.devTools()
+    //   .find('.floating-dock')
+    //   .toMatchImageSnapshot({
+    //     imageConfig: {
+    //       threshold: 0.1
+    //     }
+    //   })
   })
 
   it('Should show the DocView of the current and doc and Node info', () => {

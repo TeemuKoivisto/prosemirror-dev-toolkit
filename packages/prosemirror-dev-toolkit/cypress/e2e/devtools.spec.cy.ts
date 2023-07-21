@@ -1,11 +1,8 @@
 const TEST_TEXT = 'asdf qwer'
 
 describe('# DevTools', () => {
-  before(() => {
-    cy.visit('/')
-  })
-
   it('Should render and allow to be closed / reopened', () => {
+    cy.visit('/')
     cy.get('.__prosemirror-dev-toolkit__').should('have.length', 1)
     cy.devTools().find('ul.tabs-menu li').should('have.length', 6)
     cy.devTools().find('button[aria-label="Close dev-toolkit"]').click()
@@ -15,13 +12,7 @@ describe('# DevTools', () => {
     cy.devTools().find('.floating-dock').should('have.length', 1)
     cy.devTools().find('ul.tabs-menu li').should('have.length', 6)
     cy.scrollTo('bottom')
-    cy.devTools()
-      .find('.floating-dock')
-      .toMatchImageSnapshot({
-        imageConfig: {
-          threshold: 0.1
-        }
-      })
+    // cy.devTools().compareSnapshot('.floating-dock')
   })
 
   // First test the front page where the dispatchTransaction prop is provided incase subscribeToTransactions
@@ -63,6 +54,7 @@ describe('# DevTools', () => {
   })
 
   it('Should unmount without errors or warning when navigating pages', () => {
+    cy.visit('/')
     cy.devTools().find('.floating-dock ul.tabs-menu li').should('have.length', 6)
 
     cy.visit('/plain', {

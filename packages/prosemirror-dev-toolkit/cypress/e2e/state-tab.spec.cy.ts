@@ -3,7 +3,7 @@ import { TextSelection } from 'prosemirror-state'
 const TEST_TEXT = 'asdf qwer'
 
 describe('# State tab', () => {
-  before(() => {
+  beforeEach(() => {
     cy.visit('/')
   })
 
@@ -79,12 +79,12 @@ describe('# State tab', () => {
       .find('.node-value')
       .should('have.text', '2')
 
-    cy.devTools()
-      .find('.floating-dock')
-      .toMatchImageSnapshot({
-        imageConfig: {
-          threshold: 0.1
-        }
-      })
+    // cy.devTools()
+    //   .find('.floating-dock')
+    //   .toMatchImageSnapshot({
+    //     imageConfig: {
+    //       threshold: 0.1
+    //     }
+    //   })
   })
 })

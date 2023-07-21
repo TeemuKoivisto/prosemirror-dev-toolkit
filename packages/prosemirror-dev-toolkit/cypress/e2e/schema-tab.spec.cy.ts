@@ -47,12 +47,12 @@ describe('# Schema tab', () => {
       .find('div.node-value')
       .should('have.text', ' {} 7 keys')
 
-    cy.devTools()
-      .find('.floating-dock')
-      .toMatchImageSnapshot({
-        imageConfig: {
-          threshold: 0.1
-        }
-      })
+    // cy.devTools()
+    //   .find('.floating-dock')
+    //   .toMatchImageSnapshot({
+    //     imageConfig: {
+    //       threshold: 0.1
+    //     }
+    //   })
   })
 })

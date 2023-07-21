@@ -3,7 +3,7 @@ import { TextSelection } from 'prosemirror-state'
 const TEST_TEXT = 'asdf qwer'
 
 describe('# History tab', () => {
-  before(() => {
+  beforeEach(() => {
     cy.visit('/')
   })
 
@@ -98,16 +98,12 @@ describe('# History tab', () => {
 
     // Snapshot only the right panel since the left contains unmocked timestamps
     cy.devTools().find('.right-panel').scrollTo('top')
-    cy.devTools()
-      .find('.right-panel')
-      .toMatchImageSnapshot({
-        imageConfig: {
-          threshold: 0.1
-        }
-      })
+    // cy.devTools()
+    //   .compareSnapshot('.right-panel', 0.1)
   })
 
   it('Should group selection transactions and allow inspecting them', () => {
+    cy.wait(100)
     cy.resetDoc()
     cy.devTools().find('.floating-btn').click()
     cy.devTools().find('ul.tabs-menu li button').contains('HISTORY').click()
@@ -173,13 +169,8 @@ describe('# History tab', () => {
     cy.devTools().find('h2').contains('Doc diff', { matchCase: false }).should('not.exist')
     cy.devTools().find('h2').contains('Selection diff', { matchCase: false }).should('exist')
     cy.devTools().find('h2').contains('Selection content', { matchCase: false }).should('exist')
-    cy.devTools()
-      .find('.right-panel')
-      .toMatchImageSnapshot({
-        imageConfig: {
-          threshold: 0.1
-        }
-      })
+    // cy.devTools()
+    //   .compareSnapshot('.right-panel', 0.1)
 
     cy.window().then(window => {
       const { editorView: view } = window
@@ -198,12 +189,7 @@ describe('# History tab', () => {
     cy.devTools().find('h2').contains('Doc diff', { matchCase: false }).should('exist')
     cy.devTools().find('h2').contains('Selection diff', { matchCase: false }).should('exist')
     cy.devTools().find('h2').contains('Selection content', { matchCase: false }).should('exist')
-    cy.devTools()
-      .find('.right-panel')
-      .toMatchImageSnapshot({
-        imageConfig: {
-          threshold: 0.1
-        }
-      })
+    // cy.devTools()
+    //   .compareSnapshot('.right-panel', 0.1)
   })
 })

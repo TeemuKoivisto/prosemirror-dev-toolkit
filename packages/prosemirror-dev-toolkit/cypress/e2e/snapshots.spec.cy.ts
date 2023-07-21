@@ -11,7 +11,7 @@ const downloadsFolder = Cypress.config('downloadsFolder')
 const getDownloaded = (file: string) => join(downloadsFolder, file)
 
 describe('# Snapshots tab', () => {
-  before(() => {
+  beforeEach(() => {
     cy.visit('/')
   })
 
@@ -83,7 +83,9 @@ describe('# Snapshots tab', () => {
       cy.readFile(getDownloaded(`${TEST_SNAPSHOT_CHANGED}.json`)).should('deep.equal', snapshot1)
 
       // Upload the snapshot
-      cy.devTools().find('.floating-dock input[type="file"]').attachFile('snapshot-1.json')
+      cy.devTools()
+        .find('.floating-dock input[type="file"]')
+        .selectFile('./cypress/fixtures/snapshot-1.json', { force: true })
       cy.devTools().find('.right-panel li').should('have.length', 2)
 
       // Reset the devTools to see that the snapshots were persisted and contain the old doc
@@ -135,12 +137,14 @@ describe('# Snapshots tab', () => {
       .contains('Save snapshots by clicking "Save" button.')
       .should('exist')
 
-    cy.devTools().find('.floating-dock input[type="file"]').attachFile('snapshot-broken')
+    cy.devTools()
+      .find('.floating-dock input[type="file"]')
+      .selectFile('./cypress/fixtures/snapshot-broken', { force: true })
     cy.devTools().find('.right-panel li').should('have.length', 0)
 
     cy.devTools()
       .find('.floating-dock input[type="file"]')
-      .attachFile('snapshot-incompatible.json')
+      .selectFile('./cypress/fixtures/snapshot-incompatible.json', { force: true })
       .wait(100)
     cy.devTools().find('.right-panel li').should('have.length', 0)
 

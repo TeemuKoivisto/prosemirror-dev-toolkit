@@ -16,18 +16,31 @@ runs:
 
     - name: Run tests with Cypress
       id: cypress
-      uses: cypress-io/github-action@v2
+      uses: cypress-io/github-action@v5
       with:
-        install: false # Don't install Cypress again https://github.com/cypress-io/github-action/issues/377
+        browser: chrome
         cache-key: ${{ runner.os }}-node-${{ matrix.node-version }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
         command: pnpm --filter prosemirror-dev-toolkit test:e2e
-        start: pnpm --filter site dev
-        wait-on: http://[::1]:3300/ # https://github.com/cypress-io/github-action/issues/634
-        project: ./packages/prosemirror-dev-toolkit
-        browser: chrome
+        install: false
         quiet: false
-      env:
-        SKIP_PREFLIGHT_CHECK: true
+        start: pnpm --filter site dev --host
+        wait-on: http://localhost:3300
+        working-directory: ./packages/prosemirror-dev-toolkit
+
+    # - name: Run tests with Cypress
+    #   id: cypress
+    #   uses: cypress-io/github-action@v2
+    #   with:
+    #     install: false # Don't install Cypress again https://github.com/cypress-io/github-action/issues/377
+    #     cache-key: ${{ runner.os }}-node-${{ matrix.node-version }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+    #     command: pnpm --filter prosemirror-dev-toolkit test:e2e
+    #     start: pnpm --filter site dev
+    #     wait-on: http://[::1]:3300/ # https://github.com/cypress-io/github-action/issues/634
+    #     project: ./packages/prosemirror-dev-toolkit
+    #     browser: chrome
+    #     quiet: false
+    #   env:
+    #     SKIP_PREFLIGHT_CHECK: true
 
     - name: Export screenshots (on failure only)
       uses: actions/upload-artifact@v3

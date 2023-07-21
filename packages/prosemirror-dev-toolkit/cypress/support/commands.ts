@@ -7,6 +7,10 @@
 // commands please read more here:
 // https://on.cypress.io/custom-commands
 // ***********************************************
+// import { toMatchSnapshot, toMatchImageSnapshot } from 'cypress-plugin-snapshots/src/commands'
+import compareSnapshotCommand from 'cypress-image-diff-js/dist/command'
+
+compareSnapshotCommand()
 
 Cypress.Commands.add('interrupt', () => {
   eval("window.top.document.body.querySelector('header button.stop').click()")

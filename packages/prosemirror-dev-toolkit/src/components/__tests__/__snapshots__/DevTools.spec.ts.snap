@@ -1,4 +1,4 @@
-// Vitest Snapshot v1
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`DevTools.svelte > should open by clicking the floating button 1`] = `
 <body>
@@ -64,6 +64,8 @@ exports[`DevTools.svelte > should open by clicking the floating button 1`] = `
         >
           <div
             class="resizing-div s-FloatingDock-1qe2796"
+            role="button"
+            tabindex="-1"
           />
            
           <div
@@ -268,6 +270,8 @@ exports[`DevTools.svelte > should render 1`] = `
         >
           <div
             class="resizing-div s-FloatingDock-1qe2796"
+            role="button"
+            tabindex="-1"
           />
            
           <div
@@ -398,7 +402,7 @@ exports[`DevTools.svelte > should render 1`] = `
                   </h2>
                    
                   <button
-                    class="s-Button-ss8iwa"
+                    class=" s-Button-ss8iwa"
                   >
                     log
                   </button>
