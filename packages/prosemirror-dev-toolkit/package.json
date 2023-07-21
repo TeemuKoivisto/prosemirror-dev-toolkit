@@ -44,8 +44,6 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/svelte": "^4.0.3",
     "cypress": "12.17.2",
-    "cypress-image-diff-js": "^1.26.0",
-    "cypress-plugin-snapshots": "1.4.4",
     "jsdom": "^22.1.0",
     "jsondiffpatch": "^0.4.1",
     "postcss": "^8.4.26",
@@ -69,11 +67,7 @@
     "vitest": "^0.33.0"
   },
   "dependencies": {
-    "@types/pixelmatch": "^5.2.4",
-    "@types/pngjs": "^6.0.1",
     "html": "^1.0.0",
-    "pixelmatch": "^5.3.0",
-    "pngjs": "^7.0.0",
     "prosemirror-model": "^1.19.3",
     "svelte-tree-view": "^1.4.1"
   },
