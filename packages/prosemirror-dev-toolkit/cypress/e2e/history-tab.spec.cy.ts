@@ -99,6 +99,15 @@ describe('# History tab', () => {
     // Snapshot only the right panel since the left contains unmocked timestamps
     cy.devTools().find('.right-panel').scrollTo('top')
     // cy.devTools().compareSnapshot('.right-panel', 0.1)
+    cy.devTools()
+      .find('.right-panel')
+      .matchImage({
+        maxDiffThreshold: 0,
+        diffConfig: {
+          threshold: 0.0001,
+          alpha: 0.2
+        }
+      })
   })
 
   it('Should group selection transactions and allow inspecting them', () => {
@@ -168,8 +177,17 @@ describe('# History tab', () => {
     cy.devTools().find('h2').contains('Doc diff', { matchCase: false }).should('not.exist')
     cy.devTools().find('h2').contains('Selection diff', { matchCase: false }).should('exist')
     cy.devTools().find('h2').contains('Selection content', { matchCase: false }).should('exist')
-    cy.wait(500)
+    // cy.wait(500)
     // cy.devTools().compareSnapshot('.right-panel', 0.1)
+    cy.devTools()
+      .find('.right-panel')
+      .matchImage({
+        maxDiffThreshold: 0,
+        diffConfig: {
+          threshold: 0.0001,
+          alpha: 0.2
+        }
+      })
 
     cy.window().then(window => {
       const { editorView: view } = window
@@ -188,7 +206,16 @@ describe('# History tab', () => {
     cy.devTools().find('h2').contains('Doc diff', { matchCase: false }).should('exist')
     cy.devTools().find('h2').contains('Selection diff', { matchCase: false }).should('exist')
     cy.devTools().find('h2').contains('Selection content', { matchCase: false }).should('exist')
-    cy.wait(500)
-    cy.devTools().compareSnapshot('.right-panel', 0.1)
+    // cy.wait(500)
+    // cy.devTools().compareSnapshot('.right-panel', 0.1)
+    cy.devTools()
+      .find('.right-panel')
+      .matchImage({
+        maxDiffThreshold: 0,
+        diffConfig: {
+          threshold: 0.0001,
+          alpha: 0.2
+        }
+      })
   })
 })

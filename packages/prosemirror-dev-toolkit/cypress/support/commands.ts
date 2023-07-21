@@ -9,6 +9,7 @@
 // ***********************************************
 // import { toMatchSnapshot, toMatchImageSnapshot } from 'cypress-plugin-snapshots/src/commands'
 import compareSnapshotCommand from 'cypress-image-diff-js/dist/command'
+import '@frsource/cypress-plugin-visual-regression-diff'
 
 compareSnapshotCommand()
 

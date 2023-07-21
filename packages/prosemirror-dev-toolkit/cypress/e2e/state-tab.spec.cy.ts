@@ -79,6 +79,15 @@ describe('# State tab', () => {
       .find('.node-value')
       .should('have.text', '2')
 
+    cy.devTools()
+      .find('.floating-dock')
+      .matchImage({
+        maxDiffThreshold: 0,
+        diffConfig: {
+          threshold: 0.0001,
+          alpha: 0.2
+        }
+      })
     // cy.devTools()
     //   .find('.floating-dock')
     //   .toMatchImageSnapshot({

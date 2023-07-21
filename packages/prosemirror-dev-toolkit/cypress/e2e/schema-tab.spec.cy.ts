@@ -47,6 +47,15 @@ describe('# Schema tab', () => {
       .find('div.node-value')
       .should('have.text', ' {} 7 keys')
 
+    cy.devTools()
+      .find('.floating-dock')
+      .matchImage({
+        maxDiffThreshold: 0,
+        diffConfig: {
+          threshold: 0.0001,
+          alpha: 0.2
+        }
+      })
     // cy.devTools()
     //   .find('.floating-dock')
     //   .toMatchImageSnapshot({

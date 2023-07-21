@@ -12,7 +12,17 @@ describe('# DevTools', () => {
     cy.devTools().find('.floating-dock').should('have.length', 1)
     cy.devTools().find('ul.tabs-menu li').should('have.length', 6)
     cy.scrollTo('bottom')
-    cy.devTools().compareSnapshot('.floating-dock', 0.1)
+    // cy.devTools().compareSnapshot('.floating-dock', 0.1)
+    // cy.devTools().find('.floating-dock').matchImage()
+    cy.devTools()
+      .find('.floating-dock')
+      .matchImage({
+        maxDiffThreshold: 0,
+        diffConfig: {
+          threshold: 0.0001,
+          alpha: 0.2
+        }
+      })
   })
 
   // First test the front page where the dispatchTransaction prop is provided incase subscribeToTransactions

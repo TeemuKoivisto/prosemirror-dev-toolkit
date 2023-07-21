@@ -72,6 +72,15 @@ describe('# Structure tab', () => {
     //       threshold: 0.1
     //     }
     //   })
+    cy.devTools()
+      .find('.floating-dock')
+      .matchImage({
+        maxDiffThreshold: 0,
+        diffConfig: {
+          threshold: 0.0001,
+          alpha: 0.2
+        }
+      })
   })
 
   it('Should show the DocView of the current and doc and Node info', () => {
