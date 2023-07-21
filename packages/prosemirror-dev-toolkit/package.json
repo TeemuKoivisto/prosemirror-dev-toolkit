@@ -43,7 +43,6 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/svelte": "^4.0.3",
     "cypress": "12.17.2",
-    "cypress-file-upload": "5.0.8",
     "cypress-image-diff-js": "^1.26.0",
     "cypress-plugin-snapshots": "1.4.4",
     "jsdom": "^22.1.0",
