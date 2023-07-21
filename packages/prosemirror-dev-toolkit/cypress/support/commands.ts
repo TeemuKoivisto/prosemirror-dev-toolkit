@@ -7,7 +7,6 @@
 // commands please read more here:
 // https://on.cypress.io/custom-commands
 // ***********************************************
-// import { toMatchSnapshot, toMatchImageSnapshot } from 'cypress-plugin-snapshots/src/commands'
 import '@frsource/cypress-plugin-visual-regression-diff'
 
 Cypress.Commands.add('interrupt', () => {

@@ -12,29 +12,26 @@
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 
-import { initPlugin } from 'cypress-plugin-snapshots/plugin'
-
 let shouldSkip = false
 
 /**
  * @type {Cypress.PluginConfig}
  */
 export default (on: Cypress.PluginEvents, config: Cypress.PluginConfigOptions) => {
-  initPlugin(on, config)
-  on('task', {
-    resetShouldSkipFlag() {
-      shouldSkip = false
-      return null
-    },
-    shouldSkip(value) {
-      if (value != null) shouldSkip = value
-      return shouldSkip
-    }
-  })
-  on('before:browser:launch', (browser, launchOptions) => {
-    if (browser.family === 'chromium' && browser.name !== 'electron') {
-      launchOptions.args.push('--hide-scrollbars')
-    }
-    return launchOptions
-  })
+  // on('task', {
+  //   resetShouldSkipFlag() {
+  //     shouldSkip = false
+  //     return null
+  //   },
+  //   shouldSkip(value) {
+  //     if (value != null) shouldSkip = value
+  //     return shouldSkip
+  //   }
+  // })
+  // on('before:browser:launch', (browser, launchOptions) => {
+  //   if (browser.family === 'chromium' && browser.name !== 'electron') {
+  //     launchOptions.args.push('--hide-scrollbars')
+  //   }
+  //   return launchOptions
+  // })
 }
