@@ -91,12 +91,5 @@ describe('# State tab', () => {
           alpha: 0.2
         }
       })
-    // cy.devTools()
-    //   .find('.floating-dock')
-    //   .toMatchImageSnapshot({
-    //     imageConfig: {
-    //       threshold: 0.1
-    //     }
-    //   })
   })
 })

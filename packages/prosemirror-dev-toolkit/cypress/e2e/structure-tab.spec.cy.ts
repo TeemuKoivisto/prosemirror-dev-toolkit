@@ -65,13 +65,6 @@ describe('# Structure tab', () => {
       .should('have.text', '15')
     cy.devTools().find('button').contains('text - [bold]').should('have.length', 1)
 
-    // cy.devTools()
-    //   .find('.floating-dock')
-    //   .toMatchImageSnapshot({
-    //     imageConfig: {
-    //       threshold: 0.1
-    //     }
-    //   })
     cy.devTools()
       .find('.floating-dock')
       .matchImage({

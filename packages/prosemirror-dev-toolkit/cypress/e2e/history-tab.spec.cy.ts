@@ -177,8 +177,6 @@ describe('# History tab', () => {
     cy.devTools().find('h2').contains('Doc diff', { matchCase: false }).should('not.exist')
     cy.devTools().find('h2').contains('Selection diff', { matchCase: false }).should('exist')
     cy.devTools().find('h2').contains('Selection content', { matchCase: false }).should('exist')
-    // cy.wait(500)
-    // cy.devTools().compareSnapshot('.right-panel', 0.1)
     cy.devTools()
       .find('.right-panel')
       .matchImage({
@@ -206,8 +204,6 @@ describe('# History tab', () => {
     cy.devTools().find('h2').contains('Doc diff', { matchCase: false }).should('exist')
     cy.devTools().find('h2').contains('Selection diff', { matchCase: false }).should('exist')
     cy.devTools().find('h2').contains('Selection content', { matchCase: false }).should('exist')
-    // cy.wait(500)
-    // cy.devTools().compareSnapshot('.right-panel', 0.1)
     cy.devTools()
       .find('.right-panel')
       .matchImage({
