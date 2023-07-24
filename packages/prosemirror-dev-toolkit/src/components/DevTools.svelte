@@ -94,5 +94,10 @@
     :global(.svelte-tree-view *) {
       box-sizing: border-box;
     }
+
+    :global(.hidden) {
+      opacity: 0;
+      visibility: hidden;
+    }
   }
 </style>

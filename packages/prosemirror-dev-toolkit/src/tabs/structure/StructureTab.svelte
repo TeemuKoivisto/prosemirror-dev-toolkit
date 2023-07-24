@@ -115,10 +115,6 @@
 </SplitView>
 
 <style lang="scss">
-  :global(.hidden) {
-    display: none;
-    visibility: hidden;
-  }
   .top-row {
     align-items: center;
     display: flex;
@@ -131,6 +127,6 @@
     width: 220px;
   }
   :global(.split-view .m-top) {
-    margin-top: 0.5em;
+    margin-top: 0.75em;
   }
 </style>

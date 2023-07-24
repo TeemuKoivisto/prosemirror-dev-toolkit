@@ -16,42 +16,42 @@ exports[`DevTools.svelte > should open by clicking the floating button 1`] = `
   </div>
   <div>
     <section
-      class="dev-tools s-DevTools-1i48m5n"
+      class="dev-tools s-DevTools-1sycwr"
     >
       <div
         class="floating-dock-wrapper s-FloatingDock-1qe2796"
       >
         <div
-          class="paste-modal s-PasteModal-1o9ua2q hidden"
+          class="paste-modal s-PasteModal-1ack7il hidden"
         >
           <div
-            class="modal-bg s-PasteModal-1o9ua2q"
+            class="modal-bg s-PasteModal-1ack7il"
           />
            
           <form
-            class="paste-content s-PasteModal-1o9ua2q"
+            class="paste-content s-PasteModal-1ack7il"
           >
             <fieldset
-              class="s-PasteModal-1o9ua2q"
+              class="s-PasteModal-1ack7il"
             >
               <div
-                class="submit-container s-PasteModal-1o9ua2q"
+                class="submit-container s-PasteModal-1ack7il"
               >
                 <button
-                  class="s-PasteModal-1o9ua2q"
+                  class="s-PasteModal-1ack7il"
                 >
                   Submit
                 </button>
               </div>
                
               <legend
-                class="s-PasteModal-1o9ua2q"
+                class="s-PasteModal-1ack7il"
               >
                 Doc
               </legend>
                
               <textarea
-                class="s-PasteModal-1o9ua2q"
+                class="s-PasteModal-1ack7il"
               />
             </fieldset>
           </form>
@@ -222,42 +222,42 @@ exports[`DevTools.svelte > should render 1`] = `
   </div>
   <div>
     <section
-      class="dev-tools s-DevTools-1i48m5n"
+      class="dev-tools s-DevTools-1sycwr"
     >
       <div
         class="floating-dock-wrapper s-FloatingDock-1qe2796"
       >
         <div
-          class="paste-modal s-PasteModal-1o9ua2q hidden"
+          class="paste-modal s-PasteModal-1ack7il hidden"
         >
           <div
-            class="modal-bg s-PasteModal-1o9ua2q"
+            class="modal-bg s-PasteModal-1ack7il"
           />
            
           <form
-            class="paste-content s-PasteModal-1o9ua2q"
+            class="paste-content s-PasteModal-1ack7il"
           >
             <fieldset
-              class="s-PasteModal-1o9ua2q"
+              class="s-PasteModal-1ack7il"
             >
               <div
-                class="submit-container s-PasteModal-1o9ua2q"
+                class="submit-container s-PasteModal-1ack7il"
               >
                 <button
-                  class="s-PasteModal-1o9ua2q"
+                  class="s-PasteModal-1ack7il"
                 >
                   Submit
                 </button>
               </div>
                
               <legend
-                class="s-PasteModal-1o9ua2q"
+                class="s-PasteModal-1ack7il"
               >
                 Doc
               </legend>
                
               <textarea
-                class="s-PasteModal-1o9ua2q"
+                class="s-PasteModal-1ack7il"
               />
             </fieldset>
           </form>
@@ -389,20 +389,20 @@ exports[`DevTools.svelte > should render 1`] = `
               class="split-view s-SplitView-a1ijfy"
             >
               <div
-                class="left-panel s-StateTab-11ggucv"
+                class="left-panel s-StateTab-uldz05"
                 slot="left"
               >
                 <div
-                  class="top-row s-StateTab-11ggucv"
+                  class="top-row s-StateTab-uldz05"
                 >
                   <h2
-                    class="s-StateTab-11ggucv"
+                    class="s-StateTab-uldz05"
                   >
                     Current doc
                   </h2>
                    
                   <button
-                    class=" s-Button-tk0d5q"
+                    class=" s-Button-boh1gq"
                   >
                     log
                   </button>
@@ -502,23 +502,23 @@ exports[`DevTools.svelte > should render 1`] = `
               </div>
                
               <div
-                class="right-panel s-StateTab-11ggucv"
+                class="right-panel s-StateTab-uldz05"
                 slot="right"
               >
                 <div
-                  class="top-row s-StateTab-11ggucv"
+                  class="top-row s-StateTab-uldz05"
                 >
                   <h2
-                    class="s-StateTab-11ggucv"
+                    class="s-StateTab-uldz05"
                   >
                     Selection
                   </h2>
                    
                   <button
-                    class="selection-btn s-Button-tk0d5q"
+                    class="selection-btn s-Button-boh1gq"
                   >
                     <span
-                      class="caret-icon s-StateTab-11ggucv"
+                      class="caret-icon s-StateTab-uldz05"
                     />
                   </button>
                   <!--&lt;Button&gt;-->
@@ -711,26 +711,26 @@ exports[`DevTools.svelte > should render 1`] = `
                 <!--&lt;TreeView&gt;-->
                  
                 <div
-                  class="s-StateTab-11ggucv"
+                  class="s-StateTab-uldz05"
                 >
                   <h2
-                    class="s-StateTab-11ggucv"
+                    class="s-StateTab-uldz05"
                   >
                     Active marks
                   </h2>
                    
                   <div
-                    class="no-marks s-StateTab-11ggucv"
+                    class="no-marks s-StateTab-uldz05"
                   >
                     No active marks
                   </div>
                 </div>
                  
                 <div
-                  class="s-StateTab-11ggucv"
+                  class="s-StateTab-uldz05"
                 >
                   <h2
-                    class="s-StateTab-11ggucv"
+                    class="s-StateTab-uldz05"
                   >
                     Document stats
                   </h2>
