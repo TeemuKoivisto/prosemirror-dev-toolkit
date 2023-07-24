@@ -7,6 +7,7 @@ export default defineConfig({
   e2e: {
     baseUrl: 'http://localhost:3300',
     setupNodeEvents(on, config) {
+      initPlugin(on, config)
       on('task', {
         resetShouldSkipFlag() {
           shouldSkip = false
@@ -19,11 +20,11 @@ export default defineConfig({
       })
       on('before:browser:launch', (browser, launchOptions) => {
         if (browser.family === 'chromium' && browser.name !== 'electron') {
-          launchOptions.args.push('--hide-scrollbars')
         }
-        return launchOptions
+        launchOptions.args.push('--hide-scrollbars')
+        launchOptions.args.push('--window-size=1280,800')
+        return launchOptions;
       })
-      initPlugin(on, config)
     }
   }
 })

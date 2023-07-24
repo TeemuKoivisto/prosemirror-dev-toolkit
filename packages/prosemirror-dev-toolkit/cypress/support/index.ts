@@ -63,4 +63,5 @@ before(() => {
     //  the `before` hook is executed for each spec file.
     cy.task('resetShouldSkipFlag')
   }
+  cy.viewport(1280, 800)
 })
