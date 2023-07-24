@@ -47,7 +47,10 @@ runs:
       if: failure()
       with:
         name: cypress-screenshots
-        path: ./packages/prosemirror-dev-toolkit/cypress/screenshots
+        path: |
+          ./packages/prosemirror-dev-toolkit/cypress/screenshots
+          ./packages/prosemirror-dev-toolkit/cypress/e2e/**/*.actual.png
+          ./packages/prosemirror-dev-toolkit/cypress/e2e/**/*.diff.png
         retention-days: 7
 
     - name: Export screen recordings (on failure only)
