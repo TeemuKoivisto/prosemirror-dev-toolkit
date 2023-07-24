@@ -1,6 +1,6 @@
 import openDevToolsWindow from './openWindow'
 import { storeActions } from './store'
-import type { InjectMessageMap, PopUpMessageMap } from '../types'
+import type { InjectMessage, PopUpMessage } from '../types'
 import { getCurrentTab } from './getCurrentTab'
 
 export async function listenToConnections(port: chrome.runtime.Port) {
@@ -26,10 +26,7 @@ export async function listenToConnections(port: chrome.runtime.Port) {
   // storeActions.broadcastStateUpdate(tabId)
 }
 
-async function listenPopUp<K extends keyof PopUpMessageMap>(
-  tabId: number,
-  msg: PopUpMessageMap[K]
-) {
+async function listenPopUp(tabId: number, msg: PopUpMessage) {
   if (msg.origin !== 'pop-up') {
     return
   }
@@ -63,10 +60,7 @@ async function listenPopUp<K extends keyof PopUpMessageMap>(
   }
 }
 
-async function listenInject<K extends keyof InjectMessageMap>(
-  tabId: number,
-  msg: InjectMessageMap[K]
-) {
+async function listenInject(tabId: number, msg: InjectMessage) {
   if (msg.origin !== 'inject') {
     return
   }

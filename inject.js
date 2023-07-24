@@ -33,10 +33,13 @@
     })
   }
 
+  const start = performance.now()
   const editorView =
     typeof viewOrSelector === 'string' ? await getEditorView(viewOrSelector) : viewOrSelector
 
   if (editorView) {
+    const duration = Math.round((performance.now() - start) / 100) / 10
+    console.log(`Finding EditorView took: ${duration}s`)
     fetch('https://unpkg.com/prosemirror-dev-toolkit/dist/bundle.umd.min.js')
       .then(response => response.text())
       .then(data => {

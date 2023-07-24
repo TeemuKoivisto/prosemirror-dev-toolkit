@@ -1,7 +1,7 @@
 import { applyDevTools, removeDevTools } from 'prosemirror-dev-toolkit'
 import type { EditorView } from 'prosemirror-view'
 
-import type { InjectMessageMap, InjectState, InjectStatus, SWMessageMap } from './types'
+import type { InjectMessage, InjectState, InjectStatus, SWMessage } from './types'
 
 const MAX_ATTEMPTS = 10
 
@@ -41,7 +41,7 @@ function getEditorView(el: HTMLElement): Promise<EditorView> {
       childWithSelectNode.pmViewDesc?.selectNode()
       childWithSelectNode.pmViewDesc?.deselectNode()
     }
-  }, 1)
+  }, 100)
 
   return new Promise((res, rej) => {
     if (childWithSelectNode === undefined || !el.pmViewDesc) {
@@ -57,7 +57,7 @@ function getEditorView(el: HTMLElement): Promise<EditorView> {
     }
     setTimeout(() => {
       rej('Unable to trigger childWithSelectNode.pmViewDesc.selectNode')
-    }, 1000)
+    }, 5000)
   })
 }
 
@@ -74,7 +74,7 @@ async function tryQueryIframe(iframe: HTMLIFrameElement, selector: string) {
     const doc = iframe.contentDocument
     if (!doc) return []
     let tries = 0
-    while (doc?.readyState === 'loading' || tries < 5) {
+    while (doc?.readyState === 'loading' && tries < 5) {
       await sleep(500)
       tries += 1
     }
@@ -167,11 +167,11 @@ function shouldRerun(oldState: InjectState, newState: InjectState) {
   )
 }
 
-function send<K extends keyof InjectMessageMap>(type: K, data: InjectMessageMap[K]['data']) {
+function send<K extends InjectMessage['type']>(type: K, data: InjectMessage['data']) {
   window.postMessage({ source: 'pm-dev-tools', origin: 'inject', type, data })
 }
 
-async function handleMessages<K extends keyof SWMessageMap>(event: MessageEvent<SWMessageMap[K]>) {
+async function handleMessages(event: MessageEvent<SWMessage>) {
   if (
     typeof event.data !== 'object' ||
     !('source' in event.data) ||

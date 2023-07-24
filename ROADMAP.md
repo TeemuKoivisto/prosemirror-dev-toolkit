@@ -19,5 +19,6 @@ This is a loose list of features I'd like to implement into `prosemirror-dev-too
 - OR just meta-key based filter of transactions
 - switch Rollup to Vite (and maybe use PostCSS)
 - ~~either upgrade Cypress or switch to say Playwright~~
+- disable extension -> enable -> rerun -> doesnt update pop-up
 
 No time schedules set. Just for reference for my and yours sake.

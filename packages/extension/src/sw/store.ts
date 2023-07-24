@@ -5,7 +5,7 @@ import type {
   DeepPartial,
   GlobalState,
   FoundInstance,
-  SWMessageMap,
+  SWMessage,
   InjectStatus,
   PopUpState,
   InjectState,
@@ -172,7 +172,7 @@ export const storeActions = {
       })
     })
   },
-  sendToPort<K extends keyof SWMessageMap>(tabId: number, type: K, data: SWMessageMap[K]['data']) {
+  sendToPort<K extends SWMessage['type']>(tabId: number, type: K, data: SWMessage['data']) {
     const inst = get(pages).get(tabId)
     if (inst) {
       inst.pagePort?.postMessage({
@@ -180,13 +180,13 @@ export const storeActions = {
         origin: 'sw',
         type,
         data
-      } as SWMessageMap[K])
+      } as SWMessage)
       inst.popUpPort?.postMessage({
         source: 'pm-dev-tools',
         origin: 'sw',
         type,
         data
-      } as SWMessageMap[K])
+      } as SWMessage)
     }
   },
   broadcastPopUpData(tabId: number) {

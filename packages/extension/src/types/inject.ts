@@ -1,4 +1,3 @@
-import type { InjectMessage } from './messages'
 import { GlobalState, InjectData } from './sw'
 
 export interface FoundInstance {
@@ -10,27 +9,20 @@ export type InjectState = Omit<GlobalState, 'showOptions' | 'showDebug'> & {
 }
 export type InjectStatus = 'finding' | 'finished' | 'error'
 
-export interface InjectMessageMap {
-  'inject-status': InjectMessage & {
-    type: 'inject-status'
-    data: InjectStatus
-  }
-  'inject-found-instances': InjectMessage & {
-    type: 'inject-found-instances'
-    data: {
-      instances: FoundInstance[]
-    }
-  }
-  'update-global-data': InjectMessage & {
-    type: 'update-global-data'
-    data: Partial<GlobalState>
-  }
-  'toggle-disable': InjectMessage & {
-    type: 'toggle-disable'
-    data: undefined
-  }
-  reload: InjectMessage & {
-    type: 'reload'
-    data: undefined
-  }
+export interface InjectPayload<T, D> {
+  source: 'pm-dev-tools'
+  origin: 'inject'
+  type: T
+  data: D
 }
+export type InjectMessage =
+  | InjectPayload<'inject-status', InjectStatus>
+  | InjectPayload<
+      'inject-found-instances',
+      {
+        instances: FoundInstance[]
+      }
+    >
+  | InjectPayload<'update-global-data', Partial<GlobalState>>
+  | InjectPayload<'toggle-disable', undefined>
+  | InjectPayload<'reload', undefined>

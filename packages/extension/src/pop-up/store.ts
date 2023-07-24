@@ -1,7 +1,6 @@
 import { get, writable } from 'svelte/store'
 
-import type { SWMessageMap } from '../types'
-import type { PopUpMessageMap, PopUpState } from '../types/pop-up'
+import type { PopUpMessage, PopUpState, SWMessage } from '../types'
 
 export const state = writable<PopUpState>({
   disabled: false,
@@ -18,7 +17,7 @@ export const state = writable<PopUpState>({
     instances: []
   }
 })
-export const received = writable<SWMessageMap[keyof SWMessageMap][]>([])
+export const received = writable<SWMessage[]>([])
 export const port = writable<chrome.runtime.Port | undefined>()
 
 const EXAMPLE = {
@@ -65,11 +64,11 @@ export function init() {
   }
 }
 
-export function send<K extends keyof PopUpMessageMap>(type: K, data: PopUpMessageMap[K]['data']) {
+export function send<K extends PopUpMessage>(type: K['type'], data: K['data']) {
   get(port)?.postMessage({ source: 'pm-dev-tools', origin: 'pop-up', type, data })
 }
 
-export function listenPort<K extends keyof SWMessageMap>(msg: SWMessageMap[K]) {
+export function listenPort(msg: SWMessage) {
   if (typeof msg !== 'object' || !('source' in msg) || msg.source !== 'pm-dev-tools') {
     return
   }
