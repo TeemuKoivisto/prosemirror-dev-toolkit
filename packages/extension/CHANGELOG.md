@@ -1,5 +1,13 @@
 # extension
 
+## 1.0.6
+
+### Patch Changes
+
+- Updated dependencies [2cd2d91]
+- Updated dependencies [2cd2d91]
+  - prosemirror-dev-toolkit@1.1.3
+
 ## 1.0.5
 
 ### Patch Changes
