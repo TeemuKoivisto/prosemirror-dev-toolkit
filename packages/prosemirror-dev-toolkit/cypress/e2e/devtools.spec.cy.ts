@@ -17,6 +17,9 @@ describe('# DevTools', () => {
     cy.devTools()
       .find('.floating-dock')
       .matchImage({
+        screenshotConfig: {
+          capture: 'viewport'
+        },
         maxDiffThreshold: 0,
         diffConfig: {
           threshold: 0.0001,
