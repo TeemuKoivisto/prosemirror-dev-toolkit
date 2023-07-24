@@ -35,7 +35,7 @@
     cursor: pointer;
     display: flex;
     font-family: monospace;
-    font-size: var(--font-small);
+    font-size: var(--font-medium);
     font-weight: 100;
     padding: 6px 18px;
     text-transform: uppercase;

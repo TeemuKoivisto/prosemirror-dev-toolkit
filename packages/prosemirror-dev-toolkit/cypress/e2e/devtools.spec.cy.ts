@@ -12,8 +12,6 @@ describe('# DevTools', () => {
     cy.devTools().find('.floating-dock').should('have.length', 1)
     cy.devTools().find('ul.tabs-menu li').should('have.length', 6)
     cy.scrollTo('bottom')
-    // cy.devTools().compareSnapshot('.floating-dock', 0.1)
-    // cy.devTools().find('.floating-dock').matchImage()
     cy.devTools()
       .find('.floating-dock')
       .matchImage({

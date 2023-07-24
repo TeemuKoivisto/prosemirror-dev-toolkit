@@ -20,7 +20,7 @@
     color: $color-gray-light;
     cursor: pointer;
     font-family: var(--font-family);
-    font-size: var(--font-small);
+    font-size: var(--font-medium);
     font-weight: 400;
     padding: 6px 10px;
     text-transform: uppercase;

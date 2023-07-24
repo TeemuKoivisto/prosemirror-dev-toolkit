@@ -57,18 +57,16 @@
 </section>
 
 <style lang="scss">
-  * {
-    --font-sans: Helvetica Neue, Calibri Light, Roboto, sans-serif;
-    --font-family: monaco, Consolas, Lucida Console, monospace;
-    --font-small: 11px;
-    --font-medium: 13px;
-    --font-large: 16px;
-    --height-tabs-menu: 48px;
-  }
   .dev-tools {
     font-family: var(--font-sans);
     font-size: var(--font-medium);
     font-weight: 400;
+
+    --font-sans: Helvetica Neue, Calibri Light, Roboto, sans-serif;
+    --font-small: 11px;
+    --font-medium: 13px;
+    --font-large: 16px;
+    --height-tabs-menu: 48px;
 
     --tree-view-font-family: 'Helvetica Neue', 'Calibri Light', Roboto, sans-serif;
     --tree-view-font-size: 13px;

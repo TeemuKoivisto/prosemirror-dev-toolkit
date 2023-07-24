@@ -113,7 +113,6 @@
         bind:this={fileinput}
       />
       <TabsMenu onClickTab={handleClickTab} active={openTab} />
-      <!-- <h1>boob beep</h1> -->
       {#if openTab === 'state'}
         <StateTab />
       {:else if openTab === 'history'}

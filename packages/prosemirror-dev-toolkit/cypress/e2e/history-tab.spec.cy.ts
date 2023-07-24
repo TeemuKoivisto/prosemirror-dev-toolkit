@@ -98,7 +98,6 @@ describe('# History tab', () => {
 
     // Snapshot only the right panel since the left contains unmocked timestamps
     cy.devTools().find('.right-panel').scrollTo('top')
-    // cy.devTools().compareSnapshot('.right-panel', 0.1)
     cy.devTools()
       .find('.right-panel')
       .matchImage({
