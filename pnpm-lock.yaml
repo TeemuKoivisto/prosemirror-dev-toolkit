@@ -115,8 +115,8 @@ importers:
         specifier: ^1.19.3
         version: 1.19.3
       svelte-tree-view:
-        specifier: ^1.4.1
-        version: 1.4.1(svelte@4.1.1)
+        specifier: ^1.4.2
+        version: 1.4.2(svelte@4.1.1)
     devDependencies:
       '@babel/core':
         specifier: ^7.22.9
@@ -8462,8 +8462,8 @@ packages:
       typescript: 5.1.6
     dev: true
 
-  /svelte-tree-view@1.4.1(svelte@4.1.1):
-    resolution: {integrity: sha512-iEz0wrXbaFYPyCFb0Fm0RsdKRtWPZKflq2KpKXNrAQfunCMqo2334AbmaDsRqxoIV+tsxrU3Gl2+ARsNrS6RGQ==}
+  /svelte-tree-view@1.4.2(svelte@4.1.1):
+    resolution: {integrity: sha512-z3yQq+/4CceyefVj03t9BG9AiZ7syovmRRo96aj8V65d1FsRS/BL2AxzcD4vl5GJg7o9qbz2mWWJzyFWENISCQ==}
     peerDependencies:
       svelte: '>=3'
     dependencies:

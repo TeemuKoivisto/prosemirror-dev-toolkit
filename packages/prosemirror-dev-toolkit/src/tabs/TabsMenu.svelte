@@ -46,6 +46,8 @@
     color: $color-white;
     cursor: pointer;
     height: 100%;
+    font-size: var(--font-medium);
+    font-weight: 400;
     padding: 1em;
     &:hover {
       background: rgba($color-white, 0.05);

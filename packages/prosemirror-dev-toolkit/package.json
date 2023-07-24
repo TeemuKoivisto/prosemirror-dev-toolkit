@@ -69,7 +69,7 @@
   "dependencies": {
     "html": "^1.0.0",
     "prosemirror-model": "^1.19.3",
-    "svelte-tree-view": "^1.4.1"
+    "svelte-tree-view": "^1.4.2"
   },
   "files": [
     "src",

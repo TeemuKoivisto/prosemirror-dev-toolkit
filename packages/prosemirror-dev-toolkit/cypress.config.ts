@@ -22,10 +22,10 @@ export default defineConfig({
         if (browser.family === 'chromium' && browser.name !== 'electron') {
         }
         launchOptions.args.push('--hide-scrollbars')
-        launchOptions.args.push("--high-dpi-support");
-        // launchOptions.args.push('--window-size=1280,1000')
+        launchOptions.args.push('--high-dpi-support')
+        // launchOptions.args.push('--window-size=1280,800')
         // launchOptions.args.push('--enable-font-antialiasing')
-        return launchOptions;
+        return launchOptions
       })
     }
   }
