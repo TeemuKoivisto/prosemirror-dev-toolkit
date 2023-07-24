@@ -20,8 +20,6 @@ import { applyDevTools } from '../../src'
 import type { Plugin } from '../../src/typings/pm'
 
 import '@testing-library/cypress/add-commands'
-import 'cypress-plugin-snapshots/commands'
-import 'cypress-file-upload'
 import './commands'
 
 declare global {
@@ -41,31 +39,6 @@ declare global {
       resetDoc: () => Cypress.Chainable<JQuery<HTMLElement>>
       includesStringCount: (str: string) => Cypress.Chainable<number>
       pmInsParagraphBolded: (str: string) => Cypress.Chainable<Cypress.AUTWindow>
-
-      // https://github.com/meinaart/cypress-plugin-snapshots
-      toMatchSnapshot(
-        options?: Partial<{
-          ignoreExtralFields: boolean
-          ignoreExtraArrayItems: boolean
-          normalizeJson: boolean
-          replace: any
-          name: string
-        }>
-      ): Chainable<null>
-
-      toMatchImageSnapshot(
-        options?: Partial<{
-          imageConfig: Partial<{
-            createDiffImage: boolean
-            threshold: number
-            thresholdType: 'percent' | 'pixels'
-            resizeDevicePixelRatio: boolean
-          }>
-          screenshotConfig: Partial<ScreenshotDefaultsOptions>
-          name: string
-          separator: string
-        }>
-      ): Chainable<null>
     }
   }
 }
@@ -90,4 +63,5 @@ before(() => {
     //  the `before` hook is executed for each spec file.
     cy.task('resetShouldSkipFlag')
   }
+  cy.viewport(1280, 800)
 })

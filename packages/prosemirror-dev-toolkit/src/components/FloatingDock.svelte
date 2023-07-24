@@ -95,7 +95,7 @@
 <div class="floating-dock-wrapper">
   <PasteModal isOpen={modalOpen} on:submit={handlePasteSubmit} on:close={handleCloseModal} />
   <div class="floating-dock" style={`top: ${dockTop}%; height: ${dockHeight}%;`}>
-    <div class="resizing-div" on:mousedown={handleResizeMouseDown} />
+    <div class="resizing-div" on:mousedown={handleResizeMouseDown} role="button" tabindex="-1" />
     <div class="floating-dock-body">
       <div>
         <button class="copy-btn" on:click={handleCopyDoc}>Copy</button>

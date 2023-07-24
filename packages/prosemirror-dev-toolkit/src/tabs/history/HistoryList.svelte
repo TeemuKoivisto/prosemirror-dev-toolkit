@@ -85,7 +85,7 @@
     cursor: pointer;
     display: flex;
     font-family: monospace;
-    font-size: var(--font-small);
+    font-size: var(--font-medium);
     justify-content: space-between;
     padding: 6px 18px;
     text-transform: uppercase;

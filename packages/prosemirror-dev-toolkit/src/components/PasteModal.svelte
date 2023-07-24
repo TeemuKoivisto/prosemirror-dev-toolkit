@@ -36,10 +36,6 @@
 </div>
 
 <style lang="scss">
-  .hidden {
-    opacity: 0;
-    visibility: hidden;
-  }
   .paste-modal {
     font-size: 15px;
     height: 100%;

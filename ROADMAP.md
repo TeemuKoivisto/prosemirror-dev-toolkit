@@ -14,10 +14,10 @@ This is a loose list of features I'd like to implement into `prosemirror-dev-too
 - add tab to execute commands. Basically a (primitive) prosemirror REPL
 - ~~make Chrome extension~~
 - ~~migrate to pnpm? need to workout the deployment flow with releases though first~~
-- use css reset? just so styles are not affected by global stylesheets
+- ~~use css reset? just so styles are not affected by global stylesheets~~
 - checkbox to filter empty/selection transactions
 - OR just meta-key based filter of transactions
 - switch Rollup to Vite (and maybe use PostCSS)
-- either upgrade Cypress or switch to say Playwright
+- ~~either upgrade Cypress or switch to say Playwright~~
 
 No time schedules set. Just for reference for my and yours sake.

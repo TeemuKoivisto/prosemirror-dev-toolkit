@@ -120,9 +120,9 @@
   }
   .no-marks {
     color: $color-blue-light;
-    margin: 0.5em 0 1em 1em;
+    margin: 0.5em 0 1.25em 1em;
   }
   :global(.split-view .tree-view) {
-    margin: 0.5em 0 1em 0;
+    margin: 0.5em 0 1.25em 0;
   }
 </style>

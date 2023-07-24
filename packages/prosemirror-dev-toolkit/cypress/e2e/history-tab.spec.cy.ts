@@ -3,7 +3,7 @@ import { TextSelection } from 'prosemirror-state'
 const TEST_TEXT = 'asdf qwer'
 
 describe('# History tab', () => {
-  before(() => {
+  beforeEach(() => {
     cy.visit('/')
   })
 
@@ -100,14 +100,17 @@ describe('# History tab', () => {
     cy.devTools().find('.right-panel').scrollTo('top')
     cy.devTools()
       .find('.right-panel')
-      .toMatchImageSnapshot({
-        imageConfig: {
-          threshold: 0.1
+      .matchImage({
+        maxDiffThreshold: 0,
+        diffConfig: {
+          threshold: 0.0001,
+          alpha: 0.2
         }
       })
   })
 
   it('Should group selection transactions and allow inspecting them', () => {
+    cy.wait(100)
     cy.resetDoc()
     cy.devTools().find('.floating-btn').click()
     cy.devTools().find('ul.tabs-menu li button').contains('HISTORY').click()
@@ -175,9 +178,11 @@ describe('# History tab', () => {
     cy.devTools().find('h2').contains('Selection content', { matchCase: false }).should('exist')
     cy.devTools()
       .find('.right-panel')
-      .toMatchImageSnapshot({
-        imageConfig: {
-          threshold: 0.1
+      .matchImage({
+        maxDiffThreshold: 0,
+        diffConfig: {
+          threshold: 0.0001,
+          alpha: 0.2
         }
       })
 
@@ -200,9 +205,11 @@ describe('# History tab', () => {
     cy.devTools().find('h2').contains('Selection content', { matchCase: false }).should('exist')
     cy.devTools()
       .find('.right-panel')
-      .toMatchImageSnapshot({
-        imageConfig: {
-          threshold: 0.1
+      .matchImage({
+        maxDiffThreshold: 0,
+        diffConfig: {
+          threshold: 0.0001,
+          alpha: 0.2
         }
       })
   })

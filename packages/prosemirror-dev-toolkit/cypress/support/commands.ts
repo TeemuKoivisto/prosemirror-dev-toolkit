@@ -7,6 +7,7 @@
 // commands please read more here:
 // https://on.cypress.io/custom-commands
 // ***********************************************
+import '@frsource/cypress-plugin-visual-regression-diff'
 
 Cypress.Commands.add('interrupt', () => {
   eval("window.top.document.body.querySelector('header button.stop').click()")

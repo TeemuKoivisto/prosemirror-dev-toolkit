@@ -57,16 +57,22 @@
 </section>
 
 <style lang="scss">
-  * {
+  .dev-tools {
+    font-family: var(--font-sans);
+    font-size: var(--font-medium);
+    font-weight: 400;
+
     --font-sans: Helvetica Neue, Calibri Light, Roboto, sans-serif;
     --font-small: 11px;
     --font-medium: 13px;
     --font-large: 16px;
     --height-tabs-menu: 48px;
-  }
-  .dev-tools {
-    font-family: var(--font-sans);
-    font-size: var(--font-medium);
+
+    --tree-view-font-family: 'Helvetica Neue', 'Calibri Light', Roboto, sans-serif;
+    --tree-view-font-size: 13px;
+    --tree-view-left-indent: 0.875em;
+    --tree-view-line-height: 1.1;
+    --tree-view-key-margin-right: 0.5em;
 
     --tree-view-base00: #363755;
     --tree-view-base01: #604d49;
@@ -84,5 +90,14 @@
     --tree-view-base0D: #85d9ef;
     --tree-view-base0E: #be87ff;
     --tree-view-base0F: #d6724c;
+
+    :global(.svelte-tree-view *) {
+      box-sizing: border-box;
+    }
+
+    :global(.hidden) {
+      opacity: 0;
+      visibility: hidden;
+    }
   }
 </style>

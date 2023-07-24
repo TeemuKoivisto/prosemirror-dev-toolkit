@@ -5,7 +5,7 @@ import snapshot1 from '../fixtures/snapshot-1.json'
 const TEST_TEXT = 'asdf qwer'
 
 describe('# Structure tab', () => {
-  before(() => {
+  beforeEach(() => {
     cy.visit('/')
   })
 
@@ -67,9 +67,14 @@ describe('# Structure tab', () => {
 
     cy.devTools()
       .find('.floating-dock')
-      .toMatchImageSnapshot({
-        imageConfig: {
-          threshold: 0.1
+      .matchImage({
+        screenshotConfig: {
+          capture: 'viewport'
+        },
+        maxDiffThreshold: 0,
+        diffConfig: {
+          threshold: 0.0001,
+          alpha: 0.2
         }
       })
   })

@@ -171,10 +171,6 @@
 </SplitView>
 
 <style lang="scss">
-  :global(.hidden) {
-    display: none;
-    visibility: hidden;
-  }
   .left-panel {
     flex-grow: 0;
     padding: 0;
