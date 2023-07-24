@@ -19,12 +19,11 @@ export default defineConfig({
         }
       })
       on('before:browser:launch', (browser, launchOptions) => {
-        if (browser.family === 'chromium' && browser.name !== 'electron') {
+        if (browser.name === 'chrome' && browser.isHeadless) {
+          launchOptions.args.push('--hide-scrollbars')
+          launchOptions.args.push('--high-dpi-support')
+          launchOptions.args.push('--window-size=1280,800')
         }
-        launchOptions.args.push('--hide-scrollbars')
-        launchOptions.args.push('--high-dpi-support')
-        // launchOptions.args.push('--window-size=1280,800')
-        // launchOptions.args.push('--enable-font-antialiasing')
         return launchOptions
       })
     }
