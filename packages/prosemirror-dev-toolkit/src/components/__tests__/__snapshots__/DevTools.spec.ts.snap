@@ -16,7 +16,7 @@ exports[`DevTools.svelte > should open by clicking the floating button 1`] = `
   </div>
   <div>
     <section
-      class="dev-tools s-DevTools-gjj2cb"
+      class="dev-tools s-DevTools-1i48m5n"
     >
       <div
         class="floating-dock-wrapper s-FloatingDock-1qe2796"
@@ -222,7 +222,7 @@ exports[`DevTools.svelte > should render 1`] = `
   </div>
   <div>
     <section
-      class="dev-tools s-DevTools-gjj2cb"
+      class="dev-tools s-DevTools-1i48m5n"
     >
       <div
         class="floating-dock-wrapper s-FloatingDock-1qe2796"
@@ -402,7 +402,7 @@ exports[`DevTools.svelte > should render 1`] = `
                   </h2>
                    
                   <button
-                    class=" s-Button-boh1gq"
+                    class=" s-Button-tk0d5q"
                   >
                     log
                   </button>
@@ -515,7 +515,7 @@ exports[`DevTools.svelte > should render 1`] = `
                   </h2>
                    
                   <button
-                    class="selection-btn s-Button-boh1gq"
+                    class="selection-btn s-Button-tk0d5q"
                   >
                     <span
                       class="caret-icon s-StateTab-11ggucv"

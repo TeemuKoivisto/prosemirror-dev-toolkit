@@ -18,7 +18,7 @@ exports[`applyDevTools > should mount and unmount dev-toolkit 1`] = `
     class="__prosemirror-dev-toolkit__"
   >
     <section
-      class="dev-tools s-DevTools-gjj2cb"
+      class="dev-tools s-DevTools-1i48m5n"
     >
       <button
         class="floating-btn bottom-right s-FloatingBtn-3gt5li"
@@ -209,7 +209,7 @@ exports[`applyDevTools > should not crash when transactions are prevented by fil
     class="__prosemirror-dev-toolkit__"
   >
     <section
-      class="dev-tools s-DevTools-gjj2cb"
+      class="dev-tools s-DevTools-1i48m5n"
     >
       <button
         class="floating-btn bottom-right s-FloatingBtn-3gt5li"
