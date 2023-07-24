@@ -1,5 +1,12 @@
 # prosemirror-dev-toolkit
 
+## 1.1.3
+
+### Patch Changes
+
+- 2cd2d91: chore: update deps
+- 2cd2d91: ui: increase button font-sizes, h2 margins
+
 ## 1.1.2
 
 ### Patch Changes
