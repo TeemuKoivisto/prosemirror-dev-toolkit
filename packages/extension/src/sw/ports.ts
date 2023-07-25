@@ -2,28 +2,51 @@ import openDevToolsWindow from './openWindow'
 import { storeActions } from './store'
 import type { InjectMessageMap, PopUpMessageMap } from '../types'
 import { getCurrentTab } from './getCurrentTab'
+import { PAGE_PORT, POP_UP_PORT } from '../types/consts'
 
 export async function listenToConnections(port: chrome.runtime.Port) {
   const tabId = port.sender?.tab?.id || (await getCurrentTab())?.id
-  if (!tabId) {
+  if (tabId === undefined) {
     console.error('No tab id found for port!', port)
     return
   }
-  const { name } = port
-  const shortName = name === 'pm-devtools-pop-up' ? 'pop-up' : 'page'
-  const listener =
-    name === 'pm-devtools-pop-up'
-      ? (msg: any, _port: chrome.runtime.Port) => listenPopUp(tabId, msg)
-      : (msg: any, _port: chrome.runtime.Port) => listenInject(tabId, msg)
-  storeActions.addPort(shortName, tabId, port)
-  port.onDisconnect.addListener(() => storeActions.disconnectPort(shortName, tabId, port))
-  port.onMessage.addListener(listener)
-  if (name === 'pm-devtools-pop-up') {
-    storeActions.sendToPort(tabId, 'pop-up-state', storeActions.getPopUpData(tabId))
-  } else if (port.name === 'pm-devtools-page') {
-    storeActions.sendToPort(tabId, 'inject-state', storeActions.getInjectData(tabId))
+  switch (port.name) {
+    case PAGE_PORT:
+      storeActions.addPort(PAGE_PORT, tabId, port)
+      port.onDisconnect.addListener(() => storeActions.disconnectPort(PAGE_PORT, tabId, port))
+      port.onMessage.addListener((msg: any, _port: chrome.runtime.Port) => listenInject(tabId, msg))
+      storeActions.sendToPort(tabId, 'inject-state', storeActions.getInjectData(tabId))
+      break
+    case POP_UP_PORT:
+      storeActions.addPort(POP_UP_PORT, tabId, port)
+      port.onDisconnect.addListener(() => storeActions.disconnectPort(POP_UP_PORT, tabId, port))
+      port.onMessage.addListener((msg: any, _port: chrome.runtime.Port) => listenPopUp(tabId, msg))
+      storeActions.sendToPort(tabId, 'pop-up-state', storeActions.getPopUpData(tabId))
+      break
   }
-  // storeActions.broadcastStateUpdate(tabId)
+}
+
+async function listenInject<K extends keyof InjectMessageMap>(
+  tabId: number,
+  msg: InjectMessageMap[K]
+) {
+  if (msg.origin !== 'inject') {
+    return
+  }
+  // console.log('received msg from INJECT port!', JSON.stringify(msg))
+  switch (msg.type) {
+    case 'inject-found-instances':
+      storeActions.updatePageInjectData(tabId, {
+        instances: msg.data.instances,
+        status: 'finished'
+      })
+      storeActions.broadcastPopUpData(tabId)
+      break
+    case 'inject-status':
+      storeActions.updatePageInjectData(tabId, { status: msg.data })
+      storeActions.broadcastPopUpData(tabId)
+      break
+  }
 }
 
 async function listenPopUp<K extends keyof PopUpMessageMap>(
@@ -59,29 +82,6 @@ async function listenPopUp<K extends keyof PopUpMessageMap>(
       break
     case 'open-in-window':
       openDevToolsWindow('devtools-panel')
-      break
-  }
-}
-
-async function listenInject<K extends keyof InjectMessageMap>(
-  tabId: number,
-  msg: InjectMessageMap[K]
-) {
-  if (msg.origin !== 'inject') {
-    return
-  }
-  // console.log('received msg from INJECT port!', JSON.stringify(msg))
-  switch (msg.type) {
-    case 'inject-found-instances':
-      storeActions.updatePageInjectData(tabId, {
-        instances: msg.data.instances,
-        status: 'finished'
-      })
-      storeActions.broadcastPopUpData(tabId)
-      break
-    case 'inject-status':
-      storeActions.updatePageInjectData(tabId, { status: msg.data })
-      storeActions.broadcastPopUpData(tabId)
       break
   }
 }

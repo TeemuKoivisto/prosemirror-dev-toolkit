@@ -3,6 +3,8 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 
 import path from 'path'
 
+const { INPUT = '' } = process.env
+
 export default defineConfig({
   plugins: [tsconfigPaths()],
   build: {
@@ -14,7 +16,7 @@ export default defineConfig({
         entryFileNames: '[name].js'
       },
       input: {
-        inject: path.resolve('./src/inject/index.ts')
+        [INPUT]: path.resolve(`./src/${INPUT}/index.ts`)
       }
     }
   }

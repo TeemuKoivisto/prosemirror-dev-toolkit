@@ -1,4 +1,3 @@
-import type { PopUpMessage } from './messages'
 import { GlobalState, InjectData } from './sw'
 
 export type PopUpState = GlobalState & {
@@ -9,29 +8,17 @@ export type DeepPartial<T> = {
   [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P]
 }
 
+export interface PopUpPayload<T, D> {
+  source: 'pm-dev-tools'
+  origin: 'pop-up'
+  type: T
+  data: D
+}
 export interface PopUpMessageMap {
-  'mount-pop-up': PopUpMessage & {
-    type: 'mount-pop-up'
-    data: undefined
-  }
-  'update-global-data': PopUpMessage & {
-    type: 'update-global-data'
-    data: DeepPartial<GlobalState>
-  }
-  'update-page-data': PopUpMessage & {
-    type: 'update-page-data'
-    data: Partial<InjectData>
-  }
-  'toggle-disable': PopUpMessage & {
-    type: 'toggle-disable'
-    data: undefined
-  }
-  'reapply-devtools': PopUpMessage & {
-    type: 'reapply-devtools'
-    data: undefined
-  }
-  'open-in-window': PopUpMessage & {
-    type: 'open-in-window'
-    data: undefined
-  }
+  'mount-pop-up': PopUpPayload<'mount-pop-up', undefined>
+  'update-global-data': PopUpPayload<'update-global-data', DeepPartial<GlobalState>>
+  'update-page-data': PopUpPayload<'update-page-data', Partial<InjectData>>
+  'toggle-disable': PopUpPayload<'toggle-disable', undefined>
+  'reapply-devtools': PopUpPayload<'reapply-devtools', undefined>
+  'open-in-window': PopUpPayload<'open-in-window', undefined>
 }

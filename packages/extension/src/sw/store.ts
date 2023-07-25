@@ -1,6 +1,7 @@
 import { get, derived, writable } from 'svelte/store'
 
 import { getCurrentTab } from './getCurrentTab'
+import { PAGE_PORT, POP_UP_PORT } from '../types/consts'
 import type {
   DeepPartial,
   GlobalState,
@@ -155,20 +156,20 @@ export const storeActions = {
       p.set(tabId, { ...old, inject: { ...DEFAULT_INJECT_DATA, ...old.inject, ...data } })
     )
   },
-  addPort(type: 'page' | 'pop-up', tabId: number, port: chrome.runtime.Port) {
+  addPort(type: typeof PAGE_PORT | typeof POP_UP_PORT, tabId: number, port: chrome.runtime.Port) {
     pages.update(p => {
       const old = p.get(tabId)
       if (old) {
         return p.set(tabId, {
           ...old,
-          pagePort: type === 'page' ? port : old.pagePort,
-          popUpPort: type === 'pop-up' ? port : old.popUpPort
+          pagePort: type === PAGE_PORT ? port : old.pagePort,
+          popUpPort: type === POP_UP_PORT ? port : old.popUpPort
         })
       }
       return p.set(tabId, {
         inject: { ...DEFAULT_INJECT_DATA },
-        pagePort: type === 'page' ? port : undefined,
-        popUpPort: type === 'pop-up' ? port : undefined
+        pagePort: type === PAGE_PORT ? port : undefined,
+        popUpPort: type === POP_UP_PORT ? port : undefined
       })
     })
   },
@@ -220,14 +221,18 @@ export const storeActions = {
       this.sendToPort(tabId, 'inject-state', injectData)
     })
   },
-  disconnectPort(type: 'page' | 'pop-up', tabId: number, port: chrome.runtime.Port) {
+  disconnectPort(
+    type: typeof PAGE_PORT | typeof POP_UP_PORT,
+    tabId: number,
+    port: chrome.runtime.Port
+  ) {
     pages.update(p => {
       const old = p.get(tabId)
       if (old) {
         return p.set(tabId, {
           ...old,
-          pagePort: type === 'page' ? undefined : old.pagePort,
-          popUpPort: type === 'pop-up' ? undefined : old.popUpPort
+          pagePort: type === PAGE_PORT ? undefined : old.pagePort,
+          popUpPort: type === POP_UP_PORT ? undefined : old.popUpPort
         })
       }
       return p
