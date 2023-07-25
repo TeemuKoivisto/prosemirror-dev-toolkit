@@ -1,5 +1,11 @@
 # prosemirror-dev-toolkit
 
+## 1.1.4
+
+### Patch Changes
+
+- c8be8b7: docs: update README broken screenshot links
+
 ## 1.1.3
 
 ### Patch Changes

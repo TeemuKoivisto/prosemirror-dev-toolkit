@@ -1,5 +1,14 @@
 # extension
 
+## 1.0.7
+
+### Patch Changes
+
+- f191430: refactor: separate inject into multiple files, improve readability
+- f191430: fix: set extension inject state more correctly
+- Updated dependencies [c8be8b7]
+  - prosemirror-dev-toolkit@1.1.4
+
 ## 1.0.6
 
 ### Patch Changes
