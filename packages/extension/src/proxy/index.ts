@@ -41,7 +41,7 @@ function handlePopUpMsgs(msg: any) {
   pagePort?.postMessage(msg)
 }
 
-window.addEventListener('message', handleInjectMsgs, true)
+window.addEventListener('message', handleInjectMsgs)
 let pagePort: chrome.runtime.Port | undefined = chrome.runtime.connect({
   name: PAGE_PORT
 })

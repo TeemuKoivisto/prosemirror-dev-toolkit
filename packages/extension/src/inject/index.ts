@@ -53,6 +53,6 @@ async function handleMessages<K extends keyof SWMessageMap>(event: MessageEvent<
   }
 }
 
-window.addEventListener('message', handleMessages, false)
+window.addEventListener('message', handleMessages)
 
 export {}
