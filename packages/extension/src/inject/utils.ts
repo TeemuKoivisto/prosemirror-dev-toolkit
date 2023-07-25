@@ -1,6 +1,6 @@
 import type { EditorView } from 'prosemirror-view'
 
-import type { InjectMessageMap, InjectState, InjectStatus, SWMessageMap } from '../types'
+import type { InjectMessageMap, InjectState } from '../types'
 
 export function sleep(ms: number) {
   return new Promise(resolve => {

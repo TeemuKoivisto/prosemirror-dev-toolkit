@@ -1,6 +1,6 @@
-import { applyDevTools, removeDevTools } from 'prosemirror-dev-toolkit'
+import { applyDevTools } from 'prosemirror-dev-toolkit'
 
-import type { InjectMessageMap, InjectState, InjectStatus, SWMessageMap } from '../types'
+import type { InjectState, InjectStatus } from '../types'
 
 import { findEditorViews } from './findEditorViews'
 import { send } from './utils'
