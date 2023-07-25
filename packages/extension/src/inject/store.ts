@@ -45,5 +45,6 @@ export const injectActions = {
       })
       send('inject-found-instances', { instances })
     }
+    this.updateStatus('finished')
   }
 }
