@@ -1,23 +1,10 @@
 import { get, writable } from 'svelte/store'
 
+import { DEFAULT_POP_UP_STATE } from '../types/consts'
 import type { SWMessageMap } from '../types'
 import type { PopUpMessageMap, PopUpState } from '../types/pop-up'
 
-export const state = writable<PopUpState>({
-  disabled: false,
-  showOptions: false,
-  showDebug: false,
-  devToolsOpts: {
-    devToolsExpanded: false,
-    buttonPosition: 'bottom-right'
-  },
-  inject: {
-    instance: 0,
-    selector: '.ProseMirror',
-    status: 'finished',
-    instances: []
-  }
-})
+export const state = writable<PopUpState>(DEFAULT_POP_UP_STATE)
 export const received = writable<SWMessageMap[keyof SWMessageMap][]>([])
 export const port = writable<chrome.runtime.Port | undefined>()
 

@@ -1,11 +1,12 @@
 import { defineConfig } from 'vite'
-import { svelte } from '@sveltejs/vite-plugin-svelte'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 import path from 'path'
 
+const { INPUT = '' } = process.env
+
 export default defineConfig({
-  plugins: [svelte({}), tsconfigPaths()],
+  plugins: [tsconfigPaths()],
   build: {
     minify: false,
     emptyOutDir: false,
@@ -15,7 +16,7 @@ export default defineConfig({
         entryFileNames: '[name].js'
       },
       input: {
-        sw: path.resolve('./src/sw/index.ts')
+        [INPUT]: path.resolve(`./src/${INPUT}/index.ts`)
       }
     }
   }

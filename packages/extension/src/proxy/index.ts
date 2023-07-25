@@ -1,3 +1,5 @@
+import { PAGE_PORT, POP_UP_PORT } from '../types/consts'
+
 /**
  * Resends messages from inject to sw
  * @param event
@@ -39,20 +41,18 @@ function handlePopUpMsgs(msg: any) {
   pagePort?.postMessage(msg)
 }
 
-window.addEventListener('message', handleInjectMsgs, false)
+window.addEventListener('message', handleInjectMsgs)
 let pagePort: chrome.runtime.Port | undefined = chrome.runtime.connect({
-  name: 'pm-devtools-page'
+  name: PAGE_PORT
 })
 pagePort.onMessage.addListener(handleSWMsgs)
 pagePort.onDisconnect.addListener(() => {
   pagePort = undefined
 })
 let popUpPort: chrome.runtime.Port | undefined = chrome.runtime.connect({
-  name: 'pm-devtools-pop-up'
+  name: POP_UP_PORT
 })
 popUpPort.onMessage.addListener(handlePopUpMsgs)
 popUpPort.onDisconnect.addListener(() => {
   popUpPort = undefined
 })
-
-export {}

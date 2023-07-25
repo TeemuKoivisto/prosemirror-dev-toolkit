@@ -6,8 +6,10 @@
   "scripts": {
     "dev": "vite",
     "preview": "vite preview",
-    "build": "vite build && vite build --config vite.config.sw.ts",
-    "build:sw": "vite build --config vite.config.sw.ts"
+    "build": "vite build && pnpm build:inject && pnpm build:proxy && pnpm build:sw",
+    "build:inject": "INPUT=inject vite build --config vite.config.input.ts",
+    "build:proxy": "INPUT=proxy vite build --config vite.config.input.ts",
+    "build:sw": "INPUT=sw vite build --config vite.config.input.ts"
   },
   "devDependencies": {
     "@iconify-icons/mdi": "^1.2.47",
