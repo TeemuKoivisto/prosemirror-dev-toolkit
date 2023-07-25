@@ -9,13 +9,21 @@
     "build": "vite build && pnpm build:inject && pnpm build:proxy && pnpm build:sw",
     "build:inject": "INPUT=inject vite build --config vite.config.input.ts",
     "build:proxy": "INPUT=proxy vite build --config vite.config.input.ts",
-    "build:sw": "INPUT=sw vite build --config vite.config.input.ts"
+    "build:sw": "INPUT=sw vite build --config vite.config.input.ts",
+    "test": "cypress run",
+    "cy": "cypress"
   },
   "devDependencies": {
     "@iconify-icons/mdi": "^1.2.47",
     "@sveltejs/vite-plugin-svelte": "^2.4.2",
+    "@testing-library/cypress": "9.0.0",
     "@types/chrome": "^0.0.241",
     "@types/node": "^20.4.2",
+    "cypress": "12.17.2",
+    "prosemirror-example-setup": "^1.2.2",
+    "prosemirror-model": "^1.19.3",
+    "prosemirror-schema-basic": "^1.2.2",
+    "prosemirror-state": "^1.4.3",
     "prosemirror-view": "^1.31.6",
     "rimraf": "^5.0.1",
     "sass": "^1.64.0",

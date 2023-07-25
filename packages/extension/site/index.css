@@ -1,0 +1,22 @@
+main {
+  padding: 2rem;
+  overflow: scroll;
+}
+
+#editor {
+  border: 1px solid black;
+  margin-bottom: 2rem;
+}
+
+iframe {
+  height: 500px;
+  width: 100%;
+}
+
+.ProseMirror {
+  min-height: 140px;
+  overflow-wrap: break-word;
+  outline: none;
+  padding: 10px;
+  white-space: pre-wrap;
+}

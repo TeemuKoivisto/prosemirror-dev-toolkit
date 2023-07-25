@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["esnext", "dom", "dom.iterable"],
+    "types": ["node", "cypress", "@testing-library/cypress", "cypress-file-upload"],
+    "esModuleInterop": true,
+    "resolveJsonModule": true
+  },
+  "allowJs": true,
+  "include": ["**/*.d.ts", "**/*.js", "**/*.ts", "**/*.cjs", "**/*.mjs"]
+}

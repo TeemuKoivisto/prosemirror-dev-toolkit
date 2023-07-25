@@ -19,7 +19,7 @@ export function IFramePage() {
           extension.
         </p>
       </header>
-      <iframe src="http://localhost:3300/no-editor"></iframe>
+      {/* <iframe src="http://localhost:3300/no-editor"></iframe> */}
       <iframe className="m-top" src="https://prosemirror.net"></iframe>
       <div className="pm-editor plain m-top" ref={editorDOMRef} />
     </Container>

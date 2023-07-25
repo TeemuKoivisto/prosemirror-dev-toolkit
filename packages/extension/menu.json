@@ -1,0 +1,59 @@
+[
+  {
+    "source": "pm-dev-tools",
+    "origin": "sw",
+    "type": "inject-state",
+    "data": {
+      "disabled": false,
+      "devToolsOpts": { "buttonPosition": "bottom-right", "devToolsExpanded": false },
+      "inject": { "instance": 0, "selector": ".ProseMirror", "status": "finished", "instances": [] }
+    }
+  },
+  {
+    "source": "pm-dev-tools",
+    "origin": "sw",
+    "type": "pop-up-state",
+    "data": {
+      "devToolsOpts": { "buttonPosition": "bottom-right", "devToolsExpanded": false },
+      "disabled": false,
+      "showDebug": false,
+      "showOptions": false,
+      "inject": { "instance": 0, "selector": ".ProseMirror", "status": "finished", "instances": [] }
+    }
+  },
+  { "source": "pm-dev-tools", "origin": "inject", "type": "inject-status", "data": "finding" },
+  {
+    "source": "pm-dev-tools",
+    "origin": "sw",
+    "type": "pop-up-state",
+    "data": {
+      "devToolsOpts": { "buttonPosition": "bottom-right", "devToolsExpanded": false },
+      "disabled": false,
+      "showDebug": false,
+      "showOptions": false,
+      "inject": { "instance": 0, "selector": ".ProseMirror", "status": "finished", "instances": [] }
+    }
+  },
+  {
+    "source": "pm-dev-tools",
+    "origin": "inject",
+    "type": "inject-found-instances",
+    "data": {
+      "instances": [
+        { "size": 54, "element": "<p class=\"\"><br class=\"ProseMirror-trailingBreak\"></p>" }
+      ]
+    }
+  },
+  {
+    "source": "pm-dev-tools",
+    "origin": "sw",
+    "type": "pop-up-state",
+    "data": {
+      "devToolsOpts": { "buttonPosition": "bottom-right", "devToolsExpanded": false },
+      "disabled": false,
+      "showDebug": false,
+      "showOptions": false,
+      "inject": { "instance": 0, "selector": ".ProseMirror", "status": "finished", "instances": [] }
+    }
+  }
+]
