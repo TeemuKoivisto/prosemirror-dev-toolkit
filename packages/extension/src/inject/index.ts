@@ -3,7 +3,7 @@ import type { EditorView } from 'prosemirror-view'
 
 import type { SWMessageMap } from '../types'
 
-import { mounted, state, injectActions } from './state'
+import { mounted, state, injectActions } from './store'
 import { shouldRerun } from './utils'
 
 declare global {

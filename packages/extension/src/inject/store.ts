@@ -1,24 +1,13 @@
 import { applyDevTools } from 'prosemirror-dev-toolkit'
 
+import { DEFAULT_INJECT_STATE } from '../types'
 import type { InjectState, InjectStatus } from '../types'
 
 import { findEditorViews } from './findEditorViews'
 import { send } from './utils'
 
 export let mounted = false
-export let state: InjectState = {
-  disabled: false,
-  devToolsOpts: {
-    devToolsExpanded: false,
-    buttonPosition: 'bottom-right'
-  },
-  inject: {
-    instance: 0,
-    selector: '.ProseMirror',
-    status: 'finding',
-    instances: []
-  }
-}
+export let state: InjectState = DEFAULT_INJECT_STATE
 
 export const injectActions = {
   setMounted(val: boolean) {

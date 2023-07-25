@@ -1,7 +1,7 @@
 import { get, derived, writable } from 'svelte/store'
 
 import { getCurrentTab } from './getCurrentTab'
-import { PAGE_PORT, POP_UP_PORT } from '../types/consts'
+import { DEFAULT_INJECT_DATA, DEFAULT_GLOBAL_STATE, PAGE_PORT, POP_UP_PORT } from '../types/consts'
 import type {
   DeepPartial,
   GlobalState,
@@ -25,21 +25,6 @@ interface PageData {
 }
 
 const GLOBAL_STATE_KEY = 'pm-dev-tools-global-state'
-const DEFAULT_INJECT_DATA = {
-  instance: 0,
-  selector: '.ProseMirror',
-  status: 'finished' as const,
-  instances: []
-}
-const DEFAULT_GLOBAL_STATE: GlobalState = {
-  disabled: false,
-  showOptions: false,
-  showDebug: false,
-  devToolsOpts: {
-    devToolsExpanded: false,
-    buttonPosition: 'bottom-right'
-  }
-}
 
 export const globalState = writable<GlobalState>(DEFAULT_GLOBAL_STATE)
 export const disabled = derived(globalState, s => s.disabled)
