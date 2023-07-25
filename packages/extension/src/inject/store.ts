@@ -1,7 +1,7 @@
 import { applyDevTools } from 'prosemirror-dev-toolkit'
 
 import { DEFAULT_INJECT_STATE } from '../types'
-import type { InjectState, InjectStatus } from '../types'
+import type { FoundInstance, InjectState, InjectStatus } from '../types'
 
 import { findEditorViews } from './findEditorViews'
 import { send } from './utils'
@@ -22,12 +22,14 @@ export const injectActions = {
   },
   async findInstances() {
     this.updateStatus('finding')
-    const views = await findEditorViews(0, state)
+    const views = await findEditorViews(state)
     if (!views) {
       this.updateStatus('error')
     } else if (views.length > 0) {
       let applied = false
-      const instances = views.map((v, idx) => {
+      // If any ProseMirror instances are found, apply toolkit to the first one (which doesn't error)
+      // since there can be only one toolkit dock at a time
+      const instances: FoundInstance[] = views.map((v, idx) => {
         if (idx === state.inject.instance || (!applied && idx === views.length - 1)) {
           try {
             applyDevTools(v, state.devToolsOpts)

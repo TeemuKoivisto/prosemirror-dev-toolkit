@@ -7,8 +7,8 @@ import { getEditorView, sleep, tryQueryIframe } from './utils'
 const MAX_ATTEMPTS = 10
 
 export async function findEditorViews(
-  attempts: number,
-  state: InjectState
+  state: InjectState,
+  attempts = 0
 ): Promise<EditorView[] | undefined> {
   await sleep(1000 * attempts)
   try {
@@ -42,7 +42,7 @@ export async function findEditorViews(
     )
     const filtered = views.concat(iframeViews).filter(v => v !== undefined) as EditorView[]
     if (filtered.length === 0 && attempts < MAX_ATTEMPTS) {
-      return findEditorViews(attempts + 1, state)
+      return findEditorViews(state, attempts + 1)
     }
     return filtered
   } catch (err) {

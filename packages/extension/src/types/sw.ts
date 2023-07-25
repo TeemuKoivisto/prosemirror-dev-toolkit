@@ -20,7 +20,7 @@ export interface InjectData {
   instances: FoundInstance[]
 }
 
-export interface SWPayload<T, D> {
+export interface SWPayload<T, D = undefined> {
   source: 'pm-dev-tools'
   origin: 'sw'
   type: T
@@ -30,5 +30,5 @@ export interface SWPayload<T, D> {
 export interface SWMessageMap {
   'pop-up-state': SWPayload<'pop-up-state', PopUpState>
   'inject-state': SWPayload<'inject-state', InjectState>
-  'rerun-inject': SWPayload<'rerun-inject', undefined>
+  'rerun-inject': SWPayload<'rerun-inject'>
 }

@@ -31,17 +31,23 @@ async function handleMessages<K extends keyof SWMessageMap>(event: MessageEvent<
   const msg = event.data
   switch (msg.type) {
     case 'inject-state':
-      if ((!mounted && !msg.data.disabled) || shouldRerun(state, msg.data)) {
+      // Check shouldRerun first before over-writing the state
+      const rerun = shouldRerun(state, msg.data)
+      injectActions.setState(msg.data)
+      if ((!mounted && !msg.data.disabled) || rerun) {
+        // If toolkit wasn't mounted and it's not disabled -> run
+        // Otherwise check whether the toolkit is still enabled and an option has changed
         injectActions.findInstances()
         injectActions.setMounted(true)
       } else if (mounted && msg.data.disabled) {
+        // If toolkit is mounted and it is being disabled -> remove it
         removeDevTools()
         injectActions.setMounted(false)
       }
-      injectActions.setState(msg.data)
       break
     case 'rerun-inject':
       removeDevTools()
+      injectActions.setMounted(false)
       injectActions.findInstances()
       break
   }

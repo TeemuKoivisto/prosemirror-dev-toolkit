@@ -9,7 +9,7 @@ export type InjectState = Omit<GlobalState, 'showOptions' | 'showDebug'> & {
 }
 export type InjectStatus = 'finding' | 'finished' | 'error'
 
-export interface InjectPayload<T, D> {
+export interface InjectPayload<T, D = undefined> {
   source: 'pm-dev-tools'
   origin: 'inject'
   type: T
@@ -20,6 +20,6 @@ export interface InjectMessageMap {
   'inject-status': InjectPayload<'inject-status', InjectStatus>
   'inject-found-instances': InjectPayload<'inject-found-instances', { instances: FoundInstance[] }>
   'update-global-data': InjectPayload<'update-global-data', Partial<GlobalState>>
-  'toggle-disable': InjectPayload<'toggle-disable', undefined>
-  reload: InjectPayload<'reload', undefined>
+  'toggle-disable': InjectPayload<'toggle-disable'>
+  reload: InjectPayload<'reload'>
 }
