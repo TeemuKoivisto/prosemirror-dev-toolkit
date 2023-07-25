@@ -5,6 +5,7 @@
     "format": "pnpm pretty && pnpm lint",
     "pretty": "prettier --write \"**/*.+(js|jsx|json|html|css|less|scss|ts|tsx|svelte|yml|yaml|md|graphql|mdx)\" .",
     "lint": "eslint --ignore-path .gitignore --fix --ext .js,.cjs,.ts,.tsx,.svelte .",
+    "ext": "pnpm --filter extension build",
     "start": "concurrently --kill-others 'pnpm --filter prosemirror-dev-toolkit watch' 'sleep 10 && pnpm --filter site dev'",
     "site": "pnpm --filter site dev",
     "kit": "pnpm --filter prosemirror-dev-toolkit watch",
