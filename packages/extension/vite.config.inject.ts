@@ -14,7 +14,7 @@ export default defineConfig({
         entryFileNames: '[name].js'
       },
       input: {
-        sw: path.resolve('./src/sw/index.ts')
+        inject: path.resolve('./src/inject/index.ts')
       }
     }
   }

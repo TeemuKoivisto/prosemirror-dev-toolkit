@@ -12,7 +12,7 @@
     "128": "devtools-128.png"
   },
   "action": {
-    "default_popup": "index.html",
+    "default_popup": "pop-up.html",
     "default_icon": "devtools-128.png"
   },
   "content_scripts": [

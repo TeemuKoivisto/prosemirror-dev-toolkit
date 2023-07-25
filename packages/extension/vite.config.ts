@@ -15,9 +15,8 @@ export default defineConfig({
         entryFileNames: '[name].js'
       },
       input: {
-        inject: path.resolve('./src/inject.ts'),
         proxy: path.resolve('./src/proxy.ts'),
-        'pop-up': path.resolve('./index.html')
+        'pop-up': path.resolve('./pop-up.html')
       },
       plugins: [
         {
@@ -33,5 +32,5 @@ export default defineConfig({
         }
       ]
     }
-  }
+  },
 })
