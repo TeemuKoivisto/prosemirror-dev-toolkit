@@ -1,5 +1,11 @@
 # extension
 
+## 1.0.8
+
+### Patch Changes
+
+- f71aa8e: fix(ext): run extension in document_start as it breaks GDocs in document_end
+
 ## 1.0.7
 
 ### Patch Changes
