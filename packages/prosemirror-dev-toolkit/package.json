@@ -26,7 +26,7 @@
     "svelte-check": "svelte-check",
     "test": "pnpm svelte-check && pnpm test:unit && pnpm test:e2e",
     "test:unit": "vitest run",
-    "test:e2e": "cypress run --browser=chrome --config baseUrl=http://localhost:3300",
+    "test:e2e": "DEBUG=cypress:* cypress run --browser=chrome --config baseUrl=http://localhost:3300 &> log.txt",
     "cy": "cypress"
   },
   "devDependencies": {
@@ -43,7 +43,7 @@
     "@testing-library/cypress": "9.0.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/svelte": "^4.0.3",
-    "cypress": "12.14.0",
+    "cypress": "12.15.0",
     "jsdom": "^22.1.0",
     "jsondiffpatch": "^0.4.1",
     "postcss": "^8.4.27",
