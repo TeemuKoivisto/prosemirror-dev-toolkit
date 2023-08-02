@@ -135,7 +135,7 @@ importers:
         version: 7.22.6
       '@frsource/cypress-plugin-visual-regression-diff':
         specifier: ^3.3.10
-        version: 3.3.10(cypress@12.8.1)
+        version: 3.3.10(cypress@12.12.0)
       '@rollup/plugin-alias':
         specifier: ^5.0.0
         version: 5.0.0(rollup@3.27.0)
@@ -150,7 +150,7 @@ importers:
         version: 2.4.3(svelte@4.1.2)(vite@4.4.8)
       '@testing-library/cypress':
         specifier: 9.0.0
-        version: 9.0.0(cypress@12.8.1)
+        version: 9.0.0(cypress@12.12.0)
       '@testing-library/jest-dom':
         specifier: ^5.17.0
         version: 5.17.0
@@ -158,8 +158,8 @@ importers:
         specifier: ^4.0.3
         version: 4.0.3(svelte@4.1.2)
       cypress:
-        specifier: 12.8.1
-        version: 12.8.1
+        specifier: 12.12.0
+        version: 12.12.0
       jsdom:
         specifier: ^22.1.0
         version: 22.1.0
@@ -2147,14 +2147,14 @@ packages:
     resolution: {integrity: sha512-QyMv52jCRIMUIlDM6ysSVPc6Cp3KCTu6/YeLUyJpTEhleXssYB3CT5PqmQijGGwu4819qvan8Eu4PWJRAW5Akg==}
     dev: true
 
-  /@frsource/cypress-plugin-visual-regression-diff@3.3.10(cypress@12.8.1):
+  /@frsource/cypress-plugin-visual-regression-diff@3.3.10(cypress@12.12.0):
     resolution: {integrity: sha512-ZjfOpdmXUgNRfLpsbrYiDujUzNEgLx+3dMtvMJHO3d+Yri0wniMB3mukf5+58QUMXuw8mr1cLoBkeWr1UxCOpA==}
     engines: {node: '>=10'}
     peerDependencies:
       cypress: '>=4.5.0'
     dependencies:
       '@frsource/base64': 1.0.17
-      cypress: 12.8.1
+      cypress: 12.12.0
       glob: 8.1.0
       meta-png: 1.0.6
       move-file: 2.1.0
@@ -2476,7 +2476,7 @@ packages:
       - supports-color
     dev: true
 
-  /@testing-library/cypress@9.0.0(cypress@12.8.1):
+  /@testing-library/cypress@9.0.0(cypress@12.12.0):
     resolution: {integrity: sha512-c1XiCGeHGGTWn0LAU12sFUfoX3qfId5gcSE2yHode+vsyHDWraxDPALjVnHd4/Fa3j4KBcc5k++Ccy6A9qnkMA==}
     engines: {node: '>=12', npm: '>=6'}
     peerDependencies:
@@ -2484,7 +2484,7 @@ packages:
     dependencies:
       '@babel/runtime': 7.22.6
       '@testing-library/dom': 8.17.1
-      cypress: 12.8.1
+      cypress: 12.12.0
     dev: true
 
   /@testing-library/dom@8.17.1:
@@ -3672,8 +3672,8 @@ packages:
     engines: {node: '>= 6'}
     dev: false
 
-  /commander@5.1.0:
-    resolution: {integrity: sha512-P0CysNDQ7rtVw4QIQtm+MRxV66vKFSvlsQvGYXZWR3qFU0jlMKHZZZgw8e+8DSah4UDKMqnknRDQz+xuQXQ/Zg==}
+  /commander@6.2.1:
+    resolution: {integrity: sha512-U7VdrJFnJgo4xjrHpTzu0yrHPGImdsmD95ZlgYSEajAn2JKzDhDTPG9kBTefmObL2w/ngeZnilk+OV9CG3d7UA==}
     engines: {node: '>= 6'}
     dev: true
 
@@ -3944,8 +3944,8 @@ packages:
       stream-transform: 2.1.3
     dev: true
 
-  /cypress@12.8.1:
-    resolution: {integrity: sha512-lIFbKdaSYAOarNLHNFa2aPZu6YSF+8UY4VRXMxJrFUnk6RvfG0AWsZ7/qle/aIz30TNUD4aOihz2ZgS4vuQVSA==}
+  /cypress@12.12.0:
+    resolution: {integrity: sha512-UU5wFQ7SMVCR/hyKok/KmzG6fpZgBHHfrXcHzDmPHWrT+UUetxFzQgt7cxCszlwfozckzwkd22dxMwl/vNkWRw==}
     engines: {node: ^14.0.0 || ^16.0.0 || >=18.0.0}
     hasBin: true
     requiresBuild: true
@@ -3964,7 +3964,7 @@ packages:
       check-more-types: 2.24.0
       cli-cursor: 3.1.0
       cli-table3: 0.6.2
-      commander: 5.1.0
+      commander: 6.2.1
       common-tags: 1.8.2
       dayjs: 1.11.5
       debug: 4.3.4(supports-color@8.1.1)
@@ -4322,7 +4322,7 @@ packages:
       is-shared-array-buffer: 1.0.2
       is-string: 1.0.7
       is-weakref: 1.0.2
-      object-inspect: 1.12.2
+      object-inspect: 1.12.3
       object-keys: 1.1.1
       object.assign: 4.1.4
       regexp.prototype.flags: 1.5.0
@@ -6533,10 +6533,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: false
 
-  /object-inspect@1.12.2:
-    resolution: {integrity: sha512-z+cPxW0QGUp0mcqcsgQyLVRDoXFQbXOwBaqyF7VIgI4TWNQsDHrBpUQslRmIfAoYWdYzs6UlKJtB2XJpTaNSpQ==}
-    dev: true
-
   /object-inspect@1.12.3:
     resolution: {integrity: sha512-geUvdk7c+eizMNUDkRpW1wJwgfOiOeHbxBR/hLXK1aT6zmVSO0jsQcs7fj6MGw89jC/cjGfLcNOrtMYtGqm81g==}
     dev: true
@@ -8178,7 +8174,7 @@ packages:
     dependencies:
       call-bind: 1.0.2
       get-intrinsic: 1.2.1
-      object-inspect: 1.12.2
+      object-inspect: 1.12.3
     dev: true
 
   /siginfo@2.0.0:
