@@ -43,7 +43,7 @@
     "@testing-library/cypress": "9.0.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/svelte": "^4.0.3",
-    "cypress": "12.17.3",
+    "cypress": "12.8.1",
     "jsdom": "^22.1.0",
     "jsondiffpatch": "^0.4.1",
     "postcss": "^8.4.27",
