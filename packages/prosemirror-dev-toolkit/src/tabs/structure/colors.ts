@@ -26,11 +26,14 @@ export function calculateSafeIndex(index: number, total: number) {
 }
 
 export function buildColors(schema: Schema) {
-  return Object.keys(schema.nodes).reduce((acc, node, index) => {
-    const safeIndex =
-      index >= nodeColors.length ? calculateSafeIndex(index, nodeColors.length) : index
+  return Object.keys(schema.nodes).reduce(
+    (acc, node, index) => {
+      const safeIndex =
+        index >= nodeColors.length ? calculateSafeIndex(index, nodeColors.length) : index
 
-    acc[node] = nodeColors[safeIndex]
-    return acc
-  }, {} as { [key: string]: typeof nodeColors[number] })
+      acc[node] = nodeColors[safeIndex]
+      return acc
+    },
+    {} as { [key: string]: (typeof nodeColors)[number] }
+  )
 }
