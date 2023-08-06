@@ -39,7 +39,7 @@ async function handleMessages<K extends keyof SWMessageMap>(event: MessageEvent<
         // Otherwise check whether the toolkit is still enabled and an option has changed
         injectActions.findInstances()
         injectActions.setMounted(true)
-      } else if (mounted && msg.data.disabled) {
+      } else if (msg.data.disabled) {
         // If toolkit is mounted and it is being disabled -> remove it
         removeDevTools()
         injectActions.setMounted(false)
