@@ -1,5 +1,11 @@
 # extension
 
+## 1.0.9
+
+### Patch Changes
+
+- c135cd9: fix(ext): dont show finding status when disabled, ensure removeDevtools is run
+
 ## 1.0.8
 
 ### Patch Changes
