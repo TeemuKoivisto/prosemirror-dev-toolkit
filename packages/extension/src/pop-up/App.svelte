@@ -25,7 +25,7 @@
   let setStatusInterval: ReturnType<typeof setTimeout> | undefined
 
   $: {
-    if (injectStatus !== 'finding') {
+    if (disabled || injectStatus !== 'finding') {
       dots = ''
       clearInterval(setStatusInterval)
       setStatusInterval = undefined
@@ -119,7 +119,7 @@
           No ProseMirror found
         {/if}
       </h1>
-      {#if injectStatus === 'finding'}
+      {#if !disabled && injectStatus === 'finding'}
         <span class="inject-status">{injectStatus}{dots}</span>
       {/if}
     </div>

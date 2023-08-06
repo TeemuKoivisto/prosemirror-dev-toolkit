@@ -100,24 +100,24 @@ export const storeActions = {
     }
   },
   getPopUpData(tabId: number): PopUpState {
+    const page = get(pages).get(tabId)
     return {
       ...get(globalState),
       inject: {
         ...DEFAULT_INJECT_DATA,
-        ...get(currentPage)?.inject
-        // ...this.getPageData(tabId).inject
+        ...page?.inject
       }
     }
   },
   getInjectData(tabId: number): InjectState {
     const state = get(globalState)
+    const page = get(pages).get(tabId)
     return {
       disabled: state.disabled,
       devToolsOpts: state.devToolsOpts,
       inject: {
         ...DEFAULT_INJECT_DATA,
-        ...get(currentPage)?.inject
-        // ...this.getPageData(tabId).inject
+        ...page?.inject
       }
     }
   },
