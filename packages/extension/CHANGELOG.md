@@ -1,5 +1,13 @@
 # extension
 
+## 1.0.10
+
+### Patch Changes
+
+- Updated dependencies [ce24336]
+- Updated dependencies [ce24336]
+  - prosemirror-dev-toolkit@1.1.5
+
 ## 1.0.9
 
 ### Patch Changes
