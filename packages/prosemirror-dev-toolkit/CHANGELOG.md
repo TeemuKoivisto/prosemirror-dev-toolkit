@@ -1,5 +1,12 @@
 # prosemirror-dev-toolkit
 
+## 1.1.5
+
+### Patch Changes
+
+- ce24336: fix: dont crash if toolkit web-component already registered
+- ce24336: refactor: auto-restore pasted snapshots for convenience's sake
+
 ## 1.1.4
 
 ### Patch Changes
