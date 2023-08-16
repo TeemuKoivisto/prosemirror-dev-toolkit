@@ -2,7 +2,7 @@
   import { onDestroy } from 'svelte'
   import { getContext } from '$context'
 
-  import { saveSnapshot, importSnapshot } from '$stores/snapshots'
+  import { saveSnapshot, importSnapshot, restoreSnapshot } from '$stores/snapshots'
 
   import PasteModal from './PasteModal.svelte'
   import TabsMenu from '$tabs/TabsMenu.svelte'
@@ -61,7 +61,8 @@
     modalOpen = false
   }
   function handlePasteSubmit(e: CustomEvent<{ doc: Record<string, any> }>) {
-    saveSnapshot(new Date().toLocaleString('sv'), e.detail.doc)
+    const snap = saveSnapshot(new Date().toLocaleString('sv'), e.detail.doc)
+    restoreSnapshot(view, snap)
     modalOpen = false
   }
   function handleFileSelected(
