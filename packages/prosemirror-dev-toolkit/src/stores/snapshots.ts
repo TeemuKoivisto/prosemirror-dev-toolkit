@@ -54,6 +54,7 @@ export function saveSnapshot(snapshotName: string, doc: { [key: string]: any }) 
     doc
   }
   snapshots.update(val => [snap, ...val])
+  return snap
 }
 
 export function importSnapshot(
@@ -68,6 +69,7 @@ export function importSnapshot(
     doc: doc.toJSON()
   }
   snapshots.update(val => [snap, ...val])
+  return snap
 }
 
 export function updateSnapshot(snapshot: Snapshot) {

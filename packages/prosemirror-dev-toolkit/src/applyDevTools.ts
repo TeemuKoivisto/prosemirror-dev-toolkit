@@ -12,8 +12,10 @@ import { ProseMirrorDevToolkit } from './ProseMirrorDevToolkit'
 import type { Command } from './typings/pm'
 import type { DevToolsOpts } from './types'
 
-// Register the fancy web component wrapper
-customElements.define('prosemirror-dev-toolkit', ProseMirrorDevToolkit)
+// Register the fancy web component wrapper but don't crash if it's already defined
+if (!customElements.get('prosemirror-dev-toolkit')) {
+  customElements.define('prosemirror-dev-toolkit', ProseMirrorDevToolkit)
+}
 
 // Make the dev tools available globally for testing and other use
 if (typeof window !== 'undefined') window.applyDevTools = applyDevTools
