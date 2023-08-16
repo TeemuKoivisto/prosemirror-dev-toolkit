@@ -14,8 +14,8 @@ What a nightmare but I hope this will pay off in some degree. I tested TestCafe 
 
 If the right panel disappears when you make the window too small, you can resize it back by moving your cursor to the right edge (you should get the col-resize pointer). An interesting feature.. https://github.com/cypress-io/cypress/issues/2132
 
-You can also try reinstalling everything if all else fails: `yarn cy cache clear && yarn install --force`
+You can also try reinstalling everything if all else fails: `pnpm cy cache clear && pnpm install --force`
 
 # Cypress v12
 
-Cypress was updated to v12 in 07/2023 which kinda works except for random bugs in CI. As of now, the screenshot tests only work inside the GitHub action (probably due to how Chrome renders fonts differently in macOS vs Linux) and you should not expect them to pass locally. Also, there's some weird bug with the latest (12.17.2) Cypress as it throws at times: `RangeError: The value of "offset" is out of range`
+Cypress was updated to v12 in 07/2023 which kinda works except for random bugs in CI. As of now, the screenshot tests only work inside the GitHub action (probably due to how Chrome renders fonts differently in macOS vs Linux) and you should not expect them to pass locally. Also, there's some weird bug with the latest (12.17.2) Cypress that hopefully soon will be fixed https://github.com/cypress-io/cypress/issues/27443
