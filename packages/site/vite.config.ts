@@ -9,7 +9,7 @@ export default defineConfig({
   base: GH_PAGES ? '/prosemirror-dev-toolkit/' : undefined,
   plugins: [reactRefresh(), tsconfigPaths()],
   server: {
-    port: parseInt(process.env.PORT || 3300),
+    port: parseInt(process.env.PORT || '3300'),
     strictPort: true
   },
   define: {

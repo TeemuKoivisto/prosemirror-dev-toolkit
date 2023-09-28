@@ -2,6 +2,7 @@
 
 This is a loose list of features I'd like to implement into `prosemirror-dev-toolkit`.
 
+- structure tab doc doesnt update to restored snapshot doc, only after transactions
 - ~~track appendedTransactions. Because it's a must.~~
 - ~~show appendedTransactions in History tab & make it easier to access transactions~~
 - ~~fix missing borders for nodes in DocView~~
