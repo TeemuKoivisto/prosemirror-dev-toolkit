@@ -26,6 +26,8 @@ runs:
         start: pnpm --filter site dev --host
         wait-on: http://localhost:3300
         working-directory: ./packages/prosemirror-dev-toolkit
+      env:
+        NODE_OPTIONS: --dns-result-order=ipv4first
 
     - name: Export screenshots (on failure only)
       uses: actions/upload-artifact@v3
