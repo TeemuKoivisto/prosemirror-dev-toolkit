@@ -9,6 +9,7 @@ import { PlainPMPage } from './pages/PlainPMPage'
 import { YjsPage } from './pages/YjsPage'
 import { IFramePage } from 'pages/IFramePage'
 import { NoEditorPage } from './pages/NoEditorPage'
+import { NodeViewPage } from './pages/NodeViewPage'
 
 export const Routes = () => (
   <BrowserRouter basename={import.meta.env.BASE_URL}>
@@ -50,6 +51,14 @@ export const Routes = () => (
         element={
           <DefaultLayout>
             <IFramePage />
+          </DefaultLayout>
+        }
+      />
+      <Route
+        path="/nodeview"
+        element={
+          <DefaultLayout>
+            <NodeViewPage />
           </DefaultLayout>
         }
       />

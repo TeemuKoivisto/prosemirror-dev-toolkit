@@ -23,6 +23,9 @@ export function NavBar(props: IProps) {
         <Link to="/yjs" className={({ isActive }) => (isActive ? 'current' : '')}>
           Yjs
         </Link>
+        <Link to="/nodeview" className={({ isActive }) => (isActive ? 'current' : '')}>
+          NodeView
+        </Link>
         <Link to="/iframe" className={({ isActive }) => (isActive ? 'current' : '')}>
           Iframe
         </Link>
