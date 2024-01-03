@@ -165,6 +165,14 @@ describe('# Snapshots tab', () => {
     cy.window().then(win => {
       cy.stub(win.console, 'warn').as('consoleWarn')
       cy.stub(win.console, 'error').as('consoleError')
+      // Hax https://stackoverflow.com/questions/60174546/how-grant-cypress-test-application-some-permissions
+      Cypress.automation('remote:debugger:protocol', {
+        command: 'Browser.grantPermissions',
+        params: {
+          permissions: ['clipboardReadWrite', 'clipboardSanitizedWrite'],
+          origin: window.location.origin
+        }
+      })
     })
 
     cy.devTools().find('ul.tabs-menu li button').contains('SNAPSHOTS').click()
@@ -173,15 +181,6 @@ describe('# Snapshots tab', () => {
       .find('*')
       .contains('Save snapshots by clicking "Save" button.')
       .should('exist')
-
-    // Hax https://stackoverflow.com/questions/60174546/how-grant-cypress-test-application-some-permissions
-    Cypress.automation('remote:debugger:protocol', {
-      command: 'Browser.grantPermissions',
-      params: {
-        permissions: ['clipboardReadWrite', 'clipboardSanitizedWrite'],
-        origin: window.location.origin
-      }
-    })
 
     // Clipboard should be empty
     cy.window()
