@@ -1,7 +1,8 @@
 import type { Node as PMNode } from 'prosemirror-model'
-import type { Transaction } from 'prosemirror-state'
+import type { Command, Transaction } from 'prosemirror-state'
 import type { EditorView } from 'prosemirror-view'
-import type { Command, Plugin } from './typings/pm'
+
+import type { Plugin } from './typings/pm'
 import type { applyDevTools } from './applyDevTools'
 
 declare global {
