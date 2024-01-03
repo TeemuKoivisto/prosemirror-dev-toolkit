@@ -176,15 +176,14 @@ describe('# Snapshots tab', () => {
       .should('exist')
 
     // Hax https://stackoverflow.com/questions/60174546/how-grant-cypress-test-application-some-permissions
-    cy.wrap(
-      Cypress.automation('remote:debugger:protocol', {
-        command: 'Browser.grantPermissions',
-        params: {
-          permissions: ['clipboardReadWrite', 'clipboardSanitizedWrite'],
-          origin: window.location.origin
-        }
-      })
-    )
+    Cypress.automation('remote:debugger:protocol', {
+      command: 'Browser.grantPermissions',
+      params: {
+        permissions: ['clipboardReadWrite', 'clipboardSanitizedWrite'],
+        origin: window.location.origin
+      }
+    })
+    cy.wait(500)
 
     // Clipboard should be empty
     cy.window()
