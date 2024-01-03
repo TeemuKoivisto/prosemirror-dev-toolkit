@@ -153,7 +153,7 @@ describe('# Snapshots tab', () => {
       const firstError = spy.getCall(0).args[0]
       const secondError = spy.getCall(1).args[0]
       expect(firstError).to.be.eq(
-        'Failed to import snapshot: SyntaxError: Unterminated string in JSON at position 1'
+        'Failed to import snapshot: SyntaxError: Unterminated string in JSON at position 1 (line 1 column 2)'
       )
       expect(secondError).to.be.eq(
         'Failed to import snapshot: RangeError: There is no mark type highlight in this schema'

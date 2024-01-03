@@ -11,10 +11,10 @@
     }[] = [],
     selectedId: string
 
-  const dispatchClick = createEventDispatcher<{
+  const dispatchEvent = createEventDispatcher<{
     'click-item': { id: string | undefined; groupIdx: number; wasTopNode: boolean }
+    'dblclick-item': { id?: string }
   }>()
-  const dispatchDblClick = createEventDispatcher<{ 'dblclick-item': { id?: string } }>()
 </script>
 
 <ul>
@@ -23,8 +23,8 @@
       <button
         class:is-group={group.isGroup}
         on:click={() =>
-          dispatchClick('click-item', { id: group?.topEntry?.id, groupIdx, wasTopNode: true })}
-        on:dblclick={() => dispatchDblClick('dblclick-item', { id: group?.topEntry?.id })}
+          dispatchEvent('click-item', { id: group?.topEntry?.id, groupIdx, wasTopNode: true })}
+        on:dblclick={() => dispatchEvent('dblclick-item', { id: group?.topEntry?.id })}
       >
         <span>
           {group?.topEntry?.timeStr}
@@ -46,7 +46,7 @@
           <button
             class="p-left"
             on:click={() =>
-              dispatchClick('click-item', { id: subEntry?.id, groupIdx, wasTopNode: false })}
+              dispatchEvent('click-item', { id: subEntry?.id, groupIdx, wasTopNode: false })}
           >
             {subEntry?.timeStr}
           </button>
