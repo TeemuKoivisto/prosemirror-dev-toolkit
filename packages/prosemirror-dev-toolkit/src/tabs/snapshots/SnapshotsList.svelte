@@ -24,9 +24,9 @@
     editedSnap = snap
     deleteSnap = undefined
   }
-  function handleNameChange(evt: InputEvent) {
+  function handleNameChange(evt: Event & { currentTarget: EventTarget & HTMLInputElement }) {
     if (editedSnap) {
-      editedSnap.name = evt.target?.value
+      editedSnap.name = evt.currentTarget.value
       debounceUpdate()
     }
   }
