@@ -1,4 +1,3 @@
-import type { EditorView } from 'prosemirror-view'
 import DevTools from './components/DevTools.svelte'
 import {
   subscribeToDispatchTransaction,
@@ -9,8 +8,9 @@ import { resetHistory } from './stores/stateHistory'
 import { createOrFindPlace } from './createOrFindPlace'
 import { ProseMirrorDevToolkit } from './ProseMirrorDevToolkit'
 
-import type { Command } from './typings/pm'
 import type { DevToolsOpts } from './types'
+import type { Command } from 'prosemirror-state'
+import type { EditorView } from 'prosemirror-view'
 
 // Register the fancy web component wrapper but don't crash if it's already defined
 if (!customElements.get('prosemirror-dev-toolkit')) {
