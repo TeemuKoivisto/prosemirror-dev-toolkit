@@ -24,13 +24,13 @@
     editedSnap = snap
     deleteSnap = undefined
   }
-  function handleNameChange(evt: any) {
+  function handleNameChange(evt: InputEvent) {
     if (editedSnap) {
-      editedSnap.name = evt.target.value
+      editedSnap.name = evt.target?.value
       debounceUpdate()
     }
   }
-  function handleNameKeyPress(evt: any) {
+  function handleNameKeyPress(evt: KeyboardEvent) {
     if (evt.key === 'Enter' && editedSnap) {
       onUpdate(editedSnap)
       clearTimeout(timer)
