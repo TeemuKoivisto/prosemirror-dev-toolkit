@@ -165,7 +165,6 @@ describe('# Snapshots tab', () => {
     cy.window().then(win => {
       cy.stub(win.console, 'warn').as('consoleWarn')
       cy.stub(win.console, 'error').as('consoleError')
-      win.navigator.clipboard.writeText('')
     })
 
     cy.devTools().find('ul.tabs-menu li button').contains('SNAPSHOTS').click()
@@ -183,7 +182,6 @@ describe('# Snapshots tab', () => {
         origin: window.location.origin
       }
     })
-    cy.wait(500)
 
     // Clipboard should be empty
     cy.window()
