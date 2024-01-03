@@ -1,5 +1,13 @@
 # extension
 
+## 1.0.11
+
+### Patch Changes
+
+- cb08e82: fix(ext): wrap scripts in iife to not to pollute globals
+- Updated dependencies [cb08e82]
+  - prosemirror-dev-toolkit@1.1.6
+
 ## 1.0.10
 
 ### Patch Changes

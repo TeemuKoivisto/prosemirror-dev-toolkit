@@ -1,5 +1,11 @@
 # prosemirror-dev-toolkit
 
+## 1.1.6
+
+### Patch Changes
+
+- cb08e82: refactor: update input handler, use single event-dispatcher in HistoryList
+
 ## 1.1.5
 
 ### Patch Changes
