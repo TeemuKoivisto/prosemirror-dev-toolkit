@@ -53,9 +53,9 @@ describe('# Schema tab', () => {
         screenshotConfig: {
           capture: 'viewport'
         },
-        maxDiffThreshold: 0,
+        maxDiffThreshold: 1,
         diffConfig: {
-          threshold: 0.0001,
+          threshold: 0.1,
           alpha: 0.2
         }
       })

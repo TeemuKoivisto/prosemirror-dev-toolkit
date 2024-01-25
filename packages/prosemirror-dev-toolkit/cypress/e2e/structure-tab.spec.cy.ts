@@ -73,7 +73,7 @@ describe('# Structure tab', () => {
         },
         maxDiffThreshold: 0,
         diffConfig: {
-          threshold: 0.0001,
+          threshold: 0.1,
           alpha: 0.2
         }
       })

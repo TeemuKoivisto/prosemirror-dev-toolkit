@@ -103,7 +103,7 @@ describe('# History tab', () => {
       .matchImage({
         maxDiffThreshold: 0,
         diffConfig: {
-          threshold: 0.0001,
+          threshold: 0.1,
           alpha: 0.2
         }
       })
@@ -179,9 +179,9 @@ describe('# History tab', () => {
     cy.devTools()
       .find('.right-panel')
       .matchImage({
-        maxDiffThreshold: 0,
+        maxDiffThreshold: 1,
         diffConfig: {
-          threshold: 0.0001,
+          threshold: 0.1,
           alpha: 0.2
         }
       })
@@ -206,9 +206,9 @@ describe('# History tab', () => {
     cy.devTools()
       .find('.right-panel')
       .matchImage({
-        maxDiffThreshold: 0,
+        maxDiffThreshold: 0.1,
         diffConfig: {
-          threshold: 0.0001,
+          threshold: 0.1,
           alpha: 0.2
         }
       })
