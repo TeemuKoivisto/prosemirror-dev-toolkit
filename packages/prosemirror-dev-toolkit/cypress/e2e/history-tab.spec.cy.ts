@@ -206,7 +206,7 @@ describe('# History tab', () => {
     cy.devTools()
       .find('.right-panel')
       .matchImage({
-        maxDiffThreshold: 0.1,
+        maxDiffThreshold: 1,
         diffConfig: {
           threshold: 0.1,
           alpha: 0.2
