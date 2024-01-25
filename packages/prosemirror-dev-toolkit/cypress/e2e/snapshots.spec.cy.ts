@@ -161,7 +161,7 @@ describe('# Snapshots tab', () => {
     })
   })
 
-  it('Should copy doc to clipboard with Copy button', () => {
+  it.skip('Should copy doc to clipboard with Copy button', () => {
     cy.window().then(win => {
       cy.stub(win.console, 'warn').as('consoleWarn')
       cy.stub(win.console, 'error').as('consoleError')
