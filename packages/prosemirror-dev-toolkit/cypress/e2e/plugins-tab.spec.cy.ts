@@ -1,4 +1,4 @@
-const TEST_TEXT3 = 'asdf qwer'
+const TEST_TEXT1 = 'asdf qwer'
 
 describe('# Plugins tab', () => {
   before(() => {
