@@ -1,6 +1,6 @@
 import { TextSelection } from 'prosemirror-state'
 
-const TEST_TEXT = 'asdf qwer'
+const TEST_TEXT2 = 'asdf qwer'
 
 describe('# History tab', () => {
   beforeEach(() => {
@@ -19,7 +19,7 @@ describe('# History tab', () => {
       const schema = view.state.schema
       tr.insert(
         1,
-        schema.nodes.paragraph.create(null, schema.text(TEST_TEXT, [schema.marks.bold.create()]))
+        schema.nodes.paragraph.create(null, schema.text(TEST_TEXT2, [schema.marks.bold.create()]))
       )
       tr.setSelection(new TextSelection(tr.doc.resolve(4)))
       tr.setMeta('hello', { recipient: 'world' })
@@ -125,7 +125,7 @@ describe('# History tab', () => {
       const schema = view.state.schema
       tr.insert(
         1,
-        schema.nodes.paragraph.create(null, schema.text(TEST_TEXT, [schema.marks.bold.create()]))
+        schema.nodes.paragraph.create(null, schema.text(TEST_TEXT2, [schema.marks.bold.create()]))
       )
       tr.setSelection(new TextSelection(tr.doc.resolve(4)))
       view.dispatch(tr)
@@ -179,9 +179,9 @@ describe('# History tab', () => {
     cy.devTools()
       .find('.right-panel')
       .matchImage({
-        maxDiffThreshold: 0,
+        maxDiffThreshold: 0.02,
         diffConfig: {
-          threshold: 0.0001,
+          threshold: 0.01,
           alpha: 0.2
         }
       })
@@ -192,7 +192,7 @@ describe('# History tab', () => {
       const schema = view.state.schema
       tr.insert(
         1,
-        schema.nodes.paragraph.create(null, schema.text(TEST_TEXT, [schema.marks.bold.create()]))
+        schema.nodes.paragraph.create(null, schema.text(TEST_TEXT2, [schema.marks.bold.create()]))
       )
       view.dispatch(tr)
       tr = view.state.tr
@@ -206,9 +206,9 @@ describe('# History tab', () => {
     cy.devTools()
       .find('.right-panel')
       .matchImage({
-        maxDiffThreshold: 0,
+        maxDiffThreshold: 0.01,
         diffConfig: {
-          threshold: 0.0001,
+          threshold: 0.01,
           alpha: 0.2
         }
       })

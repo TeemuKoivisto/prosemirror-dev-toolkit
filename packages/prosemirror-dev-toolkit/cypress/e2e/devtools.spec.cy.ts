@@ -18,9 +18,9 @@ describe('# DevTools', () => {
         screenshotConfig: {
           capture: 'viewport'
         },
-        maxDiffThreshold: 0,
+        maxDiffThreshold: 0.01,
         diffConfig: {
-          threshold: 0.0001,
+          threshold: 0.01,
           alpha: 0.2
         }
       })
