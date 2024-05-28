@@ -25,7 +25,6 @@ describe('DevTools component', () => {
 
   it('should render', () => {
     editor = setupEditor(div)
-    console.log('hello editor', editor)
     const results = render(DevTools, {
       props: {
         view: editor,
