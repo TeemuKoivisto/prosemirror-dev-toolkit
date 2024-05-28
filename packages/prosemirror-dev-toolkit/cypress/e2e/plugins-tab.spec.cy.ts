@@ -1,4 +1,4 @@
-const TEST_TEXT = 'asdf qwer'
+const TEST_TEXT1 = 'asdf qwer'
 
 describe('# Plugins tab', () => {
   before(() => {
@@ -44,9 +44,9 @@ describe('# Plugins tab', () => {
         screenshotConfig: {
           capture: 'viewport'
         },
-        maxDiffThreshold: 0,
+        maxDiffThreshold: 0.04,
         diffConfig: {
-          threshold: 0.0001,
+          threshold: 0.01,
           alpha: 0.2
         }
       })

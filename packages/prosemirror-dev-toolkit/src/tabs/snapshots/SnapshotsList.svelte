@@ -11,7 +11,7 @@
 
   let editedSnap: Snapshot | undefined
   let deleteSnap: Snapshot | undefined
-  let timer: number | undefined
+  let timer: ReturnType<typeof setTimeout> | undefined
 
   const debounceUpdate = () => {
     clearTimeout(timer)

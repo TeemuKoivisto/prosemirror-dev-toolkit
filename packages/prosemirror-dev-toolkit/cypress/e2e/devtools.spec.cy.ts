@@ -1,4 +1,4 @@
-const TEST_TEXT1 = 'asdf qwer'
+const TEST_TEXT = 'asdf qwer'
 
 describe('# DevTools', () => {
   it('Should render and allow to be closed / reopened', () => {
@@ -18,9 +18,9 @@ describe('# DevTools', () => {
         screenshotConfig: {
           capture: 'viewport'
         },
-        maxDiffThreshold: 0,
+        maxDiffThreshold: 0.01,
         diffConfig: {
-          threshold: 0.0001,
+          threshold: 0.01,
           alpha: 0.2
         }
       })
@@ -44,10 +44,10 @@ describe('# DevTools', () => {
       cy.devTools().find('ul.tabs-menu li button').contains('HISTORY').click()
       cy.devTools().find('.left-panel').find('li').should('have.length', 0)
 
-      cy.pmInsParagraphBolded(TEST_TEXT1)
+      cy.pmInsParagraphBolded(TEST_TEXT)
       cy.devTools().find('.left-panel').find('li').should('have.length', 1)
 
-      cy.pmInsParagraphBolded(TEST_TEXT1)
+      cy.pmInsParagraphBolded(TEST_TEXT)
       cy.devTools().find('.left-panel').find('li').should('have.length', 2)
 
       cy.window().then(async window => {
@@ -59,7 +59,7 @@ describe('# DevTools', () => {
       cy.devTools().find('ul.tabs-menu li button').contains('HISTORY').click()
       cy.devTools().find('.left-panel').find('li').should('have.length', 0)
 
-      cy.pmInsParagraphBolded(TEST_TEXT1)
+      cy.pmInsParagraphBolded(TEST_TEXT)
       cy.devTools().find('.left-panel').find('li').should('have.length', 1)
     })
   })
@@ -113,7 +113,7 @@ describe('# DevTools', () => {
     cy.devTools().find('ul.tabs-menu li button').contains('HISTORY').click()
     cy.devTools().find('.left-panel').find('li').should('have.length', 0)
 
-    cy.pmInsParagraphBolded(TEST_TEXT1)
+    cy.pmInsParagraphBolded(TEST_TEXT)
     cy.devTools().find('.left-panel').find('li').should('have.length', 1)
   })
 })

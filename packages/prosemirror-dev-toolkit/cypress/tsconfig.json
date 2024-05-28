@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es5",
     "lib": ["esnext", "dom", "dom.iterable"],
-    "types": ["node", "cypress", "@testing-library/cypress", "cypress-file-upload"],
+    "types": ["node", "cypress", "@testing-library/cypress"],
     "esModuleInterop": true,
     "resolveJsonModule": true
   },
