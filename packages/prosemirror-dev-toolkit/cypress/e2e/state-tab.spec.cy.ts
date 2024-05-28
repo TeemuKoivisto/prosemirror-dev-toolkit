@@ -85,7 +85,7 @@ describe('# State tab', () => {
         screenshotConfig: {
           capture: 'viewport'
         },
-        maxDiffThreshold: 0,
+        maxDiffThreshold: 0.001,
         diffConfig: {
           threshold: 0.01,
           alpha: 0.2
