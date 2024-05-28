@@ -2,6 +2,7 @@
 
 import { defineConfig } from 'vite'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
+import tsconfigPaths from 'vite-tsconfig-paths'
 
 import { resolve } from 'path'
 
@@ -9,16 +10,15 @@ import { resolve } from 'path'
 export default defineConfig({
   plugins: [
     svelte({
-      experimental: {
-        dynamicCompileOptions: () => {
-          return {
-            cssHash: ({ hash, css, name, filename }) => {
-              return `s-${name}-${hash(css)}`
-            }
+      dynamicCompileOptions: () => {
+        return {
+          cssHash: ({ hash, css, name, filename }) => {
+            return `s-${name}-${hash(css)}`
           }
         }
       }
-    })
+    }),
+    tsconfigPaths()
   ],
   resolve: {
     alias: {
@@ -33,6 +33,8 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
-    setupFiles: ['src/test-utils/setupTests.js']
+    include: ['src/**/*.{test,spec}.?(c|m)[jt]s?(x)'],
+    setupFiles: ['src/test-utils/setupTests.js'],
+    cache: false
   }
 })

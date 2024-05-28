@@ -8,7 +8,7 @@ import { DevToolsOpts } from './types'
 // Using a web component allows toolkit to encapsulate its DOM and CSS styles without affecting
 // the site or being affected by its global stylesheets
 export class ProseMirrorDevToolkit extends HTMLElement {
-  _element?: SvelteComponent
+  private component?: SvelteComponent
 
   constructor() {
     super()
@@ -18,7 +18,7 @@ export class ProseMirrorDevToolkit extends HTMLElement {
       const {
         detail: { view, opts }
       } = event as CustomEvent<{ view: EditorView; opts: DevToolsOpts }>
-      this._element = new DevTools({
+      this.component = new DevTools({
         target: shadowRoot,
         props: {
           view,
@@ -29,6 +29,6 @@ export class ProseMirrorDevToolkit extends HTMLElement {
   }
 
   disconnectedCallback(): void {
-    this._element?.$destroy()
+    this.component?.$destroy()
   }
 }

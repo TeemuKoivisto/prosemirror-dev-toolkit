@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`DevTools.svelte > should open by clicking the floating button 1`] = `
+exports[`DevTools component > should open by clicking the floating button 1`] = `
 <body>
   <div
     class="ProseMirror"
@@ -206,7 +206,7 @@ exports[`DevTools.svelte > should open by clicking the floating button 1`] = `
 </body>
 `;
 
-exports[`DevTools.svelte > should render 1`] = `
+exports[`DevTools component > should render 1`] = `
 <body>
   <div
     class="ProseMirror"

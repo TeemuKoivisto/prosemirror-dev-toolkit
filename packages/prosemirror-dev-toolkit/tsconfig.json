@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es6",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "types": ["svelte", "@testing-library/jest-dom", "cypress"],
+    "types": ["svelte", "@testing-library/jest-dom", "vitest/globals"],
     "allowJs": true,
     "declaration": true,
     "declarationDir": "./dist",
@@ -23,10 +23,10 @@
       "$context": ["src/context"],
       "$stores/*": ["src/stores/*"],
       "$tabs/*": ["src/tabs/*"],
-      "$test-utils/*": ["src/test-utils/*"],
+      "$test-utils": ["./src/test-utils"],
+      "$test-utils/*": ["./src/test-utils/*"],
       "$typings/*": ["src/typings/*"]
     }
   },
-  "include": ["src"],
-  "exclude": ["**/__tests__"]
+  "include": ["src"]
 }

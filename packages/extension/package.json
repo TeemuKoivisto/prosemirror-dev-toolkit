@@ -12,22 +12,22 @@
     "build:sw": "INPUT=sw vite build --config vite.config.input.ts"
   },
   "devDependencies": {
-    "@iconify-icons/mdi": "^1.2.47",
-    "@sveltejs/vite-plugin-svelte": "^2.4.3",
-    "@types/chrome": "^0.0.242",
-    "@types/node": "^20.4.5",
-    "prosemirror-view": "^1.31.7",
-    "rimraf": "^5.0.1",
-    "sass": "^1.64.2",
-    "svelte": "^4.1.2",
-    "svelte-check": "^3.4.6",
-    "svelte-preprocess": "^5.0.4",
-    "typescript": "5.1.6",
-    "vite": "^4.4.8",
-    "vite-tsconfig-paths": "^4.2.0"
+    "@iconify-icons/mdi": "^1.2.48",
+    "@sveltejs/vite-plugin-svelte": "^3.1.0",
+    "@types/chrome": "^0.0.267",
+    "@types/node": "^20.12.8",
+    "prosemirror-view": "^1.33.6",
+    "rimraf": "^5.0.5",
+    "sass": "^1.76.0",
+    "svelte": "^4.2.15",
+    "svelte-check": "^3.7.1",
+    "svelte-preprocess": "^5.1.4",
+    "typescript": "5.4.5",
+    "vite": "^5.2.11",
+    "vite-tsconfig-paths": "^4.3.2"
   },
   "dependencies": {
-    "@iconify/svelte": "^3.1.4",
+    "@iconify/svelte": "^4.0.1",
     "prosemirror-dev-toolkit": "workspace:*"
   }
 }

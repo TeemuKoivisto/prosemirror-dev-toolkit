@@ -28,7 +28,7 @@ describe('# Plugins tab', () => {
       const { editorView: view } = window
       const tr = view.state.tr
       const schema = view.state.schema
-      tr.insert(1, schema.nodes.paragraph.create(null, schema.text(TEST_TEXT)))
+      tr.insert(1, schema.nodes.paragraph.create(null, schema.text(TEST_TEXT1)))
       view.dispatch(tr)
     })
 

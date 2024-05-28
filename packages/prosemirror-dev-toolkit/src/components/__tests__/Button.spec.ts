@@ -1,14 +1,10 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, fireEvent } from '@testing-library/svelte'
 import Button from '../Button.svelte'
 import { vi } from 'vitest'
 
 // https://sveltesociety.dev/recipes/testing-and-debugging/unit-testing-svelte-component/
 
-describe('Button', () => {
+describe('Button component', () => {
   it('should render', async () => {
     const results = render(Button)
     const onClick = vi.fn()

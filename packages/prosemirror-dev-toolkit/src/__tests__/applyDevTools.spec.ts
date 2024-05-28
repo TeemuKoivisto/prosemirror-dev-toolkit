@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, fireEvent } from '@testing-library/svelte'
 import { EditorView } from 'prosemirror-view'
 import { beforeAll, describe, expect, it, vi } from 'vitest'
