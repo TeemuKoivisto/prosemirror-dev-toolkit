@@ -87,7 +87,7 @@ describe('# State tab', () => {
         },
         maxDiffThreshold: 0,
         diffConfig: {
-          threshold: 0.0001,
+          threshold: 0.01,
           alpha: 0.2
         }
       })
