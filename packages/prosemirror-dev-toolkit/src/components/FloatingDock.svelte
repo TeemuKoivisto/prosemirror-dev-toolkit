@@ -8,12 +8,15 @@
   import TabsMenu from '$tabs/TabsMenu.svelte'
   import StateTab from '$tabs/state/StateTab.svelte'
   import HistoryTab from '$tabs/history/HistoryTab.svelte'
+  import REPLTab from '$tabs/repl/REPLTab.svelte'
   import PluginsTab from '$tabs/PluginsTab.svelte'
   import SchemaTab from '$tabs/SchemaTab.svelte'
   import StructureTab from '$tabs/structure/StructureTab.svelte'
   import SnapshotsTab from '$tabs/snapshots/SnapshotsTab.svelte'
 
   export let onClose: () => void
+
+  const TABS = ['state', 'history', 'repl', 'plugins', 'schema', 'structure', 'snapshots'] as const
 
   const { view } = getContext('editor-view')
   let openTab = 'state',
@@ -113,11 +116,13 @@
         on:change={handleFileSelected}
         bind:this={fileinput}
       />
-      <TabsMenu onClickTab={handleClickTab} active={openTab} />
+      <TabsMenu tabs={TABS} onClickTab={handleClickTab} active={openTab} />
       {#if openTab === 'state'}
         <StateTab />
       {:else if openTab === 'history'}
         <HistoryTab />
+      {:else if openTab === 'repl'}
+        <REPLTab />
       {:else if openTab === 'plugins'}
         <PluginsTab />
       {:else if openTab === 'schema'}

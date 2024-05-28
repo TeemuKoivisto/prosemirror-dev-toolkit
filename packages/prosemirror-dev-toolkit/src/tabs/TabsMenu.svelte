@@ -1,34 +1,13 @@
 <script lang="ts">
-  export let active: string, onClickTab: (tab: string) => void
+  export let tabs: readonly string[], active: string, onClickTab: (tab: string) => void
 </script>
 
 <ul class="tabs-menu">
-  <li>
-    <button class:active={active === 'state'} on:click={() => onClickTab('state')}>STATE</button>
-  </li>
-  <li>
-    <button class:active={active === 'history'} on:click={() => onClickTab('history')}
-      >HISTORY</button
-    >
-  </li>
-  <li>
-    <button class:active={active === 'plugins'} on:click={() => onClickTab('plugins')}
-      >PLUGINS</button
-    >
-  </li>
-  <li>
-    <button class:active={active === 'schema'} on:click={() => onClickTab('schema')}>SCHEMA</button>
-  </li>
-  <li>
-    <button class:active={active === 'structure'} on:click={() => onClickTab('structure')}
-      >STRUCTURE</button
-    >
-  </li>
-  <li>
-    <button class:active={active === 'snapshots'} on:click={() => onClickTab('snapshots')}
-      >SNAPSHOTS</button
-    >
-  </li>
+  {#each tabs as tab}
+    <li>
+      <button class:active={active === tab} on:click={() => onClickTab(tab)}>{tab}</button>
+    </li>
+  {/each}
 </ul>
 
 <style lang="scss">
@@ -45,10 +24,11 @@
     border-bottom: 2px solid transparent;
     color: $color-white;
     cursor: pointer;
-    height: 100%;
     font-size: var(--font-medium);
     font-weight: 400;
+    height: 100%;
     padding: 1em;
+    text-transform: uppercase;
     &:hover {
       background: rgba($color-white, 0.05);
     }
