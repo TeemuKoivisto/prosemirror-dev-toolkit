@@ -3,7 +3,7 @@ import type { EditorView } from 'prosemirror-view'
 import type { InjectState } from '../types'
 
 import { AsyncQueue } from './AsyncQueue'
-import { tryPmViewDescHack } from './tryPmViewDescHack'
+import { getEditorView } from './pmViewDescHack'
 import { sleep, tryQueryIframe } from './utils'
 
 const MAX_ATTEMPTS = 10
@@ -44,7 +44,7 @@ async function* findEditorViewsGen(
   })
 
   const views = Array.from(document.querySelectorAll(selector)).map(el =>
-    tryPmViewDescHack(el as HTMLElement)
+    getEditorView(el as HTMLElement)
       .then(res => {
         if (res) {
           queue.push({ type: 'found-editor', data: res })
@@ -57,7 +57,7 @@ async function* findEditorViewsGen(
   )
   const iframes = findIframeEditorViews(selector).then(els =>
     els.map(el =>
-      tryPmViewDescHack(el)
+      getEditorView(el)
         .then(res => {
           if (res) {
             queue.push({ type: 'found-iframe-editor', data: res })
@@ -121,7 +121,7 @@ export async function findEditorViews(
     // const views: any[] = []
     const views = await Promise.all(
       Array.from(document.querySelectorAll(selector)).map(el =>
-        tryPmViewDescHack(el as HTMLElement).catch(err => {
+        getEditorView(el as HTMLElement).catch(err => {
           return undefined
         })
       )
@@ -137,7 +137,7 @@ export async function findEditorViews(
     console.log('iframes', iframes)
     const iframeViews = await Promise.all(
       iframes.map(el =>
-        tryPmViewDescHack(el as HTMLElement).catch(err => {
+        getEditorView(el as HTMLElement).catch(err => {
           return undefined
         })
       )

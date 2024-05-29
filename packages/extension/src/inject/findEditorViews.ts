@@ -2,7 +2,7 @@ import type { EditorView } from 'prosemirror-view'
 
 import type { InjectState } from '../types'
 
-import { tryPmViewDescHack } from './tryPmViewDescHack'
+import { getEditorView } from './pmViewDescHack'
 import { sleep, tryQueryIframe } from './utils'
 
 const MAX_ATTEMPTS = 10
@@ -22,7 +22,7 @@ export async function findEditorViews(
     }
     const views = await Promise.all(
       Array.from(document.querySelectorAll(selector)).map(el =>
-        tryPmViewDescHack(el as HTMLElement).catch(err => {
+        getEditorView(el as HTMLElement).catch(err => {
           return undefined
         })
       )
@@ -36,7 +36,7 @@ export async function findEditorViews(
     ).flat()
     const iframeViews = await Promise.all(
       iframes.map(el =>
-        tryPmViewDescHack(el as HTMLElement).catch(err => {
+        getEditorView(el as HTMLElement).catch(err => {
           return undefined
         })
       )

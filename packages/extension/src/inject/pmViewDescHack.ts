@@ -9,7 +9,7 @@ interface GetEditorViewOptions {
   controller: AbortController
 }
 
-function getElementEditorView(el: HTMLElement, opts: GetEditorViewOptions) {
+function recurseElementsIntoHackPromises(el: HTMLElement, opts: GetEditorViewOptions) {
   for (const child of el.children) {
     if (child instanceof HTMLElement && child.pmViewDesc?.selectNode) {
       if (
@@ -17,14 +17,14 @@ function getElementEditorView(el: HTMLElement, opts: GetEditorViewOptions) {
         child.pmViewDesc &&
         child.pmViewDesc.constructor.name !== 'CustomNodeViewDesc'
       ) {
-        opts.promises.push(getNodeEditorView(el, child, opts))
-        getElementEditorView(child, opts)
+        opts.promises.push(runPmViewDescHack(el, child, opts))
+        recurseElementsIntoHackPromises(child, opts)
       }
     }
   }
 }
 
-async function getNodeEditorView(
+async function runPmViewDescHack(
   parent: HTMLElement,
   child: HTMLElement,
   opts: GetEditorViewOptions
@@ -81,14 +81,14 @@ async function getNodeEditorView(
  * @param el
  * @returns
  */
-export async function tryPmViewDescHack(el: HTMLElement): Promise<EditorView | undefined> {
+export async function getEditorView(el: HTMLElement): Promise<EditorView | undefined> {
   const opts: GetEditorViewOptions = {
     promises: [],
     oldFns: new Map(),
     max: 50,
     controller: new AbortController()
   }
-  getElementEditorView(el, opts)
+  recurseElementsIntoHackPromises(el, opts)
   const found = await Promise.any(opts.promises)
   if ('data' in found) {
     opts.controller.abort()
