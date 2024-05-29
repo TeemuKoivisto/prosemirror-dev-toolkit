@@ -1,5 +1,11 @@
 # prosemirror-dev-toolkit
 
+## 1.1.7
+
+### Patch Changes
+
+- e0b293a: chore: update deps
+
 ## 1.1.6
 
 ### Patch Changes
