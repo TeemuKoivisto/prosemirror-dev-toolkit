@@ -1,5 +1,17 @@
 # extension
 
+## 1.1.0
+
+### Minor Changes
+
+- 17ad33b: perf: run EditorView-hack concurrently, make it a lot faster
+
+### Patch Changes
+
+- 17ad33b: fix: skip NodeViews in EditorView-hack since it doesn't work on them
+- Updated dependencies [e0b293a]
+  - prosemirror-dev-toolkit@1.1.7
+
 ## 1.0.11
 
 ### Patch Changes
