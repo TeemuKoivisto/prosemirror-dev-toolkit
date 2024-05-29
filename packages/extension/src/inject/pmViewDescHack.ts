@@ -15,6 +15,7 @@ function recurseElementsIntoHackPromises(el: HTMLElement, opts: GetEditorViewOpt
       if (
         opts.promises.length < opts.max &&
         child.pmViewDesc &&
+        // Skip custom NodeViews since they seem to bug out with the hack
         child.pmViewDesc.constructor.name !== 'CustomNodeViewDesc'
       ) {
         opts.promises.push(runPmViewDescHack(el, child, opts))
@@ -33,6 +34,7 @@ async function runPmViewDescHack(
     return { err: 'Finding aborted', code: 400 }
   }
   let oldFn = parent.pmViewDesc?.updateChildren
+  // If the same updateChildren is patched twice, the pmViewDesc gets broken. Ups
   const alreadyPatched = opts.oldFns.has(parent)
   if (!alreadyPatched && oldFn) {
     opts.oldFns.set(parent, oldFn)
