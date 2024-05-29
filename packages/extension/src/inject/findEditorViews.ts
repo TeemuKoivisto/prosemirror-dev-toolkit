@@ -2,7 +2,8 @@ import type { EditorView } from 'prosemirror-view'
 
 import type { InjectState } from '../types'
 
-import { getEditorView, sleep, tryQueryIframe } from './utils'
+import { getEditorView } from './pmViewDescHack'
+import { sleep, tryQueryIframe } from './utils'
 
 const MAX_ATTEMPTS = 10
 
@@ -40,7 +41,7 @@ export async function findEditorViews(
         })
       )
     )
-    const filtered = views.concat(iframeViews).filter(v => v !== undefined) as EditorView[]
+    const filtered = views.concat(iframeViews).filter((v): v is EditorView => v !== undefined)
     if (filtered.length === 0 && attempts < MAX_ATTEMPTS) {
       return findEditorViews(state, attempts + 1)
     }

@@ -8,7 +8,7 @@ import { shouldRerun } from './utils'
 
 declare global {
   interface Element {
-    pmViewDesc?: {
+    pmViewDesc?: globalThis.Node['pmViewDesc'] & {
       updateChildren: (view: EditorView, pos: number) => void
       selectNode: () => void
       deselectNode: () => void

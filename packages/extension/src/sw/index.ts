@@ -3,7 +3,7 @@ import { listenToConnections } from './ports'
 function register() {
   return chrome.scripting.registerContentScripts([
     {
-      id: 'inject',
+      id: 'prosemirror-dev-toolkit-inject',
       allFrames: true,
       matches: ['<all_urls>'],
       js: ['inject.js'],
@@ -17,10 +17,10 @@ try {
   register()
 } catch (err: any) {
   // When developing the extension, the old inject script might conflict with the new one
-  if (err.toString().includes("Duplicate script ID 'inject'")) {
+  if (err.toString().includes('Duplicate script ID')) {
     chrome.scripting
       .unregisterContentScripts({
-        ids: ['inject']
+        ids: ['prosemirror-dev-toolkit-inject']
       })
       .then(() => register())
   }
