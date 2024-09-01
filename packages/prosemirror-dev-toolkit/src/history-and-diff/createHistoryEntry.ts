@@ -36,12 +36,16 @@ const formatTimestamp = (timestamp: number) => {
   ].join(':')
 }
 
-const regexp = /(&lt;\/?[\w\d\s="']+&gt;)/gim
+// Matches any src attribute containing base64 data due to bug in html package and legibility
+// https://github.com/TeemuKoivisto/prosemirror-dev-toolkit/issues/81
+const srcAttr = /src=[\"|\']data:(.*);base64,(.*)[\"|\']/g
+
+const wrappingCarets = /(&lt;\/?[\w\d\s="']+&gt;)/gim
 const highlightHtmlString = (html: string) =>
   html
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
-    .replace(regexp, "<span style='color: cadetblue;'>$&</span>")
+    .replace(wrappingCarets, "<span style='color: cadetblue;'>$&</span>")
 
 export function createHistoryEntry(
   trs: readonly Transaction[],
@@ -57,7 +61,7 @@ export function createHistoryEntry(
   if (domFragment) {
     let child = domFragment.firstChild as HTMLElement | null
     while (child) {
-      selectedElementsAsHtml.push(child.outerHTML)
+      selectedElementsAsHtml.push(child.outerHTML.replaceAll(srcAttr, 'src="..."'))
       child = child.nextSibling as HTMLElement | null
     }
   }

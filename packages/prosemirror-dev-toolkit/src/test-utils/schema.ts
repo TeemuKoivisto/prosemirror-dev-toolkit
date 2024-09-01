@@ -1,10 +1,39 @@
-import { Schema } from 'prosemirror-model'
+import { NodeSpec, Schema } from 'prosemirror-model'
 
 export const schema = new Schema({
   nodes: {
     doc: {
       content: 'block+'
     },
+    /// An inline image (`<img>`) node. Supports `src`,
+    /// `alt`, and `href` attributes. The latter two default to the empty
+    /// string.
+    image: {
+      inline: true,
+      attrs: {
+        src: { validate: 'string' },
+        alt: { default: null, validate: 'string|null' },
+        title: { default: null, validate: 'string|null' }
+      },
+      group: 'inline',
+      draggable: true,
+      parseDOM: [
+        {
+          tag: 'img[src]',
+          getAttrs(dom: HTMLElement) {
+            return {
+              src: dom.getAttribute('src'),
+              title: dom.getAttribute('title'),
+              alt: dom.getAttribute('alt')
+            }
+          }
+        }
+      ],
+      toDOM(node) {
+        const { src, alt, title } = node.attrs
+        return ['img', { src, alt, title }]
+      }
+    } as NodeSpec,
     paragraph: {
       content: 'inline*',
       group: 'block',
