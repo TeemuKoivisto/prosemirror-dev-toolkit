@@ -110,8 +110,8 @@ exports[`createHistoryEntry > should collapse base64 src attributes 1`] = `
       "type": "all",
     },
   },
-  "timeStr": "01:00:00:000",
-  "timestamp": 1706742000000,
+  "timeStr": "00:00:00:000",
+  "timestamp": 1704060000000,
   "trs": [
     {
       "curSelection": {
@@ -259,7 +259,7 @@ exports[`createHistoryEntry > should collapse base64 src attributes 1`] = `
       ],
       "storedMarks": null,
       "storedMarksSet": false,
-      "time": 1706742000000,
+      "time": 1704060000000,
       "updated": 1,
     },
   ],
