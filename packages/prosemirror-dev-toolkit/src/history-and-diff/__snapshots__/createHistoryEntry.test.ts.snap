@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`createHistoryEntry > should collapse large src attributes 1`] = `
+exports[`createHistoryEntry > should collapse base64 src attributes 1`] = `
 {
   "contentDiff": {
     "content": {
@@ -266,7 +266,7 @@ exports[`createHistoryEntry > should collapse large src attributes 1`] = `
 }
 `;
 
-exports[`createHistoryEntry > should collapse large src attributes 2`] = `
+exports[`createHistoryEntry > should collapse base64 src attributes 2`] = `
 <body>
   <div
     class="ProseMirror"
