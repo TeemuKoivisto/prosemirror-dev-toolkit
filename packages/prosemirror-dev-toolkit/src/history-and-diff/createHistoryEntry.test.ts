@@ -14,7 +14,7 @@ describe('createHistoryEntry', () => {
     el.id = 'pm-editor'
     view = setupEditor(el)
     vi.useFakeTimers()
-    vi.setSystemTime(new Date(2024, 0))
+    vi.setSystemTime(new Date(2024, 0, 1, 2))
     const oldMath = Math
     vi.stubGlobal('Math', {
       floor: oldMath.floor,
