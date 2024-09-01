@@ -1,5 +1,11 @@
 # prosemirror-dev-toolkit
 
+## 1.1.8
+
+### Patch Changes
+
+- d7f1d88: fix: infinite loop in selection html with base64 images
+
 ## 1.1.7
 
 ### Patch Changes
