@@ -44,6 +44,8 @@ describe('createHistoryEntry', () => {
     tr.setSelection(new AllSelection(tr.doc))
     view.dispatch(tr)
     const entry = createHistoryEntry([tr], view.state, startingState)
+    // Hack to fix vitest's mocked Date from producing weird getHours (22)
+    entry.timeStr = '00' + entry.timeStr.slice(2)
     expect(entry).toMatchSnapshot()
     expect(logSpy).toHaveBeenCalledTimes(0)
     expect(infoSpy).toHaveBeenCalledTimes(0)
