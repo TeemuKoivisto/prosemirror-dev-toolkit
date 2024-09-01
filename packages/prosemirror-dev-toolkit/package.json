@@ -64,9 +64,9 @@
     "svelte-preprocess": "^5.1.4",
     "tslib": "^2.6.2",
     "typescript": "^5.4.5",
-    "vite": "^5.2.11",
+    "vite": "^5.4.2",
     "vite-tsconfig-paths": "^4.3.2",
-    "vitest": "^1.5.3"
+    "vitest": "^2.0.5"
   },
   "dependencies": {
     "html": "^1.0.0",
