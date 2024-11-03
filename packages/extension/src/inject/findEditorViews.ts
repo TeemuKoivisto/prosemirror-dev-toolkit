@@ -40,7 +40,8 @@ export async function* findAllEditorViews(
   const { selector } = state.inject
   const elements: HTMLElement[] = Array.from(document.querySelectorAll(selector))
   const iframeEls: HTMLIFrameElement[] = Array.from(document.querySelectorAll('iframe'))
-  let done = false
+  let done = elements.length === 0 && iframeEls.length === 0
+  let tryAgain = true
   let viewsFailed = -1
   let iframesFailed = -1
 
@@ -110,6 +111,7 @@ export async function* findAllEditorViews(
     if (msg) {
       yield msg
       done = msg.type === 'finished' || msg.type === 'error'
+      tryAgain = msg.type !== 'finished'
     } else {
       queue.push({
         type: 'error',
@@ -118,7 +120,7 @@ export async function* findAllEditorViews(
     }
   }
 
-  // if (tryAgain && attempts < MAX_ATTEMPTS) {
-  //   yield* findAllEditorViews(state, opts, controller, attempts + 1)
-  // }
+  if (tryAgain && attempts < MAX_ATTEMPTS) {
+    yield* findAllEditorViews(state, controller, attempts + 1)
+  }
 }

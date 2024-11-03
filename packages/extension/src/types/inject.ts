@@ -1,6 +1,4 @@
-import { EditorView } from 'prosemirror-view'
 import { GlobalState } from './sw'
-import { Result } from './utils'
 
 export interface FoundInstance {
   type: 'view' | 'iframe'
@@ -21,23 +19,6 @@ export interface InjectData {
   attempt: number
   sleeping: number
   instances: { [key: string]: FoundInstance }
-  // views: Map<
-  //   number,
-  //   {
-  //     size: number
-  //     element: string
-  //     err: string
-  //   }
-  // >
-  // iframes: Map<
-  //   number,
-  //   {
-  //     index: number
-  //     size: number
-  //     element: string
-  //     err: string
-  //   }
-  // >
 }
 export interface InjectState {
   global: Pick<GlobalState, 'disabled' | 'devToolsOpts'>
@@ -103,20 +84,12 @@ export type InjectEvent =
   | Error
   | Finished
 
-export interface InjectPayload<T, D = undefined> {
-  source: 'pm-dev-tools'
-  origin: 'inject'
-  type: T
-  data: D
-}
-
-export interface InjectMsgMap2 {
-  'inject-status': InjectPayload<'inject-status', InjectStatus>
-  'inject-found-instances': InjectPayload<'inject-found-instances', { instances: FoundInstance[] }>
-  'update-global-options': InjectPayload<'update-global-options', Partial<GlobalState>>
-  'toggle-disable': InjectPayload<'toggle-disable'>
-  reload: InjectPayload<'reload'>
-}
+// export interface InjectPayload<T, D = undefined> {
+//   source: 'pm-dev-tools'
+//   origin: 'inject'
+//   type: T
+//   data: D
+// }
 
 export type InjectSource = {
   source: 'pm-dev-tools'
@@ -124,26 +97,12 @@ export type InjectSource = {
 }
 
 export interface InjectMsgMap {
-  'inject-progress': InjectSource & {
-    type: 'inject-progress'
+  'inject-status': InjectSource & {
+    type: 'inject-status'
     data: InjectStatus
   }
   'inject-event': InjectSource & {
     type: 'inject-event'
     data: InjectEvent
-  }
-  'inject-found': InjectSource & {
-    type: 'inject-found'
-    data: {
-      instances: FoundInstance[]
-    }
-  }
-  'inject-finished': InjectSource & {
-    type: 'inject-finished'
-    data: undefined
-  }
-  'inject-errored': InjectSource & {
-    type: 'inject-errored'
-    data: undefined
   }
 }

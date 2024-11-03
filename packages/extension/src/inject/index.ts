@@ -16,8 +16,6 @@ declare global {
   }
 }
 
-const controller = new AbortController()
-
 const isSwMsg = (msg: any): msg is SWMessageMap[keyof SWMessageMap] =>
   msg &&
   typeof msg === 'object' &&

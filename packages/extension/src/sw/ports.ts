@@ -32,7 +32,7 @@ async function listenInject<K extends keyof InjectMsgMap>(tabId: number, msg: In
   }
   // console.log('received msg from INJECT port!', JSON.stringify(msg))
   switch (msg.type) {
-    case 'inject-progress':
+    case 'inject-status':
       storeActions.updatePageInjectData(tabId, { status: msg.data })
       storeActions.broadcastPopUpData(tabId)
       break

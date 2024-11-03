@@ -18,6 +18,7 @@ export function send<K extends keyof InjectMsgMap>(type: K, data: InjectMsgMap[K
     type: InjectMsgMap[keyof InjectMsgMap]['type']
     data: InjectMsgMap[keyof InjectMsgMap]['data']
   } = { source: 'pm-dev-tools', origin: 'inject', type, data }
+  console.log('msg', msg)
   window.postMessage(msg)
 }
 

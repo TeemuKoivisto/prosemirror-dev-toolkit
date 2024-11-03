@@ -22,34 +22,26 @@ interface MutableData {
   global: GlobalState
   injectOpts: InjectOptions
   injectData: InjectData
+  currentTab: InjectData
 }
 type UpdateArgs = {
   [K in keyof MutableData]: [tabId: number, field: K, value: MutableData[K]]
 }[keyof MutableData]
 
-type EditorEvents = {
+type StateEvents = {
   created(): void
   hydrated(): void
-  update(...[field, value]: UpdateArgs): void
+  update(...[tabId, field, value]: UpdateArgs): void
   portConnected(type: typeof PAGE_PORT | typeof POP_UP_PORT, tabId: number): void
   portDisconnected(type: typeof PAGE_PORT | typeof POP_UP_PORT, tabId: number): void
-  tr(): void
   destroy(): void
 }
 
-export class State extends Observable<EditorEvents> {
+export class State extends Observable<StateEvents> {
   global: GlobalState = DEFAULT_GLOBAL_STATE
   inject: InjectOptions = DEFAULT_INJECT_OPTIONS
   pages = new Map<number, PageData>()
   currentTabId = 0
-
-  hydrate(state: 'global' | 'injectOpts', data: any) {
-    if (state === 'global') {
-      this.global = data
-    } else if (state === 'injectOpts') {
-      this.inject = data
-    }
-  }
 
   getPopUpState(tabId: number): PopUpState {
     const found = this.pages.get(tabId)?.injectData
@@ -67,6 +59,26 @@ export class State extends Observable<EditorEvents> {
       inject: this.inject,
       data: found ?? DEFAULT_INJECT_DATA
     }
+  }
+
+  hydrate(state: 'global' | 'injectOpts', data: any) {
+    if (state === 'global') {
+      this.global = data
+    } else if (state === 'injectOpts') {
+      this.inject = data
+    }
+  }
+
+  setCurrentTab(tabId: number) {
+    this.currentTabId = tabId
+    const old = this.pages.get(tabId)
+    const page = old ?? {
+      injectData: { ...DEFAULT_INJECT_DATA },
+      pagePort: undefined,
+      popUpPort: undefined
+    }
+    this.pages.set(tabId, page)
+    this.emit('update', tabId, 'currentTab', page.injectData)
   }
 
   /**
@@ -167,18 +179,15 @@ export class State extends Observable<EditorEvents> {
   selectViewInstance(index: number) {}
 
   handleInjectEvent(tabId: number, event: InjectEvent) {
-    // this.emit('update', 'inject', event)
     const old = this.pages.get(tabId)
     if (!old) return
+    let updated: InjectData = old.injectData
     switch (event.type) {
       case 'sleeping':
-        this.pages.set(tabId, {
-          ...old,
-          injectData: {
-            ...old.injectData,
-            ...event.data
-          }
-        })
+        updated = {
+          ...updated,
+          ...event.data
+        }
         break
       case 'injecting':
         const instances: Record<string, FoundInstance> = {}
@@ -201,18 +210,15 @@ export class State extends Observable<EditorEvents> {
             }
           }
         }
-        this.pages.set(tabId, {
-          ...old,
-          injectData: {
-            ...old.injectData,
-            instances
-          }
-        })
+        updated = {
+          ...updated,
+          instances
+        }
         break
       case 'view-result':
-        const inst = old.injectData.instances[`view-${event.data.index}`]
+        const inst = updated.instances[`view-${event.data.index}`]
         if (inst) {
-          old.injectData.instances[`view-${event.data.index}`] = {
+          updated.instances[`view-${event.data.index}`] = {
             ...inst,
             size: event.data.size,
             element: event.data.element
@@ -220,9 +226,9 @@ export class State extends Observable<EditorEvents> {
         }
         break
       case 'iframe-result':
-        const inst2 = old.injectData.instances[`iframe-${event.data.iframeIndex}`]
+        const inst2 = updated.instances[`iframe-${event.data.iframeIndex}`]
         if (inst2) {
-          old.injectData.instances[`view-${event.data.iframeIndex}`] = {
+          updated.instances[`view-${event.data.iframeIndex}`] = {
             ...inst2,
             size: event.data.size,
             element: event.data.element
@@ -230,23 +236,20 @@ export class State extends Observable<EditorEvents> {
         }
         break
       case 'error':
-        this.pages.set(tabId, {
-          ...old,
-          injectData: {
-            ...old.injectData,
-            status: 'error'
-          }
-        })
+        updated = {
+          ...updated,
+          status: 'error'
+        }
         break
       case 'finished':
-        this.pages.set(tabId, {
-          ...old,
-          injectData: {
-            ...old.injectData,
-            status: 'finished'
-          }
-        })
+        updated = {
+          ...updated,
+          status: 'finished'
+        }
         break
     }
+    const page = { ...old, injectData: updated }
+    this.pages.set(tabId, page)
+    this.emit('update', tabId, 'injectData', updated)
   }
 }

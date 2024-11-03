@@ -20,39 +20,47 @@ async function hydrate() {
 
 hydrate()
 
-state.on('update', (tabId, field, value) => {
-  if (field === 'global') {
-    chrome.storage.sync.set({ [GLOBAL_STORAGE_KEY]: value })
-  } else if (field === 'injectOpts') {
-    chrome.storage.sync.set({ [INJECT_STORAGE_KEY]: value })
-  }
-  // @TODO maybe check whether deep equal to previous state -> dont rerun inject
-  const popup = state.getPopUpState(tabId)
-  const inject = state.getInjectState(tabId)
-  state.sendToPort(tabId, 'pop-up-state', popup)
-  state.sendToPort(tabId, 'run-inject', inject)
+chrome.runtime.onInstalled.addListener(() => {
+  setTimeout(async () => {
+    const tab = await getCurrentTab()
+    state.setCurrentTab(tab?.id || 0)
+  }, 1000)
 })
 
-// currentPage.subscribe(val => {
-//   const iconType = val.inject.instances.length === 0 ? '-disabled' : ''
-//   chrome.action.setIcon({
-//     path: {
-//       '16': chrome.runtime.getURL(`devtools${iconType}-16.png`),
-//       '32': chrome.runtime.getURL(`devtools${iconType}-32.png`),
-//       '48': chrome.runtime.getURL(`devtools${iconType}-48.png`),
-//       '128': chrome.runtime.getURL(`devtools${iconType}-128.png`)
-//     }
-//   })
-// })
-// chrome.runtime.onInstalled.addListener(() => {
-//   setTimeout(async () => {
-//     const tab = await getCurrentTab()
-//     currentTabId.set(tab?.id || 0)
-//   }, 1000)
-// })
-// chrome.tabs.onActivated.addListener(activeInfo => {
-//   currentTabId.set(activeInfo.tabId)
-// })
+chrome.tabs.onActivated.addListener(activeInfo => {
+  state.setCurrentTab(activeInfo.tabId)
+})
+
+state.on('update', (tabId, field, value) => {
+  switch (field) {
+    case 'global':
+      chrome.storage.sync.set({ [GLOBAL_STORAGE_KEY]: value })
+      state.sendToPort(tabId, 'pop-up-state', state.getPopUpState(tabId))
+      state.sendToPort(tabId, 'run-inject', state.getInjectState(tabId))
+      break
+    case 'injectOpts':
+      chrome.storage.sync.set({ [INJECT_STORAGE_KEY]: value })
+      state.sendToPort(tabId, 'pop-up-state', state.getPopUpState(tabId))
+      // @TODO maybe check whether deep equal to previous state -> dont rerun inject
+      // although there's shouldRerun check in there
+      state.sendToPort(tabId, 'run-inject', state.getInjectState(tabId))
+      break
+    case 'injectData':
+      state.sendToPort(tabId, 'pop-up-state', state.getPopUpState(tabId))
+      break
+    case 'currentTab':
+      const iconType = Object.keys(value.instances).length === 0 ? '-disabled' : ''
+      chrome.action.setIcon({
+        path: {
+          '16': chrome.runtime.getURL(`devtools${iconType}-16.png`),
+          '32': chrome.runtime.getURL(`devtools${iconType}-32.png`),
+          '48': chrome.runtime.getURL(`devtools${iconType}-48.png`),
+          '128': chrome.runtime.getURL(`devtools${iconType}-128.png`)
+        }
+      })
+      break
+  }
+})
 
 state.on('portConnected', (type, tabId) => {
   if (type === PAGE_PORT) {
@@ -61,8 +69,6 @@ state.on('portConnected', (type, tabId) => {
     state.sendToPort(tabId, 'pop-up-state', state.getPopUpState(tabId))
   }
 })
-
-// storeActions.sendToPort(tabId, 'run-inject', storeActions.getInjectData(tabId))
 
 export async function listenToConnections(port: chrome.runtime.Port) {
   const tabId = port.sender?.tab?.id || (await getCurrentTab())?.id
@@ -86,24 +92,10 @@ function onInjectMsg<K extends keyof InjectMsgMap>(tabId: number, msg: InjectMsg
   }
   console.log('inject', msg.type)
   switch (msg.type) {
-    // case 'inject-progress':
-    //   storeActions.updatePageInjectData(tabId, { status: msg.data })
-    //   storeActions.broadcastPopUpData(tabId)
-    //   break
-    // case 'inject-found':
-    //   storeActions.updatePageInjectData(tabId, {
-    //     instances: msg.data.instances,
-    //     status: 'finished'
-    //   })
-    //   storeActions.broadcastPopUpData(tabId)
-    //   break
+    case 'inject-status':
+      break
     case 'inject-event':
-      // storeActions.
       state.handleInjectEvent(tabId, msg.data)
-      break
-    case 'inject-finished':
-      break
-    case 'inject-errored':
       break
   }
 }
