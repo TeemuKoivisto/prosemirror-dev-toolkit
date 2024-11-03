@@ -4,7 +4,7 @@ import { findAllEditorViews } from './findEditorViews'
 import { send } from './utils'
 
 import { DEFAULT_INJECT_STATE } from '../types'
-import type { InjectState, InjectStatus } from '../types'
+import type { InjectState, InjectStatus, InstanceStatus } from '../types'
 
 export let mounted = false
 export let state: InjectState = DEFAULT_INJECT_STATE
@@ -34,7 +34,8 @@ export const injectActions = {
         const err = 'err' in result ? result.err : ''
         const id =
           data.type === 'view' ? `view-${data.index}` : `iframe-${data.iframeIndex}-${data.index}`
-        let status = 'found'
+        let status: InstanceStatus = 'err' in result ? 'error' : 'available'
+        console.log(`id ${id} and selected ${state.inject.selectedId}`)
         if ('data' in result && !applied && state.inject.selectedId === id) {
           try {
             applyDevTools(result.data, state.global.devToolsOpts)
@@ -43,7 +44,7 @@ export const injectActions = {
           } catch (err: any) {
             console.error(err)
             err = err.toString()
-            status = 'apply-failed'
+            status = 'apply-error'
           }
         }
         const html = 'data' in result ? result.data.dom.innerHTML : ''

@@ -35,7 +35,7 @@ export type RerunInjectMsg = SwSource & {
   type: 'rerun-inject'
 }
 export type AbortInjectMsg = SwSource & {
-  type: 'abort-inject'
+  type: 'stop-inject'
 }
 
 export type SwMessage =
@@ -60,8 +60,8 @@ export interface SWMessageMap {
     data: undefined
     tabId: number
   }
-  'abort-inject': SwSource & {
-    type: 'abort-inject'
+  'stop-inject': SwSource & {
+    type: 'stop-inject'
     data: undefined
     tabId: number
   }

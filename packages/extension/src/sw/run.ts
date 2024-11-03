@@ -95,13 +95,6 @@ function onInjectMsg(tabId: number, msg: InjectMsg) {
     return
   }
   console.log('inject', msg.type)
-  // switch (msg.type) {
-  //   case 'inject-status':
-  //     break
-  //   case 'inject-event':
-  //     state.handleInjectEvent(tabId, msg.data)
-  //     break
-  // }
   switch (msg.type) {
     case 'sleeping':
       state.updatePageData(tabId, { status: 'sleeping', ...msg.data })

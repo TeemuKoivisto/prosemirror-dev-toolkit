@@ -10,7 +10,7 @@ export function sleep(ms: number) {
 
 export function send(event: InjectEvent) {
   const msg: InjectSource & InjectEvent = { source: 'pm-dev-tools', origin: 'inject', ...event }
-  console.log('msg', msg.data)
+  console.log(`${msg.type}`, msg.data)
   window.postMessage(msg)
 }
 

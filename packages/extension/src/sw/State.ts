@@ -7,7 +7,6 @@ import {
   FoundInstance,
   GlobalState,
   InjectData,
-  InjectEvent,
   InjectOptions,
   InjectState,
   PAGE_PORT,
@@ -33,7 +32,6 @@ type StateEvents = {
   update(...[tabId, field, value]: UpdateArgs): void
   portConnected(type: typeof PAGE_PORT | typeof POP_UP_PORT, tabId: number): void
   portDisconnected(type: typeof PAGE_PORT | typeof POP_UP_PORT, tabId: number): void
-  destroy(): void
 }
 
 export class State extends Observable<StateEvents> {
@@ -192,57 +190,5 @@ export class State extends Observable<StateEvents> {
     }
     this.emit('update', tabId, 'global', this.global)
     // @TODO emit update pages(?) inject(?)
-  }
-
-  handleInjectEvent(tabId: number, event: InjectEvent) {
-    const old = this.pages.get(tabId)
-    if (!old) return
-    let updated: InjectData = old.injectData
-    const { type, data } = event
-    switch (type) {
-      case 'sleeping':
-        updated = {
-          ...updated,
-          ...data
-        }
-        break
-      case 'view-instance':
-        const id2 =
-          data.type === 'view' ? `view-${data.index}` : `iframe-${data.iframeIndex}-${data.index}`
-        const instances = { ...updated.instances, [id2]: data }
-        updated = {
-          ...updated,
-          instances
-        }
-        break
-      case 'view-result':
-        const id =
-          data.type === 'view' ? `view-${data.index}` : `iframe-${data.iframeIndex}-${data.index}`
-        const inst = updated.instances[id]
-        if (inst) {
-          updated.instances[id] = {
-            ...inst,
-            ...data
-          }
-        }
-        break
-      case 'error':
-        updated = {
-          ...updated,
-          status: 'error'
-        }
-        break
-      case 'finished':
-        updated = {
-          ...updated,
-          status: 'finished'
-        }
-        break
-    }
-    const page = { ...old, injectData: updated }
-    this.pages.set(tabId, page)
-    this.emit('update', tabId, 'injectData', updated)
-    // setTimeout(() => {
-    // })
   }
 }

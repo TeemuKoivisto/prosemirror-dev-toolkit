@@ -1,12 +1,13 @@
 import { GlobalState } from './sw'
 
+export type InstanceStatus = 'injecting' | 'available' | 'applied' | 'apply-error' | 'error'
 export interface FoundInstance {
   type: 'view' | 'iframe'
   iframeIndex: number
   index: number
   size: number
   element: string
-  status: string
+  status: InstanceStatus
   err: string
 }
 export type InjectStatus = 'sleeping' | 'injecting' | 'finished' | 'stopped' | 'error'
@@ -20,7 +21,7 @@ export interface InjectData {
   status: InjectStatus
   attempt: number
   sleeping: number
-  instances: { [key: string]: FoundInstance }
+  instances: { [id: string]: FoundInstance }
 }
 export interface InjectState {
   global: Pick<GlobalState, 'disabled' | 'devToolsOpts'>
@@ -49,14 +50,6 @@ interface ViewResult {
   type: 'view-result'
   data: FoundInstance
 }
-interface ViewsDone {
-  type: 'views-done'
-  data: { failed: number }
-}
-interface IFramesDone {
-  type: 'iframes-done'
-  data: { failed: number }
-}
 interface Error {
   type: 'error'
   data: string
@@ -65,15 +58,7 @@ interface Finished {
   type: 'finished'
   data: undefined
 }
-export type InjectEvent =
-  | Sleeping
-  | Started
-  | ViewInstance
-  | ViewResult
-  | ViewsDone
-  | IFramesDone
-  | Error
-  | Finished
+export type InjectEvent = Sleeping | Started | ViewInstance | ViewResult | Error | Finished
 
 export type InjectSource = {
   source: 'pm-dev-tools'

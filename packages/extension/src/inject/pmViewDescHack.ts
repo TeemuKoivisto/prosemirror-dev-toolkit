@@ -9,7 +9,10 @@ interface GetEditorViewParams {
   controller: AbortController
 }
 
-function recurseElementsIntoHackPromises(el: HTMLElement, params: GetEditorViewParams) {
+async function* recurseElementsIntoHackPromises(
+  el: HTMLElement,
+  params: GetEditorViewParams
+): AsyncGenerator<Result<EditorView>, void, unknown> {
   for (const child of el.children) {
     if (child instanceof HTMLElement && child.pmViewDesc?.selectNode) {
       if (
@@ -18,8 +21,8 @@ function recurseElementsIntoHackPromises(el: HTMLElement, params: GetEditorViewP
         // Skip custom NodeViews since they seem to bug out with the hack
         (!params.opts.skipCustomViews || child.pmViewDesc.constructor.name !== 'CustomNodeViewDesc')
       ) {
-        params.promises.push(runPmViewDescHack(el, child, params))
-        recurseElementsIntoHackPromises(child, params)
+        yield runPmViewDescHack(el, child, params)
+        yield* recurseElementsIntoHackPromises(child, params)
       }
     }
   }
@@ -93,15 +96,32 @@ export async function getEditorView(
     controller: new AbortController(),
     opts
   }
-  recurseElementsIntoHackPromises(el, params)
-  const found = await Promise.any(params.promises)
-  if ('data' in found) {
-    params.controller.abort()
-    return found
+  const errors = []
+  for await (const evt of recurseElementsIntoHackPromises(el, params)) {
+    if ('data' in evt) {
+      params.controller.abort()
+      return evt
+    } else {
+      errors.push(evt)
+    }
   }
-  if (params.promises.length === 0) {
+  // recurseElementsIntoHackPromises(el, params)
+  // try {
+  //   const found = await Promise.any(params.promises)
+  //   if ('data' in found) {
+  //     params.controller.abort()
+  //     return found
+  //   }
+  // } catch (err: any) {
+  //   console.log('PROMISES', params.promises)
+  //   return { err: err.toString(), code: 400 }
+  // }
+  if (errors.length === 0) {
     return { err: '0 available nodes found', code: 404 }
   } else {
-    return { err: `pmViewDesc hack failed for ${params.promises.length} nodes`, code: 400 }
+    return {
+      err: `pmViewDesc hack failed ${errors.length} times, last error: ${errors.pop()?.err || '<none>'}`,
+      code: 400
+    }
   }
 }

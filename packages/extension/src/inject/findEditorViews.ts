@@ -40,14 +40,14 @@ export async function* findAllEditorViews(
     return
   }
   const queue = new AsyncQueue<InjectEvent | FoundView | Abort>(TIMEOUT)
-  const { selector } = state.inject
-  const elements: HTMLElement[] = Array.from(document.querySelectorAll(selector))
+  const elements: HTMLElement[] = Array.from(document.querySelectorAll(state.inject.selector))
   const iframeEls: HTMLIFrameElement[] = Array.from(document.querySelectorAll('iframe'))
   let done = elements.length === 0 && iframeEls.length === 0
   let tryAgain = true
-  let viewsFailed = -1
-  let iframesFailed = -1
+  let viewsFailed = elements.length > 0 ? -1 : 0
+  let iframesFailed = iframeEls.length > 0 ? -1 : 0
 
+  console.log(`FOUND ${document.title} ${Array.from(document.querySelectorAll('svg')).length}`)
   yield { type: 'injecting', data: { views: elements.length, iframes: iframeEls.length } }
 
   controller?.signal.addEventListener('abort', () => {
@@ -84,7 +84,7 @@ export async function* findAllEditorViews(
   )
     .then(all => {
       viewsFailed = all.filter(f => 'err' in f).length
-      if (viewsFailed > 0 && iframesFailed > 0) {
+      if (viewsFailed >= 0 && iframesFailed >= 0) {
         queue.push({
           type: 'finished',
           data: undefined
@@ -100,39 +100,39 @@ export async function* findAllEditorViews(
 
   Promise.all(
     iframeEls.map(async (iframe, i) => {
-      const found = await tryQueryIframe(iframe, selector)
-      return Promise.all(
-        found.map(async (el, j) => {
-          queue.push({
-            type: 'view-instance',
-            data: {
-              type: 'iframe',
-              iframeIndex: i,
-              index: j,
-              size: el.innerHTML.length,
-              element: el.innerHTML.slice(0, 100),
-              status: 'injecting',
-              err: ''
-            }
-          })
-          const res = await getEditorView(el, state.inject)
-          queue.push({
-            type: 'found-view',
-            result: res,
-            data: {
-              type: 'iframe',
-              iframeIndex: i,
-              index: j
-            }
-          })
-          return res
+      console.log('querying iframe')
+      const found = await tryQueryIframe(iframe, state.inject.selector)
+      console.log('queried iframe', found.length)
+      return found.flatMap(async (el, j) => {
+        queue.push({
+          type: 'view-instance',
+          data: {
+            type: 'iframe',
+            iframeIndex: i,
+            index: j,
+            size: el.innerHTML.length,
+            element: el.innerHTML.slice(0, 100),
+            status: 'injecting',
+            err: ''
+          }
         })
-      )
+        const res = await getEditorView(el, state.inject)
+        queue.push({
+          type: 'found-view',
+          result: res,
+          data: {
+            type: 'iframe',
+            iframeIndex: i,
+            index: j
+          }
+        })
+        return res
+      })
     })
   )
     .then(all => {
       iframesFailed = all.flat().filter(f => 'err' in f).length
-      if (viewsFailed > 0 && iframesFailed > 0) {
+      if (viewsFailed >= 0 && iframesFailed >= 0) {
         queue.push({
           type: 'finished',
           data: undefined

@@ -49,7 +49,7 @@ export const onmessage = (event: MessageEvent<unknown>) => {
       injectActions.setMounted(false)
       injectActions.findInstances()
       break
-    case 'abort-inject':
+    case 'stop-inject':
       injectActions.abort()
       break
   }
