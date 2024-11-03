@@ -19,7 +19,7 @@ export const injectActions = {
   },
   updateStatus(status: InjectStatus) {
     state.data.status = status
-    send('inject-progress', status)
+    send('inject-status', status)
   },
   abort() {
     controller.abort()
