@@ -1,25 +1,25 @@
 import type { EditorView } from 'prosemirror-view'
 
-import { Result } from '../types/utils'
+import { InjectOptions, Result } from '../types'
 
-interface GetEditorViewOptions {
+interface GetEditorViewParams {
   promises: Promise<Result<EditorView>>[]
   oldFns: Map<HTMLElement, (view: EditorView, pos: number) => void>
-  max: number
+  opts: InjectOptions
   controller: AbortController
 }
 
-function recurseElementsIntoHackPromises(el: HTMLElement, opts: GetEditorViewOptions) {
+function recurseElementsIntoHackPromises(el: HTMLElement, params: GetEditorViewParams) {
   for (const child of el.children) {
     if (child instanceof HTMLElement && child.pmViewDesc?.selectNode) {
       if (
-        opts.promises.length < opts.max &&
+        params.promises.length < params.opts.maxQueriedNodes &&
         child.pmViewDesc &&
         // Skip custom NodeViews since they seem to bug out with the hack
-        child.pmViewDesc.constructor.name !== 'CustomNodeViewDesc'
+        (!params.opts.skipCustomViews || child.pmViewDesc.constructor.name !== 'CustomNodeViewDesc')
       ) {
-        opts.promises.push(runPmViewDescHack(el, child, opts))
-        recurseElementsIntoHackPromises(child, opts)
+        params.promises.push(runPmViewDescHack(el, child, params))
+        recurseElementsIntoHackPromises(child, params)
       }
     }
   }
@@ -28,7 +28,7 @@ function recurseElementsIntoHackPromises(el: HTMLElement, opts: GetEditorViewOpt
 async function runPmViewDescHack(
   parent: HTMLElement,
   child: HTMLElement,
-  opts: GetEditorViewOptions
+  opts: GetEditorViewParams
 ): Promise<Result<EditorView>> {
   if (opts.controller.signal.aborted) {
     return { err: 'Finding aborted', code: 400 }
@@ -83,18 +83,25 @@ async function runPmViewDescHack(
  * @param el
  * @returns
  */
-export async function getEditorView(el: HTMLElement): Promise<EditorView | undefined> {
-  const opts: GetEditorViewOptions = {
+export async function getEditorView(
+  el: HTMLElement,
+  opts: InjectOptions
+): Promise<Result<EditorView>> {
+  const params: GetEditorViewParams = {
     promises: [],
     oldFns: new Map(),
-    max: 50,
-    controller: new AbortController()
+    controller: new AbortController(),
+    opts
   }
-  recurseElementsIntoHackPromises(el, opts)
-  const found = await Promise.any(opts.promises)
+  recurseElementsIntoHackPromises(el, params)
+  const found = await Promise.any(params.promises)
   if ('data' in found) {
-    opts.controller.abort()
-    return found.data
+    params.controller.abort()
+    return found
   }
-  return undefined
+  if (params.promises.length === 0) {
+    return { err: '0 available nodes found', code: 404 }
+  } else {
+    return { err: `pmViewDesc hack failed for ${params.promises.length} nodes`, code: 400 }
+  }
 }

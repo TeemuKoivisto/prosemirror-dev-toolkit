@@ -1,18 +1,18 @@
-import { InjectState } from './inject'
+import { InjectOptions, InjectState } from './inject'
 import { PopUpState } from './pop-up'
-import { GlobalState, InjectData } from './sw'
+import { GlobalState } from './sw'
 
 export const PAGE_PORT = 'pm-devtools-page'
 export const POP_UP_PORT = 'pm-devtools-pop-up'
 
-export const DEFAULT_INJECT_DATA: InjectData = {
-  instance: 0,
+export const DEFAULT_INJECT_OPTIONS: InjectOptions = {
+  selected: { type: 'view', index: 0 },
   selector: '.ProseMirror',
-  status: 'finding' as const,
-  instances: []
+  maxQueriedNodes: 50,
+  skipCustomViews: true
 }
 
-const DEFAULT_STATE = {
+export const DEFAULT_GLOBAL_OPTIONS = {
   disabled: false,
   devToolsOpts: {
     devToolsExpanded: false,
@@ -20,18 +20,27 @@ const DEFAULT_STATE = {
   }
 }
 
+export const DEFAULT_INJECT_DATA = {
+  status: 'finding' as const,
+  attempt: 0,
+  sleeping: 0,
+  instances: {}
+}
+
 export const DEFAULT_INJECT_STATE: InjectState = {
-  ...DEFAULT_STATE,
-  inject: DEFAULT_INJECT_DATA
+  global: DEFAULT_GLOBAL_OPTIONS,
+  inject: DEFAULT_INJECT_OPTIONS,
+  data: DEFAULT_INJECT_DATA
 }
 
 export const DEFAULT_GLOBAL_STATE: GlobalState = {
-  ...DEFAULT_STATE,
+  ...DEFAULT_GLOBAL_OPTIONS,
   showOptions: false,
   showDebug: false
 }
 
 export const DEFAULT_POP_UP_STATE: PopUpState = {
-  ...DEFAULT_GLOBAL_STATE,
-  inject: DEFAULT_INJECT_DATA
+  global: DEFAULT_GLOBAL_STATE,
+  inject: DEFAULT_INJECT_OPTIONS,
+  data: DEFAULT_INJECT_DATA
 }

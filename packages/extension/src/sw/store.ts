@@ -1,7 +1,13 @@
 import { get, derived, writable } from 'svelte/store'
 
 import { getCurrentTab } from './getCurrentTab'
-import { DEFAULT_INJECT_DATA, DEFAULT_GLOBAL_STATE, PAGE_PORT, POP_UP_PORT } from '../types/consts'
+import {
+  DEFAULT_INJECT_OPTIONS,
+  DEFAULT_GLOBAL_STATE,
+  PAGE_PORT,
+  POP_UP_PORT,
+  DEFAULT_INJECT_STATE
+} from '../types/consts'
 import type {
   DeepPartial,
   GlobalState,
@@ -9,8 +15,8 @@ import type {
   SWMessageMap,
   InjectStatus,
   PopUpState,
-  InjectState,
-  InjectData
+  InjectOptions,
+  InjectState
 } from '../types'
 
 interface PageData {
@@ -33,7 +39,7 @@ export const currentTabId = writable<number>(0)
 export const currentPage = derived([pages, currentTabId], ([p, c]) => ({
   ...p.get(c),
   inject: {
-    ...DEFAULT_INJECT_DATA,
+    ...DEFAULT_INJECT_STATE,
     ...p.get(c)?.inject
   }
 }))
@@ -104,19 +110,19 @@ export const storeActions = {
     return {
       ...get(globalState),
       inject: {
-        ...DEFAULT_INJECT_DATA,
+        ...DEFAULT_INJECT_OPTIONS,
         ...page?.inject
       }
     }
   },
-  getInjectData(tabId: number): InjectState {
+  getInjectData(tabId: number): InjectOptions {
     const state = get(globalState)
     const page = get(pages).get(tabId)
     return {
       disabled: state.disabled,
       devToolsOpts: state.devToolsOpts,
       inject: {
-        ...DEFAULT_INJECT_DATA,
+        ...DEFAULT_INJECT_OPTIONS,
         ...page?.inject
       }
     }
@@ -135,10 +141,10 @@ export const storeActions = {
       }
     }))
   },
-  updatePageInjectData(tabId: number, data: Partial<InjectData>) {
+  updatePageInjectData(tabId: number, data: Partial<InjectState>) {
     const old = this.getPageData(tabId)
     pages.update(p =>
-      p.set(tabId, { ...old, inject: { ...DEFAULT_INJECT_DATA, ...old.inject, ...data } })
+      p.set(tabId, { ...old, inject: { ...DEFAULT_INJECT_OPTIONS, ...old.inject, ...data } })
     )
   },
   addPort(type: typeof PAGE_PORT | typeof POP_UP_PORT, tabId: number, port: chrome.runtime.Port) {
@@ -152,7 +158,7 @@ export const storeActions = {
         })
       }
       return p.set(tabId, {
-        inject: { ...DEFAULT_INJECT_DATA },
+        inject: { ...DEFAULT_INJECT_OPTIONS },
         pagePort: type === PAGE_PORT ? port : undefined,
         popUpPort: type === POP_UP_PORT ? port : undefined
       })
@@ -182,7 +188,7 @@ export const storeActions = {
   },
   broadcastInjectData(tabId: number) {
     setTimeout(() => {
-      this.sendToPort(tabId, 'inject-state', this.getInjectData(tabId))
+      this.sendToPort(tabId, 'run-inject', this.getInjectData(tabId))
     })
   },
   broadcastStateUpdate(tabId: number) {
@@ -193,17 +199,18 @@ export const storeActions = {
       const popUpData = {
         ...state,
         inject: {
-          ...DEFAULT_INJECT_DATA,
+          ...DEFAULT_INJECT_OPTIONS,
           ...this.getPageData(tabId)?.inject
         }
       }
+      // @TODO maybe check whether deep equal to previous state -> dont rerun inject
       const injectData = {
         disabled: popUpData.disabled,
         devToolsOpts: popUpData.devToolsOpts,
         inject: popUpData.inject
       }
       this.sendToPort(tabId, 'pop-up-state', popUpData)
-      this.sendToPort(tabId, 'inject-state', injectData)
+      this.sendToPort(tabId, 'run-inject', injectData)
     })
   },
   disconnectPort(

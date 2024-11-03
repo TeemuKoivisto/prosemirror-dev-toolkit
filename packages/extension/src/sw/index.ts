@@ -1,9 +1,11 @@
-import { listenToConnections } from './ports'
+import { listenToConnections } from './run'
+
+const id = 'prosemirror-dev-toolkit-inject'
 
 function register() {
   return chrome.scripting.registerContentScripts([
     {
-      id: 'prosemirror-dev-toolkit-inject',
+      id,
       allFrames: true,
       matches: ['<all_urls>'],
       js: ['inject.js'],
@@ -20,7 +22,7 @@ try {
   if (err.toString().includes('Duplicate script ID')) {
     chrome.scripting
       .unregisterContentScripts({
-        ids: ['prosemirror-dev-toolkit-inject']
+        ids: [id]
       })
       .then(() => register())
   }

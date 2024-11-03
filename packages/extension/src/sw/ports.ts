@@ -1,6 +1,6 @@
 import openDevToolsWindow from './openWindow'
 import { storeActions } from './store'
-import type { InjectMessageMap, PopUpMessageMap } from '../types'
+import type { InjectMsgMap, PopUpMessageMap } from '../types'
 import { getCurrentTab } from './getCurrentTab'
 import { PAGE_PORT, POP_UP_PORT } from '../types/consts'
 
@@ -15,7 +15,7 @@ export async function listenToConnections(port: chrome.runtime.Port) {
       storeActions.addPort(PAGE_PORT, tabId, port)
       port.onDisconnect.addListener(() => storeActions.disconnectPort(PAGE_PORT, tabId, port))
       port.onMessage.addListener((msg: any, _port: chrome.runtime.Port) => listenInject(tabId, msg))
-      storeActions.sendToPort(tabId, 'inject-state', storeActions.getInjectData(tabId))
+      storeActions.sendToPort(tabId, 'run-inject', storeActions.getInjectData(tabId))
       break
     case POP_UP_PORT:
       storeActions.addPort(POP_UP_PORT, tabId, port)
@@ -26,25 +26,29 @@ export async function listenToConnections(port: chrome.runtime.Port) {
   }
 }
 
-async function listenInject<K extends keyof InjectMessageMap>(
-  tabId: number,
-  msg: InjectMessageMap[K]
-) {
+async function listenInject<K extends keyof InjectMsgMap>(tabId: number, msg: InjectMsgMap[K]) {
   if (msg.origin !== 'inject') {
     return
   }
   // console.log('received msg from INJECT port!', JSON.stringify(msg))
   switch (msg.type) {
-    case 'inject-found-instances':
+    case 'inject-progress':
+      storeActions.updatePageInjectData(tabId, { status: msg.data })
+      storeActions.broadcastPopUpData(tabId)
+      break
+    case 'inject-found':
       storeActions.updatePageInjectData(tabId, {
         instances: msg.data.instances,
         status: 'finished'
       })
       storeActions.broadcastPopUpData(tabId)
       break
-    case 'inject-status':
-      storeActions.updatePageInjectData(tabId, { status: msg.data })
-      storeActions.broadcastPopUpData(tabId)
+    case 'inject-event':
+      // storeActions.
+      break
+    case 'inject-finished':
+      break
+    case 'inject-errored':
       break
   }
 }
@@ -65,13 +69,13 @@ async function listenPopUp<K extends keyof PopUpMessageMap>(
     case 'reapply-devtools':
       storeActions.sendToPort(tabId, 'rerun-inject', undefined)
       break
-    case 'update-global-data':
+    case 'update-global-options':
       if (msg.data) {
         storeActions.updateGlobalState(msg.data)
         storeActions.broadcastStateUpdate(tabId)
       }
       break
-    case 'update-page-data':
+    case 'update-inject-options':
       if (msg.data) {
         storeActions.updatePageInjectData(tabId, msg.data)
         storeActions.broadcastStateUpdate(tabId)

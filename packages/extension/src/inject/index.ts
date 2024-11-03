@@ -1,10 +1,10 @@
 import { removeDevTools } from 'prosemirror-dev-toolkit'
 import type { EditorView } from 'prosemirror-view'
 
-import type { SWMessageMap } from '../types'
-
 import { mounted, state, injectActions } from './store'
 import { shouldRerun } from './utils'
+
+import type { SWMessageMap } from '../types'
 
 declare global {
   interface Element {
@@ -16,30 +16,30 @@ declare global {
   }
 }
 
-async function handleMessages<K extends keyof SWMessageMap>(event: MessageEvent<SWMessageMap[K]>) {
-  if (
-    typeof event.data !== 'object' ||
-    !('source' in event.data) ||
-    event.data.source !== 'pm-dev-tools'
-  ) {
-    return
-  }
-  if (event.data.origin !== 'sw') {
-    return
-  }
-  // console.log('RECEIVED IN INJECT', event.data)
-  const msg = event.data
+const controller = new AbortController()
+
+const isSwMsg = (msg: any): msg is SWMessageMap[keyof SWMessageMap] =>
+  msg &&
+  typeof msg === 'object' &&
+  !Array.isArray(msg) &&
+  'source' in msg &&
+  msg.source === 'pm-dev-tools' &&
+  msg.origin === 'sw'
+
+export const onmessage = (event: MessageEvent<unknown>) => {
+  const { data: msg } = event
+  if (!isSwMsg(msg)) return
   switch (msg.type) {
-    case 'inject-state':
+    case 'run-inject':
       // Check shouldRerun first before over-writing the state
       const rerun = shouldRerun(state, msg.data)
       injectActions.setState(msg.data)
-      if ((!mounted && !msg.data.disabled) || rerun) {
+      if ((!mounted && !msg.data.global.disabled) || rerun) {
         // If toolkit wasn't mounted and it's not disabled -> run
         // Otherwise check whether the toolkit is still enabled and an option has changed
         injectActions.findInstances()
         injectActions.setMounted(true)
-      } else if (msg.data.disabled) {
+      } else if (msg.data.global.disabled) {
         // If toolkit is mounted and it is being disabled -> remove it
         removeDevTools()
         injectActions.setMounted(false)
@@ -50,9 +50,12 @@ async function handleMessages<K extends keyof SWMessageMap>(event: MessageEvent<
       injectActions.setMounted(false)
       injectActions.findInstances()
       break
+    case 'abort-inject':
+      injectActions.abort()
+      break
   }
 }
 
-window.addEventListener('message', handleMessages)
+window.addEventListener('message', onmessage)
 
 export {}

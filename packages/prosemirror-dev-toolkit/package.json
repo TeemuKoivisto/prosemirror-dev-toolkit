@@ -25,7 +25,7 @@
     "postpublish": "rm README.md LICENSE",
     "svelte-check": "svelte-check",
     "test": "pnpm svelte-check && pnpm test:unit && pnpm test:e2e",
-    "test:unit": "vitest run",
+    "test:unit": "TZ=UTC-3 vitest run",
     "test:e2e": "cypress run --browser=chrome --config baseUrl=http://localhost:3300",
     "cy": "cypress"
   },

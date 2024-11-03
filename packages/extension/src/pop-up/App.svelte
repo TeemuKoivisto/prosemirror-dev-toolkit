@@ -10,15 +10,15 @@
   import { received, send, state } from './store'
   import type { ButtonPosition } from 'prosemirror-dev-toolkit'
 
-  $: disabled = $state.disabled
-  $: showOptions = $state.showOptions
-  $: showDebug = $state.showDebug
-  $: devToolsExpanded = $state.devToolsOpts.devToolsExpanded
-  $: buttonPosition = $state.devToolsOpts.buttonPosition
-  $: foundInstances = $state.inject.instances
+  $: disabled = $state.global.disabled
+  $: showOptions = $state.global.showOptions
+  $: showDebug = $state.global.showDebug
+  $: devToolsExpanded = $state.global.devToolsOpts.devToolsExpanded
+  $: buttonPosition = $state.global.devToolsOpts.buttonPosition
+  $: foundInstances = Object.entries($state.data.instances)
   $: found = !disabled && foundInstances.length > 0
-  $: selected = $state.inject.instance
-  $: injectStatus = $state.inject.status
+  $: selected = $state.inject.selected
+  $: injectStatus = $state.data.status
   $: selector = $state.inject.selector
 
   let dots = ''
@@ -53,7 +53,7 @@
     }
   }
   function handleClickExpanded() {
-    send('update-global-data', {
+    send('update-global-options', {
       devToolsOpts: {
         devToolsExpanded: !devToolsExpanded
       }
@@ -63,7 +63,7 @@
     send('open-in-window', undefined)
   }
   function handleClickDebug() {
-    send('update-global-data', {
+    send('update-global-options', {
       showDebug: !showDebug
     })
   }
@@ -71,7 +71,7 @@
     send('toggle-disable', undefined)
   }
   function handleClickOptions() {
-    send('update-global-data', {
+    send('update-global-options', {
       showOptions: !showOptions
     })
   }
@@ -80,7 +80,7 @@
       currentTarget: EventTarget & HTMLInputElement
     }
   ) {
-    send('update-page-data', {
+    send('update-inject-options', {
       selector: e.currentTarget.value
     })
   }
@@ -89,16 +89,16 @@
       currentTarget: EventTarget & HTMLSelectElement
     }
   ) {
-    send('update-global-data', {
+    send('update-global-options', {
       devToolsOpts: {
         buttonPosition: e.currentTarget.value as ButtonPosition
       }
     })
   }
   function handleSelectInstance(idx: number) {
-    if (idx !== selected) {
-      send('update-page-data', {
-        instance: idx
+    if (idx !== selected.index) {
+      send('update-inject-options', {
+        selected: { type: 'view', index: idx }
       })
     }
   }
@@ -156,17 +156,18 @@
     </fieldset>
   </div>
   <ol class:hidden={!found}>
-    {#each foundInstances as inst, idx}
+    {#each foundInstances as [key, inst], idx}
       <li>
         <div class="inst-row">
           <button
             class="editor-btn"
-            class:selected={idx === selected}
+            class:selected={idx === selected.index}
             on:click={() => handleSelectInstance(idx)}
           >
             {inst.element}
           </button>
-          {inst.size}
+          <span>{inst.status}</span>
+          <span>{inst.size}</span>
         </div>
       </li>
     {/each}
