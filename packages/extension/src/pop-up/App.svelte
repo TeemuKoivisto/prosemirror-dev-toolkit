@@ -17,7 +17,7 @@
   $: buttonPosition = $state.global.devToolsOpts.buttonPosition
   $: foundInstances = Object.entries($state.data.instances)
   $: found = !disabled && foundInstances.length > 0
-  $: selected = $state.inject.selected
+  $: selectedId = $state.inject.selectedId
   $: injectStatus = $state.data.status
   $: selector = $state.inject.selector
 
@@ -95,10 +95,10 @@
       }
     })
   }
-  function handleSelectInstance(idx: number) {
-    if (idx !== selected.index) {
+  function handleSelectInstance(id: string) {
+    if (id !== selectedId) {
       send('update-inject-options', {
-        selected: { type: 'view', index: idx }
+        selectedId: id
       })
     }
   }
@@ -156,13 +156,13 @@
     </fieldset>
   </div>
   <ol class:hidden={!found}>
-    {#each foundInstances as [key, inst], idx}
+    {#each foundInstances as [id, inst]}
       <li>
         <div class="inst-row">
           <button
             class="editor-btn"
-            class:selected={idx === selected.index}
-            on:click={() => handleSelectInstance(idx)}
+            class:selected={id === selectedId}
+            on:click={() => handleSelectInstance(id)}
           >
             {inst.element}
           </button>

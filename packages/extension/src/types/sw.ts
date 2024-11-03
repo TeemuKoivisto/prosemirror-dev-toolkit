@@ -45,17 +45,24 @@ export type SwMessage =
   | AbortInjectMsg
 
 export interface SWMessageMap {
-  'pop-up-state': SWPayload<'pop-up-state', PopUpState>
+  'pop-up-state': SwSource & {
+    type: 'pop-up-state'
+    data: PopUpState
+    tabId: number
+  }
   'run-inject': SwSource & {
     type: 'run-inject'
     data: InjectState
+    tabId: number
   }
   'rerun-inject': SwSource & {
     type: 'rerun-inject'
     data: undefined
+    tabId: number
   }
   'abort-inject': SwSource & {
     type: 'abort-inject'
     data: undefined
+    tabId: number
   }
 }

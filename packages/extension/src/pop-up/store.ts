@@ -21,11 +21,11 @@ export function init() {
     port.set(created)
   } else {
     // When run locally with `vite dev`
-    // listenPort(EXAMPLE)
     listenPort({
       source: 'pm-dev-tools' as const,
       origin: 'sw' as const,
       type: 'pop-up-state' as const,
+      tabId: 0,
       data: DEFAULT_POP_UP_STATE
     })
   }
@@ -41,9 +41,9 @@ export function listenPort<K extends keyof SWMessageMap>(msg: SWMessageMap[K]) {
   }
   switch (msg.type) {
     case 'pop-up-state':
-      console.error('pop-up-state', JSON.stringify(msg.data))
+      // console.error('pop-up-state', JSON.stringify(msg.data))
       state.set(msg.data)
       break
   }
-  received.update(msgs => [...msgs, msg.data?.data as any])
+  received.update(msgs => [...msgs, [msg.tabId, msg.data?.data] as any])
 }

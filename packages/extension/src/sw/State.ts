@@ -1,10 +1,9 @@
+import { Observable } from '../utils/Observable'
 import {
   DeepPartial,
   DEFAULT_GLOBAL_STATE,
   DEFAULT_INJECT_DATA,
   DEFAULT_INJECT_OPTIONS,
-  DEFAULT_INJECT_STATE,
-  FoundInstance,
   GlobalState,
   InjectData,
   InjectEvent,
@@ -16,7 +15,6 @@ import {
   PopUpState,
   SWMessageMap
 } from '../types'
-import { Observable } from '../utils/Observable'
 
 interface MutableData {
   global: GlobalState
@@ -127,13 +125,15 @@ export class State extends Observable<StateEvents> {
         source: 'pm-dev-tools',
         origin: 'sw',
         type,
-        data
+        data,
+        tabId
       } as SWMessageMap[K])
       page.popUpPort?.postMessage({
         source: 'pm-dev-tools',
         origin: 'sw',
         type,
-        data
+        data,
+        tabId
       } as SWMessageMap[K])
     }
   }

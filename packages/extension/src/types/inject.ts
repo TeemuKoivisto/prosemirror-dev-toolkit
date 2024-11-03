@@ -11,7 +11,7 @@ export interface FoundInstance {
 }
 export type InjectStatus = 'finding' | 'sleeping' | 'finished' | 'aborted' | 'error'
 export type InjectOptions = {
-  selected: { type: 'view' | 'iframe'; index: number }
+  selectedId: string
   selector: string
   maxQueriedNodes: number
   skipCustomViews: boolean

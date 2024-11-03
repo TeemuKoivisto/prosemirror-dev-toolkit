@@ -50,7 +50,7 @@ export async function* findAllEditorViews(
 
   controller?.signal.addEventListener('abort', () => {
     queue.push({
-      type: 'abort',
+      type: 'abort'
     })
   })
 
