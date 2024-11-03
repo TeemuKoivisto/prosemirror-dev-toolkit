@@ -6,7 +6,7 @@ export const PAGE_PORT = 'pm-devtools-page'
 export const POP_UP_PORT = 'pm-devtools-pop-up'
 
 export const DEFAULT_INJECT_OPTIONS: InjectOptions = {
-  selected: { type: 'view', index: 0 },
+  selectedId: 'view-0',
   selector: '.ProseMirror',
   maxQueriedNodes: 50,
   skipCustomViews: true
@@ -21,7 +21,7 @@ export const DEFAULT_GLOBAL_OPTIONS = {
 }
 
 export const DEFAULT_INJECT_DATA = {
-  status: 'finding' as const,
+  status: 'stopped' as const,
   attempt: 0,
   sleeping: 0,
   instances: {}

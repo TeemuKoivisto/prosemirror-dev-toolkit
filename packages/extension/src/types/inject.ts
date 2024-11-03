@@ -9,7 +9,7 @@ export interface FoundInstance {
   status: string
   err: string
 }
-export type InjectStatus = 'finding' | 'sleeping' | 'finished' | 'aborted' | 'error'
+export type InjectStatus = 'sleeping' | 'injecting' | 'finished' | 'stopped' | 'error'
 export type InjectOptions = {
   selectedId: string
   selector: string
@@ -27,11 +27,18 @@ export interface InjectState {
   inject: InjectOptions
   data: InjectData
 }
-interface Started {
+interface Sleeping {
   type: 'sleeping'
   data: {
     attempt: number
     sleeping: number
+  }
+}
+interface Started {
+  type: 'injecting'
+  data: {
+    views: number
+    iframes: number
   }
 }
 interface ViewInstance {
@@ -56,9 +63,10 @@ interface Error {
 }
 interface Finished {
   type: 'finished'
-  data: { reason: string }
+  data: undefined
 }
 export type InjectEvent =
+  | Sleeping
   | Started
   | ViewInstance
   | ViewResult
@@ -67,25 +75,8 @@ export type InjectEvent =
   | Error
   | Finished
 
-// export interface InjectPayload<T, D = undefined> {
-//   source: 'pm-dev-tools'
-//   origin: 'inject'
-//   type: T
-//   data: D
-// }
-
 export type InjectSource = {
   source: 'pm-dev-tools'
   origin: 'inject'
 }
-
-export interface InjectMsgMap {
-  'inject-status': InjectSource & {
-    type: 'inject-status'
-    data: InjectStatus
-  }
-  'inject-event': InjectSource & {
-    type: 'inject-event'
-    data: InjectEvent
-  }
-}
+export type InjectMsg = InjectSource & InjectEvent

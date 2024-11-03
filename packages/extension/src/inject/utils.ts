@@ -1,4 +1,4 @@
-import type { InjectMsgMap, InjectSource, SWMessageMap } from '../types'
+import type { InjectEvent, InjectSource, SWMessageMap } from '../types'
 
 export function sleep(ms: number) {
   return new Promise(resolve => {
@@ -8,11 +8,8 @@ export function sleep(ms: number) {
   })
 }
 
-export function send<K extends keyof InjectMsgMap>(type: K, data: InjectMsgMap[K]['data']) {
-  const msg: InjectSource & {
-    type: InjectMsgMap[keyof InjectMsgMap]['type']
-    data: InjectMsgMap[keyof InjectMsgMap]['data']
-  } = { source: 'pm-dev-tools', origin: 'inject', type, data }
+export function send(event: InjectEvent) {
+  const msg: InjectSource & InjectEvent = { source: 'pm-dev-tools', origin: 'inject', ...event }
   console.log('msg', msg.data)
   window.postMessage(msg)
 }
@@ -46,8 +43,7 @@ export function shouldRerun(
     !disabled &&
     (oldDOpts.devToolsExpanded !== newDOpts.devToolsExpanded ||
       oldDOpts.buttonPosition !== newDOpts.buttonPosition ||
-      o.inject.selected.type !== n.inject.selected.type ||
-      o.inject.selected.index !== n.inject.selected.index ||
+      o.inject.selectedId !== n.inject.selectedId ||
       o.inject.selector !== n.inject.selector)
   )
 }

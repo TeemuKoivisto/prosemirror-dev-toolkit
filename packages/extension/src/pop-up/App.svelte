@@ -19,13 +19,14 @@
   $: found = !disabled && foundInstances.length > 0
   $: selectedId = $state.inject.selectedId
   $: injectStatus = $state.data.status
+  $: running = injectStatus === 'sleeping' || injectStatus === 'injecting'
   $: selector = $state.inject.selector
 
   let dots = ''
   let setStatusInterval: ReturnType<typeof setTimeout> | undefined
 
   $: {
-    if (disabled || injectStatus !== 'finding') {
+    if (disabled || !running) {
       dots = ''
       clearInterval(setStatusInterval)
       setStatusInterval = undefined
@@ -119,7 +120,9 @@
           No ProseMirror found
         {/if}
       </h1>
-      {#if !disabled && injectStatus === 'finding'}
+      {#if !disabled && injectStatus === 'sleeping'}
+        <span class="inject-status">sleeping for {$state.data.sleeping}s{dots}</span>
+      {:else if !disabled}
         <span class="inject-status">{injectStatus}{dots}</span>
       {/if}
     </div>

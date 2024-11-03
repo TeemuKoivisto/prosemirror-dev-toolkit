@@ -19,44 +19,40 @@ export const injectActions = {
   },
   updateStatus(status: InjectStatus) {
     state.data.status = status
-    send('inject-status', status)
+    // send('inject-status', status)
   },
   abort() {
     controller.abort()
     controller = new AbortController()
-    this.updateStatus('aborted')
+    this.updateStatus('stopped')
   },
   async findInstances() {
-    this.updateStatus('finding')
     let applied = false
     for await (const evt of findAllEditorViews(state, controller)) {
       if (evt.type === 'found-view') {
-        const { selected } = state.inject
-        const err = 'err' in evt.result ? evt.result.err : ''
+        const { result, data } = evt
+        const err = 'err' in result ? result.err : ''
+        const id =
+          data.type === 'view' ? `view-${data.index}` : `iframe-${data.iframeIndex}-${data.index}`
         let status = 'found'
-        if (
-          'data' in evt.result &&
-          !applied &&
-          selected.type === evt.data.type &&
-          selected.index === evt.data.index
-        ) {
+        if ('data' in result && !applied && state.inject.selectedId === id) {
           try {
-            applyDevTools(evt.result.data, state.global.devToolsOpts)
+            applyDevTools(result.data, state.global.devToolsOpts)
             applied = true
-            status = 'apply-successfull'
+            status = 'applied'
           } catch (err: any) {
             console.error(err)
             err = err.toString()
             status = 'apply-failed'
           }
         }
-        const html = 'data' in evt.result ? evt.result.data.dom.innerHTML : ''
-        send('inject-event', {
+        const html = 'data' in result ? result.data.dom.innerHTML : ''
+        send({
           type: 'view-result',
           data: {
-            type: evt.data.type,
-            index: evt.data.index,
-            iframeIndex: 0,
+            type: data.type,
+            index: data.index,
+            iframeIndex: data.type === 'view' ? 0 : data.iframeIndex,
             size: html.length,
             element: html.slice(0, 100),
             status,
@@ -64,7 +60,8 @@ export const injectActions = {
           }
         })
       } else if (evt.type !== 'abort') {
-        send('inject-event', evt)
+        // @TODO set state based on event type
+        send(evt)
       }
     }
     this.updateStatus('finished')

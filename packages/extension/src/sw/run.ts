@@ -1,5 +1,5 @@
 import openDevToolsWindow from './openWindow'
-import type { InjectMsgMap, PopUpMessageMap } from '../types'
+import type { FoundInstance, InjectMsg, PopUpMessageMap } from '../types'
 import { getCurrentTab } from './getCurrentTab'
 import { PAGE_PORT, POP_UP_PORT } from '../types/consts'
 import { State } from './State'
@@ -32,6 +32,7 @@ chrome.tabs.onActivated.addListener(activeInfo => {
 })
 
 state.on('update', (tabId, field, value) => {
+  console.log(`update ${tabId} ${field}`, value)
   switch (field) {
     case 'global':
       chrome.storage.sync.set({ [GLOBAL_STORAGE_KEY]: value })
@@ -85,17 +86,40 @@ export async function listenToConnections(port: chrome.runtime.Port) {
   }
 }
 
-function onInjectMsg<K extends keyof InjectMsgMap>(tabId: number, msg: InjectMsgMap[K]) {
+const getId = (inst: FoundInstance) =>
+  inst.type === 'view' ? `view-${inst.index}` : `iframe-${inst.iframeIndex}-${inst.index}`
+
+function onInjectMsg(tabId: number, msg: InjectMsg) {
   if (msg.origin !== 'inject') {
     // Receives also events from itself
     return
   }
   console.log('inject', msg.type)
+  // switch (msg.type) {
+  //   case 'inject-status':
+  //     break
+  //   case 'inject-event':
+  //     state.handleInjectEvent(tabId, msg.data)
+  //     break
+  // }
   switch (msg.type) {
-    case 'inject-status':
+    case 'sleeping':
+      state.updatePageData(tabId, { status: 'sleeping', ...msg.data })
       break
-    case 'inject-event':
-      state.handleInjectEvent(tabId, msg.data)
+    case 'injecting':
+      state.updatePageData(tabId, { status: 'injecting' })
+      break
+    case 'view-instance':
+      state.updatePageInstance(tabId, getId(msg.data), msg.data)
+      break
+    case 'view-result':
+      state.updatePageInstance(tabId, getId(msg.data), msg.data)
+      break
+    case 'error':
+      state.updatePageData(tabId, { status: 'error' })
+      break
+    case 'finished':
+      state.updatePageData(tabId, { status: 'finished' })
       break
   }
 }
@@ -120,6 +144,7 @@ async function onPopUpMsg<K extends keyof PopUpMessageMap>(tabId: number, msg: P
       state.updateInjectOptions(msg.data, tabId)
       break
     case 'mount-pop-up':
+      console.log(`mount-pop-up ${tabId}`, JSON.stringify(state.getPopUpState(tabId)))
       state.sendToPort(tabId, 'pop-up-state', state.getPopUpState(tabId))
       break
     case 'open-in-window':

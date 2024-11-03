@@ -3,7 +3,7 @@ import { getEditorView } from './pmViewDescHack'
 import { sleep, tryQueryIframe } from './utils'
 
 import type { InjectEvent, InjectState, Result } from '../types'
-import { EditorView } from 'prosemirror-view'
+import type { EditorView } from 'prosemirror-view'
 
 interface FoundView {
   type: 'found-view'
@@ -25,18 +25,18 @@ interface Abort {
 
 const MAX_ATTEMPTS = 10
 const TIMEOUT = 4
-const SLEEP = 1000
+const SLEEP = 1
 
 export async function* findAllEditorViews(
   state: InjectState,
-  controller?: AbortController,
+  controller: AbortController,
   attempts = 0
 ): AsyncGenerator<InjectEvent | FoundView | Abort, void, unknown> {
   yield { type: 'sleeping', data: { attempt: attempts, sleeping: SLEEP * attempts } }
-  await sleep(1000 * attempts)
+  await sleep(SLEEP * 1000 * attempts)
 
   if (state.global.disabled) {
-    yield { type: 'finished', data: { reason: 'disabled' } }
+    yield { type: 'abort' }
     return
   }
   const queue = new AsyncQueue<InjectEvent | FoundView | Abort>(TIMEOUT)
@@ -47,6 +47,8 @@ export async function* findAllEditorViews(
   let tryAgain = true
   let viewsFailed = -1
   let iframesFailed = -1
+
+  yield { type: 'injecting', data: { views: elements.length, iframes: iframeEls.length } }
 
   controller?.signal.addEventListener('abort', () => {
     queue.push({
@@ -85,7 +87,7 @@ export async function* findAllEditorViews(
       if (viewsFailed > 0 && iframesFailed > 0) {
         queue.push({
           type: 'finished',
-          data: { reason: '' }
+          data: undefined
         })
       }
     })
@@ -133,7 +135,7 @@ export async function* findAllEditorViews(
       if (viewsFailed > 0 && iframesFailed > 0) {
         queue.push({
           type: 'finished',
-          data: { reason: '' }
+          data: undefined
         })
       }
     })

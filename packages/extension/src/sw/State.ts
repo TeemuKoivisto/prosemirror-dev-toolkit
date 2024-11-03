@@ -4,6 +4,7 @@ import {
   DEFAULT_GLOBAL_STATE,
   DEFAULT_INJECT_DATA,
   DEFAULT_INJECT_OPTIONS,
+  FoundInstance,
   GlobalState,
   InjectData,
   InjectEvent,
@@ -103,7 +104,6 @@ export class State extends Observable<StateEvents> {
     }
     this.emit('portConnected', type, tabId)
     port.onDisconnect.addListener(() => this.disconnectPort(type, tabId))
-    // port.onMessage.addListener((msg: any, _port: chrome.runtime.Port) => listenInject(tabId, msg))
   }
 
   disconnectPort(type: typeof PAGE_PORT | typeof POP_UP_PORT, tabId: number) {
@@ -158,10 +158,28 @@ export class State extends Observable<StateEvents> {
     this.emit('update', tabId, 'injectOpts', this.inject)
   }
 
+  updatePageData(tabId: number, data: Partial<InjectData>) {
+    const old = this.pages.get(tabId)
+    if (!old) return
+    const updated = { ...old.injectData, ...data }
+    this.pages.set(tabId, { ...old, injectData: updated })
+    this.emit('update', tabId, 'injectData', updated)
+  }
+
+  updatePageInstance(tabId: number, id: string, data: Partial<FoundInstance>) {
+    const old = this.pages.get(tabId)
+    if (!old) return
+    const all = old.injectData.instances
+    const inst = old.injectData.instances[id]
+    if (!inst) return
+    const updated = { ...old.injectData, instances: { ...all, [id]: { ...inst, ...data } } }
+    this.pages.set(tabId, { ...old, injectData: updated })
+    this.emit('update', tabId, 'injectData', updated)
+  }
+
   toggleDisabled(tabId: number) {
-    const newDisabled = !this.global.disabled
-    this.global.disabled = newDisabled
-    if (newDisabled) {
+    this.global.disabled = !this.global.disabled
+    if (this.global.disabled) {
       this.pages = new Map(
         this.pages.entries().map(([key, page]) => [
           key,
@@ -175,8 +193,6 @@ export class State extends Observable<StateEvents> {
     this.emit('update', tabId, 'global', this.global)
     // @TODO emit update pages(?) inject(?)
   }
-
-  selectViewInstance(index: number) {}
 
   handleInjectEvent(tabId: number, event: InjectEvent) {
     const old = this.pages.get(tabId)
@@ -225,8 +241,8 @@ export class State extends Observable<StateEvents> {
     }
     const page = { ...old, injectData: updated }
     this.pages.set(tabId, page)
-    setTimeout(() => {
-      this.emit('update', tabId, 'injectData', updated)
-    })
+    this.emit('update', tabId, 'injectData', updated)
+    // setTimeout(() => {
+    // })
   }
 }
