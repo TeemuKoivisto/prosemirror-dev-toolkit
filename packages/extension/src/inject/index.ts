@@ -41,6 +41,7 @@ export const onmessage = (event: MessageEvent<unknown>) => {
         // If toolkit is mounted and it is being disabled -> remove it
         removeDevTools()
         injectActions.setMounted(false)
+        injectActions.abort()
       }
       break
     case 'rerun-inject':

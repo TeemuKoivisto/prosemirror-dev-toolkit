@@ -182,56 +182,31 @@ export class State extends Observable<StateEvents> {
     const old = this.pages.get(tabId)
     if (!old) return
     let updated: InjectData = old.injectData
-    switch (event.type) {
+    const { type, data } = event
+    switch (type) {
       case 'sleeping':
         updated = {
           ...updated,
-          ...event.data
+          ...data
         }
         break
-      case 'injecting':
-        const instances: Record<string, FoundInstance> = {}
-        for (let i = 0; i < event.data.elements + event.data.iframes; i += 1) {
-          if (i < event.data.elements) {
-            instances[`view-${i}`] = {
-              type: 'view',
-              index: i,
-              size: 0,
-              element: '',
-              status: 'injecting'
-            }
-          } else {
-            instances[`iframe-${i - event.data.elements}`] = {
-              type: 'iframe',
-              index: i - event.data.elements,
-              size: 0,
-              element: '',
-              status: 'injecting'
-            }
-          }
-        }
+      case 'view-instance':
+        const id2 =
+          data.type === 'view' ? `view-${data.index}` : `iframe-${data.iframeIndex}-${data.index}`
+        const instances = { ...updated.instances, [id2]: data }
         updated = {
           ...updated,
           instances
         }
         break
       case 'view-result':
-        const inst = updated.instances[`view-${event.data.index}`]
+        const id =
+          data.type === 'view' ? `view-${data.index}` : `iframe-${data.iframeIndex}-${data.index}`
+        const inst = updated.instances[id]
         if (inst) {
-          updated.instances[`view-${event.data.index}`] = {
+          updated.instances[id] = {
             ...inst,
-            size: event.data.size,
-            element: event.data.element
-          }
-        }
-        break
-      case 'iframe-result':
-        const inst2 = updated.instances[`iframe-${event.data.iframeIndex}`]
-        if (inst2) {
-          updated.instances[`view-${event.data.iframeIndex}`] = {
-            ...inst2,
-            size: event.data.size,
-            element: event.data.element
+            ...data
           }
         }
         break
@@ -250,6 +225,8 @@ export class State extends Observable<StateEvents> {
     }
     const page = { ...old, injectData: updated }
     this.pages.set(tabId, page)
-    this.emit('update', tabId, 'injectData', updated)
+    setTimeout(() => {
+      this.emit('update', tabId, 'injectData', updated)
+    })
   }
 }

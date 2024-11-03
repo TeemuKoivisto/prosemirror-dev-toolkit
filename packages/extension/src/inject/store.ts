@@ -1,10 +1,10 @@
 import { applyDevTools } from 'prosemirror-dev-toolkit'
 
-import { DEFAULT_INJECT_STATE } from '../types'
-import type { InjectState, InjectStatus } from '../types'
-
 import { findAllEditorViews } from './findEditorViews'
 import { send } from './utils'
+
+import { DEFAULT_INJECT_STATE } from '../types'
+import type { InjectState, InjectStatus } from '../types'
 
 export let mounted = false
 export let state: InjectState = DEFAULT_INJECT_STATE
@@ -33,6 +33,7 @@ export const injectActions = {
       if (evt.type === 'found-view') {
         const { selected } = state.inject
         const err = 'err' in evt.result ? evt.result.err : ''
+        let status = 'found'
         if (
           'data' in evt.result &&
           !applied &&
@@ -42,29 +43,27 @@ export const injectActions = {
           try {
             applyDevTools(evt.result.data, state.global.devToolsOpts)
             applied = true
+            status = 'apply-successfull'
           } catch (err: any) {
             console.error(err)
             err = err.toString()
+            status = 'apply-failed'
           }
         }
-        const base = {
-          index: evt.data.index,
-          size: 'data' in evt.result ? evt.result.data.dom.innerHTML.length : 0,
-          element: 'data' in evt.result ? evt.result.data.dom.innerHTML.slice(0, 100) : '',
-          err
-        }
-        if (evt.data.type === 'view') {
-          send('inject-event', {
-            type: 'view-result',
-            data: base
-          })
-        } else {
-          send('inject-event', {
-            type: 'iframe-result',
-            data: { ...base, iframeIndex: 0 }
-          })
-        }
-      } else {
+        const html = 'data' in evt.result ? evt.result.data.dom.innerHTML : ''
+        send('inject-event', {
+          type: 'view-result',
+          data: {
+            type: evt.data.type,
+            index: evt.data.index,
+            iframeIndex: 0,
+            size: html.length,
+            element: html.slice(0, 100),
+            status,
+            err
+          }
+        })
+      } else if (evt.type !== 'abort') {
         send('inject-event', evt)
       }
     }

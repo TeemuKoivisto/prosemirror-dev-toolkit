@@ -19,6 +19,9 @@ interface FoundView {
         index: number
       }
 }
+interface Abort {
+  type: 'abort'
+}
 
 const MAX_ATTEMPTS = 10
 const TIMEOUT = 4
@@ -28,7 +31,7 @@ export async function* findAllEditorViews(
   state: InjectState,
   controller?: AbortController,
   attempts = 0
-): AsyncGenerator<InjectEvent | FoundView, void, unknown> {
+): AsyncGenerator<InjectEvent | FoundView | Abort, void, unknown> {
   yield { type: 'sleeping', data: { attempt: attempts, sleeping: SLEEP * attempts } }
   await sleep(1000 * attempts)
 
@@ -36,7 +39,7 @@ export async function* findAllEditorViews(
     yield { type: 'finished', data: { reason: 'disabled' } }
     return
   }
-  const queue = new AsyncQueue<InjectEvent | FoundView>(TIMEOUT)
+  const queue = new AsyncQueue<InjectEvent | FoundView | Abort>(TIMEOUT)
   const { selector } = state.inject
   const elements: HTMLElement[] = Array.from(document.querySelectorAll(selector))
   const iframeEls: HTMLIFrameElement[] = Array.from(document.querySelectorAll('iframe'))
@@ -47,15 +50,24 @@ export async function* findAllEditorViews(
 
   controller?.signal.addEventListener('abort', () => {
     queue.push({
-      type: 'error',
-      data: 'findEditorViews aborted'
+      type: 'abort',
     })
   })
 
-  yield { type: 'injecting', data: { elements: elements.length, iframes: iframeEls.length } }
-
   Promise.all(
     elements.map(async (el, idx) => {
+      queue.push({
+        type: 'view-instance',
+        data: {
+          type: 'view',
+          iframeIndex: 0,
+          index: idx,
+          size: el.innerHTML.length,
+          element: el.innerHTML.slice(0, 100),
+          status: 'injecting',
+          err: ''
+        }
+      })
       const res = await getEditorView(el, state.inject)
       queue.push({
         type: 'found-view',
@@ -67,21 +79,40 @@ export async function* findAllEditorViews(
       })
       return res
     })
-  ).then(all => {
-    viewsFailed = all.filter(f => 'err' in f).length
-    if (viewsFailed > 0 && iframesFailed > 0) {
+  )
+    .then(all => {
+      viewsFailed = all.filter(f => 'err' in f).length
+      if (viewsFailed > 0 && iframesFailed > 0) {
+        queue.push({
+          type: 'finished',
+          data: { reason: '' }
+        })
+      }
+    })
+    .catch(err => {
       queue.push({
-        type: 'finished',
-        data: { reason: '' }
+        type: 'error',
+        data: 'Finding views failed: ' + err.toString()
       })
-    }
-  })
+    })
 
   Promise.all(
     iframeEls.map(async (iframe, i) => {
       const found = await tryQueryIframe(iframe, selector)
       return Promise.all(
         found.map(async (el, j) => {
+          queue.push({
+            type: 'view-instance',
+            data: {
+              type: 'iframe',
+              iframeIndex: i,
+              index: j,
+              size: el.innerHTML.length,
+              element: el.innerHTML.slice(0, 100),
+              status: 'injecting',
+              err: ''
+            }
+          })
           const res = await getEditorView(el, state.inject)
           queue.push({
             type: 'found-view',
@@ -96,22 +127,29 @@ export async function* findAllEditorViews(
         })
       )
     })
-  ).then(all => {
-    iframesFailed = all.flat().filter(f => 'err' in f).length
-    if (viewsFailed > 0 && iframesFailed > 0) {
+  )
+    .then(all => {
+      iframesFailed = all.flat().filter(f => 'err' in f).length
+      if (viewsFailed > 0 && iframesFailed > 0) {
+        queue.push({
+          type: 'finished',
+          data: { reason: '' }
+        })
+      }
+    })
+    .catch(err => {
       queue.push({
-        type: 'finished',
-        data: { reason: '' }
+        type: 'error',
+        data: 'Finding iframe views failed: ' + err.toString()
       })
-    }
-  })
+    })
 
   while (!done) {
     const msg = await queue.next()
     if (msg) {
       yield msg
       done = msg.type === 'finished' || msg.type === 'error'
-      tryAgain = msg.type !== 'finished'
+      tryAgain = msg.type !== 'finished' && msg.type !== 'abort'
     } else {
       queue.push({
         type: 'error',

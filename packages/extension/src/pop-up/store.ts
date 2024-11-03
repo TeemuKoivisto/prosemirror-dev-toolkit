@@ -45,5 +45,5 @@ export function listenPort<K extends keyof SWMessageMap>(msg: SWMessageMap[K]) {
       state.set(msg.data)
       break
   }
-  received.update(msgs => [...msgs, msg])
+  received.update(msgs => [...msgs, msg.data?.data as any])
 }

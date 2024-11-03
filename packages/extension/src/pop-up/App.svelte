@@ -166,7 +166,11 @@
           >
             {inst.element}
           </button>
-          <span>{inst.status}</span>
+          {#if inst.err}
+            <span>{inst.err}</span>
+          {:else}
+            <span>{inst.status}</span>
+          {/if}
           <span>{inst.size}</span>
         </div>
       </li>

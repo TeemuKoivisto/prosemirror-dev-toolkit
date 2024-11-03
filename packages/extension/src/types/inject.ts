@@ -2,12 +2,14 @@ import { GlobalState } from './sw'
 
 export interface FoundInstance {
   type: 'view' | 'iframe'
+  iframeIndex: number
   index: number
   size: number
   element: string
   status: string
+  err: string
 }
-export type InjectStatus = 'finding' | 'finished' | 'aborted' | 'error'
+export type InjectStatus = 'finding' | 'sleeping' | 'finished' | 'aborted' | 'error'
 export type InjectOptions = {
   selected: { type: 'view' | 'iframe'; index: number }
   selector: string
@@ -32,31 +34,13 @@ interface Started {
     sleeping: number
   }
 }
-interface Injecting {
-  type: 'injecting'
-  data: {
-    elements: number
-    iframes: number
-  }
+interface ViewInstance {
+  type: 'view-instance'
+  data: FoundInstance
 }
 interface ViewResult {
   type: 'view-result'
-  data: {
-    index: number
-    size: number
-    element: string
-    err: string
-  }
-}
-interface IFrameResult {
-  type: 'iframe-result'
-  data: {
-    iframeIndex: number
-    index: number
-    size: number
-    element: string
-    err: string
-  }
+  data: FoundInstance
 }
 interface ViewsDone {
   type: 'views-done'
@@ -76,9 +60,8 @@ interface Finished {
 }
 export type InjectEvent =
   | Started
-  | Injecting
+  | ViewInstance
   | ViewResult
-  | IFrameResult
   | ViewsDone
   | IFramesDone
   | Error
