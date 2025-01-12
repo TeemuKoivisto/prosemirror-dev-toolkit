@@ -128,6 +128,7 @@ async function onPopUpMsg<K extends keyof PopUpMessageMap>(tabId: number, msg: P
       state.toggleDisabled(tabId)
       break
     case 'reapply-devtools':
+      // @TODO set state instead(?) and trigger run-inject indirectly
       state.sendToPort(tabId, 'rerun-inject', undefined)
       break
     case 'update-global-options':

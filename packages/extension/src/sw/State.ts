@@ -189,6 +189,5 @@ export class State extends Observable<StateEvents> {
       )
     }
     this.emit('update', tabId, 'global', this.global)
-    // @TODO emit update pages(?) inject(?)
   }
 }

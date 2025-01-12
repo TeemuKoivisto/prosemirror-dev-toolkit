@@ -33,12 +33,20 @@ export async function* findAllEditorViews(
   attempts = 0
 ): AsyncGenerator<InjectEvent | FoundView | Abort, void, unknown> {
   yield { type: 'sleeping', data: { attempt: attempts, sleeping: SLEEP * attempts } }
-  await sleep(SLEEP * 1000 * attempts)
+  await new Promise(resolve => {
+    const cb = () => resolve(true)
+    controller?.signal.addEventListener('abort', cb)
+    setTimeout(() => {
+      resolve(true)
+      controller?.signal.removeEventListener('abort', cb)
+    }, SLEEP * 1000 * attempts)
+  })
 
-  if (state.global.disabled) {
+  if (state.global.disabled || controller.signal.aborted) {
     yield { type: 'abort' }
     return
   }
+
   const queue = new AsyncQueue<InjectEvent | FoundView | Abort>(TIMEOUT)
   const elements: HTMLElement[] = Array.from(document.querySelectorAll(state.inject.selector))
   const iframeEls: HTMLIFrameElement[] = Array.from(document.querySelectorAll('iframe'))
@@ -47,14 +55,14 @@ export async function* findAllEditorViews(
   let viewsFailed = elements.length > 0 ? -1 : 0
   let iframesFailed = iframeEls.length > 0 ? -1 : 0
 
-  console.log(`FOUND ${document.title} ${Array.from(document.querySelectorAll('svg')).length}`)
-  yield { type: 'injecting', data: { views: elements.length, iframes: iframeEls.length } }
-
   controller?.signal.addEventListener('abort', () => {
     queue.push({
       type: 'abort'
     })
   })
+
+  console.log(`FOUND ${document.title} ${Array.from(document.querySelectorAll('svg')).length}`)
+  yield { type: 'injecting', data: { views: elements.length, iframes: iframeEls.length } }
 
   Promise.all(
     elements.map(async (el, idx) => {

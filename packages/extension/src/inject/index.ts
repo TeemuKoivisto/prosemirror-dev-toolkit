@@ -35,6 +35,7 @@ export const onmessage = (event: MessageEvent<unknown>) => {
       if ((!mounted && !msg.data.global.disabled) || rerun) {
         // If toolkit wasn't mounted and it's not disabled -> run
         // Otherwise check whether the toolkit is still enabled and an option has changed
+        injectActions.abort()
         injectActions.findInstances()
         injectActions.setMounted(true)
       } else if (msg.data.global.disabled) {
@@ -45,11 +46,12 @@ export const onmessage = (event: MessageEvent<unknown>) => {
       }
       break
     case 'rerun-inject':
+      injectActions.abort()
       removeDevTools()
-      injectActions.setMounted(false)
       injectActions.findInstances()
+      injectActions.setMounted(true)
       break
-    case 'stop-inject':
+    case 'abort-inject':
       injectActions.abort()
       break
   }

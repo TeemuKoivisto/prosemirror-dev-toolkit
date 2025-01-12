@@ -24,7 +24,6 @@ export const injectActions = {
   abort() {
     controller.abort()
     controller = new AbortController()
-    this.updateStatus('stopped')
   },
   async findInstances() {
     let applied = false
@@ -41,6 +40,7 @@ export const injectActions = {
             applyDevTools(result.data, state.global.devToolsOpts)
             applied = true
             status = 'applied'
+            // @TODO abort (?)
           } catch (err: any) {
             console.error(err)
             err = err.toString()
@@ -62,6 +62,7 @@ export const injectActions = {
         })
       } else if (evt.type !== 'abort') {
         // @TODO set state based on event type
+        // Or receive from sw?
         send(evt)
       }
     }
