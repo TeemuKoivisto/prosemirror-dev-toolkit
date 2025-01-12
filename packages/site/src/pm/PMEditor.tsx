@@ -27,7 +27,6 @@ export function PMEditor(props: EditorProps) {
     return () => {
       editorViewRef.current?.destroy()
     }
-    // eslint-disable-next-line
   }, [])
 
   function createEditorState() {

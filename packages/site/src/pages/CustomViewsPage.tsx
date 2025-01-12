@@ -34,9 +34,9 @@ export function CustomViewsPage() {
           }
         }
       )
-      // applyDevToolkit(editorViewRef.current, {
-      //   devToolsExpanded: true
-      // })
+      applyDevToolkit(editorViewRef.current, {
+        devToolsExpanded: true
+      })
     }
     return () => {
       editorViewRef.current?.destroy()
@@ -52,7 +52,8 @@ export function CustomViewsPage() {
           </a>
         </h1>
         <p>
-          This editor uses custom NodeViews and MarkViews in tests to see whether they are injected correctly.
+          This editor uses custom NodeViews and MarkViews in tests to see whether they are injected
+          correctly.
         </p>
       </header>
       <div className="pm-editor custom-views" ref={editorDOMRef} />

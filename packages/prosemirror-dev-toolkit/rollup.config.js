@@ -1,16 +1,16 @@
 import alias from '@rollup/plugin-alias'
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
-import typescript from 'rollup-plugin-ts'
+import typescript from '@rollup/plugin-typescript'
 import svelte from 'rollup-plugin-svelte'
-import autoPreprocess from 'svelte-preprocess'
+import { sveltePreprocess } from 'svelte-preprocess'
 import postcss from 'rollup-plugin-postcss'
 import babel from 'rollup-plugin-babel'
 import { terser } from 'rollup-plugin-terser'
 
 import path from 'path'
 
-import pkg from './package.json' assert { type: 'json' }
+import pkg from './package.json' with { type: 'json' }
 import svelteConfig from './svelte.config.js'
 
 const isProduction = !process.env.ROLLUP_WATCH
@@ -34,7 +34,7 @@ const plugins = [
       // enable run-time checks when not in production
       dev: !isProduction
     },
-    preprocess: autoPreprocess(svelteConfig.preprocessOptions)
+    preprocess: sveltePreprocess(svelteConfig.preprocessOptions)
   }),
   resolve({
     browser: true,
