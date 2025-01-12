@@ -8,6 +8,7 @@ import { DevToolsPage } from './pages/DevToolsPage'
 import { PlainPMPage } from './pages/PlainPMPage'
 import { YjsPage } from './pages/YjsPage'
 import { IFramePage } from 'pages/IFramePage'
+import { CustomViewsPage } from 'pages/CustomViewsPage'
 import { NoEditorPage } from './pages/NoEditorPage'
 
 export const Routes = () => (
@@ -34,6 +35,14 @@ export const Routes = () => (
         element={
           <DefaultLayout>
             <PlainPMPage />
+          </DefaultLayout>
+        }
+      />
+      <Route
+        path="/custom-views"
+        element={
+          <DefaultLayout>
+            <CustomViewsPage />
           </DefaultLayout>
         }
       />

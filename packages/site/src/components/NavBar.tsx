@@ -20,6 +20,9 @@ export function NavBar(props: IProps) {
         <Link to="/plain" className={({ isActive }) => (isActive ? 'current' : '')}>
           Plain
         </Link>
+        <Link to="/custom-views" className={({ isActive }) => (isActive ? 'current' : '')}>
+          Custom views
+        </Link>
         <Link to="/yjs" className={({ isActive }) => (isActive ? 'current' : '')}>
           Yjs
         </Link>

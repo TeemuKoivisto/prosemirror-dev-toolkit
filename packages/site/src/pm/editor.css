@@ -14,3 +14,12 @@
   padding: 10px;
   white-space: pre-wrap;
 }
+
+.paragraph {
+  text-decoration: underline;
+}
+
+.bold-content {
+  background: red;
+  font-weight: bold;
+}
