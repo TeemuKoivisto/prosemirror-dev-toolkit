@@ -1,8 +1,8 @@
-import autoPreprocess from 'svelte-preprocess'
+import { sveltePreprocess } from 'svelte-preprocess'
 
 const preprocessOptions = {}
 
 export default {
-  preprocess: autoPreprocess(preprocessOptions),
+  preprocess: sveltePreprocess(preprocessOptions),
   preprocessOptions
 }

@@ -1,6 +1,7 @@
 import { includeIgnoreFile } from '@eslint/compat'
 import js from '@eslint/js'
 import ts from 'typescript-eslint'
+// import next from 'eslint-config-next'
 import svelte from 'eslint-plugin-svelte'
 import prettier from 'eslint-config-prettier'
 import globals from 'globals'
@@ -8,8 +9,8 @@ import globals from 'globals'
 import path from 'path'
 
 /** @type {import('eslint').Linter.Config[]} */
-export default [
-  await includeIgnoreFile(path.resolve('.gitignore')),
+const rules = [
+  includeIgnoreFile(path.resolve('.gitignore')),
   js.configs.recommended,
   ...ts.configs.recommended,
   ...svelte.configs['flat/recommended'],
@@ -32,3 +33,5 @@ export default [
     }
   }
 ]
+
+export default rules
