@@ -68,7 +68,7 @@
     <div class="top-row">
       <h2>Selection</h2>
       <Button class="selection-btn" on:click={handleExpandSelection}
-        ><span class="caret-icon" class:expanded={expandedSelection} /></Button
+        ><span class="caret-icon" class:expanded={expandedSelection}></span></Button
       >
     </div>
     <TreeView class="tree-view" data={selection} />

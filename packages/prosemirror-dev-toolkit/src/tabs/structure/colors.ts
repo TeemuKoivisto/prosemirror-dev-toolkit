@@ -1,4 +1,4 @@
-import { Schema } from 'prosemirror-model'
+import type { Schema } from 'prosemirror-model'
 
 const nodeColors = <const>[
   '#EA7C7F', // red

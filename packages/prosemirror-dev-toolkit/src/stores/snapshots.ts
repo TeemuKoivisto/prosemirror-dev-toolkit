@@ -4,7 +4,7 @@ import type { Node as PMNode } from 'prosemirror-model'
 import { get, writable } from 'svelte/store'
 
 import type { Snapshot } from '$typings/snapshots'
-import { Schema } from 'prosemirror-model'
+import type { Schema } from 'prosemirror-model'
 
 const SNAPSHOTS_KEY = '__prosemirror-dev-toolkit__snapshots'
 

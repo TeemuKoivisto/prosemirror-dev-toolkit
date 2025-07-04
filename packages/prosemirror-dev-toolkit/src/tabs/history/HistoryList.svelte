@@ -36,7 +36,7 @@
           {/if}
         </span>
         {#if group.isGroup && group.entries.length > 1}
-          <span class="caret-icon" class:expanded={group.expanded} />
+          <span class="caret-icon" class:expanded={group.expanded}></span>
         {/if}
       </button>
     </li>

@@ -1,4 +1,5 @@
-import { DirectEditorProps, EditorView } from 'prosemirror-view'
+import type { DirectEditorProps } from 'prosemirror-view'
+import { EditorView } from 'prosemirror-view'
 import { EditorState } from 'prosemirror-state'
 import { exampleSetup } from 'prosemirror-example-setup'
 
