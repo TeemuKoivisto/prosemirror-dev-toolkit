@@ -1,5 +1,6 @@
 import DevTools from './components/DevTools.svelte'
 import {
+  overrideDispatchTransaction,
   subscribeToDispatchTransaction,
   unsubscribeDispatchTransaction
 } from './history-and-diff/subscribeToTransactions'
@@ -11,7 +12,6 @@ import { ProseMirrorDevToolkit } from './ProseMirrorDevToolkit'
 import type { DevToolsOpts } from './types'
 import type { Command } from 'prosemirror-state'
 import type { EditorView } from 'prosemirror-view'
-
 // Register the fancy web component wrapper but don't crash if it's already defined
 if (!customElements.get('prosemirror-dev-toolkit')) {
   customElements.define('prosemirror-dev-toolkit', ProseMirrorDevToolkit)
@@ -41,7 +41,7 @@ export function applyDevTools(view: EditorView, opts: DevToolsOpts = {}) {
   if (view.isDestroyed) return
 
   let comp: DevTools | undefined
-  const { disableWebComponent, ...filteredOpts } = opts
+  const { disableWebComponent, reactMode, ...filteredOpts } = opts
   if (disableWebComponent) {
     // Mainly for testing purposes since shadow DOM quite annoyingly hides all of its contents in the test snapshots
     comp = new DevTools({
@@ -78,8 +78,11 @@ export function applyDevTools(view: EditorView, opts: DevToolsOpts = {}) {
     removeDevTools()
     oldDestroyFn()
   }
-
-  subscribeToDispatchTransaction(view)
+  if (reactMode) {
+    overrideDispatchTransaction(view)
+  } else {
+    subscribeToDispatchTransaction(view)
+  }
 
   removeCallback = () => {
     resetHistory()

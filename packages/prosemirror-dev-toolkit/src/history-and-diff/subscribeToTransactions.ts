@@ -53,7 +53,7 @@ export function subscribeToDispatchTransaction(view: EditorView) {
   // People at times do all kinds of crazy things with EditorView eg extending it with a custom class.
   // This can cause various bugs, for example it can override props setter. Because I don't get points from
   // being right I'll just save them from their own silliness by checking also private _props
-  // @ts-ignore
+  // @ts-expect-error cause _props its private and this its a little haki.
   const oldDispatchFn = (view.props || view._props).dispatchTransaction?.bind(view)
   view.setProps({
     dispatchTransaction: handleDispatch(view, oldDispatchFn)
@@ -61,6 +61,31 @@ export function subscribeToDispatchTransaction(view: EditorView) {
   resetDispatch = () => view.setProps({ dispatchTransaction: oldDispatchFn })
 }
 
+export function overrideDispatchTransaction(view: EditorView) {
+  // React wrappers reapply their dispatchTransaction prop on every render, which can overwrite our interceptor.
+  // To avoid this, we patch the public view.dispatch method directly,
+  // since React does not manage this internal dispatch function.
+
+  active = true
+  // @ts-expect-error cause _props its private and this its a little haki.
+  const oldDispatchFn = (view.props || view._props).dispatchTransaction?.bind(view)
+  const devToolsHandler = handleDispatch(view, oldDispatchFn)
+
+  const originalDispatch = view.dispatch.bind(view)
+
+  view.dispatch = function (tr) {
+    try {
+      devToolsHandler(tr)
+    } catch (e) {
+      // fallback
+      originalDispatch(tr)
+    }
+  }
+
+  resetDispatch = () => {
+    view.dispatch = originalDispatch
+  }
+}
 export function unsubscribeDispatchTransaction() {
   active = false
   resetDispatch && resetDispatch()

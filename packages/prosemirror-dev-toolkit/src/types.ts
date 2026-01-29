@@ -3,4 +3,5 @@ export interface DevToolsOpts {
   devToolsExpanded?: boolean
   buttonPosition?: ButtonPosition
   disableWebComponent?: boolean
+  reactMode?: boolean
 }
