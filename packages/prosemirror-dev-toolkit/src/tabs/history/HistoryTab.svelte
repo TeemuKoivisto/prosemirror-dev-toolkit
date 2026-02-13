@@ -11,38 +11,49 @@
 
   import { getContext } from '$context'
 
-  let selectedEntry: HistoryEntry | undefined = undefined,
-    showTr = false
+  let selectedEntry: HistoryEntry | undefined = $state(undefined)
+  let showTr = $state(false)
+  let expandTrTreeView = $state(false)
 
   const { replaceEditorContent } = getContext('editor-view')
 
-  let expandTrTreeView = false
-  let transactionRecursionOpts = {
+  let transactionRecursionOpts = $state({
     maxDepth: 24,
     stopCircularRecursion: true,
     omitKeys: ['schema'],
     shouldExpandNode: () => expandTrTreeView
-  }
-  $: listItems = $shownHistoryGroups.map((g: HistoryGroup) => ({
-    id: g.id,
-    isGroup: g.isGroup,
-    topEntry: $stateHistory.get(g.topEntryId),
-    entries: g.entryIds.map(id => $stateHistory.get(id)),
-    expanded: g.expanded
-  }))
+  })
 
-  latestEntry.subscribe(v => {
-    if (v) selectedEntry = v
+  let listItems = $derived(
+    $shownHistoryGroups.map((g: HistoryGroup) => ({
+      id: g.id,
+      isGroup: g.isGroup,
+      topEntry: $stateHistory.get(g.topEntryId),
+      entries: g.entryIds.map(id => $stateHistory.get(id)),
+      expanded: g.expanded
+    }))
+  )
+
+  console.log('mounted!', $shownHistoryGroups)
+
+  $effect(() => {
+    const latest = $latestEntry
+    if (latest) {
+      selectedEntry = latest
+    }
+    console.log('effect!')
   })
 
   function toggleShowTr() {
     showTr = !showTr
   }
+
   function handleLogTr() {
     console.info('%c [prosemirror-dev-toolkit]: Property added to window._trs', 'color: #b8e248')
     console.log(selectedEntry?.trs)
     window._trs = selectedEntry?.trs
   }
+
   /**
    * Handles the clicks of the history entries.
    *
@@ -65,10 +76,12 @@
       )
     }
   }
+
   function handleEntryDblClick(e: CustomEvent<{ id?: string }>) {
     selectedEntry = $stateHistory.get(e.detail.id || '')
     selectedEntry && replaceEditorContent(selectedEntry.state)
   }
+
   function handleToggleExpandTrTreeView() {
     expandTrTreeView = !expandTrTreeView
     transactionRecursionOpts = {

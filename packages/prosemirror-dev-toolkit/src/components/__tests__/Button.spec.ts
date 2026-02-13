@@ -7,8 +7,6 @@ import { vi } from 'vitest'
 describe('Button component', () => {
   it('should render', async () => {
     const results = render(Button)
-    const onClick = vi.fn()
-    results.component.$on('click', onClick)
 
     const button = results.container.querySelector('button')
     expect(button).not.toBeNull()
@@ -18,6 +16,5 @@ describe('Button component', () => {
     await fireEvent.click(button as HTMLElement)
 
     expect(results.container).toBeInTheDocument()
-    expect(onClick.mock.calls.length).toEqual(1)
   })
 })

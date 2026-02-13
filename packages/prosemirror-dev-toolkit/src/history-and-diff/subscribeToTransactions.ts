@@ -27,6 +27,7 @@ let active = false,
  */
 const handleDispatch =
   (view: EditorView, oldDispatchFn?: (tr: Transaction) => void) => (tr: Transaction) => {
+    console.log('dispatch!', tr)
     const stateBeforeDispatch = view.state
     const applied = view.state.applyTransaction(tr)
     if (oldDispatchFn) {
@@ -55,6 +56,7 @@ export function subscribeToDispatchTransaction(view: EditorView) {
   // being right I'll just save them from their own silliness by checking also private _props
   // @ts-ignore
   const oldDispatchFn = (view.props || view._props).dispatchTransaction?.bind(view)
+  console.log('subscribe', oldDispatchFn)
   view.setProps({
     dispatchTransaction: handleDispatch(view, oldDispatchFn)
   })

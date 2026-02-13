@@ -13,14 +13,21 @@
   import StructureTab from '$tabs/structure/StructureTab.svelte'
   import SnapshotsTab from '$tabs/snapshots/SnapshotsTab.svelte'
 
-  export let onClose: () => void
+  interface Props {
+    onClose: () => void
+  }
+
+  const { onClose }: Props = $props()
 
   const { view } = getContext('editor-view')
-  let openTab = 'state',
-    dockTop = 50,
-    dockHeight = 50,
-    fileinput: HTMLInputElement,
-    modalOpen = false
+
+  let openTab = $state('state')
+  let dockTop = $state(50)
+  let dockHeight = $state(50)
+  let fileinput: HTMLInputElement
+  let modalOpen = $state(false)
+
+  console.log('floater')
 
   onDestroy(() => {
     document.removeEventListener('mousemove', dragMove)
@@ -96,21 +103,21 @@
 <div class="floating-dock-wrapper">
   <PasteModal isOpen={modalOpen} on:submit={handlePasteSubmit} on:close={handleCloseModal} />
   <div class="floating-dock" style={`top: ${dockTop}%; height: ${dockHeight}%;`}>
-    <div class="resizing-div" on:mousedown={handleResizeMouseDown} role="button" tabindex="-1"></div>
+    <div class="resizing-div" onmousedown={handleResizeMouseDown} role="button" tabindex="-1"></div>
     <div class="floating-dock-body">
       <div>
-        <button class="copy-btn" on:click={handleCopyDoc}>Copy</button>
-        <button class="save-btn" on:click={handleSaveSnapshot}>Save</button>
-        <button class="import-btn" on:click={handleImportSnapshot}>Import</button>
-        <button class="paste-btn" on:click={handlePasteSnapshot}>Paste</button>
-        <button class="close-btn" aria-label="Close dev-toolkit" on:click={onClose}>X</button>
+        <button class="copy-btn" onclick={handleCopyDoc}>Copio</button>
+        <button class="save-btn" onclick={handleSaveSnapshot}>Save</button>
+        <button class="import-btn" onclick={handleImportSnapshot}>Import</button>
+        <button class="paste-btn" onclick={handlePasteSnapshot}>Paste</button>
+        <button class="close-btn" aria-label="Close dev-toolkit" onclick={onClose}>X</button>
       </div>
       <input
         style="display:none"
         type="file"
         accept=".json"
         multiple
-        on:change={handleFileSelected}
+        onchange={handleFileSelected}
         bind:this={fileinput}
       />
       <TabsMenu onClickTab={handleClickTab} active={openTab} />

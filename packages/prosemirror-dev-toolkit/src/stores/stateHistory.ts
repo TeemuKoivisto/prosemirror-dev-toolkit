@@ -25,7 +25,7 @@ export function appendNewHistoryEntry(
 
   stateHistory.update(val => new Map(val.set(newEntry.id, newEntry)))
   latestEntry.set(newEntry)
-
+  console.log('append', trs)
   // Groups are subsequent transactions where the doc hasn't changed (eg selection was set) OR the diff was equal
   // Haven't seen necessary to differentiate between selection-only vs equal diffs
   const isGroup = !newEntry.contentDiff

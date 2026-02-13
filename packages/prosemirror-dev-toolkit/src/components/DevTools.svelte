@@ -9,9 +9,19 @@
 
   import type { ButtonPosition } from '../types'
 
-  export let view: EditorView,
-    devToolsExpanded = false,
-    buttonPosition: ButtonPosition = 'bottom-right'
+  interface Props {
+    view: EditorView
+    devToolsExpanded?: boolean
+    buttonPosition?: ButtonPosition
+  }
+
+  const {
+    view,
+    devToolsExpanded: initialDevToolsExpanded = false,
+    buttonPosition = 'bottom-right'
+  }: Props = $props()
+
+  let devToolsExpanded = $state(initialDevToolsExpanded)
 
   setContext('editor-view', {
     view,
@@ -26,6 +36,7 @@
   })
 
   onMount(() => {
+    console.log('HELLO')
     const html = document && document.querySelector('html')
     if (devToolsExpanded && html) {
       html.style.paddingBottom = '341px'
@@ -52,7 +63,7 @@
   {#if devToolsExpanded}
     <FloatingDock onClose={handleFloatingDockClose} />
   {:else}
-    <FloatingBtn on:click={handleFloatingBtnClick} {buttonPosition} />
+    <FloatingBtn onclick={handleFloatingBtnClick} {buttonPosition} />
   {/if}
 </section>
 
