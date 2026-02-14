@@ -15,7 +15,7 @@ runs:
       shell: bash
 
     - name: Install Cypress binary
-      run: pnpm --filter prosemirror-dev-toolkit install cypress@v15
+      run: pnpm --filter prosemirror-dev-toolkit exec cypress install
       shell: bash
 
     - name: Run tests with Cypress
