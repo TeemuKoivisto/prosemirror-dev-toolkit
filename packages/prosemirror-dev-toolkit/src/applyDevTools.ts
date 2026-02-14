@@ -1,7 +1,8 @@
 import DevTools from './components/DevTools.svelte'
 import {
   subscribeToDispatchTransaction,
-  unsubscribeDispatchTransaction
+  unsubscribeDispatchTransaction,
+  overrideDispatchTransaction
 } from './history-and-diff/subscribeToTransactions'
 import { resetHistory } from './stores/stateHistory'
 
@@ -34,7 +35,7 @@ let removeCallback: (() => void) | undefined
  */
 export function applyDevTools(view: EditorView, opts: DevToolsOpts = {}) {
   const place = createOrFindPlace()
-
+  console.log('HELLO', view)
   removeDevTools()
 
   // Sometimes when applyDevTools is run with hot module reload, it's accidentally executed on already destroyed EditorViews
@@ -79,7 +80,8 @@ export function applyDevTools(view: EditorView, opts: DevToolsOpts = {}) {
     oldDestroyFn()
   }
 
-  subscribeToDispatchTransaction(view)
+  // subscribeToDispatchTransaction(view)
+  overrideDispatchTransaction(view)
 
   removeCallback = () => {
     resetHistory()

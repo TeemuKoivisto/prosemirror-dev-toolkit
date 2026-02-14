@@ -1,0 +1,8 @@
+@import "prosemirror-view/style/prosemirror.css";
+@import "prosemirror-example-setup/style/style.css";
+@import "prosemirror-menu/style/menu.css";
+
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}

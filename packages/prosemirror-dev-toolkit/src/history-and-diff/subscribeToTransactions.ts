@@ -66,3 +66,29 @@ export function unsubscribeDispatchTransaction() {
   resetDispatch && resetDispatch()
   resetDispatch = undefined
 }
+
+export function overrideDispatchTransaction(view: EditorView) {
+  // React wrappers reapply their dispatchTransaction prop on every render, which can overwrite our interceptor.
+  // To avoid this, we patch the public view.dispatch method directly,
+  // since React does not manage this internal dispatch function.
+
+  active = true
+  // @ts-expect-error cause _props its private and this its a little haki.
+  const oldDispatchFn = (view.props || view._props).dispatchTransaction?.bind(view)
+  const devToolsHandler = handleDispatch(view, oldDispatchFn)
+
+  const originalDispatch = view.dispatch.bind(view)
+
+  view.dispatch = function (tr) {
+    try {
+      devToolsHandler(tr)
+    } catch (e) {
+      // fallback
+      originalDispatch(tr)
+    }
+  }
+
+  resetDispatch = () => {
+    view.dispatch = originalDispatch
+  }
+}

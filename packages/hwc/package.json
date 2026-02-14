@@ -1,0 +1,29 @@
+{
+  "name": "react-prosemirror",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "vite dev"
+  },
+  "dependencies": {
+    "@handlewithcare/react-prosemirror": "^2.7.1",
+    "prosemirror-dev-toolkit": "workspace:*",
+    "prosemirror-example-setup": "^1.2.3",
+    "prosemirror-menu": "^1.2.5",
+    "prosemirror-model": "^1.25.4",
+    "prosemirror-schema-basic": "^1.2.4",
+    "prosemirror-schema-list": "^1.5.1",
+    "prosemirror-state": "^1.4.4",
+    "prosemirror-view": "1.41.6",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-reconciler": "0.32.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.45",
+    "@vitejs/plugin-react": "^5.1.4",
+    "typescript": "^5.3.3",
+    "vite": "^7.3.1"
+  }
+}
