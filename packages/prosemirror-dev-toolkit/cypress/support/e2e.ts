@@ -15,9 +15,13 @@
 
 import './commands'
 
-// Hide scrollbars to avoid image snapshot diffs across environments
-Cypress.on('window:before:load', win => {
-  const style = win.document.createElement('style')
-  style.textContent = `*::-webkit-scrollbar { display: none !important; } * { scrollbar-width: none !important; -ms-overflow-style: none !important; }`
-  win.document.documentElement.appendChild(style)
+// Hide scrollbars during screenshots to avoid image snapshot diffs across environments
+// Source - https://stackoverflow.com/a/69179708
+Cypress.Screenshot.defaults({
+  onBeforeScreenshot($el) {
+    $el.css('overflow', 'hidden')
+  },
+  onAfterScreenshot($el) {
+    $el.css('overflow', 'auto')
+  }
 })
