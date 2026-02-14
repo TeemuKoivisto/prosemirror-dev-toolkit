@@ -19,6 +19,11 @@
     "node": ">=16",
     "pnpm": ">=7.0.0"
   },
+  "pnpm": {
+    "overrides": {
+      "sharp": "^0.33.5"
+    }
+  },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
     "@typescript-eslint/eslint-plugin": "^7.8.0",
