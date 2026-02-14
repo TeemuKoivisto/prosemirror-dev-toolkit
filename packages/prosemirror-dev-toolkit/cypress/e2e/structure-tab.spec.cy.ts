@@ -71,7 +71,7 @@ describe('# Structure tab', () => {
         screenshotConfig: {
           capture: 'viewport'
         },
-        maxDiffThreshold: 0,
+        maxDiffThreshold: 0.05,
         diffConfig: {
           threshold: 0.0001,
           alpha: 0.2

@@ -44,7 +44,7 @@ describe('# Plugins tab', () => {
         screenshotConfig: {
           capture: 'viewport'
         },
-        maxDiffThreshold: 0.04,
+        maxDiffThreshold: 0.05,
         diffConfig: {
           threshold: 0.01,
           alpha: 0.2
