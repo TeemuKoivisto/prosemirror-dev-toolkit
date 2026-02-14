@@ -20,7 +20,7 @@ runs:
       with:
         browser: chrome
         cache-key: ${{ runner.os }}-node-${{ matrix.node-version }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-        command: pnpm --filter prosemirror-dev-toolkit test:e2e
+        command: pnpm --filter prosemirror-dev-toolkit cy run --config baseUrl=http://localhost:3300
         install: false
         quiet: false
         start: pnpm --filter site dev --host
