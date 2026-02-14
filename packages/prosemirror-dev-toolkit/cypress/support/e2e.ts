@@ -16,21 +16,8 @@
 import './commands'
 
 // Hide scrollbars to avoid image snapshot diffs across environments
-const HIDE_SCROLLBARS_CSS = `*::-webkit-scrollbar { display: none !important; } * { scrollbar-width: none !important; overflow: -moz-scrollbars-none !important; -ms-overflow-style: none !important; }`
-
-beforeEach(() => {
-  cy.document().then(doc => {
-    const style = doc.createElement('style')
-    style.textContent = HIDE_SCROLLBARS_CSS
-    doc.head.appendChild(style)
-  })
-  // Also inject into the dev-toolkit shadow DOM
-  cy.get('prosemirror-dev-toolkit', { timeout: 10000 }).then($el => {
-    const shadowRoot = $el[0]?.shadowRoot
-    if (shadowRoot) {
-      const style = document.createElement('style')
-      style.textContent = HIDE_SCROLLBARS_CSS
-      shadowRoot.appendChild(style)
-    }
-  })
+Cypress.on('window:before:load', win => {
+  const style = win.document.createElement('style')
+  style.textContent = `*::-webkit-scrollbar { display: none !important; } * { scrollbar-width: none !important; -ms-overflow-style: none !important; }`
+  win.document.documentElement.appendChild(style)
 })
