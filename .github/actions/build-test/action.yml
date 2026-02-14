@@ -14,6 +14,10 @@ runs:
         pnpm --filter prosemirror-dev-toolkit test:unit
       shell: bash
 
+    - name: Install Cypress binary
+      run: pnpm --filter prosemirror-dev-toolkit cypress install
+      shell: bash
+
     - name: Run tests with Cypress
       id: cypress
       uses: cypress-io/github-action@v6
