@@ -14,3 +14,10 @@
 // ***********************************************************
 
 import './commands'
+
+// Hide scrollbars to avoid image snapshot diffs across environments
+Cypress.on('window:before:load', win => {
+  const style = win.document.createElement('style')
+  style.textContent = `*::-webkit-scrollbar { display: none !important; } * { scrollbar-width: none !important; }`
+  win.document.head.appendChild(style)
+})
