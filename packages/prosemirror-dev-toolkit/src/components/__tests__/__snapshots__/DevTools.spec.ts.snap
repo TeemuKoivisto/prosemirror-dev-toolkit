@@ -165,15 +165,15 @@ exports[`DevTools component > should open by clicking the floating button 1`] = 
             <!---->
              
             <section
-              class="split-view s-SplitView-19yuj8p"
+              class="split-view s-SplitView-9cxs9j"
             >
               <!---->
                
               <div
-                class="right-panel s-SnapshotsTab-eg6x5x"
+                class="split-view-right-panel s-SnapshotsTab-1t698ds"
               >
                 <div
-                  class="no-snapshots s-SnapshotsTab-eg6x5x"
+                  class="no-snapshots s-SnapshotsTab-1t698ds"
                 >
                   Save snapshots by clicking "Save" button.
                 </div>
@@ -358,13 +358,13 @@ exports[`DevTools component > should render 1`] = `
             <!---->
              
             <section
-              class="split-view s-SplitView-19yuj8p"
+              class="split-view s-SplitView-9cxs9j"
             >
               <div
-                class="left-panel s-StateTab-y937re"
+                class="split-view-left-panel s-StateTab-yk0eei"
               >
                 <div
-                  class="top-row s-StateTab-y937re"
+                  class="top-row s-StateTab-yk0eei"
                 >
                   <h2>
                     Current doc
@@ -478,10 +478,10 @@ exports[`DevTools component > should render 1`] = `
               <!---->
                
               <div
-                class="right-panel s-StateTab-y937re"
+                class="split-view-right-panel s-StateTab-yk0eei"
               >
                 <div
-                  class="top-row s-StateTab-y937re"
+                  class="top-row s-StateTab-yk0eei"
                 >
                   <h2>
                     Selection
@@ -491,7 +491,7 @@ exports[`DevTools component > should render 1`] = `
                     class="selection-btn s-Button-3lf898"
                   >
                     <span
-                      class="caret-icon s-StateTab-y937re"
+                      class="caret-icon s-StateTab-yk0eei"
                     />
                     <!---->
                   </button>
@@ -703,7 +703,7 @@ exports[`DevTools component > should render 1`] = `
                   </h2>
                    
                   <div
-                    class="no-marks s-StateTab-y937re"
+                    class="no-marks s-StateTab-yk0eei"
                   >
                     No active marks
                   </div>

@@ -76,7 +76,7 @@
       </div>
       <TreeView class="tree-view" data={selection} />
       <div>
-        <h2>Active marks2</h2>
+        <h2>Active marks</h2>
         {#if activeMarks.length === 0}
           <div class="no-marks">No active marks</div>
         {:else}
