@@ -2,7 +2,7 @@ import type { EditorView } from 'prosemirror-view'
 import DevTools from './components/DevTools.svelte'
 import { mount, unmount } from 'svelte'
 
-import { DevToolsOpts } from './types'
+import type { DevToolsOpts } from './types'
 
 // Inspired by https://www.colorglare.com/svelte-components-as-web-components-b400d1253504
 // Using a web component allows toolkit to encapsulate its DOM and CSS styles without affecting

@@ -34,6 +34,13 @@ export default defineConfig({
       $typings: resolve('./src/typings')
     }
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@use 'src/global' as *;`
+      }
+    }
+  },
   plugins: [dts(), tsconfigPaths(), svelte({ extensions: ['.svelte'], emitCss: false })],
   test: {
     globals: true,
