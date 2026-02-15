@@ -13,7 +13,7 @@
 
 <SplitView>
   {#snippet left()}
-    <div class="left-panel">
+    <div class="split-view-left-panel">
       <div class="top-row">
         <h2>Nodes</h2>
         <Button class="hidden">log</Button>
@@ -30,7 +30,7 @@
     </div>
   {/snippet}
   {#snippet right()}
-    <div class="right-panel">
+    <div class="split-view-right-panel">
       <div class="top-row">
         <h2>Marks</h2>
         <Button class="hidden">log</Button>
@@ -54,11 +54,11 @@
     display: flex;
     justify-content: space-between;
   }
-  .left-panel {
+  .split-view-left-panel {
     overflow: scroll;
     padding: 1em;
   }
-  .right-panel {
+  .split-view-right-panel {
     border-left: 1px solid rgba(var(--color-red-light-rgb), 0.2);
     overflow: scroll;
     padding: 1em;

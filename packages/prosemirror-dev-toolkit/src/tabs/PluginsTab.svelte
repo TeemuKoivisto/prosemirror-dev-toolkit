@@ -56,12 +56,12 @@
 
 <SplitView>
   {#snippet left()}
-    <div class="left-panel">
+    <div class="split-view-left-panel">
       <List {listItems} selectedKey={selectedPlugin?.key} onSelect={handlePluginSelect} />
     </div>
   {/snippet}
   {#snippet right()}
-    <div class="right-panel">
+    <div class="split-view-right-panel">
       {#if pluginState}
         <div class="top-row">
           <h2>Plugin state</h2>
@@ -89,14 +89,14 @@
     justify-content: space-between;
     margin-bottom: 0.5em;
   }
-  .left-panel {
+  .split-view-left-panel {
     flex-grow: 0;
     overflow: scroll;
     padding: 0;
     min-width: 190px;
     width: 190px;
   }
-  .right-panel {
+  .split-view-right-panel {
     border-left: 1px solid rgba(var(--color-red-light-rgb), 0.2);
   }
   .empty-state {

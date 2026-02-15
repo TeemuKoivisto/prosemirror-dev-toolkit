@@ -93,7 +93,7 @@
 
 <SplitView>
   {#snippet left()}
-    <div class="left-panel">
+    <div class="split-view-left-panel">
       <div class="top-row">
         <h2>Current doc</h2>
         <Button class="hidden">log</Button>
@@ -102,7 +102,7 @@
     </div>
   {/snippet}
   {#snippet right()}
-    <div class="right-panel">
+    <div class="split-view-right-panel">
       <div class="top-row">
         <h2>Node info</h2>
         <Button onclick={handleClickLogNode}>log</Button>
@@ -124,7 +124,7 @@
     display: flex;
     justify-content: space-between;
   }
-  .right-panel {
+  .split-view-right-panel {
     border-left: 1px solid rgba(var(--color-red-light-rgb), 0.2);
     flex-grow: 0;
     min-width: 220px;

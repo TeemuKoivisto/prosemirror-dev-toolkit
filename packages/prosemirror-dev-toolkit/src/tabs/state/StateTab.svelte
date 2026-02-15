@@ -52,7 +52,7 @@
 
 <SplitView>
   {#snippet left()}
-    <div class="left-panel">
+    <div class="split-view-left-panel">
       <div class="top-row">
         <h2>Current doc</h2>
         <Button onclick={handleClickLogDoc}>log</Button>
@@ -67,7 +67,7 @@
     </div>
   {/snippet}
   {#snippet right()}
-    <div class="right-panel">
+    <div class="split-view-right-panel">
       <div class="top-row">
         <h2>Selection</h2>
         <Button class="selection-btn" onclick={handleExpandSelection}
@@ -76,7 +76,7 @@
       </div>
       <TreeView class="tree-view" data={selection} />
       <div>
-        <h2>Active marks</h2>
+        <h2>Active marks2</h2>
         {#if activeMarks.length === 0}
           <div class="no-marks">No active marks</div>
         {:else}
@@ -103,10 +103,10 @@
     display: flex;
     justify-content: space-between;
   }
-  .left-panel {
-    overflow: scroll;
+  .split-view-left-panel {
+    overflow: auto;
   }
-  .right-panel {
+  .split-view-right-panel {
     border-left: 1px solid rgba(var(--color-red-light-rgb), 0.2);
     flex-grow: 0;
     min-width: 200px;

@@ -84,7 +84,7 @@
 
 <SplitView>
   {#snippet left()}
-    <div class="left-panel">
+    <div class="split-view-left-panel">
       <HistoryList
         {listItems}
         selectedId={selectedEntry?.id || ''}
@@ -94,7 +94,7 @@
     </div>
   {/snippet}
   {#snippet right()}
-    <div class="right-panel">
+    <div class="split-view-right-panel">
       {#if selectedEntry}
         <div>
           {#if selectedEntry.contentDiff}
@@ -179,7 +179,7 @@
 </SplitView>
 
 <style>
-  .left-panel {
+  .split-view-left-panel {
     flex-grow: 0;
     padding: 0;
     min-width: 190px;

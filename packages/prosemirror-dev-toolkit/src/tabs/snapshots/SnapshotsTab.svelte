@@ -25,7 +25,7 @@
 
 <SplitView>
   {#snippet right()}
-    <div class="right-panel">
+    <div class="split-view-right-panel">
       {#if $snapshots.length === 0}
         <div class="no-snapshots">Save snapshots by clicking "Save" button.</div>
       {:else}
@@ -44,7 +44,7 @@
 </SplitView>
 
 <style>
-  .right-panel {
+  .split-view-right-panel {
     padding: 0;
   }
   .no-snapshots {

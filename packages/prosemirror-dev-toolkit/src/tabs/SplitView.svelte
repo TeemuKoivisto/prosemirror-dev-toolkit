@@ -30,14 +30,14 @@
     margin: 0;
     text-transform: uppercase;
   }
-  :global(.split-view > .left-panel) {
+  :global(.split-view-left-panel) {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
     overflow: scroll;
     padding: 1em;
   }
-  :global(.split-view > .right-panel) {
+  :global(.split-view-right-panel) {
     border-left: 1px solid rgba(var(--color-red-light-rgb), 0.2);
     display: flex;
     flex-direction: column;
