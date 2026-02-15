@@ -1,5 +1,17 @@
 # site
 
+## 0.1.0
+
+### Minor Changes
+
+- e05fcd3: update dependencies, migrate deprecated libraries & switch build from rollup to vite
+
+### Patch Changes
+
+- Updated dependencies [eb37ab5]
+- Updated dependencies [e05fcd3]
+  - prosemirror-dev-toolkit@1.2.0
+
 ## 0.0.15
 
 ### Patch Changes
