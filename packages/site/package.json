@@ -1,7 +1,7 @@
 {
   "name": "site",
   "private": true,
-  "version": "0.0.15",
+  "version": "0.1.0",
   "type": "module",
   "homepage": "https://teemukoivisto.github.io/prosemirror-dev-toolkit/",
   "scripts": {

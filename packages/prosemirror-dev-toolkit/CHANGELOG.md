@@ -1,5 +1,12 @@
 # prosemirror-dev-toolkit
 
+## 1.2.0
+
+### Minor Changes
+
+- eb37ab5: migrate components from Svelte 4 to Svelte 5
+- e05fcd3: update dependencies, migrate deprecated libraries & switch build from rollup to vite
+
 ## 1.1.8
 
 ### Patch Changes
