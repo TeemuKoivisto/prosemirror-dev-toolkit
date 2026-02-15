@@ -42,7 +42,10 @@ describe('# Snapshots tab', () => {
       })
       // There should be now one snapshot
       cy.devTools().find('.split-view-right-panel li').should('have.length', 1)
-      cy.devTools().find('.split-view-right-panel li').includesStringCount(TEST_SNAPSHOT).should('equal', 1)
+      cy.devTools()
+        .find('.split-view-right-panel li')
+        .includesStringCount(TEST_SNAPSHOT)
+        .should('equal', 1)
       // This should open an input to edit the snapshot's name
       cy.devTools().find('.split-view-right-panel li').contains(TEST_SNAPSHOT).dblclick()
       cy.devTools()
@@ -53,7 +56,10 @@ describe('# Snapshots tab', () => {
         .type('{enter}', { force: true })
       // The name should have changed
       cy.devTools().find('.split-view-right-panel li').contains(TEST_SNAPSHOT).should('not.exist')
-      cy.devTools().find('.split-view-right-panel li').contains(TEST_SNAPSHOT_CHANGED).should('exist')
+      cy.devTools()
+        .find('.split-view-right-panel li')
+        .contains(TEST_SNAPSHOT_CHANGED)
+        .should('exist')
 
       cy.window().then(window => {
         const { editorView: view } = window
