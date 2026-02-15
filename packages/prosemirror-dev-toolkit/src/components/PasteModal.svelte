@@ -35,7 +35,7 @@
   </form>
 </div>
 
-<style lang="scss">
+<style>
   .paste-modal {
     font-size: 15px;
     height: 100%;

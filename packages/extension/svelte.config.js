@@ -1,8 +1,5 @@
-import autoPreprocess from 'svelte-preprocess'
-
-const preprocessOptions = {}
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
 
 export default {
-  preprocess: autoPreprocess(preprocessOptions),
-  preprocessOptions
+  preprocess: vitePreprocess()
 }

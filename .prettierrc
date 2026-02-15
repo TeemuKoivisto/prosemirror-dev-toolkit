@@ -5,10 +5,16 @@
       "options": {
         "singleQuote": false
       }
+    },
+    {
+      "files": "*.svelte",
+      "options": {
+        "parser": "svelte"
+      }
     }
   ],
   "arrowParens": "avoid",
-  "plugins": ["prettier-plugin-svelte"],
+  "plugins": ["prettier-plugin-svelte", "prettier-plugin-tailwindcss"],
   "printWidth": 100,
   "semi": false,
   "singleQuote": true,

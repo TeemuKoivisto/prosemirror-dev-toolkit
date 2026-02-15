@@ -12,16 +12,16 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [22.x]
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
 
       - name: Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node_version }}
 
@@ -30,6 +30,10 @@ jobs:
 
       - name: Build & test
         uses: ./.github/actions/build-test
+
+      - name: Build UMD bundle
+        run: pnpm --filter prosemirror-dev-toolkit build:umd
+        shell: bash
 
       - name: Setup .npmrc
         run: |

@@ -7,24 +7,24 @@
   import toggle2 from '@iconify-icons/mdi/toggle-switch.js'
   import research from '@iconify-icons/mdi/find-replace.js'
 
-  import { received, send, state } from './store'
+  import { received, send, state as popUpState } from './store'
   import type { ButtonPosition } from 'prosemirror-dev-toolkit'
 
-  $: disabled = $state.disabled
-  $: showOptions = $state.showOptions
-  $: showDebug = $state.showDebug
-  $: devToolsExpanded = $state.devToolsOpts.devToolsExpanded
-  $: buttonPosition = $state.devToolsOpts.buttonPosition
-  $: foundInstances = $state.inject.instances
-  $: found = !disabled && foundInstances.length > 0
-  $: selected = $state.inject.instance
-  $: injectStatus = $state.inject.status
-  $: selector = $state.inject.selector
+  let disabled = $derived($popUpState.disabled)
+  let showOptions = $derived($popUpState.showOptions)
+  let showDebug = $derived($popUpState.showDebug)
+  let devToolsExpanded = $derived($popUpState.devToolsOpts.devToolsExpanded)
+  let buttonPosition = $derived($popUpState.devToolsOpts.buttonPosition)
+  let foundInstances = $derived($popUpState.inject.instances)
+  let found = $derived(!disabled && foundInstances.length > 0)
+  let selected = $derived($popUpState.inject.instance)
+  let injectStatus = $derived($popUpState.inject.status)
+  let selector = $derived($popUpState.inject.selector)
 
-  let dots = ''
+  let dots = $state('')
   let setStatusInterval: ReturnType<typeof setTimeout> | undefined
 
-  $: {
+  $effect(() => {
     if (disabled || injectStatus !== 'finding') {
       dots = ''
       clearInterval(setStatusInterval)
@@ -38,7 +38,7 @@
         }
       }, 333)
     }
-  }
+  })
 
   onMount(() => {
     send('mount-pop-up', undefined)
@@ -124,13 +124,13 @@
       {/if}
     </div>
     <div class="header-buttons">
-      <button class="icon-btn" on:click={handleClickReapply}>
+      <button class="icon-btn" onclick={handleClickReapply}>
         <Icon icon={research} width={24} />
       </button>
-      <button class="icon-btn" on:click={handleClickDisable}>
+      <button class="icon-btn" onclick={handleClickDisable}>
         <Icon icon={disabled ? toggleOff : toggle2} width={24} />
       </button>
-      <button class="icon-btn" on:click={handleClickOptions}>
+      <button class="icon-btn" onclick={handleClickOptions}>
         <Icon icon={showOptions ? cogOff : cog} width={24} />
       </button>
     </div>
@@ -140,18 +140,18 @@
       <legend>Options</legend>
       <div class="field">
         <label for="pm-el-selector">Selector</label>
-        <input id="pm-el-selector" value={selector} on:change={handleSelectorChange} />
+        <input id="pm-el-selector" value={selector} onchange={handleSelectorChange} />
       </div>
       <div class="options-buttons">
-        <button on:click={handleClickExpanded}>{devToolsExpanded ? 'Expanded' : 'Button'}</button>
-        <select value={buttonPosition} on:change={handleToolsPosChange}>
+        <button onclick={handleClickExpanded}>{devToolsExpanded ? 'Expanded' : 'Button'}</button>
+        <select value={buttonPosition} onchange={handleToolsPosChange}>
           <option value="bottom-right">Bottom right</option>
           <option value="bottom-left">Bottom left</option>
           <option value="top-right">Top right</option>
           <option value="top-left">Top left</option>
         </select>
-        <!-- <button on:click={handleClickWindow}>Window</button> -->
-        <button on:click={handleClickDebug}>Debug</button>
+        <!-- <button onclick={handleClickWindow}>Window</button> -->
+        <button onclick={handleClickDebug}>Debug</button>
       </div>
     </fieldset>
   </div>
@@ -162,7 +162,7 @@
           <button
             class="editor-btn"
             class:selected={idx === selected}
-            on:click={() => handleSelectInstance(idx)}
+            onclick={() => handleSelectInstance(idx)}
           >
             {inst.element}
           </button>

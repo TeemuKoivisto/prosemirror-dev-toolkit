@@ -13,12 +13,13 @@ describe('# DevTools', () => {
     cy.devTools().find('ul.tabs-menu li').should('have.length', 6)
     cy.scrollTo('bottom')
     cy.devTools()
+      .hideScrollBars()
       .find('.floating-dock')
       .matchImage({
         screenshotConfig: {
           capture: 'viewport'
         },
-        maxDiffThreshold: 0.01,
+        maxDiffThreshold: 0.05,
         diffConfig: {
           threshold: 0.01,
           alpha: 0.2

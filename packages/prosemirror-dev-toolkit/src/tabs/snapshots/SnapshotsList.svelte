@@ -100,9 +100,9 @@
   {/each}
 </ul>
 
-<style lang="scss">
+<style>
   ul {
-    color: $color-white;
+    color: var(--color-white);
     list-style: none;
     margin: 0;
     padding: 0;
@@ -110,7 +110,7 @@
     width: 100%;
   }
   li + li {
-    border-top: 1px solid $color-purple;
+    border-top: 1px solid var(--color-purple);
   }
   li {
     align-items: center;
@@ -121,7 +121,7 @@
   input {
     background: transparent;
     border: 0;
-    color: $color-white;
+    color: var(--color-white);
     height: 100%;
     margin: 0;
     padding: 2px;
@@ -130,7 +130,7 @@
   .unstyled-btn {
     background: transparent;
     border: 0;
-    color: $color-white;
+    color: var(--color-white);
     cursor: pointer;
     display: block;
     font-family: monospace;
@@ -143,16 +143,16 @@
     background: transparent;
     border: 0;
     border-radius: 3px;
-    color: $color-gray-light;
+    color: var(--color-gray-light);
     cursor: pointer;
     display: flex;
     font-size: 11px;
     padding: 6px 18px;
     text-transform: uppercase;
-    &:hover {
-      background: rgba($color-red-light, 0.4);
-      color: $color-white;
-    }
+  }
+  .snapshot-btn:hover {
+    background: rgba(var(--color-red-light-rgb), 0.4);
+    color: var(--color-white);
   }
   .ml-2 {
     margin-left: 1rem;

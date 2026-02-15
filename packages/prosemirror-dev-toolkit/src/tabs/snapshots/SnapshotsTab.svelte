@@ -41,13 +41,13 @@
   </div>
 </SplitView>
 
-<style lang="scss">
+<style>
   .right-panel[slot='right'] {
     padding: 0;
   }
   .no-snapshots {
     align-items: center;
-    color: $color-red-light;
+    color: var(--color-red-light);
     display: flex;
     font-size: 14px;
     height: 100%;

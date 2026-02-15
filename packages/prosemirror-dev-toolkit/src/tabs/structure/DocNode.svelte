@@ -57,28 +57,28 @@
   </ul>
 </li>
 
-<style lang="scss">
+<style>
   .doc-node {
-    border-left: 1px solid $color-blue-bg;
-    border-right: 1px solid $color-blue-bg;
+    border-left: 1px solid var(--color-blue-bg);
+    border-right: 1px solid var(--color-blue-bg);
     display: flex;
     flex-direction: column;
     padding: 0 12px;
-    &.root {
-      border: 0;
-      padding: 0;
-    }
+  }
+  .doc-node.root {
+    border: 0;
+    padding: 0;
   }
   .doc-node-body {
-    background: $color-blue-bg;
-    color: $color-black;
+    background: var(--color-blue-bg);
+    color: var(--color-black);
     display: flex;
     font-size: 13px;
     margin-top: 3px;
   }
   .number-box {
     padding: 3px 6px;
-    background: rgba($color-white, 0.3);
+    background: rgba(var(--color-white-rgb), 0.3);
   }
   .node-name {
     width: 100%;
@@ -87,39 +87,39 @@
     align-items: center;
     background: transparent;
     border: 0;
-    color: $color-black;
+    color: var(--color-black);
     cursor: pointer;
     display: flex;
     height: 100%;
     white-space: pre;
     width: 100%;
-    &:hover {
-      background: rgba($color-red-light, 0.4);
-      color: $color-white;
-    }
-    &.selected {
-      background: rgba($color-red-light, 0.4);
-    }
+  }
+  button:hover {
+    background: rgba(var(--color-red-light-rgb), 0.4);
+    color: var(--color-white);
+  }
+  button.selected {
+    background: rgba(var(--color-red-light-rgb), 0.4);
   }
   ul {
     list-style: none;
     margin: 0;
     padding: 0;
-    &.show-borders {
-      border-left: 1px solid $color-purple;
-      border-right: 1px solid $color-purple;
-    }
+  }
+  ul.show-borders {
+    border-left: 1px solid var(--color-purple);
+    border-right: 1px solid var(--color-purple);
   }
   .inline-children {
-    border-left: 1px solid $color-purple;
-    border-right: 1px solid $color-purple;
+    border-left: 1px solid var(--color-purple);
+    border-right: 1px solid var(--color-purple);
     display: flex;
     flex-wrap: wrap;
     padding: 0 12px;
-    /* TODO this hurts my soul */
-    & > :global(.doc-node) {
-      flex-grow: 1;
-      padding: 0;
-    }
+  }
+  /* TODO this hurts my soul */
+  .inline-children > :global(.doc-node) {
+    flex-grow: 1;
+    padding: 0;
   }
 </style>

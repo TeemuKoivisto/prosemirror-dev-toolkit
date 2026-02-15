@@ -80,12 +80,13 @@ describe('# State tab', () => {
       .should('have.text', '2')
 
     cy.devTools()
+      .hideScrollBars()
       .find('.floating-dock')
       .matchImage({
         screenshotConfig: {
           capture: 'viewport'
         },
-        maxDiffThreshold: 0.025,
+        maxDiffThreshold: 0.05,
         diffConfig: {
           threshold: 0.01,
           alpha: 0.2

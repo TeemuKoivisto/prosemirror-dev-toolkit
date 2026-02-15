@@ -14,13 +14,17 @@ runs:
         pnpm --filter prosemirror-dev-toolkit test:unit
       shell: bash
 
+    - name: Install Cypress binary
+      run: pnpm --filter prosemirror-dev-toolkit exec cypress install
+      shell: bash
+
     - name: Run tests with Cypress
       id: cypress
-      uses: cypress-io/github-action@v5
+      uses: cypress-io/github-action@v6
       with:
         browser: chrome
         cache-key: ${{ runner.os }}-node-${{ matrix.node-version }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-        command: pnpm --filter prosemirror-dev-toolkit test:e2e
+        command: pnpm --filter prosemirror-dev-toolkit cy run --config baseUrl=http://localhost:3300
         install: false
         quiet: false
         start: pnpm --filter site dev --host
@@ -28,7 +32,7 @@ runs:
         working-directory: ./packages/prosemirror-dev-toolkit
 
     - name: Export screenshots (on failure only)
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: cypress-screenshots
@@ -38,7 +42,7 @@ runs:
         retention-days: 7
 
     - name: Export screen recordings (on failure only)
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: cypress-videos

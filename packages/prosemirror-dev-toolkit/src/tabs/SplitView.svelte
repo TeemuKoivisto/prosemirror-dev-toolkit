@@ -3,16 +3,16 @@
   <slot class="right-panel" name="right" />
 </section>
 
-<style lang="scss">
+<style>
   .split-view {
-    border-top: 1px solid rgba($color-red-light, 0.2);
-    color: $color-white;
+    border-top: 1px solid rgba(var(--color-red-light-rgb), 0.2);
+    color: var(--color-white);
     display: flex;
     height: calc(100% - var(--height-tabs-menu));
     width: 100%;
   }
   :global(.split-view h2) {
-    color: $color-red-gray;
+    color: var(--color-red-gray);
     font-family: var(--font-sans);
     font-size: var(--font-medium);
     font-weight: 400;
@@ -28,7 +28,7 @@
     padding: 1em;
   }
   :global(.split-view > .right-panel) {
-    border-left: 1px solid rgba($color-red-light, 0.2);
+    border-left: 1px solid rgba(var(--color-red-light-rgb), 0.2);
     display: flex;
     flex-direction: column;
     flex-grow: 1;

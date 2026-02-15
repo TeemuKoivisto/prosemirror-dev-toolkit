@@ -9,9 +9,13 @@
 
   import type { ButtonPosition } from '../types'
 
-  export let view: EditorView,
-    devToolsExpanded = false,
-    buttonPosition: ButtonPosition = 'bottom-right'
+  interface Props {
+    view: EditorView
+    devToolsExpanded?: boolean
+    buttonPosition?: ButtonPosition
+  }
+
+  let { view, devToolsExpanded = false, buttonPosition = 'bottom-right' }: Props = $props()
 
   setContext('editor-view', {
     view,
@@ -52,11 +56,11 @@
   {#if devToolsExpanded}
     <FloatingDock onClose={handleFloatingDockClose} />
   {:else}
-    <FloatingBtn on:click={handleFloatingBtnClick} {buttonPosition} />
+    <FloatingBtn onclick={handleFloatingBtnClick} {buttonPosition} />
   {/if}
 </section>
 
-<style lang="scss">
+<style>
   .dev-tools {
     font-family: var(--font-sans);
     font-size: var(--font-medium);
@@ -67,6 +71,27 @@
     --font-medium: 13px;
     --font-large: 16px;
     --height-tabs-menu: 48px;
+
+    --color-black: #222;
+    --color-blue-bg: #363755;
+    --color-blue-light: #85d9ef;
+    /* --color-green-text: #b8e248; */
+    --color-dim-text: #727288; /* used for empty plugin titles */
+    --color-gray-light: #d3d3d9;
+    --color-green: green; /* diff inserted */
+    --color-green-light: #87cc86; /* diff deleted color */
+    --color-purple-dark: rgb(80, 68, 93); /* list darker bg */
+    --color-purple: rgb(96, 76, 104); /* borders in eg lists */
+    --color-purple-light: rgb(99, 99, 123); /* list text color */
+    --color-red: #d66363; /* diff deleted */
+    --color-red-gray: rgb(187, 145, 163); /* h2 color */
+    --color-red-light: rgb(255, 162, 177);
+    --color-yellow: #eaea37; /* diff updated */
+    --color-white: #fff;
+
+    --color-black-rgb: 34, 34, 34;
+    --color-red-light-rgb: 255, 162, 177;
+    --color-white-rgb: 255, 255, 255;
 
     --tree-view-font-family: 'Helvetica Neue', 'Calibri Light', Roboto, sans-serif;
     --tree-view-font-size: 13px;

@@ -1,10 +1,14 @@
 <script lang="ts">
+  import type { HTMLAttributes } from 'svelte/elements'
   import type { ButtonPosition } from '../types'
 
-  export let buttonPosition: ButtonPosition
+  interface Props extends HTMLAttributes<HTMLButtonElement> {
+    buttonPosition: ButtonPosition
+  }
+  const { buttonPosition, ...rest }: Props = $props()
 </script>
 
-<button class={`floating-btn ${buttonPosition}`} on:click>
+<button {...rest} class={`floating-btn ${buttonPosition} ${rest.class || ''}`}>
   <svg
     width="530"
     height="530"
@@ -74,12 +78,12 @@
   </svg>
 </button>
 
-<style lang="scss">
+<style>
   .floating-btn {
-    background: $color-blue-bg;
+    background: var(--color-blue-bg);
     border: 0;
     border-radius: 50%;
-    box-shadow: 0 0 30px rgba($color-black, 0.3);
+    box-shadow: 0 0 30px rgba(var(--color-black-rgb), 0.3);
     cursor: pointer;
     position: fixed;
     padding: 6px;

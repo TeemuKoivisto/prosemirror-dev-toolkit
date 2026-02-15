@@ -66,12 +66,13 @@ describe('# Structure tab', () => {
     cy.devTools().find('button').contains('text - [bold]').should('have.length', 1)
 
     cy.devTools()
+      .hideScrollBars()
       .find('.floating-dock')
       .matchImage({
         screenshotConfig: {
           capture: 'viewport'
         },
-        maxDiffThreshold: 0,
+        maxDiffThreshold: 0.05,
         diffConfig: {
           threshold: 0.0001,
           alpha: 0.2

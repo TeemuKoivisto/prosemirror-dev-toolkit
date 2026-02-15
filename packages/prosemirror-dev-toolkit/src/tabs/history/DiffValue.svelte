@@ -64,21 +64,21 @@
   {defaultFormatter(value)}
 {/if}
 
-<style lang="scss">
+<style>
   .added {
     display: inline-block;
-    background: $color-green-light;
+    background: var(--color-green-light);
     border-radius: 1px;
-    color: $color-green;
+    color: var(--color-green);
     padding: 1px 2px;
     text-indent: 0;
     min-height: 1ex;
   }
   .deleted {
     display: inline-block;
-    background: $color-red;
+    background: var(--color-red);
     border-radius: 1px;
-    color: $color-black;
+    color: var(--color-black);
     padding: 1px 2px;
     text-decoration: line-through;
     text-indent: 0;
@@ -88,9 +88,9 @@
     word-break: break-all;
   }
   .updated .added {
-    background: $color-yellow;
+    background: var(--color-yellow);
   }
   .arrow {
-    color: $color-green-light;
+    color: var(--color-green-light);
   }
 </style>

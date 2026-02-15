@@ -16,9 +16,9 @@
   {/each}
 </ul>
 
-<style lang="scss">
+<style>
   ul {
-    color: $color-white;
+    color: var(--color-white);
     list-style: none;
     margin: 0;
     padding: 0;
@@ -26,12 +26,12 @@
     width: 100%;
   }
   li + li {
-    border-top: 1px solid $color-purple;
+    border-top: 1px solid var(--color-purple);
   }
   button {
     background: transparent;
     border: 0;
-    color: $color-gray-light;
+    color: var(--color-gray-light);
     cursor: pointer;
     display: flex;
     font-family: monospace;
@@ -40,21 +40,21 @@
     padding: 6px 18px;
     text-transform: uppercase;
     width: 100%;
-    &:hover {
-      background: rgba($color-red-light, 0.4);
-      color: $color-white;
-      &.empty {
-        background: $color-purple-dark;
-      }
-    }
-    &.selected {
-      background: rgba($color-red-light, 0.4);
-      &.empty {
-        background: $color-purple-dark;
-      }
-    }
-    &.empty {
-      color: $color-dim-text;
-    }
+  }
+  button:hover {
+    background: rgba(var(--color-red-light-rgb), 0.4);
+    color: var(--color-white);
+  }
+  button:hover.empty {
+    background: var(--color-purple-dark);
+  }
+  button.selected {
+    background: rgba(var(--color-red-light-rgb), 0.4);
+  }
+  button.selected.empty {
+    background: var(--color-purple-dark);
+  }
+  button.empty {
+    color: var(--color-dim-text);
   }
 </style>
