@@ -53,11 +53,23 @@ Cypress.Commands.add('pmInsParagraphBolded', (text: string) => {
   })
 })
 
+const HIDE_STYLES = `
+/* For Firefox */
+html {
+  scrollbar-width: none;
+}
+
+/* For Chrome, Safari, and Opera */
+::-webkit-scrollbar {
+  display: none;
+}
+`
+
 Cypress.Commands.add('hideScrollBars', { prevSubject: true }, (subject: any) => {
   const el: DocumentFragment = subject[0]
   const shadowRoot = el.getRootNode() as ShadowRoot
   const style = el.ownerDocument.createElement('style')
-  style.textContent = `* { overflow: hidden !important; }`
+  style.textContent = HIDE_STYLES // `* { overflow: hidden !important; }`
   shadowRoot.appendChild(style)
   return cy.wrap(subject)
 })
