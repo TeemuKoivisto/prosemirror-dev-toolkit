@@ -21,6 +21,7 @@ export default defineConfig({
     tsconfigPaths()
   ],
   resolve: {
+    conditions: ['browser'],
     alias: {
       $components: resolve('./src/components'),
       $context: resolve('./src/context'),

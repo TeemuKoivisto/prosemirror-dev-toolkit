@@ -1,16 +1,15 @@
 <script lang="ts">
-  export let selected = false
+  import type { HTMLAttributes } from 'svelte/elements'
+  import type { Snippet } from 'svelte'
+
+  interface Props extends HTMLAttributes<HTMLButtonElement> {
+    selected?: boolean
+    children?: Snippet<[]>
+  }
+  const { selected, children, ...rest }: Props = $props()
 </script>
 
-<button
-  on:click
-  on:mouseover
-  on:mouseenter
-  on:mouseleave
-  on:focus
-  class={`${$$props.class || ''}`}
-  class:selected><slot /></button
->
+<button {...rest} class:selected>{@render children?.()}</button>
 
 <style lang="scss">
   button {

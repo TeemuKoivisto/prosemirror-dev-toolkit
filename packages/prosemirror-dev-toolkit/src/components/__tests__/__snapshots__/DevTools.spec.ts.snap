@@ -16,91 +16,89 @@ exports[`DevTools component > should open by clicking the floating button 1`] = 
   </div>
   <div>
     <section
-      class="dev-tools s-DevTools-1sycwr"
+      class="dev-tools s-DevTools-j5gmur"
     >
       <div
-        class="floating-dock-wrapper s-FloatingDock-1qe2796"
+        class="floating-dock-wrapper s-FloatingDock-1quf800"
       >
         <div
-          class="paste-modal s-PasteModal-1ack7il hidden"
+          class="paste-modal s-PasteModal-19h7j7n hidden"
         >
           <div
-            class="modal-bg s-PasteModal-1ack7il"
+            class="modal-bg s-PasteModal-19h7j7n"
           />
            
           <form
-            class="paste-content s-PasteModal-1ack7il"
+            class="paste-content s-PasteModal-19h7j7n"
           >
             <fieldset
-              class="s-PasteModal-1ack7il"
+              class="s-PasteModal-19h7j7n"
             >
               <div
-                class="submit-container s-PasteModal-1ack7il"
+                class="submit-container s-PasteModal-19h7j7n"
               >
                 <button
-                  class="s-PasteModal-1ack7il"
+                  class="s-PasteModal-19h7j7n"
                 >
                   Submit
                 </button>
               </div>
                
               <legend
-                class="s-PasteModal-1ack7il"
+                class="s-PasteModal-19h7j7n"
               >
                 Doc
               </legend>
                
               <textarea
-                class="s-PasteModal-1ack7il"
+                class="s-PasteModal-19h7j7n"
               />
             </fieldset>
           </form>
         </div>
-        <!--&lt;PasteModal&gt;-->
+        <!---->
          
         <div
-          class="floating-dock s-FloatingDock-1qe2796"
+          class="floating-dock s-FloatingDock-1quf800"
           style="top: 50%; height: 50%;"
         >
           <div
-            class="resizing-div s-FloatingDock-1qe2796"
+            class="resizing-div s-FloatingDock-1quf800"
             role="button"
             tabindex="-1"
           />
            
           <div
-            class="floating-dock-body s-FloatingDock-1qe2796"
+            class="floating-dock-body s-FloatingDock-1quf800"
           >
-            <div
-              class="s-FloatingDock-1qe2796"
-            >
+            <div>
               <button
-                class="copy-btn s-FloatingDock-1qe2796"
+                class="copy-btn s-FloatingDock-1quf800"
               >
                 Copy
               </button>
                
               <button
-                class="save-btn s-FloatingDock-1qe2796"
+                class="save-btn s-FloatingDock-1quf800"
               >
                 Save
               </button>
                
               <button
-                class="import-btn s-FloatingDock-1qe2796"
+                class="import-btn s-FloatingDock-1quf800"
               >
                 Import
               </button>
                
               <button
-                class="paste-btn s-FloatingDock-1qe2796"
+                class="paste-btn s-FloatingDock-1quf800"
               >
                 Paste
               </button>
                
               <button
                 aria-label="Close dev-toolkit"
-                class="close-btn s-FloatingDock-1qe2796"
+                class="close-btn s-FloatingDock-1quf800"
               >
                 X
               </button>
@@ -108,100 +106,90 @@ exports[`DevTools component > should open by clicking the floating button 1`] = 
              
             <input
               accept=".json"
-              class="s-FloatingDock-1qe2796"
               multiple=""
-              style="display: none;"
+              style="display:none"
               type="file"
             />
              
             <ul
-              class="tabs-menu s-TabsMenu-u0m98c"
+              class="tabs-menu s-TabsMenu-10notzq"
             >
-              <li
-                class="s-TabsMenu-u0m98c"
-              >
+              <li>
                 <button
-                  class="s-TabsMenu-u0m98c"
+                  class="s-TabsMenu-10notzq"
                 >
                   STATE
                 </button>
               </li>
                
-              <li
-                class="s-TabsMenu-u0m98c"
-              >
+              <li>
                 <button
-                  class="s-TabsMenu-u0m98c"
+                  class="s-TabsMenu-10notzq"
                 >
                   HISTORY
                 </button>
               </li>
                
-              <li
-                class="s-TabsMenu-u0m98c"
-              >
+              <li>
                 <button
-                  class="s-TabsMenu-u0m98c"
+                  class="s-TabsMenu-10notzq"
                 >
                   PLUGINS
                 </button>
               </li>
                
-              <li
-                class="s-TabsMenu-u0m98c"
-              >
+              <li>
                 <button
-                  class="s-TabsMenu-u0m98c"
+                  class="s-TabsMenu-10notzq"
                 >
                   SCHEMA
                 </button>
               </li>
                
-              <li
-                class="s-TabsMenu-u0m98c"
-              >
+              <li>
                 <button
-                  class="s-TabsMenu-u0m98c"
+                  class="s-TabsMenu-10notzq"
                 >
                   STRUCTURE
                 </button>
               </li>
                
-              <li
-                class="s-TabsMenu-u0m98c"
-              >
+              <li>
                 <button
-                  class="s-TabsMenu-u0m98c active"
+                  class="s-TabsMenu-10notzq active"
                 >
                   SNAPSHOTS
                 </button>
               </li>
             </ul>
-            <!--&lt;TabsMenu&gt;-->
+            <!---->
              
             <section
-              class="split-view s-SplitView-a1ijfy"
+              class="split-view s-SplitView-fdudio"
             >
+              <!---->
                
               <div
-                class="right-panel s-SnapshotsTab-hefbwe"
+                class="right-panel s-SnapshotsTab-3jdj5c"
                 slot="right"
               >
                 <div
-                  class="no-snapshots s-SnapshotsTab-hefbwe"
+                  class="no-snapshots s-SnapshotsTab-3jdj5c"
                 >
                   Save snapshots by clicking "Save" button.
                 </div>
+                <!---->
               </div>
+              <!---->
             </section>
-            <!--&lt;SplitView&gt;-->
-            <!--&lt;SnapshotsTab&gt;-->
+            <!---->
           </div>
         </div>
       </div>
-      <!--&lt;FloatingDock&gt;-->
+      <!---->
     </section>
-    <!--&lt;DevTools&gt;-->
+    
+    
   </div>
 </body>
 `;
@@ -222,91 +210,89 @@ exports[`DevTools component > should render 1`] = `
   </div>
   <div>
     <section
-      class="dev-tools s-DevTools-1sycwr"
+      class="dev-tools s-DevTools-j5gmur"
     >
       <div
-        class="floating-dock-wrapper s-FloatingDock-1qe2796"
+        class="floating-dock-wrapper s-FloatingDock-1quf800"
       >
         <div
-          class="paste-modal s-PasteModal-1ack7il hidden"
+          class="paste-modal s-PasteModal-19h7j7n hidden"
         >
           <div
-            class="modal-bg s-PasteModal-1ack7il"
+            class="modal-bg s-PasteModal-19h7j7n"
           />
            
           <form
-            class="paste-content s-PasteModal-1ack7il"
+            class="paste-content s-PasteModal-19h7j7n"
           >
             <fieldset
-              class="s-PasteModal-1ack7il"
+              class="s-PasteModal-19h7j7n"
             >
               <div
-                class="submit-container s-PasteModal-1ack7il"
+                class="submit-container s-PasteModal-19h7j7n"
               >
                 <button
-                  class="s-PasteModal-1ack7il"
+                  class="s-PasteModal-19h7j7n"
                 >
                   Submit
                 </button>
               </div>
                
               <legend
-                class="s-PasteModal-1ack7il"
+                class="s-PasteModal-19h7j7n"
               >
                 Doc
               </legend>
                
               <textarea
-                class="s-PasteModal-1ack7il"
+                class="s-PasteModal-19h7j7n"
               />
             </fieldset>
           </form>
         </div>
-        <!--&lt;PasteModal&gt;-->
+        <!---->
          
         <div
-          class="floating-dock s-FloatingDock-1qe2796"
+          class="floating-dock s-FloatingDock-1quf800"
           style="top: 50%; height: 50%;"
         >
           <div
-            class="resizing-div s-FloatingDock-1qe2796"
+            class="resizing-div s-FloatingDock-1quf800"
             role="button"
             tabindex="-1"
           />
            
           <div
-            class="floating-dock-body s-FloatingDock-1qe2796"
+            class="floating-dock-body s-FloatingDock-1quf800"
           >
-            <div
-              class="s-FloatingDock-1qe2796"
-            >
+            <div>
               <button
-                class="copy-btn s-FloatingDock-1qe2796"
+                class="copy-btn s-FloatingDock-1quf800"
               >
                 Copy
               </button>
                
               <button
-                class="save-btn s-FloatingDock-1qe2796"
+                class="save-btn s-FloatingDock-1quf800"
               >
                 Save
               </button>
                
               <button
-                class="import-btn s-FloatingDock-1qe2796"
+                class="import-btn s-FloatingDock-1quf800"
               >
                 Import
               </button>
                
               <button
-                class="paste-btn s-FloatingDock-1qe2796"
+                class="paste-btn s-FloatingDock-1quf800"
               >
                 Paste
               </button>
                
               <button
                 aria-label="Close dev-toolkit"
-                class="close-btn s-FloatingDock-1qe2796"
+                class="close-btn s-FloatingDock-1quf800"
               >
                 X
               </button>
@@ -314,503 +300,506 @@ exports[`DevTools component > should render 1`] = `
              
             <input
               accept=".json"
-              class="s-FloatingDock-1qe2796"
               multiple=""
-              style="display: none;"
+              style="display:none"
               type="file"
             />
              
             <ul
-              class="tabs-menu s-TabsMenu-u0m98c"
+              class="tabs-menu s-TabsMenu-10notzq"
             >
-              <li
-                class="s-TabsMenu-u0m98c"
-              >
+              <li>
                 <button
-                  class="s-TabsMenu-u0m98c active"
+                  class="s-TabsMenu-10notzq active"
                 >
                   STATE
                 </button>
               </li>
                
-              <li
-                class="s-TabsMenu-u0m98c"
-              >
+              <li>
                 <button
-                  class="s-TabsMenu-u0m98c"
+                  class="s-TabsMenu-10notzq"
                 >
                   HISTORY
                 </button>
               </li>
                
-              <li
-                class="s-TabsMenu-u0m98c"
-              >
+              <li>
                 <button
-                  class="s-TabsMenu-u0m98c"
+                  class="s-TabsMenu-10notzq"
                 >
                   PLUGINS
                 </button>
               </li>
                
-              <li
-                class="s-TabsMenu-u0m98c"
-              >
+              <li>
                 <button
-                  class="s-TabsMenu-u0m98c"
+                  class="s-TabsMenu-10notzq"
                 >
                   SCHEMA
                 </button>
               </li>
                
-              <li
-                class="s-TabsMenu-u0m98c"
-              >
+              <li>
                 <button
-                  class="s-TabsMenu-u0m98c"
+                  class="s-TabsMenu-10notzq"
                 >
                   STRUCTURE
                 </button>
               </li>
                
-              <li
-                class="s-TabsMenu-u0m98c"
-              >
+              <li>
                 <button
-                  class="s-TabsMenu-u0m98c"
+                  class="s-TabsMenu-10notzq"
                 >
                   SNAPSHOTS
                 </button>
               </li>
             </ul>
-            <!--&lt;TabsMenu&gt;-->
+            <!---->
              
             <section
-              class="split-view s-SplitView-a1ijfy"
+              class="split-view s-SplitView-fdudio"
             >
               <div
-                class="left-panel s-StateTab-uldz05"
+                class="left-panel s-StateTab-8c7oqn"
                 slot="left"
               >
                 <div
-                  class="top-row s-StateTab-uldz05"
+                  class="top-row s-StateTab-8c7oqn"
                 >
-                  <h2
-                    class="s-StateTab-uldz05"
-                  >
+                  <h2>
                     Current doc
                   </h2>
                    
                   <button
-                    class=" s-Button-boh1gq"
+                    class="s-Button-it3v6s"
                   >
                     log
+                    <!---->
                   </button>
-                  <!--&lt;Button&gt;-->
+                  <!---->
                 </div>
                  
                 <ul
-                  class="tree-view svelte-tree-view s-TreeView-iujaa7"
+                  class="tree-view svelte-tree-view s-TreeView-167awo5"
                 >
                   <li
-                    class="row s-TreeViewNode-wbyn6n"
+                    class="row s-TreeViewNode-ngcjq5"
                     data-tree-id="[0]"
                   >
+                    <!---->
                      
                     <div
-                      class="node-key s-TreeViewNode-wbyn6n p-left"
+                      class="node-key s-TreeViewNode-ngcjq5 p-left"
                       role="presentation"
                     >
-                      type
-                      :
+                      type:
                     </div>
                      
                     <div
-                      class="node-value s-TreeViewNode-wbyn6n"
+                      class="node-value s-TreeViewNode-ngcjq5"
                       data-type="string"
                       role="presentation"
                     >
                       "doc"
+                      <!---->
                     </div>
                      
                     <div
-                      class="buttons s-TreeViewNode-wbyn6n"
+                      class="buttons s-TreeViewNode-ngcjq5"
                     >
                       <button
-                        class="log-copy-button s-TreeViewNode-wbyn6n"
+                        class="log-copy-button s-TreeViewNode-ngcjq5"
                       >
                         log
                       </button>
+                      <!---->
                        
                       <button
-                        class="log-copy-button s-TreeViewNode-wbyn6n"
+                        class="log-copy-button s-TreeViewNode-ngcjq5"
                       >
                         copy
                       </button>
+                      <!---->
                     </div>
                   </li>
                    
-                  
-                  <!--&lt;TreeViewNode&gt;-->
+                  <!---->
                   <li
-                    class="row s-TreeViewNode-wbyn6n collapsed"
+                    class="row s-TreeViewNode-ngcjq5 collapsed"
                     data-tree-id="[1]"
                   >
                     <button
-                      class="arrow-btn collapsed s-TreeViewNode-wbyn6n"
+                      class="arrow-btn collapsed s-TreeViewNode-ngcjq5"
                     >
                       ▶
                     </button>
+                    <!---->
                      
                     <div
-                      class="node-key s-TreeViewNode-wbyn6n has-children"
+                      class="node-key s-TreeViewNode-ngcjq5 has-children"
                       role="presentation"
                     >
-                      content
-                      :
+                      content:
                     </div>
                      
                     <div
-                      class="node-value s-TreeViewNode-wbyn6n has-children"
+                      class="node-value s-TreeViewNode-ngcjq5 has-children"
                       data-type="array"
                       role="presentation"
                     >
                        [] 1 items
+                      <!---->
                     </div>
                      
                     <div
-                      class="buttons s-TreeViewNode-wbyn6n"
+                      class="buttons s-TreeViewNode-ngcjq5"
                     >
                       <button
-                        class="log-copy-button s-TreeViewNode-wbyn6n"
+                        class="log-copy-button s-TreeViewNode-ngcjq5"
                       >
                         log
                       </button>
+                      <!---->
                        
                       <button
-                        class="log-copy-button s-TreeViewNode-wbyn6n"
+                        class="log-copy-button s-TreeViewNode-ngcjq5"
                       >
                         copy
                       </button>
+                      <!---->
                     </div>
                   </li>
                    
+                  <!---->
                   
-                  <!--&lt;TreeViewNode&gt;-->
                 </ul>
-                <!--&lt;TreeView&gt;-->
+                <!---->
               </div>
+              <!---->
                
               <div
-                class="right-panel s-StateTab-uldz05"
+                class="right-panel s-StateTab-8c7oqn"
                 slot="right"
               >
                 <div
-                  class="top-row s-StateTab-uldz05"
+                  class="top-row s-StateTab-8c7oqn"
                 >
-                  <h2
-                    class="s-StateTab-uldz05"
-                  >
+                  <h2>
                     Selection
                   </h2>
                    
                   <button
-                    class="selection-btn s-Button-boh1gq"
+                    class="selection-btn s-Button-it3v6s"
                   >
                     <span
-                      class="caret-icon s-StateTab-uldz05"
+                      class="caret-icon s-StateTab-8c7oqn"
                     />
+                    <!---->
                   </button>
-                  <!--&lt;Button&gt;-->
+                  <!---->
                 </div>
                  
                 <ul
-                  class="tree-view svelte-tree-view s-TreeView-iujaa7"
+                  class="tree-view svelte-tree-view s-TreeView-167awo5"
                 >
                   <li
-                    class="row s-TreeViewNode-wbyn6n"
+                    class="row s-TreeViewNode-ngcjq5"
                     data-tree-id="[0]"
                   >
+                    <!---->
                      
                     <div
-                      class="node-key s-TreeViewNode-wbyn6n p-left"
+                      class="node-key s-TreeViewNode-ngcjq5 p-left"
                       role="presentation"
                     >
-                      jsonID
-                      :
+                      jsonID:
                     </div>
                      
                     <div
-                      class="node-value s-TreeViewNode-wbyn6n"
+                      class="node-value s-TreeViewNode-ngcjq5"
                       data-type="string"
                       role="presentation"
                     >
                       "text"
+                      <!---->
                     </div>
                      
                     <div
-                      class="buttons s-TreeViewNode-wbyn6n"
+                      class="buttons s-TreeViewNode-ngcjq5"
                     >
+                      <!---->
                        
+                      <!---->
                     </div>
                   </li>
                    
-                  
-                  <!--&lt;TreeViewNode&gt;-->
+                  <!---->
                   <li
-                    class="row s-TreeViewNode-wbyn6n"
+                    class="row s-TreeViewNode-ngcjq5"
                     data-tree-id="[1]"
                   >
+                    <!---->
                      
                     <div
-                      class="node-key s-TreeViewNode-wbyn6n p-left"
+                      class="node-key s-TreeViewNode-ngcjq5 p-left"
                       role="presentation"
                     >
-                      empty
-                      :
+                      empty:
                     </div>
                      
                     <div
-                      class="node-value s-TreeViewNode-wbyn6n"
+                      class="node-value s-TreeViewNode-ngcjq5"
                       data-type="boolean"
                       role="presentation"
                     >
                       true
+                      <!---->
                     </div>
                      
                     <div
-                      class="buttons s-TreeViewNode-wbyn6n"
+                      class="buttons s-TreeViewNode-ngcjq5"
                     >
+                      <!---->
                        
+                      <!---->
                     </div>
                   </li>
                    
-                  
-                  <!--&lt;TreeViewNode&gt;-->
+                  <!---->
                   <li
-                    class="row s-TreeViewNode-wbyn6n"
+                    class="row s-TreeViewNode-ngcjq5"
                     data-tree-id="[2]"
                   >
+                    <!---->
                      
                     <div
-                      class="node-key s-TreeViewNode-wbyn6n p-left"
+                      class="node-key s-TreeViewNode-ngcjq5 p-left"
                       role="presentation"
                     >
-                      anchor
-                      :
+                      anchor:
                     </div>
                      
                     <div
-                      class="node-value s-TreeViewNode-wbyn6n"
+                      class="node-value s-TreeViewNode-ngcjq5"
                       data-type="number"
                       role="presentation"
                     >
                       1
+                      <!---->
                     </div>
                      
                     <div
-                      class="buttons s-TreeViewNode-wbyn6n"
+                      class="buttons s-TreeViewNode-ngcjq5"
                     >
+                      <!---->
                        
+                      <!---->
                     </div>
                   </li>
                    
-                  
-                  <!--&lt;TreeViewNode&gt;-->
+                  <!---->
                   <li
-                    class="row s-TreeViewNode-wbyn6n"
+                    class="row s-TreeViewNode-ngcjq5"
                     data-tree-id="[3]"
                   >
+                    <!---->
                      
                     <div
-                      class="node-key s-TreeViewNode-wbyn6n p-left"
+                      class="node-key s-TreeViewNode-ngcjq5 p-left"
                       role="presentation"
                     >
-                      from
-                      :
+                      from:
                     </div>
                      
                     <div
-                      class="node-value s-TreeViewNode-wbyn6n"
+                      class="node-value s-TreeViewNode-ngcjq5"
                       data-type="number"
                       role="presentation"
                     >
                       1
+                      <!---->
                     </div>
                      
                     <div
-                      class="buttons s-TreeViewNode-wbyn6n"
+                      class="buttons s-TreeViewNode-ngcjq5"
                     >
+                      <!---->
                        
+                      <!---->
                     </div>
                   </li>
                    
-                  
-                  <!--&lt;TreeViewNode&gt;-->
+                  <!---->
                   <li
-                    class="row s-TreeViewNode-wbyn6n"
+                    class="row s-TreeViewNode-ngcjq5"
                     data-tree-id="[4]"
                   >
+                    <!---->
                      
                     <div
-                      class="node-key s-TreeViewNode-wbyn6n p-left"
+                      class="node-key s-TreeViewNode-ngcjq5 p-left"
                       role="presentation"
                     >
-                      head
-                      :
+                      head:
                     </div>
                      
                     <div
-                      class="node-value s-TreeViewNode-wbyn6n"
+                      class="node-value s-TreeViewNode-ngcjq5"
                       data-type="number"
                       role="presentation"
                     >
                       1
+                      <!---->
                     </div>
                      
                     <div
-                      class="buttons s-TreeViewNode-wbyn6n"
+                      class="buttons s-TreeViewNode-ngcjq5"
                     >
+                      <!---->
                        
+                      <!---->
                     </div>
                   </li>
                    
-                  
-                  <!--&lt;TreeViewNode&gt;-->
+                  <!---->
                   <li
-                    class="row s-TreeViewNode-wbyn6n"
+                    class="row s-TreeViewNode-ngcjq5"
                     data-tree-id="[5]"
                   >
+                    <!---->
                      
                     <div
-                      class="node-key s-TreeViewNode-wbyn6n p-left"
+                      class="node-key s-TreeViewNode-ngcjq5 p-left"
                       role="presentation"
                     >
-                      to
-                      :
+                      to:
                     </div>
                      
                     <div
-                      class="node-value s-TreeViewNode-wbyn6n"
+                      class="node-value s-TreeViewNode-ngcjq5"
                       data-type="number"
                       role="presentation"
                     >
                       1
+                      <!---->
                     </div>
                      
                     <div
-                      class="buttons s-TreeViewNode-wbyn6n"
+                      class="buttons s-TreeViewNode-ngcjq5"
                     >
+                      <!---->
                        
+                      <!---->
                     </div>
                   </li>
                    
+                  <!---->
                   
-                  <!--&lt;TreeViewNode&gt;-->
                 </ul>
-                <!--&lt;TreeView&gt;-->
+                <!---->
                  
-                <div
-                  class="s-StateTab-uldz05"
-                >
-                  <h2
-                    class="s-StateTab-uldz05"
-                  >
+                <div>
+                  <h2>
                     Active marks
                   </h2>
                    
                   <div
-                    class="no-marks s-StateTab-uldz05"
+                    class="no-marks s-StateTab-8c7oqn"
                   >
                     No active marks
                   </div>
+                  <!---->
                 </div>
                  
-                <div
-                  class="s-StateTab-uldz05"
-                >
-                  <h2
-                    class="s-StateTab-uldz05"
-                  >
+                <div>
+                  <h2>
                     Document stats
                   </h2>
                    
                   <ul
-                    class="tree-view svelte-tree-view s-TreeView-iujaa7"
+                    class="tree-view svelte-tree-view s-TreeView-167awo5"
                   >
                     <li
-                      class="row s-TreeViewNode-wbyn6n"
+                      class="row s-TreeViewNode-ngcjq5"
                       data-tree-id="[0]"
                     >
+                      <!---->
                        
                       <div
-                        class="node-key s-TreeViewNode-wbyn6n p-left"
+                        class="node-key s-TreeViewNode-ngcjq5 p-left"
                         role="presentation"
                       >
-                        nodeSize
-                        :
+                        nodeSize:
                       </div>
                        
                       <div
-                        class="node-value s-TreeViewNode-wbyn6n"
+                        class="node-value s-TreeViewNode-ngcjq5"
                         data-type="number"
                         role="presentation"
                       >
                         4
+                        <!---->
                       </div>
                        
                       <div
-                        class="buttons s-TreeViewNode-wbyn6n"
+                        class="buttons s-TreeViewNode-ngcjq5"
                       >
+                        <!---->
                          
+                        <!---->
                       </div>
                     </li>
                      
-                    
-                    <!--&lt;TreeViewNode&gt;-->
+                    <!---->
                     <li
-                      class="row s-TreeViewNode-wbyn6n"
+                      class="row s-TreeViewNode-ngcjq5"
                       data-tree-id="[1]"
                     >
+                      <!---->
                        
                       <div
-                        class="node-key s-TreeViewNode-wbyn6n p-left"
+                        class="node-key s-TreeViewNode-ngcjq5 p-left"
                         role="presentation"
                       >
-                        childCount
-                        :
+                        childCount:
                       </div>
                        
                       <div
-                        class="node-value s-TreeViewNode-wbyn6n"
+                        class="node-value s-TreeViewNode-ngcjq5"
                         data-type="number"
                         role="presentation"
                       >
                         1
+                        <!---->
                       </div>
                        
                       <div
-                        class="buttons s-TreeViewNode-wbyn6n"
+                        class="buttons s-TreeViewNode-ngcjq5"
                       >
+                        <!---->
                          
+                        <!---->
                       </div>
                     </li>
                      
+                    <!---->
                     
-                    <!--&lt;TreeViewNode&gt;-->
                   </ul>
-                  <!--&lt;TreeView&gt;-->
+                  <!---->
                 </div>
               </div>
+              <!---->
             </section>
-            <!--&lt;SplitView&gt;-->
-            <!--&lt;StateTab&gt;-->
+            <!---->
           </div>
         </div>
       </div>
-      <!--&lt;FloatingDock&gt;-->
+      <!---->
     </section>
-    <!--&lt;DevTools&gt;-->
+    
+    
   </div>
 </body>
 `;
