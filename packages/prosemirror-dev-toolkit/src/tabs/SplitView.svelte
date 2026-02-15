@@ -1,6 +1,16 @@
+<script lang="ts">
+  import type { Snippet } from 'svelte'
+
+  interface Props {
+    left?: Snippet
+    right?: Snippet
+  }
+  const { left, right }: Props = $props()
+</script>
+
 <section class="split-view">
-  <slot class="left-panel" name="left" />
-  <slot class="right-panel" name="right" />
+  {@render left?.()}
+  {@render right?.()}
 </section>
 
 <style>

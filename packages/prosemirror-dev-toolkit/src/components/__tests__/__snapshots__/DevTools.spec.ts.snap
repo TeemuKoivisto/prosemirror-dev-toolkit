@@ -170,11 +170,10 @@ exports[`DevTools component > should open by clicking the floating button 1`] = 
               <!---->
                
               <div
-                class="right-panel s-SnapshotsTab-151u2pq"
-                slot="right"
+                class="right-panel s-SnapshotsTab-eg6x5x"
               >
                 <div
-                  class="no-snapshots s-SnapshotsTab-151u2pq"
+                  class="no-snapshots s-SnapshotsTab-eg6x5x"
                 >
                   Save snapshots by clicking "Save" button.
                 </div>
@@ -362,11 +361,10 @@ exports[`DevTools component > should render 1`] = `
               class="split-view s-SplitView-19yuj8p"
             >
               <div
-                class="left-panel s-StateTab-14wzgzp"
-                slot="left"
+                class="left-panel s-StateTab-y937re"
               >
                 <div
-                  class="top-row s-StateTab-14wzgzp"
+                  class="top-row s-StateTab-y937re"
                 >
                   <h2>
                     Current doc
@@ -480,11 +478,10 @@ exports[`DevTools component > should render 1`] = `
               <!---->
                
               <div
-                class="right-panel s-StateTab-14wzgzp"
-                slot="right"
+                class="right-panel s-StateTab-y937re"
               >
                 <div
-                  class="top-row s-StateTab-14wzgzp"
+                  class="top-row s-StateTab-y937re"
                 >
                   <h2>
                     Selection
@@ -494,7 +491,7 @@ exports[`DevTools component > should render 1`] = `
                     class="selection-btn s-Button-3lf898"
                   >
                     <span
-                      class="caret-icon s-StateTab-14wzgzp"
+                      class="caret-icon s-StateTab-y937re"
                     />
                     <!---->
                   </button>
@@ -706,7 +703,7 @@ exports[`DevTools component > should render 1`] = `
                   </h2>
                    
                   <div
-                    class="no-marks s-StateTab-14wzgzp"
+                    class="no-marks s-StateTab-y937re"
                   >
                     No active marks
                   </div>

@@ -1,12 +1,16 @@
 <script lang="ts">
   import type { TreeNode } from 'svelte-tree-view'
 
-  export let node: TreeNode, defaultFormatter: (val: any) => string
+  interface Props {
+    node: TreeNode
+    defaultFormatter: (val: any) => string
+  }
+  const { node, defaultFormatter }: Props = $props()
 
-  $: value = node.value
+  const value = $derived(node.value)
 
   function replaceSpacesWithNonBreakingSpace(str: string) {
-    return str.replace(/\s/gm, ' ')
+    return str.replace(/\s/gm, ' ')
   }
   function parseTextDiff(textDiff: string) {
     const diffByLines = textDiff.split(/\n/gm).slice(1)

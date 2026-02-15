@@ -5,29 +5,38 @@
 
   const { colors, handleNodeClick } = getContext('doc-view')
 
-  export let node: PMNode, startPos: number, depth: number
+  interface Props {
+    node: PMNode
+    startPos: number
+    depth: number
+    class?: string
+  }
+  const { node, startPos, depth, class: className }: Props = $props()
 
-  const isRoot = depth === 0
-  $: fragment = node.content as Fragment
-  $: color = colors[node.type.name]
-  $: name =
+  const isRoot = $derived(depth === 0)
+  const fragment = $derived(node.content as Fragment)
+  const color = $derived(colors[node.type.name])
+  const name = $derived(
     node.isText && node.marks.length > 0
       ? `${node.type.name} - [${node.marks.map(m => m.type.name).join(', ')}]`
       : node.type.name
+  )
 
-  $: startPositions = Array(node.childCount)
-    .fill(undefined)
-    .reduce((acc, _, idx) => {
-      if (idx === 0) {
-        return [isRoot ? 0 : startPos + 1]
-      }
-      let prev = acc[idx - 1]
-      let cur = node.child(idx - 1)
-      return [...acc, prev + cur.nodeSize]
-    }, [])
+  const startPositions = $derived(
+    Array(node.childCount)
+      .fill(undefined)
+      .reduce((acc, _, idx) => {
+        if (idx === 0) {
+          return [isRoot ? 0 : startPos + 1]
+        }
+        let prev = acc[idx - 1]
+        let cur = node.child(idx - 1)
+        return [...acc, prev + cur.nodeSize]
+      }, [])
+  )
 
-  $: endPos = startPos + node.nodeSize
-  $: inlineChildren = fragment.content.every(n => n.isInline)
+  const endPos = $derived(startPos + node.nodeSize)
+  const inlineChildren = $derived(fragment.content.every(n => n.isInline))
 
   function handleNameClick() {
     handleNodeClick(node, startPos)
@@ -37,22 +46,22 @@
   }
 </script>
 
-<li class={`${$$props.class || ''} doc-node`} class:root={isRoot}>
+<li class={`${className || ''} doc-node`} class:root={isRoot}>
   <div class="doc-node-body" style={`background: ${color}`}>
     <div class="number-box">{startPos}</div>
     <div class="node-name">
       <button
         class:selected={false}
         aria-label="Show node info button"
-        on:click={handleNameClick}
-        on:dblclick={handleNameDblClick}>{name}</button
+        onclick={handleNameClick}
+        ondblclick={handleNameDblClick}>{name}</button
       >
     </div>
     <div class="number-box">{endPos}</div>
   </div>
   <ul class:inline-children={inlineChildren} class:show-borders={depth >= 1}>
     {#each fragment.content as child, i}
-      <svelte:self node={child} startPos={startPositions[i]} depth={depth + 1} />
+      <DocNode node={child} startPos={startPositions[i]} depth={depth + 1} />
     {/each}
   </ul>
 </li>

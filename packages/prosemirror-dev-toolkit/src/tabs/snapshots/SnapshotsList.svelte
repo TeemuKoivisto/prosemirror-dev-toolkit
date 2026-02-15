@@ -1,16 +1,27 @@
 <script lang="ts">
   import type { Snapshot } from '$typings/snapshots'
 
-  export let snapshots: Snapshot[] = [],
-    selectedSnapshot: Snapshot | undefined = undefined,
-    onUpdate: (snap: Snapshot) => void,
-    onView: (snap?: Snapshot) => void,
-    onRestore: (snap: Snapshot) => void,
-    onExport: (snap: Snapshot) => void,
+  interface Props {
+    snapshots?: Snapshot[]
+    selectedSnapshot?: Snapshot | undefined
+    onUpdate: (snap: Snapshot) => void
+    onView: (snap?: Snapshot) => void
+    onRestore: (snap: Snapshot) => void
+    onExport: (snap: Snapshot) => void
     onDelete: (snap: Snapshot) => void
+  }
+  const {
+    snapshots = [],
+    selectedSnapshot = undefined,
+    onUpdate,
+    onView,
+    onRestore,
+    onExport,
+    onDelete
+  }: Props = $props()
 
-  let editedSnap: Snapshot | undefined
-  let deleteSnap: Snapshot | undefined
+  let editedSnap: Snapshot | undefined = $state()
+  let deleteSnap: Snapshot | undefined = $state()
   let timer: ReturnType<typeof setTimeout> | undefined
 
   const debounceUpdate = () => {
@@ -68,28 +79,24 @@
   {#each snapshots as snap}
     <li>
       {#if editedSnap && editedSnap.timestamp === snap.timestamp}
-        <input
-          value={editedSnap.name}
-          on:input={handleNameChange}
-          on:keypress={handleNameKeyPress}
-        />
+        <input value={editedSnap.name} oninput={handleNameChange} onkeypress={handleNameKeyPress} />
       {:else}
         <button
           class="unstyled-btn"
           aria-label="Edit snapshot name button"
-          on:dblclick={() => handleSnapDoubleclick(snap)}>{snap.name}</button
+          ondblclick={() => handleSnapDoubleclick(snap)}>{snap.name}</button
         >
       {/if}
-      <button class="snapshot-btn ml-2" on:click={() => handleClickView(snap)}>
+      <button class="snapshot-btn ml-2" onclick={() => handleClickView(snap)}>
         {#if selectedSnapshot?.timestamp === snap.timestamp}
           Hide
         {:else}
           Show
         {/if}
       </button>
-      <button class="snapshot-btn" on:click={() => handleRestoreClick(snap)}>Restore</button>
-      <button class="snapshot-btn" on:click={() => handleExportClick(snap)}>Export</button>
-      <button class="snapshot-btn" on:click={() => handleClickDelete(snap)}>
+      <button class="snapshot-btn" onclick={() => handleRestoreClick(snap)}>Restore</button>
+      <button class="snapshot-btn" onclick={() => handleExportClick(snap)}>Export</button>
+      <button class="snapshot-btn" onclick={() => handleClickDelete(snap)}>
         {#if deleteSnap?.timestamp === snap.timestamp}
           Confirm Delete
         {:else}

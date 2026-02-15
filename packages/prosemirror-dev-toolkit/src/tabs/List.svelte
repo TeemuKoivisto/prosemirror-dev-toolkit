@@ -1,7 +1,10 @@
 <script lang="ts">
-  export let listItems: { key: string; value: string; empty?: boolean }[] = [],
-    selectedKey: string | undefined,
+  interface Props {
+    listItems?: { key: string; value: string; empty?: boolean }[]
+    selectedKey?: string | undefined
     onSelect: (item: { key: string; value: string }) => void
+  }
+  const { listItems = [], selectedKey, onSelect }: Props = $props()
 </script>
 
 <ul>
@@ -10,7 +13,7 @@
       <button
         class:selected={selectedKey === item.key}
         class:empty={item.empty}
-        on:click={() => onSelect(item)}>{item.value}</button
+        onclick={() => onSelect(item)}>{item.value}</button
       >
     </li>
   {/each}

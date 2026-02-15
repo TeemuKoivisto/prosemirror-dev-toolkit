@@ -1,31 +1,35 @@
 <script lang="ts">
-  export let active: string, onClickTab: (tab: string) => void
+  interface Props {
+    active: string
+    onClickTab: (tab: string) => void
+  }
+  const { active, onClickTab }: Props = $props()
 </script>
 
 <ul class="tabs-menu">
   <li>
-    <button class:active={active === 'state'} on:click={() => onClickTab('state')}>STATE</button>
+    <button class:active={active === 'state'} onclick={() => onClickTab('state')}>STATE</button>
   </li>
   <li>
-    <button class:active={active === 'history'} on:click={() => onClickTab('history')}
+    <button class:active={active === 'history'} onclick={() => onClickTab('history')}
       >HISTORY</button
     >
   </li>
   <li>
-    <button class:active={active === 'plugins'} on:click={() => onClickTab('plugins')}
+    <button class:active={active === 'plugins'} onclick={() => onClickTab('plugins')}
       >PLUGINS</button
     >
   </li>
   <li>
-    <button class:active={active === 'schema'} on:click={() => onClickTab('schema')}>SCHEMA</button>
+    <button class:active={active === 'schema'} onclick={() => onClickTab('schema')}>SCHEMA</button>
   </li>
   <li>
-    <button class:active={active === 'structure'} on:click={() => onClickTab('structure')}
+    <button class:active={active === 'structure'} onclick={() => onClickTab('structure')}
       >STRUCTURE</button
     >
   </li>
   <li>
-    <button class:active={active === 'snapshots'} on:click={() => onClickTab('snapshots')}
+    <button class:active={active === 'snapshots'} onclick={() => onClickTab('snapshots')}
       >SNAPSHOTS</button
     >
   </li>

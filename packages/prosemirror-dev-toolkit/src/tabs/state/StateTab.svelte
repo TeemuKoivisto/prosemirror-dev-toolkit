@@ -10,13 +10,13 @@
   import Button from '$components/Button.svelte'
 
   const { view } = getContext('editor-view')
-  let doc = view.state.doc.toJSON()
-  let selection = createSelection(view.state.selection)
-  let currentState = view.state
-  let activeMarks: string[] = []
-  let nodeSize = view.state.doc.nodeSize
-  let childCount = view.state.doc.childCount
-  let expandedSelection = false
+  let doc = $state(view.state.doc.toJSON())
+  let selection = $state(createSelection(view.state.selection))
+  let currentState = $state(view.state)
+  let activeMarks: string[] = $state([])
+  let nodeSize = $state(view.state.doc.nodeSize)
+  let childCount = $state(view.state.doc.childCount)
+  let expandedSelection = $state(false)
 
   latestEntry.subscribe(e => {
     if (!e) return
@@ -51,46 +51,50 @@
 </script>
 
 <SplitView>
-  <div slot="left" class="left-panel">
-    <div class="top-row">
-      <h2>Current doc</h2>
-      <Button onclick={handleClickLogDoc}>log</Button>
-    </div>
-    <TreeView
-      class="tree-view"
-      data={doc}
-      showLogButton
-      showCopyButton
-      valueFormatter={formatDocNodeValue}
-    />
-  </div>
-  <div slot="right" class="right-panel">
-    <div class="top-row">
-      <h2>Selection</h2>
-      <Button class="selection-btn" onclick={handleExpandSelection}
-        ><span class="caret-icon" class:expanded={expandedSelection} /></Button
-      >
-    </div>
-    <TreeView class="tree-view" data={selection} />
-    <div>
-      <h2>Active marks</h2>
-      {#if activeMarks.length === 0}
-        <div class="no-marks">No active marks</div>
-      {:else}
-        <TreeView class="tree-view" data={activeMarks} />
-      {/if}
-    </div>
-    <div>
-      <h2>Document stats</h2>
+  {#snippet left()}
+    <div class="left-panel">
+      <div class="top-row">
+        <h2>Current doc</h2>
+        <Button onclick={handleClickLogDoc}>log</Button>
+      </div>
       <TreeView
         class="tree-view"
-        data={{
-          nodeSize,
-          childCount
-        }}
+        data={doc}
+        showLogButton
+        showCopyButton
+        valueFormatter={formatDocNodeValue}
       />
     </div>
-  </div>
+  {/snippet}
+  {#snippet right()}
+    <div class="right-panel">
+      <div class="top-row">
+        <h2>Selection</h2>
+        <Button class="selection-btn" onclick={handleExpandSelection}
+          ><span class="caret-icon" class:expanded={expandedSelection} /></Button
+        >
+      </div>
+      <TreeView class="tree-view" data={selection} />
+      <div>
+        <h2>Active marks</h2>
+        {#if activeMarks.length === 0}
+          <div class="no-marks">No active marks</div>
+        {:else}
+          <TreeView class="tree-view" data={activeMarks} />
+        {/if}
+      </div>
+      <div>
+        <h2>Document stats</h2>
+        <TreeView
+          class="tree-view"
+          data={{
+            nodeSize,
+            childCount
+          }}
+        />
+      </div>
+    </div>
+  {/snippet}
 </SplitView>
 
 <style>
@@ -99,10 +103,10 @@
     display: flex;
     justify-content: space-between;
   }
-  .left-panel[slot='left'] {
+  .left-panel {
     overflow: scroll;
   }
-  .right-panel[slot='right'] {
+  .right-panel {
     border-left: 1px solid rgba(var(--color-red-light-rgb), 0.2);
     flex-grow: 0;
     min-width: 200px;

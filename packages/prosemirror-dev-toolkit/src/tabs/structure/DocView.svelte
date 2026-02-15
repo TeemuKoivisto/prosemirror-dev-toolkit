@@ -5,10 +5,20 @@
   import DocNode from './DocNode.svelte'
   import { buildColors } from './colors'
 
-  export let doc: PMNode,
-    schema: Schema,
-    selected = { type: '', start: 0, end: 0 },
+  interface Props {
+    doc: PMNode
+    schema: Schema
+    selected?: { type: string; start: number; end: number }
     handleNodeSelect: (n: PMNode, startPos: number, scroll?: boolean) => void
+    class?: string
+  }
+  const {
+    doc,
+    schema,
+    selected = { type: '', start: 0, end: 0 },
+    handleNodeSelect,
+    class: className
+  }: Props = $props()
 
   setContext('doc-view', {
     selected,
@@ -18,7 +28,7 @@
 </script>
 
 <ul>
-  <DocNode class={$$props.class} node={doc} startPos={0} depth={0} />
+  <DocNode class={className} node={doc} startPos={0} depth={0} />
 </ul>
 
 <style>

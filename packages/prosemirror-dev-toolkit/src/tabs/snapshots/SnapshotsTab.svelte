@@ -24,25 +24,27 @@
 </script>
 
 <SplitView>
-  <div slot="right" class="right-panel">
-    {#if $snapshots.length === 0}
-      <div class="no-snapshots">Save snapshots by clicking "Save" button.</div>
-    {:else}
-      <SnapshotsList
-        snapshots={$snapshots}
-        selectedSnapshot={$selectedSnapshot}
-        onUpdate={updateSnapshot}
-        onView={snap => toggleViewSnapshot(view, snap)}
-        onRestore={handleRestoreSnapshot}
-        onExport={exportSnapshot}
-        onDelete={deleteSnapshot}
-      />
-    {/if}
-  </div>
+  {#snippet right()}
+    <div class="right-panel">
+      {#if $snapshots.length === 0}
+        <div class="no-snapshots">Save snapshots by clicking "Save" button.</div>
+      {:else}
+        <SnapshotsList
+          snapshots={$snapshots}
+          selectedSnapshot={$selectedSnapshot}
+          onUpdate={updateSnapshot}
+          onView={snap => toggleViewSnapshot(view, snap)}
+          onRestore={handleRestoreSnapshot}
+          onExport={exportSnapshot}
+          onDelete={deleteSnapshot}
+        />
+      {/if}
+    </div>
+  {/snippet}
 </SplitView>
 
 <style>
-  .right-panel[slot='right'] {
+  .right-panel {
     padding: 0;
   }
   .no-snapshots {

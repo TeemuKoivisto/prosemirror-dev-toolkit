@@ -11,24 +11,26 @@
   import type { Plugin } from '$typings/pm'
 
   const { view } = getContext('editor-view')
-  let expandPluginState = false
-  let recursionOpts = {
+  let expandPluginState = $state(false)
+  let recursionOpts = $state({
     maxDepth: 10,
     stopCircularRecursion: true,
     shouldExpandNode: () => expandPluginState
-  }
-  let editorState: EditorState = view.state
-  let plugins = editorState.plugins as Plugin[]
-  let selectedPlugin = plugins[0] as Plugin | undefined
+  })
+  let editorState: EditorState = $state(view.state)
+  let plugins = $state(editorState.plugins as Plugin[])
+  let selectedPlugin = $state(plugins[0] as Plugin | undefined)
   // I don't know how, but I've found in one editor plugin did not have getState method
-  $: pluginState = selectedPlugin?.getState
-    ? selectedPlugin.getState(editorState)
-    : (undefined as any)
-  $: listItems = plugins.map((p: Plugin) => ({
-    key: p.key,
-    value: p.key.toUpperCase(),
-    empty: !(p.getState && p.getState(editorState))
-  }))
+  const pluginState = $derived(
+    selectedPlugin?.getState ? selectedPlugin.getState(editorState) : (undefined as any)
+  )
+  const listItems = $derived(
+    plugins.map((p: Plugin) => ({
+      key: p.key,
+      value: p.key.toUpperCase(),
+      empty: !(p.getState && p.getState(editorState))
+    }))
+  )
 
   latestEntry.subscribe(e => {
     if (!e) return
@@ -53,27 +55,31 @@
 </script>
 
 <SplitView>
-  <div slot="left" class="left-panel">
-    <List {listItems} selectedKey={selectedPlugin?.key} onSelect={handlePluginSelect} />
-  </div>
-  <div slot="right" class="right-panel">
-    {#if pluginState}
-      <div class="top-row">
-        <h2>Plugin state</h2>
-        <div>
-          <Button onclick={handleToggleExpand}>
-            {expandPluginState ? 'collapse' : 'expand'}
-          </Button>
-          <Button onclick={handleLogState}>log</Button>
+  {#snippet left()}
+    <div class="left-panel">
+      <List {listItems} selectedKey={selectedPlugin?.key} onSelect={handlePluginSelect} />
+    </div>
+  {/snippet}
+  {#snippet right()}
+    <div class="right-panel">
+      {#if pluginState}
+        <div class="top-row">
+          <h2>Plugin state</h2>
+          <div>
+            <Button onclick={handleToggleExpand}>
+              {expandPluginState ? 'collapse' : 'expand'}
+            </Button>
+            <Button onclick={handleLogState}>log</Button>
+          </div>
         </div>
-      </div>
-    {/if}
-    {#if pluginState}
-      <TreeView data={pluginState} showLogButton showCopyButton {recursionOpts} />
-    {:else}
-      <div class="empty-state">Plugin has no state</div>
-    {/if}
-  </div>
+      {/if}
+      {#if pluginState}
+        <TreeView data={pluginState} showLogButton showCopyButton {recursionOpts} />
+      {:else}
+        <div class="empty-state">Plugin has no state</div>
+      {/if}
+    </div>
+  {/snippet}
 </SplitView>
 
 <style>
@@ -83,14 +89,14 @@
     justify-content: space-between;
     margin-bottom: 0.5em;
   }
-  .left-panel[slot='left'] {
+  .left-panel {
     flex-grow: 0;
     overflow: scroll;
     padding: 0;
     min-width: 190px;
     width: 190px;
   }
-  .right-panel[slot='right'] {
+  .right-panel {
     border-left: 1px solid rgba(var(--color-red-light-rgb), 0.2);
   }
   .empty-state {
