@@ -43,13 +43,13 @@ describe('# DevTools', () => {
 
       cy.devTools().find('.floating-btn').click()
       cy.devTools().find('ul.tabs-menu li button').contains('HISTORY').click()
-      cy.devTools().find('.left-panel').find('li').should('have.length', 0)
+      cy.devTools().find('.split-view-left-panel').find('li').should('have.length', 0)
 
       cy.pmInsParagraphBolded(TEST_TEXT)
-      cy.devTools().find('.left-panel').find('li').should('have.length', 1)
+      cy.devTools().find('.split-view-left-panel').find('li').should('have.length', 1)
 
       cy.pmInsParagraphBolded(TEST_TEXT)
-      cy.devTools().find('.left-panel').find('li').should('have.length', 2)
+      cy.devTools().find('.split-view-left-panel').find('li').should('have.length', 2)
 
       cy.window().then(async window => {
         const { applyDevTools, editorView: view } = window
@@ -58,10 +58,10 @@ describe('# DevTools', () => {
 
       cy.devTools().find('.floating-btn').click()
       cy.devTools().find('ul.tabs-menu li button').contains('HISTORY').click()
-      cy.devTools().find('.left-panel').find('li').should('have.length', 0)
+      cy.devTools().find('.split-view-left-panel').find('li').should('have.length', 0)
 
       cy.pmInsParagraphBolded(TEST_TEXT)
-      cy.devTools().find('.left-panel').find('li').should('have.length', 1)
+      cy.devTools().find('.split-view-left-panel').find('li').should('have.length', 1)
     })
   })
 
@@ -112,9 +112,9 @@ describe('# DevTools', () => {
 
     // Test that transactions trigger properly and history entries are updated
     cy.devTools().find('ul.tabs-menu li button').contains('HISTORY').click()
-    cy.devTools().find('.left-panel').find('li').should('have.length', 0)
+    cy.devTools().find('.split-view-left-panel').find('li').should('have.length', 0)
 
     cy.pmInsParagraphBolded(TEST_TEXT)
-    cy.devTools().find('.left-panel').find('li').should('have.length', 1)
+    cy.devTools().find('.split-view-left-panel').find('li').should('have.length', 1)
   })
 })

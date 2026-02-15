@@ -12,7 +12,7 @@ describe('# Plugins tab', () => {
       .includesStringCount('Plugin has no state')
       .should('equal', 1)
     // There should be 9 plugins in total
-    cy.devTools().find('.left-panel').find('li').should('have.length', 9)
+    cy.devTools().find('.split-view-left-panel').find('li').should('have.length', 9)
 
     cy.devTools().find('li button').contains('HISTORY$').click()
     cy.devTools().find('h2').contains('Plugin state').should('exist')

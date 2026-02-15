@@ -11,7 +11,7 @@ describe('# History tab', () => {
     cy.devTools().find('ul.tabs-menu li button').contains('HISTORY').click()
     cy.devTools().find('*').contains('Docs are equal.').should('exist')
     // Left panel with the entries should be empty
-    cy.devTools().find('.left-panel').find('li').should('have.length', 0)
+    cy.devTools().find('.split-view-left-panel').find('li').should('have.length', 0)
 
     cy.window().then(window => {
       const { editorView: view } = window
@@ -27,7 +27,7 @@ describe('# History tab', () => {
     })
 
     // Should show now the dispatched transaction as a history entry
-    cy.devTools().find('.left-panel').find('li').should('have.length', 1)
+    cy.devTools().find('.split-view-left-panel').find('li').should('have.length', 1)
     cy.devTools().find('h2').contains('Doc diff').should('exist')
     cy.devTools().find('span').contains('{"type":"paragr…r"}]}').should('exist')
 
@@ -70,9 +70,9 @@ describe('# History tab', () => {
     })
 
     // There should be one more history entry
-    cy.devTools().find('.left-panel').find('li').should('have.length', 2)
+    cy.devTools().find('.split-view-left-panel').find('li').should('have.length', 2)
     // There should be no history entry groups
-    cy.devTools().find('.left-panel').find('li').contains('[1]').should('not.exist')
+    cy.devTools().find('.split-view-left-panel').find('li').contains('[1]').should('not.exist')
     cy.devTools().find('span.deleted').contains('[{"type":"bold"}]').should('exist')
     cy.devTools()
       .find('.svelte-tree-view')
@@ -97,10 +97,10 @@ describe('# History tab', () => {
       .should('have.text', '{"type":"paragr…r"}]}')
 
     // Snapshot only the right panel since the left contains unmocked timestamps
-    cy.devTools().find('.right-panel').scrollTo('top')
+    cy.devTools().find('.split-view-right-panel').scrollTo('top')
     cy.devTools()
       .hideScrollBars()
-      .find('.right-panel')
+      .find('.split-view-right-panel')
       .matchImage({
         maxDiffThreshold: 0.05,
         diffConfig: {
@@ -115,7 +115,7 @@ describe('# History tab', () => {
     cy.resetDoc()
     cy.devTools().find('.floating-btn').click()
     cy.devTools().find('ul.tabs-menu li button').contains('HISTORY').click()
-    cy.devTools().find('.left-panel').find('li').should('have.length', 0)
+    cy.devTools().find('.split-view-left-panel').find('li').should('have.length', 0)
 
     // Dispatches one empty transaction on empty doc to see the first entry is correctly grouped
     // The next transaction changes the document and the third should create a selection diff
@@ -135,16 +135,16 @@ describe('# History tab', () => {
       view.dispatch(tr)
     })
 
-    cy.devTools().find('.left-panel').find('li').should('have.length', 3)
+    cy.devTools().find('.split-view-left-panel').find('li').should('have.length', 3)
     // SHould be two groups with 1 entry each
-    cy.devTools().find('.left-panel li').includesStringCount('[1]').should('equal', 2)
+    cy.devTools().find('.split-view-left-panel li').includesStringCount('[1]').should('equal', 2)
 
     // The group dropdown should not open when clicked
-    cy.devTools().find('.left-panel').find('li').contains('[1]').click()
-    cy.devTools().find('.left-panel').find('li').should('have.length', 3)
+    cy.devTools().find('.split-view-left-panel').find('li').contains('[1]').click()
+    cy.devTools().find('.split-view-left-panel').find('li').should('have.length', 3)
 
     // Clicking the second entry should show both a doc and selection diff
-    cy.devTools().find('.left-panel').find('li').eq(1).click()
+    cy.devTools().find('.split-view-left-panel').find('li').eq(1).click()
     cy.devTools().find('h2').contains('Doc diff', { matchCase: false }).should('exist')
     cy.devTools().find('h2').contains('Selection diff', { matchCase: false }).should('exist')
 
@@ -162,24 +162,24 @@ describe('# History tab', () => {
       .wait(0)
 
     // The selection should be grouped with the current group, thus items should stay same
-    cy.devTools().find('.left-panel').find('li').should('have.length', 3)
-    cy.devTools().find('.left-panel li').includesStringCount('[2]').should('equal', 1)
-    cy.devTools().find('.left-panel li').includesStringCount('[1]').should('equal', 1)
-    cy.devTools().find('.left-panel').find('li').contains('[2]').click()
+    cy.devTools().find('.split-view-left-panel').find('li').should('have.length', 3)
+    cy.devTools().find('.split-view-left-panel li').includesStringCount('[2]').should('equal', 1)
+    cy.devTools().find('.split-view-left-panel li').includesStringCount('[1]').should('equal', 1)
+    cy.devTools().find('.split-view-left-panel').find('li').contains('[2]').click()
     cy.devTools().find('h2').contains('Doc diff').should('not.exist')
 
     // The best way I could come up to check whether the dropdown shows it's opened
-    cy.devTools().find('.left-panel li .expanded').should('have.length', 1)
+    cy.devTools().find('.split-view-left-panel li .expanded').should('have.length', 1)
     // Now 5 entries with the group opened
-    cy.devTools().find('.left-panel').find('li').should('have.length', 5)
-    cy.devTools().find('.left-panel').find('li').eq(2).click()
+    cy.devTools().find('.split-view-left-panel').find('li').should('have.length', 5)
+    cy.devTools().find('.split-view-left-panel').find('li').eq(2).click()
     // Should show a selection diff
     cy.devTools().find('h2').contains('Doc diff', { matchCase: false }).should('not.exist')
     cy.devTools().find('h2').contains('Selection diff', { matchCase: false }).should('exist')
     cy.devTools().find('h2').contains('Selection content', { matchCase: false }).should('exist')
     cy.devTools()
       .hideScrollBars()
-      .find('.right-panel')
+      .find('.split-view-right-panel')
       .matchImage({
         maxDiffThreshold: 0.05,
         diffConfig: {
@@ -201,13 +201,13 @@ describe('# History tab', () => {
     })
 
     // The group should stay expanded
-    cy.devTools().find('.left-panel').find('li').should('have.length', 6)
+    cy.devTools().find('.split-view-left-panel').find('li').should('have.length', 6)
     cy.devTools().find('h2').contains('Doc diff', { matchCase: false }).should('exist')
     cy.devTools().find('h2').contains('Selection diff', { matchCase: false }).should('exist')
     cy.devTools().find('h2').contains('Selection content', { matchCase: false }).should('exist')
     cy.devTools()
       .hideScrollBars()
-      .find('.right-panel')
+      .find('.split-view-right-panel')
       .matchImage({
         maxDiffThreshold: 0.05,
         diffConfig: {
