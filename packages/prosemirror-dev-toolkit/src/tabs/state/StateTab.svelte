@@ -54,7 +54,7 @@
   <div slot="left" class="left-panel">
     <div class="top-row">
       <h2>Current doc</h2>
-      <Button on:click={handleClickLogDoc}>log</Button>
+      <Button onclick={handleClickLogDoc}>log</Button>
     </div>
     <TreeView
       class="tree-view"
@@ -67,7 +67,7 @@
   <div slot="right" class="right-panel">
     <div class="top-row">
       <h2>Selection</h2>
-      <Button class="selection-btn" on:click={handleExpandSelection}
+      <Button class="selection-btn" onclick={handleExpandSelection}
         ><span class="caret-icon" class:expanded={expandedSelection} /></Button
       >
     </div>

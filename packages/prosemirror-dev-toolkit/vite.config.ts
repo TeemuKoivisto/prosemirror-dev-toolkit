@@ -1,12 +1,12 @@
 /// <reference types="vitest" />
 
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 import { resolve } from 'path'
 
-// https://vitejs.dev/config/
+// For tests only
 export default defineConfig({
   plugins: [
     svelte({

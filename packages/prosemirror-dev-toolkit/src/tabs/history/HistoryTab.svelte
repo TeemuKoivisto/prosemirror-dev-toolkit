@@ -141,12 +141,12 @@
             <h2>Transactions</h2>
             <div class="transaction-buttons">
               {#if showTr}
-                <Button on:click={handleToggleExpandTrTreeView}>
+                <Button onclick={handleToggleExpandTrTreeView}>
                   {expandTrTreeView ? 'collapse' : 'expand'}
                 </Button>
-                <Button on:click={handleLogTr}>log</Button>
+                <Button onclick={handleLogTr}>log</Button>
               {/if}
-              <Button on:click={toggleShowTr}>
+              <Button onclick={toggleShowTr}>
                 {showTr ? 'hide' : 'show'}
               </Button>
             </div>

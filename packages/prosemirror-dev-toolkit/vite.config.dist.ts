@@ -1,5 +1,3 @@
-/// <reference types="vitest" />
-
 import { defineConfig } from 'vite'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
 import dts from 'vite-plugin-dts'
@@ -41,11 +39,5 @@ export default defineConfig({
       }
     }
   },
-  plugins: [dts(), tsconfigPaths(), svelte({ extensions: ['.svelte'], emitCss: false })],
-  test: {
-    globals: true,
-    environment: 'jsdom',
-    include: ['src/**/*.{test,spec}.?(c|m)[jt]s?(x)'],
-    cache: false
-  }
+  plugins: [dts(), tsconfigPaths(), svelte({ extensions: ['.svelte'], emitCss: false })]
 })

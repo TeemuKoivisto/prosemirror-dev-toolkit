@@ -102,7 +102,7 @@
   <div slot="right" class="right-panel">
     <div class="top-row">
       <h2>Node info</h2>
-      <Button on:click={handleClickLogNode}>log</Button>
+      <Button onclick={handleClickLogNode}>log</Button>
     </div>
     <TreeView
       class="m-top"

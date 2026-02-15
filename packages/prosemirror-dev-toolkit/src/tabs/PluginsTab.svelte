@@ -61,10 +61,10 @@
       <div class="top-row">
         <h2>Plugin state</h2>
         <div>
-          <Button on:click={handleToggleExpand}>
+          <Button onclick={handleToggleExpand}>
             {expandPluginState ? 'collapse' : 'expand'}
           </Button>
-          <Button on:click={handleLogState}>log</Button>
+          <Button onclick={handleLogState}>log</Button>
         </div>
       </div>
     {/if}
