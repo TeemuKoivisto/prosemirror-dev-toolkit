@@ -18,8 +18,10 @@
     shouldExpandNode: () => expandPluginState
   })
   let editorState: EditorState = $state(view.state)
+  // svelte-ignore state_referenced_locally
   let plugins = $state(editorState.plugins as Plugin[])
-  let selectedPlugin = $state(plugins[0] as Plugin | undefined)
+  // svelte-ignore state_referenced_locally
+  let selectedPlugin = $state(plugins.at(0))
   // I don't know how, but I've found in one editor plugin did not have getState method
   const pluginState = $derived(
     selectedPlugin?.getState ? selectedPlugin.getState(editorState) : (undefined as any)

@@ -14,7 +14,8 @@
     onClose()
   }
 
-  function handleSubmit() {
+  function handleSubmit(e: SubmitEvent & { currentTarget: EventTarget & HTMLFormElement }) {
+    e.preventDefault()
     try {
       onSubmit({ doc: JSON.parse(doc) })
     } catch (err) {}
@@ -22,20 +23,14 @@
 </script>
 
 <div class="paste-modal" class:hidden={!isOpen}>
-  <div class="modal-bg" />
-  <form
-    class="paste-content"
-    onsubmit={e => {
-      e.preventDefault()
-      handleSubmit()
-    }}
-  >
+  <div class="modal-bg"></div>
+  <form class="paste-content" onsubmit={handleSubmit}>
     <fieldset use:clickOutside={handleClickOutside}>
       <div class="submit-container">
         <button>Submit</button>
       </div>
       <legend>Doc</legend>
-      <textarea bind:value={doc} />
+      <textarea bind:value={doc}></textarea>
     </fieldset>
   </form>
 </div>
