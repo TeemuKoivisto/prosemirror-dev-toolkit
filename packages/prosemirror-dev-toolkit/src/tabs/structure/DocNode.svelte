@@ -1,4 +1,6 @@
 <script lang="ts">
+  import DocNode from './DocNode.svelte'
+
   import { getContext } from '$context'
   import type { Node as PMNode } from 'prosemirror-model'
   import type { Fragment } from '$typings/pm'

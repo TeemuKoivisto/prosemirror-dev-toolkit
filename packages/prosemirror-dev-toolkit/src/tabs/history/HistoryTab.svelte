@@ -2,7 +2,7 @@
   import { stateHistory, shownHistoryGroups, latestEntry } from '$stores/stateHistory'
   import type { HistoryEntry, HistoryGroup } from '$typings/history'
   import { mapDocDeltaChildren, mapSelectionDeltaChildren } from './mapDeltas'
-  import TreeView from 'svelte-tree-view'
+  import TreeView, { type ValueComponent } from 'svelte-tree-view'
 
   import SplitView from '../SplitView.svelte'
   import HistoryList from './HistoryList.svelte'
@@ -108,7 +108,7 @@
                 data={selectedEntry.contentDiff}
                 showLogButton
                 showCopyButton
-                valueComponent={DiffValue}
+                valueComponent={DiffValue as unknown as ValueComponent<any>}
                 recursionOpts={{
                   maxDepth: 12,
                   mapChildren: mapDocDeltaChildren,
@@ -126,7 +126,7 @@
               <TreeView
                 class="tree-view"
                 data={selectedEntry.selectionDiff}
-                valueComponent={DiffValue}
+                valueComponent={DiffValue as unknown as ValueComponent<any>}
                 recursionOpts={{
                   mapChildren: mapSelectionDeltaChildren,
                   shouldExpandNode: () => true
