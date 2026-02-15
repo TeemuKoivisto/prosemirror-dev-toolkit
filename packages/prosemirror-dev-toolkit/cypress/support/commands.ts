@@ -53,7 +53,12 @@ Cypress.Commands.add('pmInsParagraphBolded', (text: string) => {
   })
 })
 
-Cypress.Commands.add('hideScrollBars', { prevSubject: ['element'] }, (subject) => {
-  subject.css('overflow', 'hidden')
+Cypress.Commands.add('hideScrollBars', { prevSubject: ['document'] }, subject => {
+  const el = subject[0]
+  const shadowRoot = el.getRootNode() as ShadowRoot
+  const style = el.ownerDocument.createElement('style')
+  style.textContent = `* { overflow: hidden !important; }`
+  shadowRoot.appendChild(style)
+  console.log('SHADOW', shadowRoot)
   return cy.wrap(subject)
 })
