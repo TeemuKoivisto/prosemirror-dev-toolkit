@@ -52,3 +52,8 @@ Cypress.Commands.add('pmInsParagraphBolded', (text: string) => {
     view.dispatch(tr)
   })
 })
+
+Cypress.Commands.add('hideScrollBars', { prevSubject: ['element'] }, (subject) => {
+  subject.css('overflow', 'hidden')
+  return cy.wrap(subject)
+})

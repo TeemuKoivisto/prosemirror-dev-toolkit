@@ -36,9 +36,10 @@ declare global {
     interface Chainable {
       interrupt: () => void
       devTools: () => Cypress.Chainable<JQuery<HTMLElement>>
-      resetDoc: () => Cypress.Chainable<JQuery<HTMLElement>>
+      resetDoc: () => void
       includesStringCount: (str: string) => Cypress.Chainable<number>
       pmInsParagraphBolded: (str: string) => Cypress.Chainable<Cypress.AUTWindow>
+      hideScrollBars: () => Cypress.Chainable<JQuery<HTMLElement>> // prevSubject: element
     }
   }
 }
