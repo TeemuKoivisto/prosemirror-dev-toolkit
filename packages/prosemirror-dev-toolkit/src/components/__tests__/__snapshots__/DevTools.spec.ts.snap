@@ -16,42 +16,42 @@ exports[`DevTools component > should open by clicking the floating button 1`] = 
   </div>
   <div>
     <section
-      class="dev-tools s-DevTools-j5gmur"
+      class="dev-tools s-DevTools-1sw281g"
     >
       <div
-        class="floating-dock-wrapper s-FloatingDock-1quf800"
+        class="floating-dock-wrapper s-FloatingDock-1r7iqvk"
       >
         <div
-          class="paste-modal s-PasteModal-19h7j7n hidden"
+          class="paste-modal s-PasteModal-tijufv hidden"
         >
           <div
-            class="modal-bg s-PasteModal-19h7j7n"
+            class="modal-bg s-PasteModal-tijufv"
           />
            
           <form
-            class="paste-content s-PasteModal-19h7j7n"
+            class="paste-content s-PasteModal-tijufv"
           >
             <fieldset
-              class="s-PasteModal-19h7j7n"
+              class="s-PasteModal-tijufv"
             >
               <div
-                class="submit-container s-PasteModal-19h7j7n"
+                class="submit-container s-PasteModal-tijufv"
               >
                 <button
-                  class="s-PasteModal-19h7j7n"
+                  class="s-PasteModal-tijufv"
                 >
                   Submit
                 </button>
               </div>
                
               <legend
-                class="s-PasteModal-19h7j7n"
+                class="s-PasteModal-tijufv"
               >
                 Doc
               </legend>
                
               <textarea
-                class="s-PasteModal-19h7j7n"
+                class="s-PasteModal-tijufv"
               />
             </fieldset>
           </form>
@@ -59,46 +59,46 @@ exports[`DevTools component > should open by clicking the floating button 1`] = 
         <!---->
          
         <div
-          class="floating-dock s-FloatingDock-1quf800"
+          class="floating-dock s-FloatingDock-1r7iqvk"
           style="top: 50%; height: 50%;"
         >
           <div
-            class="resizing-div s-FloatingDock-1quf800"
+            class="resizing-div s-FloatingDock-1r7iqvk"
             role="button"
             tabindex="-1"
           />
            
           <div
-            class="floating-dock-body s-FloatingDock-1quf800"
+            class="floating-dock-body s-FloatingDock-1r7iqvk"
           >
             <div>
               <button
-                class="copy-btn s-FloatingDock-1quf800"
+                class="copy-btn s-FloatingDock-1r7iqvk"
               >
                 Copy
               </button>
                
               <button
-                class="save-btn s-FloatingDock-1quf800"
+                class="save-btn s-FloatingDock-1r7iqvk"
               >
                 Save
               </button>
                
               <button
-                class="import-btn s-FloatingDock-1quf800"
+                class="import-btn s-FloatingDock-1r7iqvk"
               >
                 Import
               </button>
                
               <button
-                class="paste-btn s-FloatingDock-1quf800"
+                class="paste-btn s-FloatingDock-1r7iqvk"
               >
                 Paste
               </button>
                
               <button
                 aria-label="Close dev-toolkit"
-                class="close-btn s-FloatingDock-1quf800"
+                class="close-btn s-FloatingDock-1r7iqvk"
               >
                 X
               </button>
@@ -112,11 +112,11 @@ exports[`DevTools component > should open by clicking the floating button 1`] = 
             />
              
             <ul
-              class="tabs-menu s-TabsMenu-10notzq"
+              class="tabs-menu s-TabsMenu-mpb9d"
             >
               <li>
                 <button
-                  class="s-TabsMenu-10notzq"
+                  class="s-TabsMenu-mpb9d"
                 >
                   STATE
                 </button>
@@ -124,7 +124,7 @@ exports[`DevTools component > should open by clicking the floating button 1`] = 
                
               <li>
                 <button
-                  class="s-TabsMenu-10notzq"
+                  class="s-TabsMenu-mpb9d"
                 >
                   HISTORY
                 </button>
@@ -132,7 +132,7 @@ exports[`DevTools component > should open by clicking the floating button 1`] = 
                
               <li>
                 <button
-                  class="s-TabsMenu-10notzq"
+                  class="s-TabsMenu-mpb9d"
                 >
                   PLUGINS
                 </button>
@@ -140,7 +140,7 @@ exports[`DevTools component > should open by clicking the floating button 1`] = 
                
               <li>
                 <button
-                  class="s-TabsMenu-10notzq"
+                  class="s-TabsMenu-mpb9d"
                 >
                   SCHEMA
                 </button>
@@ -148,7 +148,7 @@ exports[`DevTools component > should open by clicking the floating button 1`] = 
                
               <li>
                 <button
-                  class="s-TabsMenu-10notzq"
+                  class="s-TabsMenu-mpb9d"
                 >
                   STRUCTURE
                 </button>
@@ -156,7 +156,7 @@ exports[`DevTools component > should open by clicking the floating button 1`] = 
                
               <li>
                 <button
-                  class="s-TabsMenu-10notzq active"
+                  class="s-TabsMenu-mpb9d active"
                 >
                   SNAPSHOTS
                 </button>
@@ -165,16 +165,16 @@ exports[`DevTools component > should open by clicking the floating button 1`] = 
             <!---->
              
             <section
-              class="split-view s-SplitView-fdudio"
+              class="split-view s-SplitView-19yuj8p"
             >
               <!---->
                
               <div
-                class="right-panel s-SnapshotsTab-3jdj5c"
+                class="right-panel s-SnapshotsTab-151u2pq"
                 slot="right"
               >
                 <div
-                  class="no-snapshots s-SnapshotsTab-3jdj5c"
+                  class="no-snapshots s-SnapshotsTab-151u2pq"
                 >
                   Save snapshots by clicking "Save" button.
                 </div>
@@ -210,42 +210,42 @@ exports[`DevTools component > should render 1`] = `
   </div>
   <div>
     <section
-      class="dev-tools s-DevTools-j5gmur"
+      class="dev-tools s-DevTools-1sw281g"
     >
       <div
-        class="floating-dock-wrapper s-FloatingDock-1quf800"
+        class="floating-dock-wrapper s-FloatingDock-1r7iqvk"
       >
         <div
-          class="paste-modal s-PasteModal-19h7j7n hidden"
+          class="paste-modal s-PasteModal-tijufv hidden"
         >
           <div
-            class="modal-bg s-PasteModal-19h7j7n"
+            class="modal-bg s-PasteModal-tijufv"
           />
            
           <form
-            class="paste-content s-PasteModal-19h7j7n"
+            class="paste-content s-PasteModal-tijufv"
           >
             <fieldset
-              class="s-PasteModal-19h7j7n"
+              class="s-PasteModal-tijufv"
             >
               <div
-                class="submit-container s-PasteModal-19h7j7n"
+                class="submit-container s-PasteModal-tijufv"
               >
                 <button
-                  class="s-PasteModal-19h7j7n"
+                  class="s-PasteModal-tijufv"
                 >
                   Submit
                 </button>
               </div>
                
               <legend
-                class="s-PasteModal-19h7j7n"
+                class="s-PasteModal-tijufv"
               >
                 Doc
               </legend>
                
               <textarea
-                class="s-PasteModal-19h7j7n"
+                class="s-PasteModal-tijufv"
               />
             </fieldset>
           </form>
@@ -253,46 +253,46 @@ exports[`DevTools component > should render 1`] = `
         <!---->
          
         <div
-          class="floating-dock s-FloatingDock-1quf800"
+          class="floating-dock s-FloatingDock-1r7iqvk"
           style="top: 50%; height: 50%;"
         >
           <div
-            class="resizing-div s-FloatingDock-1quf800"
+            class="resizing-div s-FloatingDock-1r7iqvk"
             role="button"
             tabindex="-1"
           />
            
           <div
-            class="floating-dock-body s-FloatingDock-1quf800"
+            class="floating-dock-body s-FloatingDock-1r7iqvk"
           >
             <div>
               <button
-                class="copy-btn s-FloatingDock-1quf800"
+                class="copy-btn s-FloatingDock-1r7iqvk"
               >
                 Copy
               </button>
                
               <button
-                class="save-btn s-FloatingDock-1quf800"
+                class="save-btn s-FloatingDock-1r7iqvk"
               >
                 Save
               </button>
                
               <button
-                class="import-btn s-FloatingDock-1quf800"
+                class="import-btn s-FloatingDock-1r7iqvk"
               >
                 Import
               </button>
                
               <button
-                class="paste-btn s-FloatingDock-1quf800"
+                class="paste-btn s-FloatingDock-1r7iqvk"
               >
                 Paste
               </button>
                
               <button
                 aria-label="Close dev-toolkit"
-                class="close-btn s-FloatingDock-1quf800"
+                class="close-btn s-FloatingDock-1r7iqvk"
               >
                 X
               </button>
@@ -306,11 +306,11 @@ exports[`DevTools component > should render 1`] = `
             />
              
             <ul
-              class="tabs-menu s-TabsMenu-10notzq"
+              class="tabs-menu s-TabsMenu-mpb9d"
             >
               <li>
                 <button
-                  class="s-TabsMenu-10notzq active"
+                  class="s-TabsMenu-mpb9d active"
                 >
                   STATE
                 </button>
@@ -318,7 +318,7 @@ exports[`DevTools component > should render 1`] = `
                
               <li>
                 <button
-                  class="s-TabsMenu-10notzq"
+                  class="s-TabsMenu-mpb9d"
                 >
                   HISTORY
                 </button>
@@ -326,7 +326,7 @@ exports[`DevTools component > should render 1`] = `
                
               <li>
                 <button
-                  class="s-TabsMenu-10notzq"
+                  class="s-TabsMenu-mpb9d"
                 >
                   PLUGINS
                 </button>
@@ -334,7 +334,7 @@ exports[`DevTools component > should render 1`] = `
                
               <li>
                 <button
-                  class="s-TabsMenu-10notzq"
+                  class="s-TabsMenu-mpb9d"
                 >
                   SCHEMA
                 </button>
@@ -342,7 +342,7 @@ exports[`DevTools component > should render 1`] = `
                
               <li>
                 <button
-                  class="s-TabsMenu-10notzq"
+                  class="s-TabsMenu-mpb9d"
                 >
                   STRUCTURE
                 </button>
@@ -350,7 +350,7 @@ exports[`DevTools component > should render 1`] = `
                
               <li>
                 <button
-                  class="s-TabsMenu-10notzq"
+                  class="s-TabsMenu-mpb9d"
                 >
                   SNAPSHOTS
                 </button>
@@ -359,21 +359,21 @@ exports[`DevTools component > should render 1`] = `
             <!---->
              
             <section
-              class="split-view s-SplitView-fdudio"
+              class="split-view s-SplitView-19yuj8p"
             >
               <div
-                class="left-panel s-StateTab-8c7oqn"
+                class="left-panel s-StateTab-14wzgzp"
                 slot="left"
               >
                 <div
-                  class="top-row s-StateTab-8c7oqn"
+                  class="top-row s-StateTab-14wzgzp"
                 >
                   <h2>
                     Current doc
                   </h2>
                    
                   <button
-                    class="s-Button-it3v6s"
+                    class="s-Button-3lf898"
                   >
                     log
                     <!---->
@@ -480,21 +480,21 @@ exports[`DevTools component > should render 1`] = `
               <!---->
                
               <div
-                class="right-panel s-StateTab-8c7oqn"
+                class="right-panel s-StateTab-14wzgzp"
                 slot="right"
               >
                 <div
-                  class="top-row s-StateTab-8c7oqn"
+                  class="top-row s-StateTab-14wzgzp"
                 >
                   <h2>
                     Selection
                   </h2>
                    
                   <button
-                    class="selection-btn s-Button-it3v6s"
+                    class="selection-btn s-Button-3lf898"
                   >
                     <span
-                      class="caret-icon s-StateTab-8c7oqn"
+                      class="caret-icon s-StateTab-14wzgzp"
                     />
                     <!---->
                   </button>
@@ -706,7 +706,7 @@ exports[`DevTools component > should render 1`] = `
                   </h2>
                    
                   <div
-                    class="no-marks s-StateTab-8c7oqn"
+                    class="no-marks s-StateTab-14wzgzp"
                   >
                     No active marks
                   </div>

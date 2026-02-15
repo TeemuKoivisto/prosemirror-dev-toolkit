@@ -170,7 +170,7 @@
   </div>
 </SplitView>
 
-<style lang="scss">
+<style>
   .left-panel {
     flex-grow: 0;
     padding: 0;
@@ -194,7 +194,7 @@
   }
   .equal-diff {
     align-items: center;
-    color: $color-red-light;
+    color: var(--color-red-light);
     display: flex;
     font-size: 14px;
     height: 100%;

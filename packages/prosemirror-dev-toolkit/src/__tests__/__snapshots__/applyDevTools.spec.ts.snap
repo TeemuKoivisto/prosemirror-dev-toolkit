@@ -18,13 +18,13 @@ exports[`applyDevTools > should mount and unmount dev-toolkit 1`] = `
     class="__prosemirror-dev-toolkit__"
   >
     <section
-      class="dev-tools s-DevTools-j5gmur"
+      class="dev-tools s-DevTools-1sw281g"
     >
       <button
-        class="floating-btn bottom-right  s-FloatingBtn-1lt2k10"
+        class="floating-btn bottom-right  s-FloatingBtn-2cpre0"
       >
         <svg
-          class="s-FloatingBtn-1lt2k10"
+          class="s-FloatingBtn-2cpre0"
           height="530"
           viewBox="0 0 530 530"
           width="530"
@@ -172,13 +172,13 @@ exports[`applyDevTools > should mount dev-toolkit as a web component 1`] = `
     <prosemirror-dev-toolkit>
       #shadow-root
         <section
-          class="dev-tools s-DevTools-j5gmur"
+          class="dev-tools s-DevTools-1sw281g"
         >
           <button
-            class="floating-btn bottom-right  s-FloatingBtn-1lt2k10"
+            class="floating-btn bottom-right  s-FloatingBtn-2cpre0"
           >
             <svg
-              class="s-FloatingBtn-1lt2k10"
+              class="s-FloatingBtn-2cpre0"
               height="530"
               viewBox="0 0 530 530"
               width="530"
@@ -301,13 +301,13 @@ exports[`applyDevTools > should not crash when transactions are prevented by fil
     class="__prosemirror-dev-toolkit__"
   >
     <section
-      class="dev-tools s-DevTools-j5gmur"
+      class="dev-tools s-DevTools-1sw281g"
     >
       <button
-        class="floating-btn bottom-right  s-FloatingBtn-1lt2k10"
+        class="floating-btn bottom-right  s-FloatingBtn-2cpre0"
       >
         <svg
-          class="s-FloatingBtn-1lt2k10"
+          class="s-FloatingBtn-2cpre0"
           height="530"
           viewBox="0 0 530 530"
           width="530"

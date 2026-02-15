@@ -133,7 +133,7 @@
   </div>
 </div>
 
-<style lang="scss">
+<style>
   .floating-dock-wrapper {
     position: fixed;
     width: 0px;
@@ -143,10 +143,10 @@
     z-index: 99999999;
   }
   .floating-dock {
-    background-color: $color-blue-bg;
+    background-color: var(--color-blue-bg);
     position: fixed;
     z-index: 1;
-    box-shadow: rgba($color-black, 0.3) 0px 0px 4px 0px;
+    box-shadow: rgba(var(--color-black-rgb), 0.3) 0px 0px 4px 0px;
     left: 0px;
     top: 50%;
     width: 100%;
@@ -166,19 +166,19 @@
     height: 100%;
   }
   button {
-    background: rgba($color-red-light, 0.6);
+    background: rgba(var(--color-red-light-rgb), 0.6);
     border: 0;
     border-radius: 3px;
-    color: $color-white;
+    color: var(--color-white);
     cursor: pointer;
     font-size: 12px;
     height: 24px;
     line-height: 25px;
     padding: 0 6px;
     position: absolute;
-    &:hover {
-      background: rgba($color-red-light, 0.8);
-    }
+  }
+  button:hover {
+    background: rgba(var(--color-red-light-rgb), 0.8);
   }
   .copy-btn {
     right: 173px;

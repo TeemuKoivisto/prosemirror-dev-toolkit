@@ -76,7 +76,7 @@
   </div>
 </SplitView>
 
-<style lang="scss">
+<style>
   .top-row {
     align-items: center;
     display: flex;
@@ -91,11 +91,11 @@
     width: 190px;
   }
   .right-panel[slot='right'] {
-    border-left: 1px solid rgba($color-red-light, 0.2);
+    border-left: 1px solid rgba(var(--color-red-light-rgb), 0.2);
   }
   .empty-state {
     align-items: center;
-    color: $color-red-light;
+    color: var(--color-red-light);
     display: flex;
     font-size: 14px;
     height: 100%;

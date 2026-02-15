@@ -114,14 +114,14 @@
   </div>
 </SplitView>
 
-<style lang="scss">
+<style>
   .top-row {
     align-items: center;
     display: flex;
     justify-content: space-between;
   }
   .right-panel[slot='right'] {
-    border-left: 1px solid rgba($color-red-light, 0.2);
+    border-left: 1px solid rgba(var(--color-red-light-rgb), 0.2);
     flex-grow: 0;
     min-width: 220px;
     width: 220px;

@@ -11,24 +11,24 @@
 
 <button {...rest} class:selected>{@render children?.()}</button>
 
-<style lang="scss">
+<style>
   button {
     background: transparent;
     border: 0;
     border-radius: 2px;
-    color: $color-gray-light;
+    color: var(--color-gray-light);
     cursor: pointer;
     font-family: var(--font-family);
     font-size: var(--font-small);
     font-weight: 400;
     padding: 6px 10px;
     text-transform: uppercase;
-    &:hover {
-      background: rgba($color-red-light, 0.4);
-      color: $color-white;
-    }
-    &.selected {
-      background: rgba($color-red-light, 0.4);
-    }
+  }
+  button:hover {
+    background: rgba(var(--color-red-light-rgb), 0.4);
+    color: var(--color-white);
+  }
+  button.selected {
+    background: rgba(var(--color-red-light-rgb), 0.4);
   }
 </style>

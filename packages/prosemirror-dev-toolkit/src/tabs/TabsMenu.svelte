@@ -31,7 +31,7 @@
   </li>
 </ul>
 
-<style lang="scss">
+<style>
   ul {
     display: flex;
     list-style: none;
@@ -43,17 +43,17 @@
     background: transparent;
     border: 0;
     border-bottom: 2px solid transparent;
-    color: $color-white;
+    color: var(--color-white);
     cursor: pointer;
     height: 100%;
     font-size: var(--font-medium);
     font-weight: 400;
     padding: 1em;
-    &:hover {
-      background: rgba($color-white, 0.05);
-    }
-    &.active {
-      border-bottom: 2px solid $color-red-light;
-    }
+  }
+  button:hover {
+    background: rgba(var(--color-white-rgb), 0.05);
+  }
+  button.active {
+    border-bottom: 2px solid var(--color-red-light);
   }
 </style>
