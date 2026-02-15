@@ -31,6 +31,10 @@ jobs:
       - name: Build & test
         uses: ./.github/actions/build-test
 
+      - name: Build UMD bundle
+        run: pnpm --filter prosemirror-dev-toolkit build:umd
+        shell: bash
+
       - name: Setup .npmrc
         run: |
           cat << EOF > "$HOME/.npmrc"

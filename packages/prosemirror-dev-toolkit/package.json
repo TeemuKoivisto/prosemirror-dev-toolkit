@@ -18,6 +18,7 @@
   },
   "scripts": {
     "build": "vite build --config vite.config.dist.ts --emptyOutDir true",
+    "build:umd": "vite build --config vite.config.umd.ts --emptyOutDir false",
     "watch": "vite build --watch --config vite.config.dist.ts --emptyOutDir true",
     "prepublishOnly": "cp ../../README.md . && cp ../../LICENSE .",
     "postpublish": "rm README.md LICENSE",
