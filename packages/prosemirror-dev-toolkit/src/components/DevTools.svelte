@@ -9,9 +9,13 @@
 
   import type { ButtonPosition } from '../types'
 
-  export let view: EditorView,
-    devToolsExpanded = false,
-    buttonPosition: ButtonPosition = 'bottom-right'
+  interface Props {
+    view: EditorView
+    devToolsExpanded?: boolean
+    buttonPosition?: ButtonPosition
+  }
+
+  let { view, devToolsExpanded = false, buttonPosition = 'bottom-right' }: Props = $props()
 
   setContext('editor-view', {
     view,
@@ -52,7 +56,7 @@
   {#if devToolsExpanded}
     <FloatingDock onClose={handleFloatingDockClose} />
   {:else}
-    <FloatingBtn on:click={handleFloatingBtnClick} {buttonPosition} />
+    <FloatingBtn onclick={handleFloatingBtnClick} {buttonPosition} />
   {/if}
 </section>
 

@@ -18,6 +18,7 @@
   },
   "scripts": {
     "build": "pnpm dist | pnpm bundle",
+    "build:dist": "vite build --config vite.config.dist.ts --emptyOutDir true",
     "dist": "rimraf dist && rollup -c",
     "bundle": "UMD_BUNDLE=true rollup -c",
     "watch": "rimraf dist && rollup -cw",

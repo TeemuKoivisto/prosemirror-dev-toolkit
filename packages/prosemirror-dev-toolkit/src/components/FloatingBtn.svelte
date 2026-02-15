@@ -1,10 +1,14 @@
 <script lang="ts">
+  import type { HTMLAttributes } from 'svelte/elements'
   import type { ButtonPosition } from '../types'
 
-  export let buttonPosition: ButtonPosition
+  interface Props extends HTMLAttributes<HTMLButtonElement> {
+    buttonPosition: ButtonPosition
+  }
+  const { buttonPosition, ...rest }: Props = $props()
 </script>
 
-<button class={`floating-btn ${buttonPosition}`} on:click>
+<button {...rest} class={`floating-btn ${buttonPosition} ${rest.class || ''}`}>
   <svg
     width="530"
     height="530"
