@@ -33,7 +33,7 @@ describe('# Snapshots tab', () => {
       // It should contain the inserted bold text
       cy.get('.ProseMirror strong').includesStringCount(TEST_TEXT).should('equal', 1)
       // There should exist no snapshots yet
-      cy.devTools().find('.right-panel li').should('have.length', 0)
+      cy.devTools().find('.split-view-right-panel li').should('have.length', 0)
 
       cy.window().then($win => {
         // This stubs the window prompt which would halt execution otherwise
@@ -41,19 +41,25 @@ describe('# Snapshots tab', () => {
         cy.devTools().find('button').contains('Save').click()
       })
       // There should be now one snapshot
-      cy.devTools().find('.right-panel li').should('have.length', 1)
-      cy.devTools().find('.right-panel li').includesStringCount(TEST_SNAPSHOT).should('equal', 1)
-      // This should open an input to edit the snapshot's name
-      cy.devTools().find('.right-panel li').contains(TEST_SNAPSHOT).dblclick()
+      cy.devTools().find('.split-view-right-panel li').should('have.length', 1)
       cy.devTools()
-        .find('.right-panel li')
+        .find('.split-view-right-panel li')
+        .includesStringCount(TEST_SNAPSHOT)
+        .should('equal', 1)
+      // This should open an input to edit the snapshot's name
+      cy.devTools().find('.split-view-right-panel li').contains(TEST_SNAPSHOT).dblclick()
+      cy.devTools()
+        .find('.split-view-right-panel li')
         .find('input')
         .clear()
         .type(TEST_SNAPSHOT_CHANGED, { force: true }) // https://github.com/cypress-io/cypress/issues/5830#issuecomment-570638375
         .type('{enter}', { force: true })
       // The name should have changed
-      cy.devTools().find('.right-panel li').contains(TEST_SNAPSHOT).should('not.exist')
-      cy.devTools().find('.right-panel li').contains(TEST_SNAPSHOT_CHANGED).should('exist')
+      cy.devTools().find('.split-view-right-panel li').contains(TEST_SNAPSHOT).should('not.exist')
+      cy.devTools()
+        .find('.split-view-right-panel li')
+        .contains(TEST_SNAPSHOT_CHANGED)
+        .should('exist')
 
       cy.window().then(window => {
         const { editorView: view } = window
@@ -86,21 +92,21 @@ describe('# Snapshots tab', () => {
       cy.devTools()
         .find('.floating-dock input[type="file"]')
         .selectFile('./cypress/fixtures/snapshot-1.json', { force: true })
-      cy.devTools().find('.right-panel li').should('have.length', 2)
+      cy.devTools().find('.split-view-right-panel li').should('have.length', 2)
 
       // Reset the devTools to see that the snapshots were persisted and contain the old doc
       cy.resetDoc()
       cy.devTools().find('.floating-btn').click()
       cy.devTools().find('ul.tabs-menu li button').contains('SNAPSHOTS').click()
-      cy.devTools().find('.right-panel li').should('have.length', 2)
-      cy.devTools().find('.right-panel li').eq(0).contains('Show').click()
+      cy.devTools().find('.split-view-right-panel li').should('have.length', 2)
+      cy.devTools().find('.split-view-right-panel li').eq(0).contains('Show').click()
       cy.get('.ProseMirror').find('*').should('have.length', 4)
       cy.get('.ProseMirror strong').includesStringCount(TEST_TEXT).should('equal', 1)
 
       cy.devTools().find('button').contains('Delete').click()
-      cy.devTools().find('.right-panel li').should('have.length', 2)
+      cy.devTools().find('.split-view-right-panel li').should('have.length', 2)
       cy.devTools().find('button').contains('confirm delete', { matchCase: false }).click()
-      cy.devTools().find('.right-panel li').should('have.length', 1)
+      cy.devTools().find('.split-view-right-panel li').should('have.length', 1)
       cy.devTools()
         .find('.floating-dock')
         .find('*')
@@ -109,7 +115,7 @@ describe('# Snapshots tab', () => {
 
       cy.devTools().find('button').contains('Delete').click()
       cy.devTools().find('button').contains('confirm delete', { matchCase: false }).click()
-      cy.devTools().find('.right-panel li').should('have.length', 0)
+      cy.devTools().find('.split-view-right-panel li').should('have.length', 0)
       cy.devTools()
         .find('.floating-dock')
         .find('*')
@@ -140,13 +146,13 @@ describe('# Snapshots tab', () => {
     cy.devTools()
       .find('.floating-dock input[type="file"]')
       .selectFile('./cypress/fixtures/snapshot-broken', { force: true })
-    cy.devTools().find('.right-panel li').should('have.length', 0)
+    cy.devTools().find('.split-view-right-panel li').should('have.length', 0)
 
     cy.devTools()
       .find('.floating-dock input[type="file"]')
       .selectFile('./cypress/fixtures/snapshot-incompatible.json', { force: true })
       .wait(100)
-    cy.devTools().find('.right-panel li').should('have.length', 0)
+    cy.devTools().find('.split-view-right-panel li').should('have.length', 0)
 
     cy.window().then(window => {
       const spy = window.console.error as Cypress.Agent<Sinon.SinonSpy>
@@ -216,7 +222,7 @@ describe('# Snapshots tab', () => {
       .should('exist')
 
     // No snapshots
-    cy.devTools().find('.right-panel li').should('have.length', 0)
+    cy.devTools().find('.split-view-right-panel li').should('have.length', 0)
     // Open modal
     cy.devTools().contains('Paste').click()
 
@@ -235,7 +241,7 @@ describe('# Snapshots tab', () => {
     // Should close the modal and add the snapshot
     cy.devTools().find('.paste-modal .submit-container button').click()
     cy.devTools().find('.paste-modal').should('be.hidden')
-    cy.devTools().find('.right-panel li').should('have.length', 1)
+    cy.devTools().find('.split-view-right-panel li').should('have.length', 1)
 
     // Should open the modal again
     cy.devTools().find('button').contains('Paste').click()
@@ -249,13 +255,13 @@ describe('# Snapshots tab', () => {
     // Close the modal by clicking outside the form
     cy.devTools().find('.paste-modal .modal-bg').click({ force: true })
     cy.devTools().find('.paste-modal').should('be.hidden')
-    cy.devTools().find('.right-panel li').should('have.length', 1)
+    cy.devTools().find('.split-view-right-panel li').should('have.length', 1)
 
     // Open the modal and submit the old snapshot
     cy.devTools().find('button').contains('Paste').click()
     cy.devTools().find('.paste-modal .submit-container button').click()
     cy.devTools().find('.paste-modal').should('be.hidden')
-    cy.devTools().find('.right-panel li').should('have.length', 2)
+    cy.devTools().find('.split-view-right-panel li').should('have.length', 2)
 
     cy.get('@consoleWarn').should('be.callCount', 0)
     cy.get('@consoleError').should('be.callCount', 0)

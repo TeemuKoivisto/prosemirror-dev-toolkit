@@ -1,20 +1,19 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte'
   import type { HistoryEntry } from '$typings/history'
 
-  export let listItems: {
+  interface Props {
+    listItems?: {
       id: number
       isGroup: boolean
       topEntry: HistoryEntry | undefined
       entries: (HistoryEntry | undefined)[]
       expanded: boolean
-    }[] = [],
+    }[]
     selectedId: string
-
-  const dispatchEvent = createEventDispatcher<{
-    'click-item': { id: string | undefined; groupIdx: number; wasTopNode: boolean }
-    'dblclick-item': { id?: string }
-  }>()
+    onClickItem: (detail: { id: string | undefined; groupIdx: number; wasTopNode: boolean }) => void
+    onDblclickItem: (detail: { id?: string }) => void
+  }
+  const { listItems = [], selectedId, onClickItem, onDblclickItem }: Props = $props()
 </script>
 
 <ul>
@@ -22,9 +21,8 @@
     <li class:selected={!group.expanded && selectedId === group?.topEntry?.id}>
       <button
         class:is-group={group.isGroup}
-        on:click={() =>
-          dispatchEvent('click-item', { id: group?.topEntry?.id, groupIdx, wasTopNode: true })}
-        on:dblclick={() => dispatchEvent('dblclick-item', { id: group?.topEntry?.id })}
+        onclick={() => onClickItem({ id: group?.topEntry?.id, groupIdx, wasTopNode: true })}
+        ondblclick={() => onDblclickItem({ id: group?.topEntry?.id })}
       >
         <span>
           {group?.topEntry?.timeStr}
@@ -36,7 +34,7 @@
           {/if}
         </span>
         {#if group.isGroup && group.entries.length > 1}
-          <span class="caret-icon" class:expanded={group.expanded} />
+          <span class="caret-icon" class:expanded={group.expanded}></span>
         {/if}
       </button>
     </li>
@@ -45,8 +43,7 @@
         <li class:selected={selectedId === subEntry?.id}>
           <button
             class="p-left"
-            on:click={() =>
-              dispatchEvent('click-item', { id: subEntry?.id, groupIdx, wasTopNode: false })}
+            onclick={() => onClickItem({ id: subEntry?.id, groupIdx, wasTopNode: false })}
           >
             {subEntry?.timeStr}
           </button>

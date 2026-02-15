@@ -18,6 +18,7 @@
   let { view, devToolsExpanded = false, buttonPosition = 'bottom-right' }: Props = $props()
 
   setContext('editor-view', {
+    // svelte-ignore state_referenced_locally
     view,
     execCmd(cmd: (state: EditorState, dispatch?: (tr: Transaction) => void) => void) {
       cmd(view.state, view.dispatch)

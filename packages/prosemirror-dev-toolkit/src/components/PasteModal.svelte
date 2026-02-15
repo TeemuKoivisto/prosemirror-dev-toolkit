@@ -1,36 +1,36 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte'
   import { clickOutside } from './clickOutside'
 
-  export let isOpen: boolean
+  interface Props {
+    isOpen: boolean
+    onSubmit: (detail: { doc: Record<string, any> }) => void
+    onClose: () => void
+  }
+  const { isOpen, onSubmit, onClose }: Props = $props()
 
-  let doc: string
-
-  const dispatch = createEventDispatcher<{
-    submit: { doc: Record<string, any> }
-    close: undefined
-  }>()
+  let doc: string = $state('')
 
   function handleClickOutside() {
-    dispatch('close')
+    onClose()
   }
 
-  function handleSubmit() {
+  function handleSubmit(e: SubmitEvent & { currentTarget: EventTarget & HTMLFormElement }) {
+    e.preventDefault()
     try {
-      dispatch('submit', { doc: JSON.parse(doc) })
+      onSubmit({ doc: JSON.parse(doc) })
     } catch (err) {}
   }
 </script>
 
 <div class="paste-modal" class:hidden={!isOpen}>
-  <div class="modal-bg" />
-  <form class="paste-content" on:submit|preventDefault={handleSubmit}>
+  <div class="modal-bg"></div>
+  <form class="paste-content" onsubmit={handleSubmit}>
     <fieldset use:clickOutside={handleClickOutside}>
       <div class="submit-container">
         <button>Submit</button>
       </div>
       <legend>Doc</legend>
-      <textarea bind:value={doc} />
+      <textarea bind:value={doc}></textarea>
     </fieldset>
   </form>
 </div>

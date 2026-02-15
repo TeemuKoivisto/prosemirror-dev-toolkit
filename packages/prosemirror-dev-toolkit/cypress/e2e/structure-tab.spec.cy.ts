@@ -23,7 +23,7 @@ describe('# Structure tab', () => {
       .find('div.node-value')
       .should('have.text', '"doc"')
     // There should be 2 nodes in the left panel's DocView
-    cy.devTools().find('.left-panel').find('.doc-node').should('have.length', 2)
+    cy.devTools().find('.split-view-left-panel').find('.doc-node').should('have.length', 2)
     // The doc node should show 4 as its size
     cy.devTools()
       .find('button')
@@ -54,7 +54,7 @@ describe('# Structure tab', () => {
       view.dispatch(tr)
     })
 
-    cy.devTools().find('.left-panel').find('.doc-node').should('have.length', 4)
+    cy.devTools().find('.split-view-left-panel').find('.doc-node').should('have.length', 4)
     cy.devTools()
       .find('button')
       .contains('doc')
@@ -92,7 +92,10 @@ describe('# Structure tab', () => {
     cy.devTools().find('ul.tabs-menu li button').contains('STRUCTURE').click()
 
     // Click the LOG button in the node info
-    cy.devTools().find('.right-panel button').contains('Log', { matchCase: false }).click()
+    cy.devTools()
+      .find('.split-view-right-panel button')
+      .contains('Log', { matchCase: false })
+      .click()
     cy.get('@consoleInfo').should(
       'be.calledWith',
       '%c [prosemirror-dev-toolkit]: Property added to window._node'
@@ -110,8 +113,14 @@ describe('# Structure tab', () => {
     // doesn't update fast enough which would be weird.
     cy.pmInsParagraphBolded(TEST_TEXT).wait(100)
 
-    cy.devTools().find('.left-panel button').contains('doc', { matchCase: false }).click()
-    cy.devTools().find('.right-panel button').contains('Log', { matchCase: false }).click()
+    cy.devTools()
+      .find('.split-view-left-panel button')
+      .contains('doc', { matchCase: false })
+      .click()
+    cy.devTools()
+      .find('.split-view-right-panel button')
+      .contains('Log', { matchCase: false })
+      .click()
     cy.get('@consoleInfo').should(
       'be.calledWith',
       '%c [prosemirror-dev-toolkit]: Property added to window._node'

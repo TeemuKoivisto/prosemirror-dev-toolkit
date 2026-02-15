@@ -9,9 +9,9 @@
   import Button from '$components/Button.svelte'
 
   const { view } = getContext('editor-view')
-  let doc: PMNode = view.state.doc
-  let selected = { node: view.state.doc, pos: 0 }
-  $: jsonNode = selected.node.toJSON()
+  let doc: PMNode = $state(view.state.doc)
+  let selected = $state({ node: view.state.doc, pos: 0 })
+  const jsonNode = $derived(selected.node.toJSON())
   let schema: Schema = view.state.schema
   let timer: ReturnType<typeof setTimeout>
 
@@ -92,26 +92,30 @@
 </script>
 
 <SplitView>
-  <div slot="left" class="left-panel">
-    <div class="top-row">
-      <h2>Current doc</h2>
-      <Button class="hidden">log</Button>
+  {#snippet left()}
+    <div class="split-view-left-panel">
+      <div class="top-row">
+        <h2>Current doc</h2>
+        <Button class="hidden">log</Button>
+      </div>
+      <DocView class="m-top" {doc} {schema} {handleNodeSelect} />
     </div>
-    <DocView class="m-top" {doc} {schema} {handleNodeSelect} />
-  </div>
-  <div slot="right" class="right-panel">
-    <div class="top-row">
-      <h2>Node info</h2>
-      <Button onclick={handleClickLogNode}>log</Button>
+  {/snippet}
+  {#snippet right()}
+    <div class="split-view-right-panel">
+      <div class="top-row">
+        <h2>Node info</h2>
+        <Button onclick={handleClickLogNode}>log</Button>
+      </div>
+      <TreeView
+        class="m-top"
+        data={jsonNode}
+        recursionOpts={{
+          shouldExpandNode: n => n.type !== 'array' || n.value.length <= 50
+        }}
+      />
     </div>
-    <TreeView
-      class="m-top"
-      data={jsonNode}
-      recursionOpts={{
-        shouldExpandNode: n => n.type !== 'array' || n.value.length <= 50
-      }}
-    />
-  </div>
+  {/snippet}
 </SplitView>
 
 <style>
@@ -120,7 +124,7 @@
     display: flex;
     justify-content: space-between;
   }
-  .right-panel[slot='right'] {
+  .split-view-right-panel {
     border-left: 1px solid rgba(var(--color-red-light-rgb), 0.2);
     flex-grow: 0;
     min-width: 220px;

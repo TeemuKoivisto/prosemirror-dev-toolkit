@@ -2,7 +2,7 @@
   import { stateHistory, shownHistoryGroups, latestEntry } from '$stores/stateHistory'
   import type { HistoryEntry, HistoryGroup } from '$typings/history'
   import { mapDocDeltaChildren, mapSelectionDeltaChildren } from './mapDeltas'
-  import TreeView from 'svelte-tree-view'
+  import TreeView, { type ValueComponent } from 'svelte-tree-view'
 
   import SplitView from '../SplitView.svelte'
   import HistoryList from './HistoryList.svelte'
@@ -11,25 +11,27 @@
 
   import { getContext } from '$context'
 
-  let selectedEntry: HistoryEntry | undefined = undefined,
-    showTr = false
+  let selectedEntry: HistoryEntry | undefined = $state(undefined)
+  let showTr = $state(false)
 
   const { replaceEditorContent } = getContext('editor-view')
 
-  let expandTrTreeView = false
-  let transactionRecursionOpts = {
+  let expandTrTreeView = $state(false)
+  let transactionRecursionOpts = $state({
     maxDepth: 24,
     stopCircularRecursion: true,
     omitKeys: ['schema'],
     shouldExpandNode: () => expandTrTreeView
-  }
-  $: listItems = $shownHistoryGroups.map((g: HistoryGroup) => ({
-    id: g.id,
-    isGroup: g.isGroup,
-    topEntry: $stateHistory.get(g.topEntryId),
-    entries: g.entryIds.map(id => $stateHistory.get(id)),
-    expanded: g.expanded
-  }))
+  })
+  const listItems = $derived(
+    $shownHistoryGroups.map((g: HistoryGroup) => ({
+      id: g.id,
+      isGroup: g.isGroup,
+      topEntry: $stateHistory.get(g.topEntryId),
+      entries: g.entryIds.map(id => $stateHistory.get(id)),
+      expanded: g.expanded
+    }))
+  )
 
   latestEntry.subscribe(v => {
     if (v) selectedEntry = v
@@ -52,10 +54,12 @@
    * selecting the first sub-entry, otherwise collapsing but still keeping the topNode selected.
    * Kinda confusing but eh.
    */
-  function handleEntrySelect(
-    e: CustomEvent<{ id: string | undefined; groupIdx: number; wasTopNode: boolean }>
-  ) {
-    const { id = '', groupIdx, wasTopNode } = e.detail
+  function handleEntrySelect(detail: {
+    id: string | undefined
+    groupIdx: number
+    wasTopNode: boolean
+  }) {
+    const { id = '', groupIdx, wasTopNode } = detail
     selectedEntry = $stateHistory.get(id)
     if (!selectedEntry) return
     const group = listItems[groupIdx]
@@ -65,8 +69,8 @@
       )
     }
   }
-  function handleEntryDblClick(e: CustomEvent<{ id?: string }>) {
-    selectedEntry = $stateHistory.get(e.detail.id || '')
+  function handleEntryDblClick(detail: { id?: string }) {
+    selectedEntry = $stateHistory.get(detail.id || '')
     selectedEntry && replaceEditorContent(selectedEntry.state)
   }
   function handleToggleExpandTrTreeView() {
@@ -79,99 +83,103 @@
 </script>
 
 <SplitView>
-  <div slot="left" class="left-panel">
-    <HistoryList
-      {listItems}
-      selectedId={selectedEntry?.id || ''}
-      on:click-item={handleEntrySelect}
-      on:dblclick-item={handleEntryDblClick}
-    />
-  </div>
-  <div slot="right" class="right-panel">
-    {#if selectedEntry}
-      <div>
-        {#if selectedEntry.contentDiff}
-          <div class="entry-row">
-            <div class="title-container">
-              <h2>Doc diff</h2>
-              <Button class="hidden">log</Button>
-            </div>
-            <TreeView
-              class="tree-view"
-              data={selectedEntry.contentDiff}
-              showLogButton
-              showCopyButton
-              valueComponent={DiffValue}
-              recursionOpts={{
-                maxDepth: 12,
-                mapChildren: mapDocDeltaChildren,
-                shouldExpandNode: () => true
-              }}
-            />
-          </div>
-        {/if}
-        {#if selectedEntry.selectionDiff}
-          <div class="entry-row">
-            <div class="title-container">
-              <h2>Selection diff</h2>
-              <Button class="hidden">log</Button>
-            </div>
-            <TreeView
-              class="tree-view"
-              data={selectedEntry.selectionDiff}
-              valueComponent={DiffValue}
-              recursionOpts={{
-                mapChildren: mapSelectionDeltaChildren,
-                shouldExpandNode: () => true
-              }}
-            />
-          </div>
-        {/if}
-        {#if selectedEntry.selectionHtml.length > 0}
-          <div class="entry-row">
-            <div class="title-container">
-              <h2>Selection content</h2>
-              <Button class="hidden">log</Button>
-            </div>
-            <pre class="selection-html"><code>{@html selectedEntry.selectionHtml}</code></pre>
-          </div>
-        {/if}
-        <div class="entry-row">
-          <div class="title-container">
-            <h2>Transactions</h2>
-            <div class="transaction-buttons">
-              {#if showTr}
-                <Button onclick={handleToggleExpandTrTreeView}>
-                  {expandTrTreeView ? 'collapse' : 'expand'}
-                </Button>
-                <Button onclick={handleLogTr}>log</Button>
-              {/if}
-              <Button onclick={toggleShowTr}>
-                {showTr ? 'hide' : 'show'}
-              </Button>
-            </div>
-          </div>
-          {#if showTr}
-            {#each selectedEntry.trs as tr}
+  {#snippet left()}
+    <div class="split-view-left-panel">
+      <HistoryList
+        {listItems}
+        selectedId={selectedEntry?.id || ''}
+        onClickItem={handleEntrySelect}
+        onDblclickItem={handleEntryDblClick}
+      />
+    </div>
+  {/snippet}
+  {#snippet right()}
+    <div class="split-view-right-panel">
+      {#if selectedEntry}
+        <div>
+          {#if selectedEntry.contentDiff}
+            <div class="entry-row">
+              <div class="title-container">
+                <h2>Doc diff</h2>
+                <Button class="hidden">log</Button>
+              </div>
               <TreeView
                 class="tree-view"
-                data={tr}
+                data={selectedEntry.contentDiff}
                 showLogButton
                 showCopyButton
-                recursionOpts={transactionRecursionOpts}
+                valueComponent={DiffValue as unknown as ValueComponent<any>}
+                recursionOpts={{
+                  maxDepth: 12,
+                  mapChildren: mapDocDeltaChildren,
+                  shouldExpandNode: () => true
+                }}
               />
-            {/each}
+            </div>
           {/if}
+          {#if selectedEntry.selectionDiff}
+            <div class="entry-row">
+              <div class="title-container">
+                <h2>Selection diff</h2>
+                <Button class="hidden">log</Button>
+              </div>
+              <TreeView
+                class="tree-view"
+                data={selectedEntry.selectionDiff}
+                valueComponent={DiffValue as unknown as ValueComponent<any>}
+                recursionOpts={{
+                  mapChildren: mapSelectionDeltaChildren,
+                  shouldExpandNode: () => true
+                }}
+              />
+            </div>
+          {/if}
+          {#if selectedEntry.selectionHtml.length > 0}
+            <div class="entry-row">
+              <div class="title-container">
+                <h2>Selection content</h2>
+                <Button class="hidden">log</Button>
+              </div>
+              <pre class="selection-html"><code>{@html selectedEntry.selectionHtml}</code></pre>
+            </div>
+          {/if}
+          <div class="entry-row">
+            <div class="title-container">
+              <h2>Transactions</h2>
+              <div class="transaction-buttons">
+                {#if showTr}
+                  <Button onclick={handleToggleExpandTrTreeView}>
+                    {expandTrTreeView ? 'collapse' : 'expand'}
+                  </Button>
+                  <Button onclick={handleLogTr}>log</Button>
+                {/if}
+                <Button onclick={toggleShowTr}>
+                  {showTr ? 'hide' : 'show'}
+                </Button>
+              </div>
+            </div>
+            {#if showTr}
+              {#each selectedEntry.trs as tr}
+                <TreeView
+                  class="tree-view"
+                  data={tr}
+                  showLogButton
+                  showCopyButton
+                  recursionOpts={transactionRecursionOpts}
+                />
+              {/each}
+            {/if}
+          </div>
         </div>
-      </div>
-    {:else}
-      <div class="equal-diff">Docs are equal.</div>
-    {/if}
-  </div>
+      {:else}
+        <div class="equal-diff">Docs are equal.</div>
+      {/if}
+    </div>
+  {/snippet}
 </SplitView>
 
 <style>
-  .left-panel {
+  .split-view-left-panel {
     flex-grow: 0;
     padding: 0;
     min-width: 190px;
