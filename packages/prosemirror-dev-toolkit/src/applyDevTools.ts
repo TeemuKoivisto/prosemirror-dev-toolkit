@@ -1,4 +1,5 @@
 import DevTools from './components/DevTools.svelte'
+import { mount, unmount } from 'svelte'
 import {
   subscribeToDispatchTransaction,
   unsubscribeDispatchTransaction
@@ -40,11 +41,11 @@ export function applyDevTools(view: EditorView, opts: DevToolsOpts = {}) {
   // Sometimes when applyDevTools is run with hot module reload, it's accidentally executed on already destroyed EditorViews
   if (view.isDestroyed) return
 
-  let comp: DevTools | undefined
+  let comp: Record<string, any> | undefined
   const { disableWebComponent, ...filteredOpts } = opts
   if (disableWebComponent) {
     // Mainly for testing purposes since shadow DOM quite annoyingly hides all of its contents in the test snapshots
-    comp = new DevTools({
+    comp = mount(DevTools, {
       target: place,
       props: {
         view,
@@ -84,7 +85,7 @@ export function applyDevTools(view: EditorView, opts: DevToolsOpts = {}) {
   removeCallback = () => {
     resetHistory()
     unsubscribeDispatchTransaction()
-    comp?.$destroy()
+    if (comp) unmount(comp)
     const el = place.firstChild
     el && place.removeChild(el)
   }

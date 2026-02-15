@@ -1,6 +1,6 @@
 import type { EditorView } from 'prosemirror-view'
 import DevTools from './components/DevTools.svelte'
-import type { SvelteComponent } from 'svelte'
+import { mount, unmount } from 'svelte'
 
 import { DevToolsOpts } from './types'
 
@@ -8,7 +8,7 @@ import { DevToolsOpts } from './types'
 // Using a web component allows toolkit to encapsulate its DOM and CSS styles without affecting
 // the site or being affected by its global stylesheets
 export class ProseMirrorDevToolkit extends HTMLElement {
-  private component?: SvelteComponent
+  private component?: Record<string, any>
 
   constructor() {
     super()
@@ -18,7 +18,7 @@ export class ProseMirrorDevToolkit extends HTMLElement {
       const {
         detail: { view, opts }
       } = event as CustomEvent<{ view: EditorView; opts: DevToolsOpts }>
-      this.component = new DevTools({
+      this.component = mount(DevTools, {
         target: shadowRoot,
         props: {
           view,
@@ -29,6 +29,6 @@ export class ProseMirrorDevToolkit extends HTMLElement {
   }
 
   disconnectedCallback(): void {
-    this.component?.$destroy()
+    if (this.component) unmount(this.component)
   }
 }

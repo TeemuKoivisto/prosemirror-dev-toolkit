@@ -1,4 +1,4 @@
-import autoPreprocess from 'svelte-preprocess'
+import { sveltePreprocess } from 'svelte-preprocess'
 
 /** @type {import('svelte-preprocess/dist/types').AutoPreprocessOptions} */
 const preprocessOptions = {
@@ -8,6 +8,6 @@ const preprocessOptions = {
 }
 
 export default {
-  preprocess: autoPreprocess(preprocessOptions),
+  preprocess: sveltePreprocess(preprocessOptions),
   preprocessOptions
 }

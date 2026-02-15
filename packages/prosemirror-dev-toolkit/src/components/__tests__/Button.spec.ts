@@ -2,13 +2,10 @@ import { render, fireEvent } from '@testing-library/svelte'
 import Button from '../Button.svelte'
 import { vi } from 'vitest'
 
-// https://sveltesociety.dev/recipes/testing-and-debugging/unit-testing-svelte-component/
-
 describe('Button component', () => {
   it('should render', async () => {
-    const results = render(Button)
     const onClick = vi.fn()
-    results.component.$on('click', onClick)
+    const results = render(Button, { props: { onclick: onClick } })
 
     const button = results.container.querySelector('button')
     expect(button).not.toBeNull()

@@ -69,7 +69,7 @@ Cypress.Commands.add('hideScrollBars', { prevSubject: true }, (subject: any) => 
   const el: DocumentFragment = subject[0]
   const shadowRoot = el.getRootNode() as ShadowRoot
   const style = el.ownerDocument.createElement('style')
-  style.textContent = HIDE_STYLES // `* { overflow: hidden !important; }`
+  style.textContent = HIDE_STYLES
   shadowRoot.appendChild(style)
   return cy.wrap(subject)
 })
