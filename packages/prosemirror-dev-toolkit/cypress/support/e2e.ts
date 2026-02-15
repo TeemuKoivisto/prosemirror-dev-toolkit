@@ -14,14 +14,3 @@
 // ***********************************************************
 
 import './commands'
-
-// Hide scrollbars during screenshots to avoid image snapshot diffs across environments
-// Source - https://stackoverflow.com/a/69179708
-Cypress.Screenshot.defaults({
-  onBeforeScreenshot($el) {
-    $el.css('overflow', 'hidden')
-  },
-  onAfterScreenshot($el) {
-    $el.css('overflow', 'auto')
-  }
-})

@@ -48,6 +48,7 @@ describe('# Schema tab', () => {
       .should('have.text', ' {} 8 keys')
 
     cy.devTools()
+      .hideScrollBars()
       .find('.floating-dock')
       .matchImage({
         screenshotConfig: {

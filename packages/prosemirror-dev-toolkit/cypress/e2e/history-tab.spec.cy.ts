@@ -99,6 +99,7 @@ describe('# History tab', () => {
     // Snapshot only the right panel since the left contains unmocked timestamps
     cy.devTools().find('.right-panel').scrollTo('top')
     cy.devTools()
+      .hideScrollBars()
       .find('.right-panel')
       .matchImage({
         maxDiffThreshold: 0.05,
@@ -177,6 +178,7 @@ describe('# History tab', () => {
     cy.devTools().find('h2').contains('Selection diff', { matchCase: false }).should('exist')
     cy.devTools().find('h2').contains('Selection content', { matchCase: false }).should('exist')
     cy.devTools()
+      .hideScrollBars()
       .find('.right-panel')
       .matchImage({
         maxDiffThreshold: 0.05,
@@ -204,6 +206,7 @@ describe('# History tab', () => {
     cy.devTools().find('h2').contains('Selection diff', { matchCase: false }).should('exist')
     cy.devTools().find('h2').contains('Selection content', { matchCase: false }).should('exist')
     cy.devTools()
+      .hideScrollBars()
       .find('.right-panel')
       .matchImage({
         maxDiffThreshold: 0.05,

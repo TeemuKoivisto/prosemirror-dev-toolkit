@@ -20,20 +20,12 @@ export default defineConfig({
       })
       on('before:browser:launch', (browser, launchOptions) => {
         if (browser.name === 'chrome' && browser.isHeadless) {
-          launchOptions.args.push('--disable-features=OverlayScrollbarFlashAfterAnyScrollUpdate')
-          launchOptions.args.push('--enable-features=OverlayScrollbar')
+          launchOptions.args.push('--hide-scrollbars')
+          launchOptions.args.push('--high-dpi-support')
           launchOptions.args.push('--window-size=1280,800')
         }
         return launchOptions
       })
-      // on('before:browser:launch', (browser, launchOptions) => {
-      //   if (browser.name === 'chrome' && browser.isHeadless) {
-      //     launchOptions.args.push('--hide-scrollbars')
-      //     launchOptions.args.push('--high-dpi-support')
-      //     launchOptions.args.push('--window-size=1280,800')
-      //   }
-      //   return launchOptions
-      // })
     }
   }
 })

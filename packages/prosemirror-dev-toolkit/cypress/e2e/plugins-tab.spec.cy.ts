@@ -39,6 +39,7 @@ describe('# Plugins tab', () => {
     // Must change the shown plugin since history plugin contains non-mocked timestamps
     cy.devTools().find('li button').contains('EXAMPLE-PLUGIN$').click()
     cy.devTools()
+      .hideScrollBars()
       .find('.floating-dock')
       .matchImage({
         screenshotConfig: {
